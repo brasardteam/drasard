@@ -3,7 +3,8 @@
 (function () {
   const replacements = [
     ["Book a Consultation", "Enquire"],
-    ["One-time setup + from €50/month", "One-time setup + €50 monthly fee"],
+    ["One-time setup + from €50/month", "One-time setup + monthly fee"],
+    ["One-time setup + €50 monthly fee", "One-time setup + monthly fee"],
   ];
 
   function updateText(root) {
