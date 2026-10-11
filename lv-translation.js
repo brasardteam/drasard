@@ -1,104 +1,225 @@
 const translations = {
-  'WEB STUDIO · RIGA, LATVIA': 'TĪMEKĻA STUDIJA · RĪGA, LATVIJA',
-  'Professional websites for local businesses,': 'Profesionālas mājaslapas vietējiem uzņēmumiem,',
-  'without the agency price tag.': 'bez aģentūras cenu zīmes.',
-  'WEB DESIGN': 'TĪMEKĻA DIZAINS',
-  'DEVELOPMENT': 'IZSTRĀDE',
-  'ONLINE ORDERING': 'PASŪTĪŠANA TIEŠSAISTĒ',
-  'RIGA, LATVIA': 'RĪGA, LATVIJA',
-  'THE NAME': 'NOSAUKUMS',
-  'A name that reads the same in both directions.': 'Nosaukums, kas lasās vienādi abos virzienos.',
-  'A studio built around': 'Studija, kas balstīta uz',
-  'balance, precision and detail.': 'līdzsvaru, precizitāti un detaļām.',
-  'OUR APPROACH': 'MŪSU PIEEJA',
-  'Built for local businesses.': 'Radīts vietējiem uzņēmumiem.',
-  'We combine strategy, design and development into one focused process.': 'Mēs apvienojam stratēģiju, dizainu un izstrādi vienotā, pārdomātā procesā.',
-  'Solutions': 'Risinājumi',
-  'Examples': 'Piemēri',
-  'Pricing': 'Cenas',
-  'About': 'Par mums',
-  'How It Works': 'Kā tas notiek',
-  'Book a Consultation': 'Pieteikt konsultāciju',
-  'Explore Our Websites': 'Apskatīt mājaslapas',
-  'What we build': 'Ko mēs veidojam',
-  'Websites that work as hard as your business.': 'Mājaslapas, kas strādā tikpat mērķtiecīgi kā jūsu uzņēmums.',
-  'Restaurant websites': 'Restorānu mājaslapas',
-  'Café websites': 'Kafejnīcu mājaslapas',
-  'Local business websites': 'Vietējo uzņēmumu mājaslapas',
-  'Online ordering': 'Pasūtīšana tiešsaistē',
-  'Reservations': 'Rezervācijas',
-  'E-commerce': 'E-komercija',
-  'OUR WORK': 'MŪSU DARBI',
-  'Selected projects': 'Izvēlētie projekti',
-  'Explore our latest digital experiences for ambitious local businesses.': 'Apskatiet mūsu jaunākos digitālos risinājumus ambicioziem vietējiem uzņēmumiem.',
-  'View Demo': 'Apskatīt demo',
-  'Restaurant · Commerce': 'Restorāns · Komercija',
-  'Café · Showcase': 'Kafejnīca · Prezentācija',
-  'Kitchen · Commerce': 'Virtuve · Komercija',
-  'Restaurant · Showcase': 'Restorāns · Prezentācija',
-  'A complete dining and ordering experience.': 'Pilnvērtīga maltīšu un pasūtīšanas pieredze.',
-  'A warm digital home for a neighbourhood ritual.': 'Silta digitālā mājvieta ikdienas apkārtnes rituālam.',
-  'Open-fire cooking, translated to the screen.': 'Ēdienu gatavošana uz atklātas uguns, pārvērsta digitālā pieredzē.',
-  'Seasonal dining with editorial restraint.': 'Sezonāla maltīšu pieredze ar pārdomātu estētiku.',
-  'PRICING': 'CENAS',
-  'Simple, transparent pricing.': 'Vienkāršas, pārskatāmas cenas.',
-  'Choose the level that fits your business.': 'Izvēlieties savam uzņēmumam piemērotāko līmeni.',
-  'Starter': 'Sākuma',
-  'Growth': 'Izaugsme',
-  'Signature': 'Signature',
-  'Custom': 'Pielāgots',
-  'From': 'No',
-  'per month': 'mēnesī',
-  'monthly': 'mēnesī',
-  'Get started': 'Sākt',
-  'ABOUT DRASARD': 'PAR DRASARD',
-  'A small digital studio in Riga.': 'Neliela digitālā studija Rīgā.',
-  'We help local businesses look exceptional online and make it easier for customers to discover, book and buy.': 'Mēs palīdzam vietējiem uzņēmumiem izcelties tiešsaistē un atvieglojam klientiem iespēju jūs atrast, rezervēt un iegādāties.',
-  'HOW IT WORKS': 'KĀ TAS NOTIEK',
-  'A clear process from first conversation to launch.': 'Skaidrs process no pirmās sarunas līdz palaišanai.',
-  'Discover': 'Iepazīstamies',
-  'We learn about your business, goals and customers.': 'Mēs iepazīstam jūsu uzņēmumu, mērķus un klientus.',
-  'Design': 'Dizains',
-  'We create the visual direction and page structure.': 'Mēs izveidojam vizuālo virzienu un lapu struktūru.',
-  'Build': 'Izstrāde',
-  'We turn the approved design into a fast, responsive website.': 'Mēs pārvēršam apstiprināto dizainu ātrā un responsīvā mājaslapā.',
-  'Launch': 'Palaišana',
-  'We test, refine and prepare everything for launch.': 'Mēs testējam, pilnveidojam un sagatavojam visu palaišanai.',
-  'WHY DRASARD': 'KĀPĒC DRASARD',
-  'Designed around your business.': 'Izstrādāts jūsu uzņēmumam.',
-  'Not a template. Not a generic agency site.': 'Ne veidne. Ne vispārīgs aģentūras risinājums.',
-  'Local knowledge': 'Vietējā izpratne',
-  'Built for Latvia and the way local customers discover businesses.': 'Veidots Latvijai un tam, kā vietējie klienti atrod uzņēmumus.',
-  'Premium design': 'Augstvērtīgs dizains',
-  'Sophisticated visual systems that make a strong first impression.': 'Izsmalcinātas vizuālās sistēmas, kas rada spēcīgu pirmo iespaidu.',
-  'Practical results': 'Praktiski rezultāti',
-  'Clear journeys that help customers enquire, reserve and order.': 'Skaidras lietotāja plūsmas, kas palīdz klientiem sazināties, rezervēt un pasūtīt.',
-  'CONTACT': 'SAZINĀTIES',
-  'Ready to build something better?': 'Gatavi izveidot ko labāku?',
-  'Tell us about your business and what you want your website to achieve.': 'Pastāstiet par savu uzņēmumu un to, ko vēlaties sasniegt ar savu mājaslapu.',
-  'Enquire': 'Sazināties',
-  'Send enquiry': 'Nosūtīt pieprasījumu',
-  'Your name': 'Jūsu vārds',
-  'Email address': 'E-pasta adrese',
-  'Business name': 'Uzņēmuma nosaukums',
-  'Tell us about your project': 'Pastāstiet par savu projektu',
-  'Message': 'Ziņa',
-  'Send': 'Nosūtīt',
-  'Thank you. We will be in touch shortly.': 'Paldies! Mēs ar jums drīzumā sazināsimies.',
-  'Professional websites for local businesses': 'Profesionālas mājaslapas vietējiem uzņēmumiem',
-  'Riga, Latvia': 'Rīga, Latvija',
-  'All rights reserved.': 'Visas tiesības aizsargātas.',
-  'Privacy': 'Privātums',
-  'Contact': 'Kontakti',
-  'MENU': 'IZVĒLNE',
-  'STORY': 'STĀSTS',
-  'VISIT': 'APMEKLĒT',
-  'Reserve a table': 'Rezervēt galdiņu',
-  "CHEF'S SELECTION": 'ŠEFPAVĀRA IZVĒLE',
-  'Sea & Garden': 'Jūra un dārzs',
-  'Explore menu': 'Apskatīt ēdienkarti',
-  'ONLINE RESERVATIONS': 'REZERVĀCIJAS TIEŠSAISTĒ',
-  'Today · +18%': 'Šodien · +18%',
+  // Navigation and global UI
+  "Solutions": "Risinājumi",
+  "Examples": "Piemēri",
+  "Pricing": "Cenas",
+  "About": "Par mums",
+  "How It Works": "Kā tas notiek",
+  "Home": "Sākums",
+  "Contact": "Kontakti",
+  "Book a Consultation": "Pieteikt konsultāciju",
+  "Explore Our Websites": "Apskatīt mūsu mājaslapas",
+  "View Demo": "Apskatīt demo",
+  "Privacy Policy": "Privātuma politika",
+  "Terms": "Noteikumi",
+  "Privacy": "Privātums",
+  "All rights reserved.": "Visas tiesības aizsargātas.",
+
+  // Hero
+  "WEB STUDIO · RIGA, LATVIA": "TĪMEKĻA STUDIJA · RĪGA, LATVIJA",
+  "Premium digital experiences for local businesses.": "Augstvērtīga digitālā pieredze vietējiem uzņēmumiem.",
+  "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses — from elegant digital showcases to complete online ordering experiences.": "Mēs izstrādājam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem — no eleganta digitālā tēla līdz pilnvērtīgai pasūtīšanas pieredzei tiešsaistē.",
+  "Professional websites for local businesses,": "Profesionālas mājaslapas vietējiem uzņēmumiem,",
+  "without the agency price tag.": "bez aģentūras cenu zīmes.",
+  "WEB DESIGN": "TĪMEKĻA DIZAINS",
+  "DEVELOPMENT": "IZSTRĀDE",
+  "ONLINE ORDERING": "PASŪTĪŠANA TIEŠSAISTĒ",
+  "RIGA, LATVIA": "RĪGA, LATVIJA",
+  "Website presentation mockups": "Mājaslapas prezentācijas maketi",
+  "Fine dining dish": "Izsmalcināts ēdiens",
+  "CHEF'S SELECTION": "ŠEFPAVĀRA IZVĒLE",
+  "Sea & Garden": "Jūra un dārzs",
+  "Explore menu": "Apskatīt ēdienkarti",
+  "ONLINE RESERVATIONS": "REZERVĀCIJAS TIEŠSAISTĒ",
+  "Today · +18%": "Šodien · +18%",
+
+  // Brand story
+  "THE NAME": "NOSAUKUMS",
+  "A name that reads the same in both directions.": "Nosaukums, kas lasās vienādi abos virzienos.",
+  "A studio built around": "Studija, kas balstīta uz",
+  "balance, precision and detail.": "līdzsvaru, precizitāti un detaļām.",
+
+  // Audience
+  "WHO WE BUILD FOR": "KAM MĒS VEIDOJAM",
+  "Built for businesses people remember.": "Veidots uzņēmumiem, kurus cilvēki atceras.",
+  "Local business. Premium digital presence.": "Vietējais uzņēmums. Augstvērtīga digitālā klātbūtne.",
+  "Restaurants": "Restorāni",
+  "Menus, reservations, stories and complete ordering experiences.": "Ēdienkartes, rezervācijas, stāsti un pilnvērtīga pasūtīšanas pieredze.",
+  "Cafés": "Kafejnīcas",
+  "Products, locations and ordering — beautifully presented.": "Produkti, atrašanās vietas un pasūtīšana — skaisti pasniegti.",
+  "Atmospheric restaurant interior": "Atmosfērisks restorāna interjers",
+  "Warm contemporary cafe interior": "Silts mūsdienīgas kafejnīcas interjers",
+
+  // Pricing
+  "TWO WEBSITE EXPERIENCES": "DIVAS MĀJASLAPAS PIEREDZES",
+  "Two ways to build your digital presence.": "Divi veidi, kā veidot savu digitālo klātbūtni.",
+  "Start with a beautiful digital showcase or turn your website into a complete business channel.": "Sāciet ar skaistu digitālo prezentāciju vai pārvērtiet savu mājaslapu par pilnvērtīgu uzņēmējdarbības kanālu.",
+  "01 — SHOWCASE": "01 — PREZENTĀCIJA",
+  "02 — COMMERCE": "02 — KOMERCIJA",
+  "FULL BUSINESS EXPERIENCE": "PILNVĒRTĪGA UZŅĒMĒJDARBĪBAS PIEREDZE",
+  "One-time payment": "Vienreizējs maksājums",
+  "One-time setup + from €50/month": "Vienreizēja izstrāde + no €50 mēnesī",
+  "A premium website designed to present your business beautifully and make it easy for customers to discover you.": "Augstvērtīga mājaslapa, kas skaisti prezentē jūsu uzņēmumu un palīdz klientiem jūs viegli atrast.",
+  "A complete digital business experience designed to help customers browse, order and pay online.": "Pilnvērtīga digitālā uzņēmuma pieredze, kas palīdz klientiem pārlūkot piedāvājumu, pasūtīt un apmaksāt tiešsaistē.",
+  "Premium responsive design": "Augstvērtīgs responsīvs dizains",
+  "Business information": "Informācija par uzņēmumu",
+  "Menu / services": "Ēdienkarte / pakalpojumi",
+  "Pricing & gallery": "Cenas un galerija",
+  "Location & contact": "Atrašanās vieta un kontakti",
+  "Mobile-first experience": "Mobilajām ierīcēm pielāgota pieredze",
+  "Custom visual design": "Pielāgots vizuālais dizains",
+  "Everything in Showcase": "Viss no prezentācijas paketes",
+  "Online ordering": "Pasūtīšana tiešsaistē",
+  "Cart & online payments": "Grozs un tiešsaistes maksājumi",
+  "Order management": "Pasūtījumu pārvaldība",
+  "Customer interactions": "Klientu mijiedarbība",
+  "Business management": "Uzņēmuma pārvaldība",
+  "Ongoing technical support": "Nepārtraukts tehniskais atbalsts",
+  "Explore Showcase": "Apskatīt prezentāciju",
+  "Explore Commerce": "Apskatīt komercijas risinājumu",
+  "Customization available depending on requirements.": "Pielāgošana pieejama atbilstoši prasībām.",
+  "Customization and advanced functionality priced according to requirements.": "Pielāgošana un papildu funkcionalitāte tiek aprēķināta atbilstoši prasībām.",
+  "SEE THE DIFFERENCE": "REDZĒT ATŠĶIRĪBU",
+  "One beautiful foundation.": "Viena skaista bāze.",
+  "Two levels of possibility.": "Divi iespēju līmeņi.",
+  "SHOWCASE": "PREZENTĀCIJA",
+  "COMMERCE": "KOMERCIJA",
+  "Browse": "Pārlūkot",
+  "Discover": "Atklāt",
+  "Order": "Pasūtīt",
+  "Pay": "Apmaksāt",
+  "Manage": "Pārvaldīt",
+  "→": "→",
+  "Contact": "Sazināties",
+
+  // Interactive demo
+  "INTERACTIVE DEMO": "INTERAKTĪVAIS DEMO",
+  "Don't just imagine it. Experience it.": "Ne tikai iztēlojieties. Izmēģiniet.",
+  "Explore a real restaurant website in two different ways.": "Izpētiet restorāna mājaslapu divos dažādos veidos.",
+  "Interactive Demo · aurelia-riga.lv": "Interaktīvais demo · aurelia-riga.lv",
+  "MODERN BALTIC DINING · RIGA": "MŪSDIENU BALTIJAS VIRTUVE · RĪGA",
+  "Rooted in place.": "Iesakņots vietā.",
+  "Refined by season.": "Pilnveidots ar sezonu.",
+  "Thoughtful food inspired by Latvia's forests, coast and farms.": "Pārdomāts ēdiens, ko iedvesmo Latvijas meži, piekraste un saimniecības.",
+  "THE AURELIA MENU": "AURELIA ĒDIENKARTE",
+  "Seasonal ingredients.": "Sezonālas sastāvdaļas.",
+  "Quietly expressive cooking.": "Atturīgi izteiksmīga virtuve.",
+  "Our menu follows the rhythm of the Baltic seasons, celebrating exceptional ingredients with clarity and restraint.": "Mūsu ēdienkarte seko Baltijas sezonu ritmam, izceļot izcilas sastāvdaļas ar skaidrību un atturību.",
+  "selections": "izvēles",
+  "YOUR ORDER": "JŪSU PASŪTĪJUMS",
+  "Cart": "Grozs",
+  "items": "vienības",
+  "Your table is ready.": "Jūsu galds ir gatavs.",
+  "Add something from the menu.": "Pievienojiet kaut ko no ēdienkartes.",
+  "Subtotal": "Starpsumma",
+  "Taxes included · Pickup at Aurelia": "Nodokļi iekļauti · Saņemšana Aurelia",
+  "Continue to checkout": "Turpināt uz apmaksu",
+  "Details": "Dati",
+  "Payment": "Maksājums",
+  "Confirmed": "Apstiprināts",
+  "CUSTOMER INFORMATION": "KLIENTA INFORMĀCIJA",
+  "SECURE PAYMENT": "DROŠS MAKSĀJUMS",
+  "Where should we send updates?": "Kur nosūtīt jaunumus par pasūtījumu?",
+  "Complete your order": "Pabeigt pasūtījumu",
+  "Full name": "Pilns vārds",
+  "Your name": "Jūsu vārds",
+  "Email": "E-pasts",
+  "Phone": "Tālrunis",
+  "Continue to payment": "Turpināt uz maksājumu",
+  "ORDER #AUR-2048": "PASŪTĪJUMS #AUR-2048",
+  "Order confirmed": "Pasūtījums apstiprināts",
+  "Thank you. The kitchen has received your order and will begin preparing it shortly.": "Paldies! Virtuve ir saņēmusi jūsu pasūtījumu un drīzumā sāks tā pagatavošanu.",
+  "ESTIMATED PREPARATION": "PAREDZAMAIS PAGATAVOŠANAS LAIKS",
+  "25–35 minutes": "25–35 minūtes",
+  "Return to menu": "Atgriezties ēdienkartē",
+  "FEATURE": "FUNKCIJA",
+
+  // Portfolio
+  "SELECTED CONCEPTS": "IZVĒLĒTIE KONCEPTI",
+  "Designed for real businesses.": "Izstrādāts reāliem uzņēmumiem.",
+  "Every experience is shaped around a distinct business, audience and ambition.": "Katra pieredze veidota konkrētam uzņēmumam, auditorijai un ambīcijām.",
+  "Restaurant · Commerce": "Restorāns · Komercija",
+  "Café · Showcase": "Kafejnīca · Prezentācija",
+  "Kitchen · Commerce": "Virtuve · Komercija",
+  "Restaurant · Showcase": "Restorāns · Prezentācija",
+  "A complete dining and ordering experience.": "Pilnvērtīga maltīšu un pasūtīšanas pieredze.",
+  "A warm digital home for a neighbourhood ritual.": "Silta digitālā mājvieta ikdienas apkārtnes rituālam.",
+  "Open-fire cooking, translated to the screen.": "Ēdienu gatavošana uz atklātas uguns, pārvērsta digitālā pieredzē.",
+  "Seasonal dining with editorial restraint.": "Sezonāla maltīšu pieredze ar pārdomātu estētiku.",
+  "website concept": "mājaslapas koncepts",
+
+  // Comparison
+  "SIMPLE STARTING POINTS": "VIENKĀRŠI SĀKUMA PUNKTI",
+  "Built around your business.": "Veidots ap jūsu uzņēmumu.",
+  "Final pricing depends on customization, content, integrations and required functionality.": "Gala cena ir atkarīga no pielāgošanas, satura, integrācijām un nepieciešamās funkcionalitātes.",
+  "FEATURE": "FUNKCIJA",
+  "Gallery": "Galerija",
+  "Business information": "Informācija par uzņēmumu",
+  "Contact": "Kontakti",
+  "Ongoing service": "Nepārtraukts serviss",
+
+  // Process
+  "HOW IT WORKS": "KĀ TAS NOTIEK",
+  "Clear from first conversation to launch.": "Skaidrs process no pirmās sarunas līdz palaišanai.",
+  "We understand your business, customers and goals.": "Mēs izprotam jūsu uzņēmumu, klientus un mērķus.",
+  "We create the visual direction and website experience.": "Mēs izveidojam vizuālo virzienu un mājaslapas pieredzi.",
+  "We turn the design into a polished, responsive website.": "Mēs pārvēršam dizainu izstrādātā, responsīvā mājaslapā.",
+  "Your website goes live with a stronger digital presence.": "Jūsu mājaslapa tiek palaista ar spēcīgāku digitālo klātbūtni.",
+  "Design": "Dizains",
+  "Build": "Izstrāde",
+  "Launch": "Palaišana",
+
+  // About
+  "ABOUT DRASARD · RIGA, LATVIA": "PAR DRASARD · RĪGA, LATVIJA",
+  "Small studio.": "Neliela studija.",
+  "Serious attention to detail.": "Nopietna uzmanība detaļām.",
+  "Drasard is a Riga-based web development studio focused on creating premium digital experiences for local businesses.": "Drasard ir Rīgā bāzēta tīmekļa izstrādes studija, kas koncentrējas uz augstvērtīgas digitālās pieredzes radīšanu vietējiem uzņēmumiem.",
+  "We believe a local business deserves a website that feels as considered and professional as the business itself. From a refined digital showcase to a complete online ordering experience, we build around what your business actually needs.": "Mēs uzskatām, ka vietējs uzņēmums ir pelnījis mājaslapu, kas ir tikpat pārdomāta un profesionāla kā pats uzņēmums. No izsmalcinātas digitālās prezentācijas līdz pilnvērtīgai pasūtīšanai tiešsaistē — mēs veidojam to, kas jūsu uzņēmumam patiešām nepieciešams.",
+  "Premium by default": "Augstvērtīgs pēc noklusējuma",
+  "Every website is a considered digital representation of your brand.": "Katra mājaslapa ir pārdomāta jūsu zīmola digitālā reprezentācija.",
+  "Built for local": "Veidots vietējiem uzņēmumiem",
+  "We understand the needs of restaurants, cafés and independent businesses.": "Mēs izprotam restorānu, kafejnīcu un neatkarīgu uzņēmumu vajadzības.",
+  "Designed for customers": "Veidots klientiem",
+  "Every interaction makes discovering and using your business easier.": "Katra mijiedarbība padara jūsu uzņēmuma atrašanu un izmantošanu vienkāršāku.",
+  "Made to grow": "Veidots izaugsmei",
+  "Start with Showcase and expand into Commerce when the time is right.": "Sāciet ar Prezentāciju un pārejiet uz Komerciju, kad ir īstais laiks.",
+  "No needless complexity": "Bez liekas sarežģītības",
+  "Only the functionality your business and customers actually need.": "Tikai tā funkcionalitāte, kas jūsu uzņēmumam un klientiem patiešām nepieciešama.",
+
+  // Contact
+  "START A CONVERSATION": "SĀKSIM SARUNU",
+  "Let's build something": "Izveidosim kaut ko",
+  "worth visiting.": "apmeklēšanas vērtu.",
+  "Tell us about your business and what you want your website to do. We'll help you find the right approach.": "Pastāstiet par savu uzņēmumu un to, ko vēlaties, lai jūsu mājaslapa dara. Mēs palīdzēsim atrast piemērotāko risinājumu.",
+  "DRASARD STUDIO": "DRASARD STUDIJA",
+  "Working with ambitious local businesses.": "Strādājam ar ambicioziem vietējiem uzņēmumiem.",
+  "Business name": "Uzņēmuma nosaukums",
+  "Business": "Uzņēmums",
+  "Email address": "E-pasta adrese",
+  "Business type": "Uzņēmuma veids",
+  "Select type": "Izvēlieties veidu",
+  "Other local business": "Cits vietējais uzņēmums",
+  "Website type": "Mājaslapas veids",
+  "Select experience": "Izvēlieties pieredzi",
+  "Not sure yet": "Vēl nezinu",
+  "Tell us about your project": "Pastāstiet par savu projektu",
+  "What would you like your website to do?": "Ko vēlaties, lai jūsu mājaslapa dara?",
+  "Sending…": "Nosūta…",
+  "Thank you.": "Paldies!",
+  "Your inquiry has been sent to Drasard. We'll be in touch shortly.": "Jūsu pieprasījums ir nosūtīts Drasard. Mēs ar jums drīzumā sazināsimies.",
+  "Send another inquiry": "Nosūtīt vēl vienu pieprasījumu",
+  "We couldn't send your inquiry right now. Please email us directly at brasard.team@gmail.com.": "Šobrīd neizdevās nosūtīt jūsu pieprasījumu. Lūdzu, rakstiet mums uz brasard.team@gmail.com.",
+  "Send another inquiry": "Nosūtīt vēl vienu pieprasījumu",
+  "By sending this form, you agree to our privacy policy.": "Nosūtot šo veidlapu, jūs piekrītat mūsu privātuma politikai.",
+  "Send": "Nosūtīt",
+
+  // Footer
+  "Premium digital experiences": "Augstvērtīga digitālā pieredze",
+  "for local businesses.": "vietējiem uzņēmumiem.",
+  "EXPLORE": "IZPĒTĪT",
+  "CONTACT": "KONTAKTI",
+  "Riga, Latvia": "Rīga, Latvija",
+  "© 2025 DRASARD STUDIO": "© 2025 DRASARD STUDIJA",
 };
 
 const originalText = new WeakMap();
@@ -107,41 +228,46 @@ function translateNode(root, toLatvian) {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
+
   nodes.forEach((node) => {
     const parent = node.parentElement;
-    if (!parent || ['SCRIPT','STYLE','NOSCRIPT'].includes(parent.tagName)) return;
-    const value = node.nodeValue || '';
+    if (!parent || ["SCRIPT", "STYLE", "NOSCRIPT"].includes(parent.tagName)) return;
+    const value = node.nodeValue || "";
     if (!originalText.has(node)) originalText.set(node, value);
     const source = originalText.get(node);
     if (!toLatvian) {
       node.nodeValue = source;
       return;
     }
+
     let result = source;
-    Object.entries(translations).forEach(([from, to]) => {
-      result = result.split(from).join(to);
-    });
+    // Long phrases first so smaller word mappings cannot interfere.
+    Object.entries(translations)
+      .sort(([a], [b]) => b.length - a.length)
+      .forEach(([from, to]) => {
+        result = result.split(from).join(to);
+      });
     node.nodeValue = result;
   });
 }
 
 function applyLanguage() {
-  const isLV = localStorage.getItem('drasard-language') === 'LV';
+  const isLV = localStorage.getItem("drasard-language") === "LV";
   translateNode(document.body, isLV);
-  document.documentElement.lang = isLV ? 'lv' : 'en';
+  document.documentElement.lang = isLV ? "lv" : "en";
 }
 
 function initLatvianOverlay() {
-  document.addEventListener('click', (event) => {
-    const target = event.target.closest('button');
+  document.addEventListener("click", (event) => {
+    const target = event.target.closest("button");
     if (!target) return;
     const label = target.textContent.trim();
-    if (label === 'LV') {
-      localStorage.setItem('drasard-language', 'LV');
+    if (label === "LV") {
+      localStorage.setItem("drasard-language", "LV");
       setTimeout(applyLanguage, 20);
       setTimeout(applyLanguage, 180);
-    } else if (label === 'EN') {
-      localStorage.setItem('drasard-language', 'EN');
+    } else if (label === "EN") {
+      localStorage.setItem("drasard-language", "EN");
       setTimeout(applyLanguage, 20);
       setTimeout(applyLanguage, 180);
     }
@@ -155,9 +281,9 @@ function initLatvianOverlay() {
   applyLanguage();
 }
 
-if (typeof window !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLatvianOverlay, { once: true });
+if (typeof window !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLatvianOverlay, { once: true });
   } else {
     initLatvianOverlay();
   }
