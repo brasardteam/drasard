@@ -7,6 +7,14 @@
     ["One-time setup + €50 monthly fee", "One-time setup + monthly fee"],
   ];
 
+  const demoRoutes = {
+    "nova café": "/examples/nova-cafe/",
+    "nova cafe": "/examples/nova-cafe/",
+    "aurelia": "/examples/aurelia/",
+    "north table": "/examples/north-table/",
+    "ember": "/examples/ember/",
+  };
+
   function updateText(root) {
     const walker = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT);
     const nodes = [];
@@ -25,9 +33,51 @@
     document.querySelectorAll(".contact-form > small").forEach((el) => el.remove());
   }
 
-  const observer = new MutationObserver(() => updateText(document.body));
+  function routeForDemoElement(element) {
+    let current = element;
+    for (let i = 0; current && i < 7; i += 1, current = current.parentElement) {
+      const text = (current.textContent || "").toLowerCase();
+      for (const [name, route] of Object.entries(demoRoutes)) {
+        if (text.includes(name)) return route;
+      }
+    }
+    return null;
+  }
+
+  function connectDemoLinks() {
+    document.querySelectorAll("a, button").forEach((element) => {
+      const label = (element.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+      if (!label.includes("demo")) return;
+      const route = routeForDemoElement(element);
+      if (!route) return;
+      element.dataset.demoRoute = route;
+      if (element.tagName === "A") {
+        element.setAttribute("href", route);
+        element.removeAttribute("target");
+      }
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    const element = event.target && event.target.closest ? event.target.closest("a, button") : null;
+    if (!element || !element.dataset.demoRoute) return;
+    event.preventDefault();
+    window.location.href = element.dataset.demoRoute;
+  });
+
+  const observer = new MutationObserver(() => {
+    updateText(document.body);
+    connectDemoLinks();
+  });
   observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 
-  if (document.body) updateText(document.body);
-  else document.addEventListener("DOMContentLoaded", () => updateText(document.body), { once: true });
+  if (document.body) {
+    updateText(document.body);
+    connectDemoLinks();
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      updateText(document.body);
+      connectDemoLinks();
+    }, { once: true });
+  }
 })();
