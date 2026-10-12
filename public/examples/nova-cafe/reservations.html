@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reservations · Nova Café</title>
+<meta name="description" content="Request a table at Nova Café for breakfast, brunch, lunch or an early evening drink. Demo reservation experience by Drasard.">
+<meta name="theme-color" content="#F3EBDC">
+<meta property="og:title" content="Reservations · Nova Café"><meta property="og:description" content="Request a table at Nova Café for breakfast, brunch, lunch or an early evening drink. Demo reservation experience by Drasard.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23F2C94C'/%3E%3Ctext x='16' y='22' font-size='18' font-weight='700' text-anchor='middle' font-family='sans-serif' fill='%232A2622'%3En%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/nova.css">
+</head><body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap">
+<a class="logo" href="index.html" aria-label="Nova Café, home">nova<span>café</span></a>
+<nav class="nav" aria-label="Main"><a href="menu.html">Menu</a><a href="order.html">Order</a><a href="story.html">Our Story</a><a href="visit.html">Visit</a><a href="reservations.html" aria-current="page">Reservations</a></nav>
+<div class="head-actions">
+<a class="btn btn-solid btn-sm" href="order.html">Order online</a>
+<button class="cart-btn" data-open-cart aria-label="Open your order">Order <b data-cart-count>0</b></button>
+<button class="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu"><span></span></button>
+</div></div></header>
+<nav class="mnav" id="mnav" aria-label="Mobile"><a href="menu.html">Menu</a><a href="order.html">Order</a><a href="story.html">Our Story</a><a href="visit.html">Visit</a><a href="reservations.html" aria-current="page">Reservations</a><a class="btn btn-solid" href="order.html">Order online</a><a class="btn btn-line" href="reservations.html">Reserve a table</a></nav>
+<main id="main">
+<section class="phead"><div class="wrap"><h1>Reserve a table</h1><p>For breakfast, brunch, lunch or an early evening glass of wine. Walk-ins are always welcome too.</p></div></section>
+<section class="sec" style="padding-top:20px"><div class="wrap res-layout"><div class="form-card">
+<form class="form" novalidate data-confirm="rc">
+<div class="field"><label for="r-date">Date</label><input id="r-date" name="date" type="date" data-v="req"><div class="err">Choose a date.</div></div>
+<div class="field"><label for="r-time">Time</label><select id="r-time" name="time" data-v="sel"><option value="">Choose a time</option><option>08:00</option><option>08:30</option><option>09:00</option><option>09:30</option><option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option><option>15:00</option><option>15:30</option><option>16:00</option><option>16:30</option><option>17:00</option><option>17:30</option><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option></select><div class="err">Choose a time.</div></div>
+<div class="field"><label for="r-guests">Guests</label><select id="r-guests" name="guests" data-v="sel"><option value="">How many?</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select><div class="err">Choose a party size.</div></div>
+<div class="field"><label for="r-name">Name</label><input id="r-name" name="name" data-v="req" autocomplete="name"><div class="err">Enter your name.</div></div>
+<div class="field"><label for="r-email">Email</label><input id="r-email" name="email" type="email" data-v="email" autocomplete="email"><div class="err">Enter a valid email address.</div></div>
+<div class="field"><label for="r-phone">Phone</label><input id="r-phone" name="phone" type="tel" data-v="phone" autocomplete="tel"><div class="err">Enter a phone number.</div></div>
+<div class="field full"><label for="r-note">Special request</label><textarea id="r-note" name="note" placeholder="Allergies, a pram, a birthday cake…"></textarea></div>
+<div class="full"><button class="btn btn-solid" style="width:100%">Request a table</button></div></form>
+<div class="confirm" id="rc"><h2>Reservation request received.</h2><p>Thank you. This is a demo, so no table has been booked. A real Nova would confirm by email within the hour.</p><dl></dl><button class="btn btn-line" data-again>Make another request</button></div></div>
+<aside><h2 class="h2" style="font-size:clamp(28px,3vw,40px)">Good to know</h2><ul class="res-aside"><li><b>Groups of 9 or more</b>Email us and we'll set up a long table.</li><li><b>Weekend brunch</b>Booking is recommended, 09:00 to 15:00.</li><li><b>Holding your table</b>We hold tables for 15 minutes.</li><li><b>Just coffee?</b>The front of the café is always walk-in.</li></ul></aside></div></section></main>
+<footer class="foot"><div class="wrap">
+<div class="foot-grid">
+<div><a class="logo" href="index.html">nova<span>café</span></a><p style="margin-top:14px;max-width:30ch;opacity:.8">Coffee, food and good reasons to stay, in the middle of Riga.</p></div>
+<div><h4>Visit</h4><ul><li>Brīvības iela 118</li><li>Rīga, LV-1011</li><li>Mon–Fri 07:30–20:00</li><li>Sat–Sun 08:30–21:00</li></ul></div>
+<div><h4>Explore</h4><ul><li><a href="menu.html">Menu</a></li><li><a href="order.html">Order online</a></li><li><a href="story.html">Our story</a></li><li><a href="reservations.html">Reservations</a></li></ul></div>
+<div><h4>Say hello</h4><ul><li><a href="tel:+37167000142">+371 6700 0142</a></li><li><a href="mailto:hello@nova-cafe.example">hello@nova-cafe.example</a></li><li>Instagram @novacafe.riga</li></ul></div>
+</div>
+<div class="foot-base"><span>Portfolio concept · Nova Café is a fictional café.</span><span>Concept website designed by Drasard · Riga, Latvia</span></div>
+</div></footer>
+
+<div class="scrim" aria-hidden="true"></div>
+<aside class="drawer" aria-hidden="true" aria-label="Your order">
+<div class="drawer-top"><h2>Your order</h2><button class="x" data-close aria-label="Close">×</button></div>
+<div data-cart-view></div>
+</aside>
+
+<div class="modal" role="dialog" aria-modal="true" aria-labelledby="co-title">
+<div class="modal-card">
+<div class="modal-main">
+<div id="co-head"><h2 id="co-title">Checkout</h2><p>Pickup at Nova Café, Brīvības iela 118.</p>
+<div class="demo-flag"><span aria-hidden="true">⚑</span><div><b>DEMO PAYMENT</b>This is a portfolio demonstration. No real payment will be processed.</div></div></div>
+<form id="co-form" novalidate class="form">
+<div class="field"><label for="co-name">Name</label><input id="co-name" data-v="req" autocomplete="name"><div class="err">Enter your name.</div></div>
+<div class="field"><label for="co-phone">Phone</label><input id="co-phone" data-v="phone" type="tel" autocomplete="tel"><div class="err">Enter a phone number.</div></div>
+<div class="field full"><label for="co-email">Email</label><input id="co-email" data-v="email" type="email" autocomplete="email"><div class="err">Enter a valid email address.</div></div>
+<div class="field full"><label for="co-time">Pickup time</label><select id="co-time" data-v="sel"><option value="">Choose a time</option><option>As soon as possible (about 15 min)</option><option>In 30 minutes</option><option>In 45 minutes</option><option>In 1 hour</option><option>Tomorrow morning, 08:00</option></select><div class="err">Choose a pickup time.</div></div>
+<div class="field full"><label for="co-card">Card number</label><input id="co-card" data-v="card" inputmode="numeric" autocomplete="off" placeholder="4242 4242 4242 4242"><div class="err">Enter the 16-digit demo card number.</div></div>
+<div class="field"><label for="co-exp">Expiry</label><input id="co-exp" data-v="exp" inputmode="numeric" autocomplete="off" placeholder="MM / YY"><div class="err">Use MM / YY.</div></div>
+<div class="field"><label for="co-cvc">CVC</label><input id="co-cvc" data-v="cvc" inputmode="numeric" autocomplete="off" placeholder="123" maxlength="4"><div class="err">Enter 3 or 4 digits.</div></div>
+<div class="full"><button type="button" class="btn btn-line btn-sm" data-fill-card>Fill with demo card</button></div>
+<div class="full"><button class="btn btn-solid" style="width:100%" id="co-pay">PAY — DEMO</button></div>
+</form>
+<div id="co-done" class="done" hidden><div class="tick" aria-hidden="true">✓</div><h2>Order confirmed</h2><p>Thank you. This demo order has been successfully placed.</p><p style="margin-top:14px;font-weight:600" id="co-ref"></p><p style="margin-top:22px"><button class="btn btn-solid" data-close>Back to Nova</button></p></div>
+</div>
+<div class="modal-side"><h3 class="serif" style="font-size:30px;margin-bottom:14px">Your order</h3><div id="co-lines"></div><p class="cart-note" style="margin-top:18px">Nothing is prepared and no card is charged. Concept website by Drasard.</p></div>
+<button class="x" data-close aria-label="Close checkout" style="position:absolute;right:14px;top:14px;z-index:3;background:var(--cream)">×</button>
+</div></div>
+<script src="assets/nova.js"></script>
+</body></html>
