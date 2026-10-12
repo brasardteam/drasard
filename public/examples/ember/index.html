@@ -1,1 +1,159 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ember — Drasard Demo</title><style>:root{--black:#10100f;--warm:#e7d6c0;--orange:#c86b38}*{box-sizing:border-box}body{margin:0;background:var(--black);color:var(--warm);font-family:Arial,sans-serif}.nav{padding:25px 6vw;display:flex;justify-content:space-between}.brand{font-size:19px;letter-spacing:.3em}.back{color:var(--warm);text-decoration:none;font-size:10px;text-transform:uppercase;letter-spacing:.16em}.hero{min-height:84vh;padding:7vw 7vw;display:flex;align-items:end;background:linear-gradient(0deg,rgba(10,8,6,.85),rgba(10,8,6,.1)),url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1800&q=88') center/cover}.content{max-width:850px}.eyebrow{color:var(--orange);font-size:10px;letter-spacing:.25em;text-transform:uppercase}.hero h1{font:400 clamp(75px,13vw,190px) Georgia,serif;line-height:.78;margin:25px 0}.hero p{font-size:18px;line-height:1.7;max-width:570px}.btn{display:inline-block;margin-top:20px;color:var(--black);background:var(--warm);padding:15px 24px;text-decoration:none;text-transform:uppercase;font-size:10px;letter-spacing:.17em}.section{padding:10vw 7vw;border-top:1px solid #39332d}.section h2{font:400 clamp(48px,7vw,95px) Georgia,serif;line-height:.9}.plates{display:grid;grid-template-columns:1fr 1fr;gap:35px}.plate{padding:30px 0;border-top:1px solid #39332d}.plate h3{font:400 28px Georgia,serif}.plate strong{color:var(--orange);font-size:12px}.footer{padding:45px 7vw;border-top:1px solid #39332d;font-size:10px;letter-spacing:.15em;text-transform:uppercase}@media(max-width:800px){.plates{grid-template-columns:1fr}}</style></head><body><nav class="nav"><div class="brand">EMBER</div><a class="back" href="/">← Drasard</a></nav><section class="hero"><div class="content"><div class="eyebrow">Fire · Wine · Riga</div><h1>Eat by<br>the flame.</h1><p>An intimate restaurant where live fire, bold ingredients and late-night energy meet in a raw, refined setting.</p><a class="btn" href="#menu">Explore Ember →</a></div></section><section class="section" id="menu"><div class="eyebrow">Tonight at Ember</div><h2>Smoke. Char.<br>Season.</h2><div class="plates"><div class="plate"><strong>01 · FROM THE FIRE</strong><h3>Ember-Roasted Beef</h3><p>Charred onion, smoked potato, pepper jus.</p></div><div class="plate"><strong>02 · FROM THE SEA</strong><h3>Coal-Grilled Cod</h3><p>Brown butter, leek, preserved lemon.</p></div><div class="plate"><strong>03 · TO SHARE</strong><h3>Fire-Roasted Carrots</h3><p>Whipped tahini, herbs, toasted seeds.</p></div><div class="plate"><strong>04 · AFTER</strong><h3>Burnt Honey Tart</h3><p>Cultured cream, sea salt, rye.</p></div></div></section><section class="section"><div class="eyebrow">Reservations</div><h2>Make an evening<br>of it.</h2><p>Stabu iela · Riga<br>Tue–Sat · 18:00–00:00</p></section><footer class="footer">Ember · Portfolio concept by Drasard</footer></body></html>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ember · Fire-led restaurant and wine bar in Riga</title>
+<meta name="description" content="An intimate Riga restaurant built around flame, smoke, seasonal ingredients and exceptional wine. Portfolio concept by Drasard.">
+<meta name="theme-color" content="#050505">
+<meta property="og:title" content="Ember · Fire changes everything"><meta property="og:description" content="An intimate Riga restaurant built around flame, smoke, seasonal ingredients and exceptional wine.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050505'/%3E%3Cpath d='M16 5c1 5 6 7 6 13a6 6 0 0 1-12 0c0-3 2-4 3-6 1 2 2 2 3 0 0-2 0-5 0-7z' fill='%23E2672B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/ember.css">
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
+</head><body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="hdr"><div class="in"><a class="logo" href="#top" aria-label="Ember, top of page">EMBER</a>
+<nav aria-label="Main"><a href="#experience">Experience</a><a href="#menu">Menu</a><a href="#wine">Wine</a><a href="#gallery">Gallery</a><a href="#reserve">Reservations</a><a class="btn btn-fill" href="#reserve">Book a table</a></nav>
+<button class="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu"></button></div></header>
+<nav class="mnav" id="mnav" aria-label="Mobile"><a href="#experience">Experience</a><a href="#menu">Menu</a><a href="#wine">Wine</a><a href="#gallery">Gallery</a><a href="#reserve">Reservations</a><a class="btn btn-fill" href="#reserve">Book a table</a></nav>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="bg"><div class="ph" data-n="hero" data-t="1" role="img" aria-label="Photograph: flames at the grill, night service"></div><canvas id="embers" aria-hidden="true"></canvas></div>
+  <div class="hero-in">
+    <h1 class="disp">Fire changes <em>everything.</em></h1>
+    <div class="side"><p>An intimate Riga restaurant built around flame, smoke, seasonal ingredients and exceptional wine.</p>
+    <div class="btns"><a class="btn btn-fill" href="#reserve">Book a table</a><a class="btn" href="#menu">Explore the menu</a></div></div>
+  </div>
+</section>
+
+<section class="scene" id="experience">
+  <div class="exp">
+    <h2 class="disp h2 rv">The experience</h2>
+    <div class="tx rv">
+      <p class="lead">Ember is a small room with one big idea. Everything that reaches your table has passed through fire.</p>
+      <p>The grill is the centre of the room. Charcoal made from local birch burns for hours before service, and the cooks tend it like a living thing: raising it for a hard sear, banking it for a slow roast, burying a whole beetroot in the ash overnight.</p>
+      <div class="ph" data-n="exp" data-t="2" role="img" aria-label="Photograph: ash-baked beetroot on the coals"><i>Photograph: ash-baked beetroot on the coals</i></div>
+      <p>Smoke is an ingredient here. A little in the butter, a little in the cream, a lot in the fish. We cook seasonal produce from small Latvian farms, and we cook it simply, so that charcoal and ingredient can speak for themselves.</p>
+      <p>The room is low-lit and close, with thirty-four seats around the grill and along the wall. Dinner starts at five and runs late. On Friday and Saturday, the kitchen and the bar stay open until two in the morning.</p>
+      <div class="facts"><div><b>34 seats</b><span>Grill counter, wall banquettes and a bar</span></div><div><b>Birch charcoal</b><span>Made in Latvia, lit at noon</span></div><div><b>Open until 02:00</b><span>On Friday and Saturday</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="scene scene-alt" id="menu">
+  <div class="menu">
+    <div class="head rv"><h2 class="disp h2">The menu</h2><p>Built for sharing, and for staying. Order three to four plates each, and let the kitchen bring them as they are ready.</p></div>
+    <div class="rv">
+      <div class="mg"><h3>Small plates</h3>
+        <div class="mi"><b>Charred sourdough</b><span class="p">€7</span><p>Smoked butter, flaky salt.</p></div>
+        <div class="mi"><b>Burnt leek</b><span class="p">€12</span><p>Hazelnut, brown butter vinaigrette, whey.</p></div>
+        <div class="mi"><b>Smoked trout</b><span class="p">€15</span><p>Horseradish cream, pickled onion, rye crumb.</p></div></div>
+      <div class="mg"><h3>From the fire</h3>
+        <div class="mi"><b>Coal-roasted chicken</b><span class="p">€25</span><p>Thigh and breast, juniper jus, roasted garlic.</p></div>
+        <div class="mi"><b>Fire-grilled fish</b><span class="p">€29</span><p>Catch of the day, charred lemon, dill, beurre blanc.</p></div>
+        <div class="mi"><b>Dry-aged beef</b><span class="p">€34</span><p>Thirty-five days, bone marrow butter, black garlic.</p></div></div>
+      <div class="mg"><h3>Sides</h3>
+        <div class="mi"><b>Ember potatoes</b><span class="p">€8</span><p>Baked in the coals, crushed with cultured cream.</p></div>
+        <div class="mi"><b>Charred greens</b><span class="p">€8</span><p>Seasonal leaves, garlic oil, lemon.</p></div></div>
+      <div class="mg"><h3>Dessert</h3>
+        <div class="mi"><b>Burnt honey ice cream</b><span class="p">€10</span><p>Smoked salt, toasted oats.</p></div>
+        <div class="mi"><b>Dark chocolate &amp; rye</b><span class="p">€11</span><p>Warm chocolate, rye crumb, crème fraîche.</p></div></div>
+      <p style="margin-top:26px;font-size:14px;color:var(--dim)">Please tell us about allergies when you order. Vegetarian and vegan plates are available on request.</p>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="wine">
+  <div class="wine">
+    <div class="tx rv"><h2 class="disp h2">Wine</h2><p class="lead" style="margin-top:26px">Bright, savoury and made by hand.</p><p>Fire loves acidity, texture and a little age. Our list favours small growers and cool climates: mineral whites, skin-contact oranges, reds with lift. We pour thirty by the glass and keep a cellar of two hundred bottles.</p><p>Not sure what to open? Ask the team. They will pick something unexpected, and then tell you why it works.</p></div>
+    <div class="rv">
+      <div class="wtabs" role="tablist" aria-label="Wine categories"><button class="wtab" role="tab" id="wt0" aria-controls="wp0" aria-selected="true">Bubbles</button><button class="wtab" role="tab" id="wt1" aria-controls="wp1" aria-selected="false">White</button><button class="wtab" role="tab" id="wt2" aria-controls="wp2" aria-selected="false">Orange</button><button class="wtab" role="tab" id="wt3" aria-controls="wp3" aria-selected="false">Red</button><button class="wtab" role="tab" id="wt4" aria-controls="wp4" aria-selected="false">Dessert</button></div>
+      <div class="wp" role="tabpanel" id="wp0" aria-labelledby="wt0">
+        <div class="wi"><b>Blanc de Blancs, Champagne</b><span class="p">€94</span><p>Chalky, lemon peel, toasted brioche.</p></div>
+        <div class="wi"><b>Pét-Nat Chenin Blanc, Loire</b><span class="p">€48</span><p>Cloudy, juicy, with orchard fruit.</p></div>
+        <div class="wi"><b>Crémant, Limoux</b><span class="p">€46</span><p>Fine bubbles, green apple, almond.</p></div></div>
+      <div class="wp" role="tabpanel" id="wp1" aria-labelledby="wt1">
+        <div class="wi"><b>Riesling Kabinett, Mosel</b><span class="p">€58</span><p>Slate, lime, a thread of sweetness.</p></div>
+        <div class="wi"><b>Chablis Premier Cru</b><span class="p">€82</span><p>Oyster shell, citrus, long and tense.</p></div>
+        <div class="wi"><b>Grüner Veltliner, Kamptal</b><span class="p">€52</span><p>White pepper, pear, crisp finish.</p></div></div>
+      <div class="wp" role="tabpanel" id="wp2" aria-labelledby="wt2">
+        <div class="wi"><b>Ribolla Gialla, Friuli</b><span class="p">€64</span><p>Amber, dried apricot, gentle grip.</p></div>
+        <div class="wi"><b>Rkatsiteli, Kakheti</b><span class="p">€56</span><p>Qvevri-aged, tea leaf, walnut.</p></div>
+        <div class="wi"><b>Pinot Gris, Alsace</b><span class="p">€68</span><p>Copper, quince, savoury spice.</p></div></div>
+      <div class="wp" role="tabpanel" id="wp3" aria-labelledby="wt3">
+        <div class="wi"><b>Poulsard, Jura</b><span class="p">€62</span><p>Pale, red cherry, crunchy and light.</p></div>
+        <div class="wi"><b>Syrah, Northern Rhône</b><span class="p">€96</span><p>Smoke, black olive, cracked pepper.</p></div>
+        <div class="wi"><b>Nebbiolo, Piedmont</b><span class="p">€110</span><p>Rose, tar, firm tannin, built for beef.</p></div></div>
+      <div class="wp" role="tabpanel" id="wp4" aria-labelledby="wt4">
+        <div class="wi"><b>Tokaji, 5 Puttonyos</b><span class="p">€14 / glass</span><p>Apricot, honey, bright acidity.</p></div>
+        <div class="wi"><b>Late-harvest Riesling</b><span class="p">€12 / glass</span><p>Lime marmalade, ginger, clean finish.</p></div>
+        <div class="wi"><b>Pedro Ximénez</b><span class="p">€11 / glass</span><p>Fig, molasses, built for the honey ice cream.</p></div></div>
+      <p class="wnote">A sample of the list. Bottles are priced in EUR and change as the cellar does.</p>
+    </div>
+  </div>
+</section>
+
+<section class="late" id="late">
+  <div class="ph" data-n="late" data-t="3" role="img" aria-label="Photograph: the bar after midnight"><i>Photograph: the bar after midnight</i></div>
+  <div class="late-in rv"><h2 class="disp">Stay a little <em>later.</em></h2>
+    <p>When the dining room quiets, the bar keeps going. Pour a last glass, share a few small plates from the embers and let the evening run on.</p>
+    <ul class="late-list"><li><span>Late-night plates</span><span>from 22:00</span></li><li><span>Smoked old fashioned</span><span>€13</span></li><li><span>Embered bread &amp; butter</span><span>€6</span></li><li><span>Fire-roasted oysters, each</span><span>€4</span></li></ul>
+    <p class="late-note">Friday and Saturday, until 02:00.</p></div>
+</section>
+
+<section class="scene" id="gallery">
+  <div class="gal-top"><h2 class="disp h2 rv">Gallery</h2><div class="arrows"><button data-dir="-1" aria-label="Scroll back">&#8592;</button><button data-dir="1" aria-label="Scroll forward">&#8594;</button></div></div>
+  <div class="strip" tabindex="0" aria-label="Photo gallery, scroll horizontally">
+    <div class="ph w2" data-n="g1" data-t="1" role="img" aria-label="Photograph: the grill, wide"><i>Photograph: the grill, wide</i></div>
+    <div class="ph w3" data-n="g2" data-t="3" role="img" aria-label="Photograph: wine glass at the bar"><i>Photograph: wine at the bar</i></div>
+    <div class="ph w1" data-n="g3" data-t="2" role="img" aria-label="Photograph: coal-roasted chicken"><i>Photograph: coal-roasted chicken</i></div>
+    <div class="ph w2" data-n="g4" data-t="4" role="img" aria-label="Photograph: sparks over the coals"><i>Photograph: sparks over the coals</i></div>
+    <div class="ph w3" data-n="g5" data-t="5" role="img" aria-label="Photograph: the dining room, candles"><i>Photograph: candlelit tables</i></div>
+    <div class="ph w1" data-n="g6" data-t="1" role="img" aria-label="Photograph: dry-aged beef"><i>Photograph: dry-aged beef</i></div>
+  </div>
+</section>
+
+<section class="scene scene-alt" id="events">
+  <div class="priv">
+    <div class="ph rv" data-n="private" data-t="2" role="img" aria-label="Photograph: the private table by the fire"><i>Photograph: the private table by the fire</i></div>
+    <div class="tx rv"><h2 class="disp h2">Private events</h2><p>Take the table beside the grill, or the whole room. We cook a bespoke menu over the fire, pour wine chosen for your evening and look after the details.</p>
+    <ul><li>The fire table <span>Up to 10 guests</span></li><li>Evening buy-out <span>Up to 34 guests</span></li><li>Wine dinners <span>Tasting with a grower</span></li></ul>
+    <a class="btn btn-fill" href="#reserve">Plan an evening</a></div>
+  </div>
+</section>
+
+<section class="scene" id="reserve">
+  <div class="res">
+    <div class="tx rv"><h2 class="disp h2">Book a table</h2><p>Tell us when you're coming, and we'll save you a seat near the fire. For groups of nine or more, choose "Private event" as the occasion.</p></div>
+    <div class="rv">
+      <form class="form" novalidate data-confirm="rc" data-show="date,time,guests,name,email,occasion">
+        <div class="field"><label for="r-date">Date</label><input id="r-date" name="date" type="date" data-v="req"><div class="err">Choose a date.</div></div>
+        <div class="field"><label for="r-time">Time</label><select id="r-time" name="time" data-v="sel"><option value="">Choose a time</option><option>17:00</option><option>18:00</option><option>19:00</option><option>20:00</option><option>21:00</option><option>22:00 (late)</option><option>23:00 (late)</option></select><div class="err">Choose a time.</div></div>
+        <div class="field"><label for="r-guests">Guests</label><select id="r-guests" name="guests" data-v="sel"><option value="">How many?</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select><div class="err">Choose a party size.</div></div>
+        <div class="field"><label for="r-occ">Occasion</label><select id="r-occ" name="occasion"><option value="">None in particular</option><option>Birthday</option><option>Anniversary</option><option>Date night</option><option>Late-night drinks</option><option>Private event</option></select></div>
+        <div class="field"><label for="r-name">Name</label><input id="r-name" name="name" data-v="req" autocomplete="name"><div class="err">Enter your name.</div></div>
+        <div class="field"><label for="r-phone">Phone</label><input id="r-phone" name="phone" type="tel" data-v="phone" autocomplete="tel"><div class="err">Enter a phone number.</div></div>
+        <div class="field full"><label for="r-email">Email</label><input id="r-email" name="email" type="email" data-v="email" autocomplete="email"><div class="err">Enter a valid email address.</div></div>
+        <div class="full"><button class="btn btn-fill" style="width:100%">Book a table</button></div>
+      </form>
+      <div class="confirm" id="rc"><h3 class="disp">Your reservation request has been received.</h3><p>Thank you. This is a concept demonstration, so no table has been held. A real Ember would confirm by email.</p><dl></dl><button class="btn" data-again>Make another request</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="scene scene-alt" id="location">
+  <div class="loc">
+    <div class="rv"><h2 class="disp h2">Location</h2><address>Ember<br>Torņa iela 11<br>Rīga, LV-1050</address>
+      <ul class="hours"><li><span>Wednesday and Thursday</span><span>17:00 to 00:00</span></li><li><span>Friday and Saturday</span><span>17:00 to 02:00</span></li><li><span>Sunday</span><span>17:00 to 23:00</span></li><li><span>Monday and Tuesday</span><span>Closed</span></li></ul>
+      <p style="margin-top:24px"><a href="tel:+37167330916" style="text-decoration:underline;text-underline-offset:5px">+371 6733 0916</a><br><a href="mailto:book@ember.example" style="text-decoration:underline;text-underline-offset:5px">book@ember.example</a></p></div>
+    <div class="map rv" role="img" aria-label="Stylised night map of Torņa iela, Riga"><svg viewBox="0 0 600 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="600" height="440" fill="#0e0d0c"/><path d="M0 150 Q200 110 600 140" stroke="#2a2724" stroke-width="20" fill="none"/><path d="M0 330 L600 310" stroke="#222020" stroke-width="12"/><path d="M190 0 L220 440" stroke="#222020" stroke-width="10"/><path d="M400 0 L380 440" stroke="#222020" stroke-width="10"/><path d="M0 400 Q200 370 400 420 T600 410" stroke="#151c20" stroke-width="30" fill="none"/><rect x="40" y="190" width="110" height="90" fill="#16150f"/><text x="250" y="130" font-family="Bodoni Moda,serif" font-style="italic" font-size="15" fill="#7d776c" transform="rotate(-3 250 130)">Torņa iela</text></svg><div class="dot"></div><div class="pin">EMBER</div></div>
+  </div>
+</section>
+</main>
+
+<footer class="ft"><div class="ft-top"><div><a class="logo" href="#top">EMBER</a><p class="tag">Fire, wine &amp; late nights.</p></div>
+<ul><li>Torņa iela 11, Rīga</li><li><a href="tel:+37167330916">+371 6733 0916</a></li><li><a href="mailto:book@ember.example">book@ember.example</a></li></ul></div>
+<div class="ft-base"><span>Portfolio concept. Ember is a fictional restaurant.</span><span>Concept website designed by Drasard · Riga, Latvia</span></div></footer>
+<script src="assets/ember.js"></script>
+</body></html>
