@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reservations · Aurelia</title><meta name="description" content="Request a table at Aurelia, Riga. Check availability and book dinner Tuesday to Saturday. Demo reservation experience by Drasard."><meta name="theme-color" content="#EFEAE0">
+<meta property="og:title" content="Reservations · Aurelia"><meta property="og:description" content="Request a table at Aurelia, Riga. Check availability and book dinner Tuesday to Saturday. Demo reservation experience by Drasard.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2322211F'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' font-family='serif' fill='%23EFEAE0'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/aurelia.css">
+</head><body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap"><nav aria-label="Main"><a href="index.html#restaurant">Restaurant</a><a href="menu.html">Menu</a><a href="experiences.html">Experiences</a></nav><a class="logo" href="index.html" aria-label="Aurelia, home">AURELIA</a><nav class="r" aria-label="Secondary"><a href="reservations.html" aria-current="page">Reservations</a><a href="journal.html">Journal</a><a href="contact.html">Contact</a><a class="btn btn-solid" href="reservations.html">Reserve</a></nav>
+<button class="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu"></button></div></header>
+<nav class="mnav" id="mnav" aria-label="Mobile"><a href="index.html#restaurant">Restaurant</a><a href="menu.html">Menu</a><a href="experiences.html">Experiences</a><a href="reservations.html" aria-current="page">Reservations</a><a href="journal.html">Journal</a><a href="contact.html">Contact</a><a class="btn btn-solid" href="reservations.html">Reserve</a></nav>
+<main id="main">
+<section class="ph-head"><div class="narrow"><h1>Reservations</h1><p>Reservations are recommended. We seat a small number of guests each evening, Tuesday to Saturday.</p></div></section>
+<section class="wrap" style="padding-bottom:clamp(72px,10vw,150px)"><div class="res-grid"><div class="card">
+<form class="form" novalidate data-confirm="rc" data-need-slot="1" data-show="date,time,guests,name,email,occasion">
+<div class="field"><label for="r-guests">Guests</label><select id="r-guests" name="guests" data-v="sel"><option value="">How many?</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><div class="err">Choose a party size.</div></div>
+<div class="field"><label for="r-date">Date</label><input id="r-date" name="date" type="date" data-v="req"><div class="err">Choose a date.</div></div>
+<div class="field full"><label>Time</label><div class="slots" role="group" aria-label="Available times"></div><p class="slot-msg">Choose a date and guests, then check availability.</p><input type="hidden" id="r-time" name="time"><div style="margin-top:14px"><button type="button" class="btn btn-line" id="check" style="min-height:46px">Check availability</button></div></div>
+<div class="field"><label for="r-name">Name</label><input id="r-name" name="name" data-v="req" autocomplete="name"><div class="err">Enter your name.</div></div>
+<div class="field"><label for="r-phone">Phone</label><input id="r-phone" name="phone" type="tel" data-v="phone" autocomplete="tel"><div class="err">Enter a phone number.</div></div>
+<div class="field full"><label for="r-email">Email</label><input id="r-email" name="email" type="email" data-v="email" autocomplete="email"><div class="err">Enter a valid email address.</div></div>
+<div class="field"><label for="r-occ">Occasion</label><select id="r-occ" name="occasion"><option value="">None in particular</option><option>Birthday</option><option>Anniversary</option><option>Celebration</option><option>Business dinner</option></select></div>
+<div class="field"><label for="r-diet">Dietary requirements</label><input id="r-diet" name="diet" placeholder="Vegetarian, allergies…"></div>
+<div class="full"><button class="btn btn-solid" style="width:100%">Request reservation</button></div></form>
+<div class="confirm" id="rc"><h2>Reservation request received.</h2><p>Thank you. This is a demonstration, so no table has been held. A real Aurelia would confirm by email within a few hours.</p><dl></dl><button class="btn btn-line" data-again>Make another request</button></div></div>
+<aside class="aside"><ul><li><b>Tuesday to Saturday</b>Dinner from 18:00. Last seating at 21:30.</li><li><b>Larger parties</b>For seven or more guests, please see private dining.</li><li><b>Changes and cancellations</b>Please let us know 48 hours ahead so that we can offer your table to someone else.</li><li><b>Walk-ins</b>The bar keeps four seats for guests without a reservation.</li></ul><p style="margin-top:28px"><a class="tlink" href="contact.html#enquiry">Enquire about private dining</a></p></aside></div></section></main>
+<footer class="ft"><div class="wrap"><div class="ft-top">
+<div><a class="logo" href="index.html">AURELIA</a><p style="margin-top:18px;max-width:30ch;opacity:.8;font-family:var(--serif);font-size:20px;font-weight:300">Modern Baltic dining in the heart of Riga.</p></div>
+<div><h4>Dinner</h4><ul><li>Tuesday to Thursday, 18:00 to 23:00</li><li>Friday and Saturday, 18:00 to 00:00</li><li>Closed Sunday and Monday</li></ul></div>
+<div><h4>Find us</h4><ul><li>Kalpaka bulvāris 8</li><li>Rīga, LV-1050</li><li><a href="tel:+37167110280">+371 6711 0280</a></li><li><a href="mailto:reservations@aurelia.example">reservations@aurelia.example</a></li></ul></div>
+<div><h4>Explore</h4><ul><li><a href="menu.html">Menu</a></li><li><a href="experiences.html">Experiences</a></li><li><a href="reservations.html">Reservations</a></li><li><a href="journal.html">Journal</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+</div><div class="ft-base"><span>Portfolio concept. Aurelia is a fictional restaurant.</span><span>Concept website designed by Drasard · Riga, Latvia</span></div></div></footer>
+<script src="assets/aurelia.js"></script></body></html>

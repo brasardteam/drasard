@@ -1,1 +1,60 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Aurelia — Drasard Demo</title><style>:root{--ink:#211d1a;--paper:#eee8dd;--gold:#9b7b50}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,sans-serif}.nav{padding:24px 6vw;display:flex;justify-content:space-between}.brand{font:28px Georgia,serif;letter-spacing:.16em}.back{text-decoration:none;font-size:11px;text-transform:uppercase;letter-spacing:.16em}.hero{min-height:86vh;padding:8vw 10vw;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(90deg,rgba(20,15,10,.5),rgba(20,15,10,.05)),url('https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1800&q=88') center/cover;color:#fff}.eyebrow{text-transform:uppercase;letter-spacing:.25em;font-size:10px}.hero h1{font:400 clamp(70px,11vw,160px) Georgia,serif;line-height:.84;margin:24px 0}.hero p{max-width:560px;font-size:18px;line-height:1.7}.btn{display:inline-block;margin-top:25px;padding:15px 25px;border:1px solid #fff;color:#fff;text-decoration:none;text-transform:uppercase;font-size:10px;letter-spacing:.18em}.section{padding:10vw 10vw}.section h2{font:400 clamp(46px,7vw,90px) Georgia,serif;line-height:.95;margin:20px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:7vw}.card{border-top:1px solid #bdb2a0;padding-top:20px}.card h3{font:400 28px Georgia,serif}.card p{line-height:1.7}.footer{padding:40px 6vw;border-top:1px solid #bdb2a0;font-size:10px;letter-spacing:.15em;text-transform:uppercase}@media(max-width:800px){.grid{grid-template-columns:1fr}}</style></head><body><nav class="nav"><div class="brand">AURELIA</div><a class="back" href="/">← Drasard</a></nav><section class="hero"><div class="eyebrow">Modern Baltic dining · Riga</div><h1>Thoughtfully<br>composed.</h1><p>Aurelia brings seasonal Baltic ingredients, quiet elegance and precise cooking together in the heart of Riga.</p><a class="btn" href="#visit">Reserve a table →</a></section><section class="section"><div class="grid"><div><div class="eyebrow">Our kitchen</div><h2>Local ingredients.<br>Modern craft.</h2></div><div><div class="card"><h3>Seasonal tasting</h3><p>Seven courses shaped by the Baltic landscape, with new ingredients arriving each week.</p></div><div class="card"><h3>Evening service</h3><p>Wednesday–Saturday from 17:30. A considered dining experience with an intimate atmosphere.</p></div></div></div></section><section class="section" id="visit"><div class="eyebrow">Visit Aurelia</div><h2>Riga, Latvia</h2><p>Alberta iela · 12<br>Wed–Sat · 17:30–23:00</p></section><footer class="footer">Aurelia · Portfolio concept by Drasard</footer></body></html>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aurelia · Modern Baltic dining in Riga</title><meta name="description" content="An intimate dining room in Riga where Baltic ingredients meet contemporary technique. Portfolio concept by Drasard."><meta name="theme-color" content="#EFEAE0">
+<meta property="og:title" content="Aurelia · Modern Baltic dining in Riga"><meta property="og:description" content="An intimate dining room in Riga where Baltic ingredients meet contemporary technique. Portfolio concept by Drasard.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2322211F'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' font-family='serif' fill='%23EFEAE0'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/aurelia.css">
+</head><body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap"><nav aria-label="Main"><a href="index.html#restaurant">Restaurant</a><a href="menu.html">Menu</a><a href="experiences.html">Experiences</a></nav><a class="logo" href="index.html" aria-label="Aurelia, home">AURELIA</a><nav class="r" aria-label="Secondary"><a href="reservations.html">Reservations</a><a href="journal.html">Journal</a><a href="contact.html">Contact</a><a class="btn btn-solid" href="reservations.html">Reserve</a></nav>
+<button class="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menu"></button></div></header>
+<nav class="mnav" id="mnav" aria-label="Mobile"><a href="index.html#restaurant">Restaurant</a><a href="menu.html">Menu</a><a href="experiences.html">Experiences</a><a href="reservations.html">Reservations</a><a href="journal.html">Journal</a><a href="contact.html">Contact</a><a class="btn btn-solid" href="reservations.html">Reserve</a></nav>
+<main id="main">
+<section class="hero"><div class="ph " data-n="hero" data-t="4" role="img" aria-label="Photograph: the dining room at dusk"><i>Photograph: the dining room at dusk</i></div>
+<div class="hero-in"><h1>Modern Baltic dining, quietly reimagined.</h1>
+<p>An intimate dining room in Riga where Baltic ingredients meet contemporary technique.</p>
+<div class="btns"><a class="btn btn-fill-light" href="reservations.html">Reserve a table</a><a class="btn btn-light" href="menu.html">Explore the menu</a></div></div></section>
+
+<section class="sec" id="restaurant"><div class="wrap"><div class="edit">
+<div class="t"><h2 class="d">Twenty-two seats, one kitchen, a long view of the season.</h2>
+<p class="lede">Aurelia is a small restaurant with a single idea: cook the Baltic as it is now, with care and restraint.</p></div>
+<div class="ph img1" data-n="restaurant1" data-t="1" role="img" aria-label="Photograph: the pass"><i>Photograph: the pass</i></div>
+<div class="ph img2" data-n="restaurant2" data-t="3" role="img" aria-label="Photograph: hands, rye, butter"><i>Photograph: hands, rye, butter</i></div>
+<div class="t2 prose"><p>Our ingredients come from a short list of Latvian and Estonian growers, fishers and foragers. Trout from clear northern rivers, beetroot pulled in June, juniper and pine from the Kurzeme coast. We cook with the seasons, so the menu moves quietly each week.</p>
+<p>The technique is contemporary. Fermentation, smoke, long cures and precise heat give familiar flavours a new clarity. The cooking is never loud. A plate should taste of exactly what it is.</p>
+<p>The room is intimate by design. Twenty-two seats, a low sound and a team that knows when to speak and when to step back. Our sommelier builds a cellar around small growers, from the Loire to Tokaj, with a particular love of the cool-climate wines of the north.</p>
+<p style="margin-top:32px"><a class="tlink" href="journal.html#inside-the-aurelia-kitchen">Inside the kitchen</a></p></div>
+</div></div></section>
+
+<section class="sec sec-bone"><div class="wrap"><div class="menu-head"><h2 class="d">The menu</h2><p>Seven courses, shaped by the week's harvest. A preview of the current tasting menu.</p></div>
+<div class="narrow" style="max-width:860px"><dl><div class="course"><dt>Amuse</dt><dd>Smoked potato<small>cultured cream</small></dd></div><div class="course"><dt>First</dt><dd>Baltic trout<small>cucumber, dill</small></dd></div><div class="course"><dt>Second</dt><dd>Young beetroot<small>blackcurrant, goat cheese</small></dd></div><div class="course"><dt>Main</dt><dd>Duck<small>roasted onion, juniper</small></dd></div><div class="course"><dt>Dessert</dt><dd>Rye<small>chocolate, sea buckthorn</small></dd></div></dl></div>
+<div class="menu-cta"><a class="btn btn-solid" href="menu.html">View the full menu</a><a class="tlink" href="experiences.html">Book the tasting</a></div></div></section>
+
+<section class="split sec-dark" style="color:var(--ivory)">
+<div class="tx"><h2 class="d">Wine, chosen slowly.</h2><p>Our list is built around growers who farm with care and bottle with restraint. Expect mineral whites, lightly textured oranges and reds with lift rather than weight, many from small estates you may not know yet.</p><p style="margin-top:1em">A wine pairing is available with the tasting menu, and our sommelier is always happy to suggest a single glass or a bottle to share.</p><a class="tlink" href="menu.html#pairing">About the pairing</a></div>
+<div class="ph " data-n="wine" data-t="2" role="img" aria-label="Photograph: the cellar door"><i>Photograph: the cellar door</i></div></section>
+
+<section class="bleed"><div class="ph " data-n="room" data-t="4" role="img" aria-label="Photograph: the dining room"><i>Photograph: the dining room</i></div><div class="cap"><p>Warm light, stone, linen and a lot of quiet.</p><a class="btn btn-light" href="contact.html">Find the restaurant</a></div></section>
+
+<section class="sec"><div class="wrap priv"><div class="ph " data-n="private" data-t="5" role="img" aria-label="Photograph: the private table"><i>Photograph: the private table</i></div>
+<div><h2 class="d">Private dining</h2><p class="lede" style="margin-top:22px">A separate room for celebrations, quiet business dinners and long family evenings.</p>
+<ul><li>Private room <span>8 to 14 guests</span></li><li>Full restaurant <span>Up to 22 guests</span></li><li>Bespoke menu <span>Designed with the chef</span></li></ul>
+<a class="btn btn-line" href="contact.html#enquiry">Enquire about private dining</a></div></div></section>
+
+<section class="sec sec-bone"><div class="wrap"><div class="menu-head" style="text-align:left;margin-left:0"><h2 class="d">Journal</h2></div>
+<div class="jgrid">
+<a class="jcard" href="journal.html#the-baltic-pantry"><div class="ph " data-n="j1" data-t="1" role="img" aria-label="The pantry"><i>The pantry</i></div><h3>The Baltic pantry</h3><p>Smoke, ferment, cure and preserve: the larder behind every course.</p></a>
+<a class="jcard" href="journal.html#inside-the-aurelia-kitchen"><div class="ph " data-n="j2" data-t="2" role="img" aria-label="The kitchen"><i>The kitchen</i></div><h3>Inside the Aurelia kitchen</h3><p>A morning with the team before the first guest arrives.</p></a>
+<a class="jcard" href="journal.html#riga-after-dark"><div class="ph " data-n="j3" data-t="4" role="img" aria-label="The city"><i>The city</i></div><h3>Riga after dark</h3><p>Where we walk, drink and eat when the kitchen closes.</p></a>
+</div></div></section>
+<section class="strip"><div class="narrow"><h2 class="d">A table is waiting.</h2><p>Reservations are recommended. We seat a small number of guests each evening.</p><div class="btns"><a class="btn btn-solid" href="reservations.html">Reserve a table</a><a class="btn btn-line" href="experiences.html">Explore experiences</a></div></div></section></main>
+<footer class="ft"><div class="wrap"><div class="ft-top">
+<div><a class="logo" href="index.html">AURELIA</a><p style="margin-top:18px;max-width:30ch;opacity:.8;font-family:var(--serif);font-size:20px;font-weight:300">Modern Baltic dining in the heart of Riga.</p></div>
+<div><h4>Dinner</h4><ul><li>Tuesday to Thursday, 18:00 to 23:00</li><li>Friday and Saturday, 18:00 to 00:00</li><li>Closed Sunday and Monday</li></ul></div>
+<div><h4>Find us</h4><ul><li>Kalpaka bulvāris 8</li><li>Rīga, LV-1050</li><li><a href="tel:+37167110280">+371 6711 0280</a></li><li><a href="mailto:reservations@aurelia.example">reservations@aurelia.example</a></li></ul></div>
+<div><h4>Explore</h4><ul><li><a href="menu.html">Menu</a></li><li><a href="experiences.html">Experiences</a></li><li><a href="reservations.html">Reservations</a></li><li><a href="journal.html">Journal</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+</div><div class="ft-base"><span>Portfolio concept. Aurelia is a fictional restaurant.</span><span>Concept website designed by Drasard · Riga, Latvia</span></div></div></footer>
+<script src="assets/aurelia.js"></script></body></html>
