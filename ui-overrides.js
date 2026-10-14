@@ -1,6 +1,10 @@
 // Small presentation overrides for the live Drasard site.
 // Keeps the main React source untouched while applying approved copy changes.
 (function () {
+  // Prevent duplicate initialization if this file is ever included twice.
+  if (window.__drasardUiOverridesInitialized) return;
+  window.__drasardUiOverridesInitialized = true;
+
   const replacements = [
     ["Book a Consultation", "Enquire"],
     ["One-time setup + from €50/month", "One-time setup + monthly fee"],
@@ -43,6 +47,22 @@
     }
     return null;
   }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    const element = target && target.closest ? target.closest("a[href='#contact']") : null;
+    if (!element) return;
+
+    const contact = document.getElementById("contact");
+    if (!contact) return;
+
+    // Keep Enquire links inside the existing page and scroll to the form.
+    event.preventDefault();
+    if (window.location.hash !== "#contact") {
+      window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}#contact`);
+    }
+    contact.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   function connectDemoLinks() {
     document.querySelectorAll("a, button").forEach((element) => {
