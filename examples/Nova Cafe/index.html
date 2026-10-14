@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Café — Specialty Coffee, Roasted In-House</title>
+<meta name="description" content="Nova Café — a small-batch roastery and coffee bar in the Old Town. Single origin, brewed slow, served warm.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' fill='%23120F0C'/><path d='M12 2C12.8 7.8 16.2 11.2 22 12 16.2 12.8 12.8 16.2 12 22 11.2 16.2 7.8 12.8 2 12 7.8 11.2 11.2 7.8 12 2Z' fill='%23C4763B'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Archivo:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#171210; --ink-2:#100D0B; --ink-3:#1B1611;
+  --paper:#F1E9DC; --paper-2:#E7DCC9;
+  --copper:#C4763B; --copper-2:#A05A28; --coffee:#7C4620;
+  --line-d:rgba(241,233,220,.14); --line-l:rgba(23,18,16,.18);
+  --fd:'Fraunces',Georgia,serif; --fb:'Archivo',Helvetica,sans-serif; --fm:'Spline Sans Mono',ui-monospace,monospace;
+  --pad:clamp(20px,6vw,84px);
+}
+html{overflow-x:clip}
+body{overflow-x:clip;background:var(--ink-2);color:var(--paper);font-family:var(--fb);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--copper);color:#1E140B}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+h1,h2,h3{font-weight:inherit}
+section{scroll-margin-top:90px}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--ink-2)}
+::-webkit-scrollbar-thumb{background:#3a2f26;border-radius:99px;border:2px solid var(--ink-2)}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:2px}
+
+/* ---------- themes ---------- */
+.sec-dark{background:var(--ink-2);--tx:var(--paper);--tx-dim:rgba(241,233,220,.55);--ln:var(--line-d);color:var(--tx)}
+.sec-light{background:var(--paper);--tx:var(--ink);--tx-dim:rgba(23,18,16,.62);--ln:var(--line-l);color:var(--tx);color-scheme:light}
+.sec-accent{background:var(--copper);--tx:#1E140B;--tx-dim:rgba(30,20,11,.66);--ln:rgba(30,20,11,.28);color:var(--tx)}
+.wrap{max-width:1300px;margin:0 auto;padding:clamp(90px,13vh,160px) var(--pad)}
+
+/* ---------- shared bits ---------- */
+.label{display:flex;align-items:center;gap:10px;font-family:var(--fm);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--tx-dim)}
+.label::before{content:'';width:8px;height:8px;background:var(--copper);flex:none;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.h2{font-family:var(--fd);font-optical-sizing:auto;font-weight:430;font-size:clamp(2.5rem,5.2vw,4.5rem);line-height:1.02;letter-spacing:-.015em;margin:26px 0 18px}
+.h2 em{font-style:italic;font-weight:380;color:var(--copper)}
+.sub{max-width:46ch;color:var(--tx-dim);font-size:15.5px}
+.split .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.13em;margin-bottom:-.13em}
+.split .wi{display:inline-block;will-change:transform}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border:1px solid currentColor;border-radius:999px;font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;transition:background .35s,color .35s,border-color .35s}
+.btn i{font-size:15px;transition:transform .35s}
+.btn:hover{background:var(--copper);border-color:var(--copper);color:#1E140B}
+.btn:hover i{transform:translate(2px,-2px)}
+.btn-solid{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:var(--copper);border-color:var(--copper);color:#1E140B}
+.duo{position:relative;overflow:hidden}
+.duo img{position:absolute;left:0;top:-10%;width:100%;height:120%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.92)}
+.duo::after{content:'';position:absolute;inset:0;background:var(--copper-2);mix-blend-mode:multiply;opacity:.5;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- grain / progress / cursor ---------- */
+.grain{position:fixed;inset:-60%;width:220%;height:220%;z-index:250;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  animation:grain 7s steps(8) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-3%,-3%)}100%{transform:translate(2%,2%)}}
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:170;pointer-events:none}
+.progress i{display:block;height:100%;background:var(--copper);transform:scaleX(0);transform-origin:left}
+.cur-dot,.cur-ring{position:fixed;top:0;left:0;z-index:300;pointer-events:none;border-radius:50%;display:none}
+.cur-dot{width:6px;height:6px;background:var(--copper)}
+.cur-ring{width:34px;height:34px;border:1px solid var(--copper);opacity:.7;transition:width .25s,height .25s,opacity .25s}
+body.cur-hover .cur-ring{width:58px;height:58px;opacity:.95}
+body.cur-text .cur-ring{width:14px;height:14px;opacity:.5}
+@media (pointer:fine){
+  body,a,button,label{cursor:none}
+  input,textarea,select{cursor:text}
+  .cur-dot,.cur-ring{display:block}
+}
+
+/* ---------- preloader ---------- */
+.preloader{position:fixed;inset:0;z-index:260;background:var(--ink-2);display:flex;align-items:center;justify-content:center}
+.pl-brand{font-family:var(--fd);font-size:clamp(2rem,5vw,3.4rem);letter-spacing:.08em;display:flex;align-items:center}
+.pl-star-w{display:inline-block;width:.72em;height:.72em;margin:0 .08em}
+.pl-star{width:100%;height:100%;fill:var(--copper);display:block;animation:spin 2.2s linear infinite}
+.pl-count{position:absolute;left:var(--pad);bottom:26px;font-family:var(--fd);font-weight:340;font-size:clamp(3rem,8vw,6rem);opacity:.9}
+.pl-bar{position:absolute;left:0;bottom:0;width:100%;height:2px;background:rgba(241,233,220,.12)}
+.pl-bar i{display:block;height:100%;background:var(--copper);transform:scaleX(0);transform-origin:left}
+
+/* ---------- header ---------- */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:160;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px var(--pad);border-bottom:1px solid transparent;transition:background .4s,border-color .4s,color .4s;color:var(--paper)}
+.site-header.t-light{color:var(--ink)}
+.site-header.scrolled{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.site-header.t-dark.scrolled{background:rgba(16,13,11,.55);border-bottom-color:var(--line-d)}
+.site-header.t-light.scrolled{background:rgba(241,233,220,.62);border-bottom-color:var(--line-l)}
+.brand{display:flex;align-items:center;font-family:var(--fd);font-size:21px;letter-spacing:.08em;font-weight:520}
+.brand svg{width:13px;height:13px;fill:var(--copper);margin:0 2px;transition:transform .6s cubic-bezier(.34,1.4,.64,1)}
+.brand:hover svg{transform:rotate(180deg)}
+.nav{display:flex;gap:30px}
+.nav a{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;position:relative;padding:6px 0;transition:opacity .3s}
+.nav a::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--copper);transform:scaleX(0);transform-origin:right;transition:transform .35s}
+.nav a:hover{opacity:1}
+.nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;width:40px;height:40px;position:relative}
+.burger span{position:absolute;left:8px;right:8px;height:1.5px;background:currentColor;transition:transform .35s,top .35s}
+.burger span:nth-child(1){top:15px}
+.burger span:nth-child(2){top:23px}
+body.nav-open .burger span:nth-child(1){top:19px;transform:rotate(45deg)}
+body.nav-open .burger span:nth-child(2){top:19px;transform:rotate(-45deg)}
+
+/* ---------- nav overlay ---------- */
+.nav-overlay{position:fixed;inset:0;z-index:150;background:var(--ink-2);color:var(--paper);transform:translateY(-100%);transition:transform .7s cubic-bezier(.76,0,.24,1);display:flex;flex-direction:column;justify-content:space-between;padding:110px var(--pad) 36px}
+body.nav-open .nav-overlay{transform:translateY(0)}
+.ov-link{display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--line-d);font-family:var(--fd);font-size:clamp(2.2rem,8vw,4.4rem);line-height:1.05;transition:color .3s,transform .3s}
+.ov-link small{font-family:var(--fm);font-size:11px;letter-spacing:.2em;color:rgba(241,233,220,.4)}
+.ov-link:hover{color:var(--copper);transform:translateX(10px)}
+.ov-foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:rgba(241,233,220,.5);font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column}
+#sky{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-in{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;width:100%;max-width:1300px;margin:0 auto;padding:120px var(--pad) 36px}
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.est{font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-dim)}
+.hero-mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding:30px 0}
+.hero-title{display:flex;align-items:flex-end;font-family:var(--fd);font-optical-sizing:auto;font-weight:480;font-size:clamp(5.2rem,20vw,19rem);line-height:.88;letter-spacing:-.02em;margin-left:-.05em}
+.ht-ch{display:inline-block;overflow:hidden;padding-bottom:.05em;margin-bottom:-.05em;transition:transform .35s}
+.ht-ch:hover{transform:translateY(-.025em)}
+.ht-in{display:inline-block;will-change:transform}
+.star-w{display:inline-block;width:.72em;height:.72em;transform:translateY(.02em);transition:transform .4s}
+.ht-ch:hover .star-w{transform:translateY(.02em) scale(1.12)}
+.star-o{display:block;width:100%;height:100%;fill:var(--copper);animation:spin 14s linear infinite}
+.hero-sub{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-top:clamp(24px,4vh,48px);flex-wrap:wrap}
+.hero-tag{font-family:var(--fd);font-style:italic;font-weight:380;font-size:clamp(1.4rem,2.6vw,2.2rem);line-height:1.25}
+.hero-tag em{color:var(--copper)}
+.hero-par{max-width:37ch;font-size:14.5px;color:var(--tx-dim)}
+.hero-bot{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-top:26px;border-top:1px solid var(--line-d)}
+.cue{display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--fm);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--tx-dim)}
+.cue-line{width:1px;height:52px;background:var(--line-d);position:relative;overflow:hidden}
+.cue-line::after{content:'';position:absolute;left:0;top:-45%;width:1px;height:45%;background:var(--copper);animation:cue 1.9s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes cue{to{top:110%}}
+.hero-info{text-align:right;font-family:var(--fm);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--tx-dim);display:grid;gap:6px}
+.hero-info b{color:var(--paper);font-weight:500}
+.badge{position:absolute;right:calc(var(--pad) + 8px);bottom:140px;width:124px;height:124px;z-index:2;display:block}
+.badge-rot{width:100%;height:100%;animation:spin 18s linear infinite;transform-origin:center}
+.badge text{font-family:var(--fm);font-size:9.2px;letter-spacing:.14em;fill:rgba(241,233,220,.75)}
+.badge-star{position:absolute;inset:0;margin:auto;width:22px;height:22px;fill:var(--copper);transition:transform .5s}
+.badge:hover .badge-star{transform:rotate(90deg) scale(1.15)}
+
+/* ---------- marquee band ---------- */
+.band{position:relative;z-index:6;background:var(--copper);color:#1E140B;transform:rotate(-1.4deg) scale(1.03);margin:-38px 0;padding:15px 0;overflow:hidden}
+.band-track{display:flex;width:max-content;animation:mar 26s linear infinite}
+.band-g{display:flex;align-items:center;gap:34px;padding-right:34px;font-family:var(--fm);font-size:12px;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
+.band-g svg{width:12px;height:12px;fill:#1E140B;flex:none}
+@keyframes mar{to{transform:translateX(-50%)}}
+
+/* ---------- story ---------- */
+.story-grid{display:grid;grid-template-columns:1.05fr .8fr;gap:clamp(40px,7vw,110px);margin-top:clamp(40px,6vh,70px);align-items:start}
+.story-copy p{color:var(--tx-dim);font-size:15.5px;max-width:54ch}
+.story-copy p+p{margin-top:1.2em}
+.story-copy .lede::first-letter{font-family:var(--fd);font-weight:430;font-size:3.4em;line-height:.78;float:left;padding:8px 12px 0 0;color:var(--copper)}
+.story-fig{aspect-ratio:4/5}
+.fig-cap{display:flex;justify-content:space-between;gap:14px;font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tx-dim);padding-top:12px;border-top:1px solid var(--ln);margin-top:14px}
+.facts{display:flex;flex-wrap:wrap;margin-top:clamp(50px,8vh,90px);border-top:1px solid var(--ln)}
+.fact{padding:22px clamp(24px,4vw,56px) 0 0;margin-right:clamp(24px,4vw,56px);border-right:1px solid var(--ln)}
+.fact:last-child{border-right:0;margin-right:0;padding-right:0}
+.fact b{display:block;font-family:var(--fd);font-weight:420;font-size:clamp(2rem,3.6vw,3rem);line-height:1}
+.fact span{font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-dim)}
+
+/* ---------- interlude ---------- */
+.interlude .wrap{padding-block:clamp(110px,16vh,180px)}
+.in-star{display:block;width:30px;height:30px;margin:0 auto;fill:#1E140B;animation:spin 10s linear infinite}
+.in-quote{font-family:var(--fd);font-style:italic;font-weight:380;font-size:clamp(1.9rem,4.4vw,3.9rem);line-height:1.25;max-width:24ch;margin:30px auto 26px;text-align:center}
+.in-attr{text-align:center;font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-dim)}
+
+/* ---------- menu ---------- */
+.mtabs{display:flex;gap:clamp(18px,3vw,36px);border-bottom:1px solid var(--ln);margin:44px 0 4px;position:relative;flex-wrap:wrap}
+.mtab{font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:14px 2px;opacity:.45;transition:opacity .3s}
+.mtab:hover{opacity:.8}
+.mtab.on{opacity:1}
+.mtab sup{font-size:9px;color:var(--tx-dim);margin-left:5px;letter-spacing:0}
+.t-ind{position:absolute;bottom:-1px;height:2px;background:var(--copper);transition:left .4s cubic-bezier(.65,0,.35,1),width .4s cubic-bezier(.65,0,.35,1)}
+.mlist{display:flex;flex-direction:column}
+.mrow{display:flex;align-items:baseline;gap:16px;width:100%;padding:24px 10px;border-bottom:1px solid var(--ln);text-align:left;transition:background .3s}
+.mrow:hover{background:rgba(241,233,220,.04)}
+.m-ix{font-family:var(--fm);font-size:10px;color:var(--tx-dim);width:26px;flex:none}
+.m-ast{width:12px;height:12px;fill:var(--copper);flex:none;align-self:center;opacity:0;transform:rotate(-90deg) scale(.4);transition:opacity .3s,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.mrow:hover .m-ast{opacity:1;transform:none}
+.m-main{display:flex;flex-direction:column;gap:5px}
+.m-name{font-family:var(--fd);font-weight:430;font-size:clamp(1.35rem,2.2vw,1.7rem);line-height:1.1;transition:transform .35s}
+.mrow:hover .m-name{transform:translateX(6px)}
+.m-desc{font-family:var(--fm);font-size:11px;letter-spacing:.06em;color:var(--tx-dim)}
+.m-dots{flex:1;min-width:30px;border-bottom:1px dotted rgba(241,233,220,.22);transform:translateY(-4px)}
+.m-price{font-family:var(--fd);font-weight:430;font-size:1.25rem;flex:none}
+.m-price i{font-style:normal;font-family:var(--fm);font-size:10px;color:var(--tx-dim);margin-right:4px;vertical-align:2px}
+.mnote{display:flex;align-items:center;gap:10px;margin-top:26px;color:var(--tx-dim);font-size:13.5px}
+.mnote i{color:var(--copper);font-size:17px}
+.peek{position:fixed;top:0;left:0;z-index:110;width:220px;height:270px;pointer-events:none;opacity:0;transition:opacity .3s;will-change:transform}
+.peek.on{opacity:1}
+.peek .in{position:absolute;inset:0;overflow:hidden;transform:scale(.72);transition:transform .35s cubic-bezier(.34,1.4,.64,1)}
+.peek.on .in{transform:scale(1)}
+.peek img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.9)}
+.peek .in::after{content:'';position:absolute;inset:0;background:var(--copper-2);mix-blend-mode:multiply;opacity:.5}
+@media (pointer:coarse){.peek{display:none}}
+
+/* ---------- brew bar ---------- */
+.brew-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(44px,6vw,90px);margin-top:26px;align-items:start}
+.bmethods{display:flex;flex-direction:column;margin-bottom:10px}
+.bm{display:flex;align-items:center;gap:16px;padding:16px 4px;border-bottom:1px solid var(--ln);opacity:.4;transition:opacity .3s;text-align:left}
+.bm:hover{opacity:.75}
+.bm.on{opacity:1}
+.bm small{font-family:var(--fm);font-size:10px;letter-spacing:.14em;color:var(--tx-dim);width:28px;flex:none}
+.bm-star{width:14px;height:14px;fill:var(--copper);flex:none;opacity:0;transform:rotate(-90deg) scale(.4);transition:.45s cubic-bezier(.34,1.56,.64,1)}
+.bm.on .bm-star{opacity:1;transform:none}
+.bm-name{font-family:var(--fd);font-weight:430;font-size:clamp(1.4rem,2.4vw,1.9rem);transition:transform .35s}
+.bm.on .bm-name{transform:translateX(8px)}
+.bm i{margin-left:auto;font-size:18px;color:var(--copper);opacity:0;transform:translate(-6px,6px);transition:.35s}
+.bm.on i{opacity:1;transform:none}
+.b-desc{color:var(--tx-dim);font-size:15px;min-height:3.2em;max-width:44ch;margin-top:16px}
+.bstats{display:grid;grid-template-columns:1fr 1fr;margin-top:22px;border-top:1px solid var(--ln)}
+.bstat{padding:18px 0 14px;border-bottom:1px solid var(--ln)}
+.bstat:nth-child(odd){border-right:1px solid var(--ln);padding-right:24px}
+.bstat:nth-child(even){padding-left:24px}
+.bstat:nth-last-child(-n+2){border-bottom:0}
+.bstat span{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-dim);margin-bottom:6px}
+.bstat b{font-family:var(--fd);font-weight:420;font-size:clamp(1.7rem,2.6vw,2.2rem);line-height:1}
+.bstat em{font-style:normal;font-family:var(--fm);font-size:11px;color:var(--tx-dim);margin-left:4px}
+.brew-cta{margin-top:28px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.chip{display:none;align-items:center;gap:7px;font-family:var(--fm);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper)}
+.chip.on{display:inline-flex}
+.chip i{font-size:13px}
+.fig{position:relative;border:1px solid var(--ln);padding:22px}
+.fig::before,.fig::after{content:'';position:absolute;width:14px;height:14px;pointer-events:none}
+.fig::before{top:-1px;left:-1px;border-top:2px solid var(--copper);border-left:2px solid var(--copper)}
+.fig::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--copper);border-right:2px solid var(--copper)}
+.fig-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--tx-dim);padding-bottom:16px;border-bottom:1px solid var(--ln)}
+.brew-svg{display:block;width:100%;max-width:430px;margin:8px auto}
+.fig-foot{display:flex;justify-content:space-between;border-top:1px solid var(--ln);padding-top:14px;font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--tx-dim)}
+#drops{opacity:0;transition:opacity .3s}
+.brewing #drops{opacity:1}
+.drop{opacity:0}
+.brewing .drop{animation:drip .6s cubic-bezier(.55,0,1,.45) infinite}
+.drop:nth-child(2){animation-delay:.2s}
+.drop:nth-child(3){animation-delay:.4s}
+@keyframes drip{0%{transform:translateY(0);opacity:1}80%{opacity:1}100%{transform:translateY(20px);opacity:0}}
+.steam-p{opacity:0}
+.steaming .steam-p{animation:steamA 1.6s ease-in-out infinite}
+.steam-p:nth-child(2){animation-delay:.5s}
+@keyframes steamA{0%{opacity:0;transform:translateY(4px)}30%{opacity:.55}100%{opacity:0;transform:translateY(-6px)}}
+
+/* ---------- origins ---------- */
+.opanel{position:sticky;top:calc(var(--i)*64px);min-height:100vh;border-top:2px solid var(--acc);background:var(--pbg);display:flex;flex-direction:column;justify-content:center;will-change:transform}
+.op-in{display:grid;grid-template-columns:1.1fr .75fr;gap:clamp(36px,6vw,100px);align-items:center;width:100%;max-width:1300px;margin:0 auto;padding:130px var(--pad) 40px}
+.opanel.flip .op-in{grid-template-columns:.75fr 1.1fr}
+.opanel.flip .op-meta{order:2}
+.op-ix{font-family:var(--fm);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc)}
+.op-name{font-family:var(--fd);font-weight:430;font-size:clamp(3rem,7.5vw,6.4rem);line-height:.95;letter-spacing:-.02em;margin:16px 0 10px}
+.op-sub{font-family:var(--fd);font-style:italic;font-size:clamp(1.05rem,1.6vw,1.3rem);color:rgba(241,233,220,.55)}
+.op-table{margin-top:30px;max-width:380px}
+.op-table>div{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--line-d)}
+.op-table dt{font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(241,233,220,.45);padding-top:3px}
+.op-table dd{font-size:14.5px}
+.op-fig{aspect-ratio:3/4;width:100%;max-height:62vh}
+.op-notes{font-family:var(--fd);font-style:italic;font-weight:380;font-size:clamp(1.7rem,4.4vw,3.6rem);line-height:1.15;color:var(--acc);text-align:center;width:100%;max-width:1300px;margin:0 auto;padding:0 var(--pad) 64px}
+
+/* ---------- visit ---------- */
+.visit-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(44px,6vw,100px);margin-top:clamp(40px,6vh,64px);align-items:start}
+.v-addr{font-family:var(--fd);font-weight:430;font-size:clamp(1.4rem,2.2vw,1.8rem);line-height:1.35}
+.v-addr em{color:var(--copper)}
+.v-block{margin-top:34px}
+.v-block h4{font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--tx-dim);margin-bottom:14px}
+.hours div{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--ln);font-size:14.5px}
+.hours span{color:var(--tx-dim)}
+.v-contact{display:flex;flex-direction:column;gap:10px;font-size:14.5px}
+.v-contact a,.v-contact span{display:inline-flex;align-items:center;gap:10px;width:fit-content;transition:color .3s}
+.v-contact a:hover{color:var(--copper)}
+.v-contact i{color:var(--copper);font-size:16px}
+.map-fig{border:1px solid var(--ln);padding:14px}
+.map-fig svg{display:block;width:100%;height:auto}
+.map-cap{display:flex;justify-content:space-between;font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--tx-dim);padding:12px 4px 2px;border-top:1px solid var(--ln);margin-top:10px}
+.pulse{animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{opacity:.7;r:6}70%{opacity:0;r:22}100%{opacity:0;r:22}}
+.rform{margin-top:38px;border-top:1px solid var(--ln);padding-top:26px}
+.rform h3{font-family:var(--fd);font-weight:430;font-size:1.5rem;margin:12px 0 24px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:20px}
+.fld label{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-dim);margin-bottom:7px}
+.fld input,.fld select{width:100%;background:transparent;border:0;border-bottom:1px solid var(--ln);border-radius:0;padding:10px 2px;font-family:var(--fb);font-size:15px;color:var(--tx);transition:border-color .3s}
+.fld input:focus,.fld select:focus{outline:none;border-bottom-color:var(--copper)}
+.sel{position:relative}
+.sel select{appearance:none;-webkit-appearance:none;padding-right:26px}
+.sel>i{position:absolute;right:2px;bottom:12px;pointer-events:none;color:var(--tx-dim);font-size:13px}
+.stepper{display:flex;align-items:center;gap:16px;padding-top:2px}
+.stepper button{width:34px;height:34px;border:1px solid var(--ln);border-radius:50%;display:grid;place-items:center;font-size:14px;transition:border-color .3s,color .3s}
+.stepper button:hover{border-color:var(--copper);color:var(--copper)}
+.stepper b{font-family:var(--fd);font-weight:430;font-size:1.4rem;min-width:20px;text-align:center}
+.rform.shake{animation:shake .45s}
+@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+
+/* ---------- footer ---------- */
+.f-top{display:flex;justify-content:space-between;align-items:flex-end;gap:44px;flex-wrap:wrap;padding-bottom:56px;border-bottom:1px solid var(--line-d)}
+.f-line{font-family:var(--fd);font-style:italic;font-weight:380;font-size:clamp(2rem,4.6vw,4rem);line-height:1.1;max-width:14ch}
+.f-line em{color:var(--copper)}
+.f-news{width:min(400px,100%)}
+.f-lab{display:block;font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,233,220,.5);margin-bottom:10px}
+.f-news-row{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line-d)}
+.f-news input{flex:1;background:none;border:0;padding:12px 2px;color:var(--paper);font-size:15px;font-family:var(--fb)}
+.f-news input:focus{outline:none}
+.f-news button{width:44px;height:44px;border:1px solid var(--line-d);border-radius:50%;display:grid;place-items:center;font-size:17px;flex:none;transition:background .3s,border-color .3s,color .3s}
+.f-news button:hover{background:var(--copper);border-color:var(--copper);color:#1E140B}
+.f-giant{display:flex;justify-content:center;align-items:baseline;padding:8vh 0 6vh;font-family:var(--fd);font-weight:480;font-size:clamp(5.5rem,21vw,20rem);line-height:.9;letter-spacing:.01em;user-select:none}
+.f-giant span{-webkit-text-stroke:1px rgba(241,233,220,.4);color:transparent;transition:color .4s,-webkit-text-stroke-color .4s}
+.f-giant span:hover{color:var(--copper);-webkit-text-stroke-color:var(--copper)}
+.g-star{width:.72em;height:.72em;margin:0 .02em;fill:transparent;stroke:rgba(241,233,220,.4);stroke-width:.8;animation:spin 26s linear infinite;transition:fill .4s,stroke .4s}
+.g-star:hover{fill:var(--copper);stroke:var(--copper)}
+.f-bot{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;padding:26px 0 34px;border-top:1px solid var(--line-d);font-family:var(--fm);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(241,233,220,.45)}
+.f-bot b{font-weight:500;color:rgba(241,233,220,.75)}
+.f-soc{display:flex;gap:12px}
+.f-soc button{width:42px;height:42px;border:1px solid var(--line-d);border-radius:50%;display:grid;place-items:center;font-size:17px;transition:background .3s,border-color .3s,color .3s}
+.f-soc button:hover{background:var(--copper);border-color:var(--copper);color:#1E140B}
+.to-top{width:46px;height:46px;border:1px solid var(--line-d);border-radius:50%;display:grid;place-items:center;font-size:17px;transition:background .3s,border-color .3s,color .3s}
+.to-top:hover{background:var(--copper);border-color:var(--copper);color:#1E140B}
+
+/* ---------- toasts ---------- */
+.toasts{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:220;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;background:#191410;border:1px solid rgba(196,118,59,.5);color:var(--paper);padding:14px 22px;border-radius:2px;font-size:14px;max-width:min(92vw,480px);opacity:0;transform:translateY(24px);transition:opacity .4s,transform .45s cubic-bezier(.22,1,.36,1)}
+.toast.show{opacity:1;transform:none}
+.toast i{color:var(--copper);font-size:18px;flex:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .story-grid,.brew-grid,.visit-grid,.op-in{grid-template-columns:1fr}
+  .opanel.flip .op-meta{order:0}
+  .op-fig{aspect-ratio:4/3;max-height:42vh}
+  .badge{display:none}
+}
+@media (max-width:860px){
+  .nav,.header-cta{display:none}
+  .burger{display:block}
+}
+@media (max-width:640px){
+  .hero-title{font-size:clamp(4.4rem,23vw,9rem)}
+  .hero-info{display:none}
+  .m-dots{display:none}
+  .frow{grid-template-columns:1fr}
+  .bstats{grid-template-columns:1fr}
+  .bstat:nth-child(odd){border-right:0;padding-right:0}
+  .bstat:nth-child(even){padding-left:0}
+  .bstat:nth-last-child(2){border-bottom:1px solid var(--ln)}
+}
+@media (prefers-reduced-motion:reduce){
+  .band-track,.star-o,.pl-star,.in-star,.g-star,.badge-rot,.cue-line::after,.grain,.badge-star{animation:none!important}
+  .toast,.t-ind,.m-name,.bm-name{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- reusable star mark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="ic-star" viewBox="0 0 24 24"><path d="M12 0C12.9 6.6 17.4 11.1 24 12 17.4 12.9 12.9 17.4 12 24 11.1 17.4 6.6 12.9 0 12 6.6 11.1 11.1 6.6 12 0Z"/></symbol>
+</defs></svg>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><i></i></div>
+<div class="cur-dot" aria-hidden="true"></div>
+<div class="cur-ring" aria-hidden="true"></div>
+<div class="toasts" aria-live="polite"></div>
+
+<!-- preloader -->
+<div class="preloader" aria-hidden="true">
+  <div class="pl-brand">N<span class="pl-star-w"><svg class="pl-star" viewBox="0 0 24 24"><use href="#ic-star"/></svg></span>VA</div>
+  <div class="pl-count">000</div>
+  <div class="pl-bar"><i></i></div>
+</div>
+
+<!-- header -->
+<header class="site-header t-dark">
+  <a class="brand" href="#top" aria-label="Nova Café — back to top">N<svg viewBox="0 0 24 24"><use href="#ic-star"/></svg>VA</a>
+  <nav class="nav" aria-label="Primary">
+    <a href="#story">Story</a><a href="#menu">Menu</a><a href="#brew">Brew bar</a><a href="#origins">Origins</a><a href="#visit">Visit</a>
+  </nav>
+  <a class="btn header-cta magnetic" href="#visit"><span>Book a table</span><i class="ph-light ph-arrow-up-right"></i></a>
+  <button class="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
+</header>
+
+<!-- mobile nav -->
+<div class="nav-overlay">
+  <nav aria-label="Mobile">
+    <a class="ov-link" href="#story"><small>01</small>Story</a>
+    <a class="ov-link" href="#menu"><small>02</small>Menu</a>
+    <a class="ov-link" href="#brew"><small>03</small>Brew bar</a>
+    <a class="ov-link" href="#origins"><small>04</small>Origins</a>
+    <a class="ov-link" href="#visit"><small>05</small>Visit</a>
+  </nav>
+  <div class="ov-foot"><span>14 Ember Lane, Old Town</span><span>Open daily from 07:00</span></div>
+</div>
+
+<main>
+  <!-- hero -->
+  <section class="hero sec-dark" id="top" data-theme="dark">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="hero-in">
+      <div class="hero-top">
+        <p class="label">Specialty coffee — small batch roastery</p>
+        <p class="est">Est. 2019 — Old Town</p>
+      </div>
+      <div class="hero-mid">
+        <h1 class="hero-title" aria-label="Nova">
+          <span class="ht-ch" aria-hidden="true"><span class="ht-in">N</span></span><span class="ht-ch" aria-hidden="true"><span class="ht-in"><span class="star-w"><svg class="star-o" viewBox="0 0 24 24"><use href="#ic-star"/></svg></span></span></span><span class="ht-ch" aria-hidden="true"><span class="ht-in">V</span></span><span class="ht-ch" aria-hidden="true"><span class="ht-in">A</span></span>
+        </h1>
+        <div class="hero-sub">
+          <p class="hero-tag">A new <em>light</em> in every cup.</p>
+          <p class="hero-par">We roast in tiny batches, brew with obsessive care and keep the lights on late. Come as you are — the first sip does the rest.</p>
+        </div>
+      </div>
+      <div class="hero-bot">
+        <div class="cue"><span>Scroll</span><span class="cue-line"></span></div>
+        <div class="hero-info">
+          <span>14 Ember Lane — Old Town</span>
+          <span>Mon–Fri 07–18 · Sat–Sun 08–19</span>
+          <span><b class="js-clock">–:–</b> your local time</span>
+        </div>
+      </div>
+    </div>
+    <a class="badge magnetic" href="#story" aria-label="Scroll to our story">
+      <svg class="badge-rot" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id="circ" d="M60 60 m -45 0 a 45 45 0 1 1 90 0 a 45 45 0 1 1 -90 0"/></defs>
+        <text><textPath href="#circ" textLength="283" lengthAdjust="spacing">NOVA CAFÉ · EST. 2019 · SMALL BATCH ·</textPath></text>
+      </svg>
+      <svg class="badge-star" viewBox="0 0 24 24"><use href="#ic-star"/></svg>
+    </a>
+  </section>
+
+  <!-- marquee -->
+  <div class="band" data-theme="light" aria-hidden="true">
+    <div class="band-track">
+      <div class="band-g"><span>Single origin</span><svg viewBox="0 0 24 24"><use href="#ic-star"/></svg><span>Roasted in house</span><svg viewBox="0 0 24 24"><use href="#ic-star"/></svg><span>Brewed slow</span><svg viewBox="0 0 24 24"><use href="#ic-star"/></svg><span>Served warm</span><svg viewBox="0 0 24 24"><use href="#ic-star"/></svg></div>
+      <div class="band-g"><span>Single origin</span><svg viewBox="0 0 24 24"><use href="#ic-star"/></svg><span>Roasted in house</span><svg viewBox="0 0 24 24"><use href="#ic-star"/></svg><span>Brewed slow</span><svg viewBox="0 0 24 24"><use href="#ic-star"/></svg><span>Served warm</span><svg viewBox="0 0 24 24"><use href="#ic-star"/></svg></div>
+    </div>
+  </div>
+
+  <!-- story -->
+  <section id="story" class="sec-light" data-theme="light">
+    <div class="wrap">
+      <p class="label">01 — Our story</p>
+      <h2 class="h2 split">Roasted under our own roof, <em>poured with intent.</em></h2>
+      <div class="story-grid">
+        <div class="story-copy" data-reveal>
+          <p class="lede">Nova began in 2019 with a secondhand 12-kilo roaster we named Hilda, a borrowed counter, and the suspicion that a city this loud deserved a quieter cup.</p>
+          <p>Five years on, Hilda still runs first crack every morning at 06:45. We buy from farms we have actually visited, roast in batches small enough to argue over, and dial in until the sweetness shows up on its own — no syrups, no shortcuts.</p>
+          <p>The room itself is built for lingering: fourteen seats, long mornings, records on heavy rotation. Ask for the wifi password only if you truly must leave.</p>
+        </div>
+        <figure class="story-fig" data-reveal>
+          <div class="duo" style="position:absolute;inset:0"><img src="https://picsum.photos/seed/nova-bar/900/1100.jpg" alt="Inside the Nova Café bar" loading="lazy"></div>
+          <figcaption class="fig-cap"><span>The bar — first light</span><span>06:45</span></figcaption>
+        </figure>
+      </div>
+      <div class="facts" data-reveal>
+        <div class="fact"><b>2019</b><span>the first spark</span></div>
+        <div class="fact"><b>03</b><span>roast profiles</span></div>
+        <div class="fact"><b>14</b><span>seats, no rush</span></div>
+        <div class="fact"><b>06:45</b><span>first crack, daily</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- menu -->
+  <section id="menu" class="sec-dark" data-theme="dark">
+    <div class="wrap">
+      <p class="label">02 — The menu</p>
+      <h2 class="h2 split">What’s <em>pouring</em> today</h2>
+      <p class="sub" data-reveal>Beans rotate with the seasons and the roaster’s mood. The welcome never does.</p>
+      <div class="mtabs" data-reveal>
+        <button class="mtab on" data-f="all">All<sup>12</sup></button>
+        <button class="mtab" data-f="espresso">Espresso<sup>4</sup></button>
+        <button class="mtab" data-f="filter">Filter<sup>4</sup></button>
+        <button class="mtab" data-f="sweet">Sweet<sup>4</sup></button>
+        <span class="t-ind" aria-hidden="true"></span>
+      </div>
+      <div class="mlist"></div>
+      <p class="mnote" data-reveal><i class="ph-light ph-plant"></i>Oat, almond or whole — same price. Decaf after 4pm, no questions asked.</p>
+    </div>
+  </section>
+
+  <!-- interlude -->
+  <section class="sec-accent interlude" data-theme="light">
+    <div class="wrap">
+      <svg class="in-star" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-star"/></svg>
+      <p class="in-quote">“Drink it while it’s hot. Stay while it’s not.”</p>
+      <p class="in-attr">— painted above the bar, in copper</p>
+    </div>
+  </section>
+
+  <!-- brew bar -->
+  <section id="brew" class="sec-light" data-theme="light">
+    <div class="wrap">
+      <p class="label">03 — The brew bar</p>
+      <h2 class="h2 split">Pick a method. <em>Watch it happen.</em></h2>
+      <p class="sub" data-reveal>The numbers are honest here. Choose your weapon and press begin — we’ll run it in time-lapse.</p>
+      <div class="brew-grid">
+        <div data-reveal>
+          <div class="bmethods">
+            <button class="bm on" data-key="espresso"><small>Nº1</small><svg class="bm-star" viewBox="0 0 24 24"><use href="#ic-star"/></svg><span class="bm-name">Espresso</span><i class="ph-light ph-arrow-right"></i></button>
+            <button class="bm" data-key="v60"><small>Nº2</small><svg class="bm-star" viewBox="0 0 24 24"><use href="#ic-star"/></svg><span class="bm-name">V60 Pour Over</span><i class="ph-light ph-arrow-right"></i></button>
+            <button class="bm" data-key="aero"><small>Nº3</small><svg class="bm-star" viewBox="0 0 24 24"><use href="#ic-star"/></svg><span class="bm-name">AeroPress</span><i class="ph-light ph-arrow-right"></i></button>
+            <button class="bm" data-key="cold"><small>Nº4</small><svg class="bm-star" viewBox="0 0 24 24"><use href="#ic-star"/></svg><span class="bm-name">Cold Brew</span><i class="ph-light ph-arrow-right"></i></button>
+          </div>
+          <p class="b-desc" id="bDesc"></p>
+          <div class="bstats">
+            <div class="bstat"><span>Dose</span><b><span class="bv" id="nDose">0</span><em>g</em></b></div>
+            <div class="bstat"><span>Yield</span><b><span class="bv" id="nOut">0</span><em>g</em></b></div>
+            <div class="bstat"><span>Water temp</span><b><span class="bv" id="nTemp">0</span><em>°C</em></b></div>
+            <div class="bstat"><span>Brew time</span><b><span class="bv" id="nTime">–</span></b></div>
+          </div>
+          <div class="brew-cta">
+            <button class="btn btn-solid magnetic" id="brewBtn"><span>Begin the brew</span><i class="ph-light ph-play"></i></button>
+            <span class="chip" id="tlChip"></span>
+          </div>
+        </div>
+        <figure class="fig" data-reveal>
+          <div class="fig-head"><span id="figName">FIG. 01 — ESPRESSO</span><span id="figTemp">93°C</span></div>
+          <svg class="brew-svg" id="brewSvg" viewBox="0 0 320 320" fill="none" aria-hidden="true">
+            <defs><clipPath id="cupClip"><path d="M122 154 L129 248 Q130 258 141 258 L179 258 Q190 258 191 248 L198 154 Z"/></clipPath></defs>
+            <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M95 40 L225 40"/>
+              <path d="M95 40 L140 130"/><path d="M225 40 L180 130"/><path d="M140 130 L180 130"/>
+              <path d="M107 52 L213 52 L172 122 L148 122 Z" opacity=".3" stroke-width="1.4"/>
+              <path d="M148 121 Q160 107 172 121 Z" fill="currentColor" stroke="none" opacity=".3"/>
+              <path d="M118 150 L126 250 Q127 262 140 262 L180 262 Q193 262 194 250 L202 150"/>
+              <path d="M118 150 L202 150"/>
+              <path d="M202 168 C226 170 228 194 200 198"/>
+              <path d="M104 280 L216 280" opacity=".5"/><path d="M118 290 L202 290" opacity=".5"/>
+            </g>
+            <rect id="liq" x="120" y="262" width="80" height="112" fill="#7C4620" clip-path="url(#cupClip)"/>
+            <g id="drops" fill="#7C4620">
+              <circle class="drop" cx="150" cy="136" r="2.4"/>
+              <circle class="drop" cx="160" cy="136" r="2.4"/>
+              <circle class="drop" cx="170" cy="136" r="2.4"/>
+            </g>
+            <g id="steam" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round">
+              <path class="steam-p" d="M148 30 C154 22 142 16 148 6"/>
+              <path class="steam-p" d="M166 34 C172 26 160 20 166 10"/>
+            </g>
+          </svg>
+          <div class="fig-foot"><span>Nova micro-roastery</span><span>scale · kettle · patience</span></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- origins -->
+  <section id="origins" class="origins" data-theme="dark">
+    <article class="opanel" style="--i:0;--acc:#C9843F;--pbg:#14100C">
+      <div class="op-in">
+        <div class="op-meta">
+          <p class="op-ix">Origin 01 / 03 — Ethiopia</p>
+          <h3 class="op-name">Chelbesa</h3>
+          <p class="op-sub">Gedeo Zone, southern Ethiopia</p>
+          <dl class="op-table">
+            <div><dt>Altitude</dt><dd>1,950 – 2,100 m</dd></div>
+            <div><dt>Varietal</dt><dd>Local heirloom</dd></div>
+            <div><dt>Process</dt><dd>Washed</dd></div>
+            <div><dt>Roast</dt><dd>Light — filter first</dd></div>
+          </dl>
+        </div>
+        <figure class="duo op-fig"><img src="https://picsum.photos/seed/nova-eth/720/920.jpg" alt="Ethiopian highlands" loading="lazy"></figure>
+      </div>
+      <p class="op-notes">jasmine · apricot · wild honey</p>
+    </article>
+    <article class="opanel flip" style="--i:1;--acc:#C4633B;--pbg:#120E0C">
+      <div class="op-in">
+        <div class="op-meta">
+          <p class="op-ix">Origin 02 / 03 — Colombia</p>
+          <h3 class="op-name">El Vergel</h3>
+          <p class="op-sub">Tolima, central Colombia</p>
+          <dl class="op-table">
+            <div><dt>Altitude</dt><dd>1,680 m</dd></div>
+            <div><dt>Varietal</dt><dd>Pink Bourbon</dd></div>
+            <div><dt>Process</dt><dd>Honey</dd></div>
+            <div><dt>Roast</dt><dd>Medium — our espresso heart</dd></div>
+          </dl>
+        </div>
+        <figure class="duo op-fig"><img src="https://picsum.photos/seed/nova-col/720/920.jpg" alt="Colombian coffee farm" loading="lazy"></figure>
+      </div>
+      <p class="op-notes">red plum · panela · cacao nib</p>
+    </article>
+    <article class="opanel" style="--i:2;--acc:#D9A441;--pbg:#0F0D0B">
+      <div class="op-in">
+        <div class="op-meta">
+          <p class="op-ix">Origin 03 / 03 — Kenya</p>
+          <h3 class="op-name">Gatomboya</h3>
+          <p class="op-sub">Kiambu County, central Kenya</p>
+          <dl class="op-table">
+            <div><dt>Altitude</dt><dd>1,800 m</dd></div>
+            <div><dt>Varietal</dt><dd>SL-28 · SL-34</dd></div>
+            <div><dt>Process</dt><dd>Washed</dd></div>
+            <div><dt>Roast</dt><dd>Light — for purists</dd></div>
+          </dl>
+        </div>
+        <figure class="duo op-fig"><img src="https://picsum.photos/seed/nova-ken/720/920.jpg" alt="Kenyan tea and coffee country" loading="lazy"></figure>
+      </div>
+      <p class="op-notes">blackcurrant · grapefruit · brown sugar</p>
+    </article>
+  </section>
+
+  <!-- visit -->
+  <section id="visit" class="sec-light" data-theme="light">
+    <div class="wrap">
+      <p class="label">04 — Visit</p>
+      <h2 class="h2 split">Find the <em>light.</em></h2>
+      <div class="visit-grid">
+        <div data-reveal>
+          <p class="v-addr">14 Ember Lane, corner of Mill St — the copper door with the <em>steamed window.</em></p>
+          <div class="v-block">
+            <h4>Opening hours</h4>
+            <div class="hours">
+              <div><span>Monday — Friday</span><b>07:00 — 18:00</b></div>
+              <div><span>Saturday</span><b>08:00 — 19:00</b></div>
+              <div><span>Sunday</span><b>08:00 — 17:00</b></div>
+              <div><span>Kitchen</span><b>closes one hour before</b></div>
+            </div>
+          </div>
+          <div class="v-block">
+            <h4>Contact</h4>
+            <div class="v-contact">
+              <a href="mailto:hello@novacafe.coffee"><i class="ph-light ph-envelope-simple"></i>hello@novacafe.coffee</a>
+              <a href="tel:+15550110119"><i class="ph-light ph-phone"></i>+1 (555) 011-0119</a>
+              <span><i class="ph-light ph-map-pin"></i>Old Town — two canals from the square</span>
+            </div>
+          </div>
+        </div>
+        <div data-reveal>
+          <figure class="map-fig">
+            <svg viewBox="0 0 460 330" aria-label="Stylised map to Nova Café">
+              <g stroke="#D3C6AD" stroke-width="3" stroke-linecap="round" fill="none">
+                <path d="M-10 84 L470 58"/><path d="M-10 168 L470 142"/><path d="M-10 246 L470 224"/>
+                <path d="M92 -10 L128 340"/><path d="M252 -10 L282 340"/><path d="M384 -10 L360 340"/>
+              </g>
+              <path d="M-10 300 C90 268 170 320 260 288 S420 250 470 268" stroke="#DCD1B9" stroke-width="22" fill="none" stroke-linecap="round"/>
+              <path d="M30 340 L340 -10" stroke="#C4763B" stroke-width="3.5" opacity=".85" fill="none" stroke-linecap="round"/>
+              <g font-family="'Spline Sans Mono',monospace" font-size="9.5" letter-spacing="2" fill="rgba(23,18,16,.55)">
+                <text x="24" y="74">CANAL ST</text>
+                <text x="316" y="136">MILL ST</text>
+                <text x="352" y="26" transform="rotate(80 352 26)">EMBER LN</text>
+                <text x="292" y="296" font-family="Fraunces, serif" font-style="italic" font-size="12" letter-spacing="0">the canal</text>
+              </g>
+              <g transform="translate(420 34)">
+                <path d="M0 12 L0 -10 M0 -10 L-4 -2 M0 -10 L4 -2" stroke="#C4763B" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <text x="0" y="26" text-anchor="middle" font-family="'Spline Sans Mono',monospace" font-size="9" letter-spacing="2" fill="rgba(23,18,16,.55)">N</text>
+              </g>
+              <circle class="pulse" cx="208" cy="146" r="8" fill="none" stroke="#C4763B" stroke-width="1.5"/>
+              <g transform="translate(208 146)"><use href="#ic-star" x="-12" y="-12" width="24" height="24" fill="#C4763B"/></g>
+            </svg>
+            <figcaption class="map-cap"><span>Ember Ln × Mill St</span><span>follow the smell</span></figcaption>
+          </figure>
+          <form class="rform" id="rform" novalidate>
+            <p class="label">Reserve a table</p>
+            <h3>Hold a spot by the window</h3>
+            <div class="frow">
+              <div class="fld"><label for="rname">Name</label><input id="rname" type="text" placeholder="Ada Byrne" autocomplete="name"></div>
+              <div class="fld sel"><label for="rtime">Time</label>
+                <select id="rtime">
+                  <option>09:00</option><option>10:00</option><option>11:00</option><option>12:00</option>
+                  <option selected>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option>
+                </select><i class="ph-light ph-caret-down"></i>
+              </div>
+            </div>
+            <div class="frow">
+              <div class="fld"><label for="rdate">Date</label><input id="rdate" type="date"></div>
+              <div class="fld"><label>Guests</label>
+                <div class="stepper">
+                  <button type="button" id="gMinus" aria-label="Fewer guests"><i class="ph-light ph-minus"></i></button>
+                  <b id="gv">2</b>
+                  <button type="button" id="gPlus" aria-label="More guests"><i class="ph-light ph-plus"></i></button>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-solid magnetic" type="submit"><span>Request a table</span><i class="ph-light ph-arrow-up-right"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- footer -->
+<footer class="sec-dark" data-theme="dark">
+  <div class="wrap">
+    <div class="f-top">
+      <p class="f-line" data-reveal>See you at <em>dawn.</em></p>
+      <form class="f-news" id="nform" novalidate data-reveal>
+        <label class="f-lab" for="nmail">First pour of news — monthly, never more</label>
+        <div class="f-news-row">
+          <input id="nmail" type="email" placeholder="your@email.com" autocomplete="email">
+          <button class="magnetic" type="submit" aria-label="Subscribe"><i class="ph-light ph-arrow-up-right"></i></button>
+        </div>
+      </form>
+    </div>
+    <div class="f-giant" aria-hidden="true">
+      <span>N</span><svg class="g-star" viewBox="0 0 24 24"><use href="#ic-star"/></svg><span>V</span><span>A</span>
+    </div>
+    <div class="f-bot">
+      <span>© 2025 Nova Café — brewed with patience</span>
+      <div class="f-soc">
+        <button class="soc magnetic" data-n="Instagram" aria-label="Instagram"><i class="ph-light ph-instagram-logo"></i></button>
+        <button class="soc magnetic" data-n="TikTok" aria-label="TikTok"><i class="ph-light ph-tiktok-logo"></i></button>
+        <button class="soc magnetic" data-n="Spotify" aria-label="Spotify — our vinyl picks"><i class="ph-light ph-spotify-logo"></i></button>
+      </div>
+      <span>Old Town · <b class="js-clock">–:–</b> local</span>
+      <button class="to-top magnetic" aria-label="Back to top"><i class="ph-light ph-arrow-up"></i></button>
+    </div>
+  </div>
+</footer>
+
+<!-- floating menu preview -->
+<div class="peek" aria-hidden="true"><div class="in"><img alt=""></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+'use strict';
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(pointer: fine)').matches;
+const hasG = !!window.gsap;
+const $ = (s,c=document)=>c.querySelector(s);
+const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
+if(hasG && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+/* ============ smooth scroll ============ */
+let lenis = null;
+if(window.Lenis && !RM){
+  lenis = new Lenis({lerp:.09});
+  if(hasG){
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000));
+    gsap.ticker.lagSmoothing(0);
+  }else{
+    const raf = t=>{lenis.raf(t);requestAnimationFrame(raf)};
+    requestAnimationFrame(raf);
+  }
+}
+function goTo(target,offset=-84){
+  if(lenis){ lenis.scrollTo(target,{offset,duration:1.3}); return; }
+  if(typeof target==='number'){ window.scrollTo({top:target,behavior:'smooth'}); return; }
+  const el = $(target); el && el.scrollIntoView({behavior:'smooth'});
+}
+
+/* ============ word splitter ============ */
+function splitWords(el){
+  const walk = node=>{
+    [...node.childNodes].forEach(n=>{
+      if(n.nodeType===3){
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(part=>{
+          if(!part) return;
+          if(/^\s+$/.test(part)){ frag.append(document.createTextNode(' ')); return; }
+          const w = document.createElement('span'); w.className='w';
+          const i = document.createElement('span'); i.className='wi'; i.textContent = part;
+          w.append(i); frag.append(w);
+        });
+        n.replaceWith(frag);
+      }else if(n.nodeName!=='BR' && n.nodeType===1){ walk(n); }
+    });
+  };
+  walk(el);
+}
+
+/* ============ header state ============ */
+const header = $('.site-header');
+function headerTheme(t){
+  header.classList.toggle('t-light', t==='light');
+  header.classList.toggle('t-dark', t!=='light');
+}
+function themeCheck(){
+  let t = 'dark';
+  $$('[data-theme]').forEach(s=>{
+    const r = s.getBoundingClientRect();
+    if(r.top<=70 && r.bottom>70) t = s.dataset.theme;
+  });
+  headerTheme(t);
+}
+const progI = $('.progress i');
+function onScroll(){
+  header.classList.toggle('scrolled', scrollY>40);
+  themeCheck();
+  if(!hasG){
+    const h = document.documentElement;
+    const p = h.scrollTop/Math.max(1,(h.scrollHeight-h.clientHeight));
+    progI.style.transform = `scaleX(${p})`;
+  }
+}
+addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ============ toasts ============ */
+function toast(msg, icon='ph-check'){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `<i class="ph-light ${icon}"></i><span>${msg}</span>`;
+  $('.toasts').appendChild(el);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));
+  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),450); }, 4200);
+}
+
+/* ============ local clock ============ */
+function tick(){
+  const s = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  $$('.js-clock').forEach(e=>e.textContent=s);
+}
+tick(); setInterval(tick, 15000);
+
+/* ============ menu ============ */
+const MENU = [
+  {n:'Nova Espresso', cat:'espresso', d:'Seasonal blend — cacao, dried fig, brown sugar', p:'3.2', img:'nova-esp'},
+  {n:'Cortado', cat:'espresso', d:'Four ounces of agreement', p:'4.0', img:'nova-cor'},
+  {n:'Flat White', cat:'espresso', d:'Silk-steamed, 40 mm of microfoam', p:'4.5', img:'nova-fla'},
+  {n:'Cappuccino', cat:'espresso', d:'Classic thirds, dusted or undusted', p:'4.2', img:'nova-cap'},
+  {n:'V60 — Chelbesa', cat:'filter', d:'Ethiopia · jasmine, apricot, wild honey', p:'5.5', img:'nova-v60'},
+  {n:'Batch of the Day', cat:'filter', d:'Ask the bar — it changes with the roast', p:'3.8', img:'nova-bat'},
+  {n:'Cold Brew', cat:'filter', d:'Eighteen hours steeped, one clear cube', p:'5.0', img:'nova-cb'},
+  {n:'Gatomboya AA', cat:'filter', d:'Kenya · blackcurrant, grapefruit, cane sugar', p:'6.0', img:'nova-ken'},
+  {n:'Cardamom Bun', cat:'sweet', d:'Baked at 06:00, gone by noon', p:'3.5', img:'nova-bun'},
+  {n:'Basque Cheesecake', cat:'sweet', d:'Burnt entirely on purpose', p:'5.5', img:'nova-che'},
+  {n:'Miso Banana Bread', cat:'sweet', d:'Warm it. Thank us later.', p:'4.0', img:'nova-ban'},
+  {n:'Affogato', cat:'sweet', d:'A shot over vanilla-bean gelato', p:'5.5', img:'nova-aff'}
+];
+const listEl = $('.mlist');
+MENU.forEach((m,i)=>{
+  const b = document.createElement('button');
+  b.className = 'mrow'; b.dataset.cat = m.cat; b.dataset.i = i;
+  b.innerHTML = `<span class="m-ix">${String(i+1).padStart(2,'0')}</span>
+    <svg class="m-ast" viewBox="0 0 24 24"><use href="#ic-star"/></svg>
+    <span class="m-main"><span class="m-name">${m.n}</span><span class="m-desc">${m.d}</span></span>
+    <span class="m-dots"></span>
+    <span class="m-price"><i>€</i>${m.p}</span>`;
+  listEl.appendChild(b);
+});
+addEventListener('load', ()=>{ // warm the preview cache once idle
+  setTimeout(()=>MENU.forEach(m=>{ const im=new Image(); im.src=`https://picsum.photos/seed/${m.img}/440/540.jpg`; }), 1200);
+});
+
+/* floating preview */
+const peekEl = $('.peek'), peekImg = $('.peek img');
+let ptx=0, pty=0, ppx=0, ppy=0;
+addEventListener('mousemove', e=>{ ptx=e.clientX; pty=e.clientY; });
+if(FINE){
+  listEl.addEventListener('mouseover', e=>{
+    const row = e.target.closest('.mrow');
+    if(!row) return;
+    const item = MENU[+row.dataset.i];
+    const url = `https://picsum.photos/seed/${item.img}/440/540.jpg`;
+    if(peekImg.dataset.cur !== url){ peekImg.src = url; peekImg.dataset.cur = url; }
+    peekEl.classList.add('on');
+  });
+  listEl.addEventListener('mouseleave', ()=>peekEl.classList.remove('on'));
+  listEl.addEventListener('mousedown', ()=>peekEl.classList.remove('on'));
+}
+
+/* tabs */
+const tabs = $$('.mtab'), tInd = $('.t-ind');
+function placeInd(btn){ tInd.style.left = btn.offsetLeft+'px'; tInd.style.width = btn.offsetWidth+'px'; }
+function filterMenu(cat){
+  const rows = $$('.mrow', listEl);
+  const apply = ()=>{
+    rows.forEach(r=>{ r.style.display = (cat==='all'||r.dataset.cat===cat) ? '' : 'none'; });
+    if(hasG) ScrollTrigger.refresh();
+  };
+  if(hasG && !RM){
+    gsap.to(rows, {opacity:0, y:10, duration:.22, stagger:.012, onComplete(){
+      apply();
+      gsap.fromTo(rows.filter(r=>r.style.display!=='none'), {opacity:0, y:16}, {opacity:1, y:0, duration:.45, stagger:.03, ease:'power2.out'});
+    }});
+  }else apply();
+}
+tabs.forEach(t=>t.addEventListener('click', ()=>{
+  tabs.forEach(x=>x.classList.toggle('on', x===t));
+  placeInd(t); filterMenu(t.dataset.f);
+}));
+placeInd(tabs[0]);
+addEventListener('resize', ()=>placeInd($('.mtab.on')));
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>placeInd($('.mtab.on')));
+
+/* ============ brew bar ============ */
+const BREWS = {
+  espresso:{n:'Espresso', fig:'FIG. 01 — ESPRESSO · 9 BAR', dose:18, out:36, temp:93, secs:27, time:'0:27',
+    desc:'Nine bars of pressure, twenty-seven seconds. Dark, syrupy, unapologetic.'},
+  v60:{n:'V60 pour over', fig:'FIG. 02 — V60 POUR OVER', dose:15, out:250, temp:96, secs:165, time:'2:45',
+    desc:'Slow spirals over bloomed grounds. The cleanest read of a coffee.'},
+  aero:{n:'AeroPress', fig:'FIG. 03 — AEROPRESS', dose:14, out:200, temp:85, secs:90, time:'1:30',
+    desc:'Pressure meets patience. Sweet, dense, endlessly forgiving.'},
+  cold:{n:'Cold brew', fig:'FIG. 04 — COLD BREW', dose:80, out:1000, temp:4, secs:57600, time:'16 h',
+    desc:'Eighteen hours in the dark. Served over one clear cube.'}
+};
+const bmBtns = $$('.bm'), brewSvg = $('#brewSvg');
+const els = {dose:$('#nDose'), out:$('#nOut'), temp:$('#nTemp'), time:$('#nTime')};
+const liq = $('#liq'), brewBtn = $('#brewBtn'), chip = $('#tlChip');
+const figName = $('#figName'), figTemp = $('#figTemp'), bDesc = $('#bDesc');
+let curBrew = 'espresso', brewing = false, killList = [], liqY = 262;
+
+function tw(from, to, dur, up, done, ease='power2.out'){
+  if(hasG){
+    const o = {v:from};
+    const t = gsap.to(o, {v:to, duration:dur/1000, ease, onUpdate:()=>up(o.v), onComplete:done});
+    killList.push(t);
+  }else{
+    const t0 = performance.now();
+    const step = n=>{
+      const p = Math.min(1,(n-t0)/dur);
+      const e = ease==='none' ? p : 1-Math.pow(1-p,3);
+      up(from+(to-from)*e);
+      if(p<1) requestAnimationFrame(step); else done && done();
+    };
+    requestAnimationFrame(step);
+  }
+}
+function setNum(el, to){ const from = parseFloat(el.textContent)||0; tw(from, to, 700, v=>el.textContent=Math.round(v)); }
+function fmt(s){
+  if(s>=5400){ return Math.floor(s/3600)+' h '+String(Math.floor(s%3600/60)).padStart(2,'0')+' m'; }
+  return Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+}
+function stopBrew(){
+  brewing = false;
+  killList.forEach(t=>t.kill && t.kill()); killList = [];
+  brewSvg.classList.remove('brewing','steaming');
+}
+function selectBrew(key){
+  curBrew = key; stopBrew();
+  const b = BREWS[key];
+  bmBtns.forEach(x=>x.classList.toggle('on', x.dataset.key===key));
+  setNum(els.dose, b.dose); setNum(els.out, b.out); setNum(els.temp, b.temp);
+  els.time.textContent = b.time;
+  figName.textContent = b.fig; figTemp.textContent = b.temp+'°C';
+  bDesc.textContent = b.desc;
+  chip.classList.remove('on');
+  tw(liqY, 262, 600, v=>{ liqY=v; liq.setAttribute('y', v); });
+  brewBtn.disabled = false;
+  brewBtn.innerHTML = '<span>Begin the brew</span><i class="ph-light ph-play"></i>';
+}
+function finishBrew(){
+  brewing = false;
+  const b = BREWS[curBrew];
+  brewSvg.classList.remove('brewing'); brewSvg.classList.add('steaming');
+  els.time.textContent = b.time;
+  chip.classList.remove('on');
+  toast(`Your ${b.n.toLowerCase()} is ready — take it to the window seat.`, 'ph-coffee');
+  brewBtn.disabled = false;
+  brewBtn.innerHTML = '<span>Brew it again</span><i class="ph-light ph-arrow-clockwise"></i>';
+}
+function startBrew(){
+  if(brewing) return;
+  const b = BREWS[curBrew];
+  brewing = true;
+  brewBtn.disabled = true;
+  brewBtn.innerHTML = '<span>Pouring…</span>';
+  brewSvg.classList.add('brewing');
+  const factor = Math.max(2, Math.round(b.secs/4));
+  chip.innerHTML = `<i class="ph-light ph-fast-forward"></i>${factor.toLocaleString('en-US')}× time-lapse`;
+  chip.classList.add('on');
+  tw(liqY, 158, 4000, v=>{ liqY=v; liq.setAttribute('y', v); }, null, 'none');
+  tw(0, b.secs, 4000, v=>els.time.textContent=fmt(v), finishBrew, 'none');
+}
+bmBtns.forEach(b=>b.addEventListener('click', ()=>selectBrew(b.dataset.key)));
+brewBtn.addEventListener('click', startBrew);
+selectBrew('espresso');
+
+/* ============ reservation ============ */
+let guests = 2; const gv = $('#gv');
+ $('#gMinus').addEventListener('click', ()=>{ guests=Math.max(1,guests-1); gv.textContent=guests; });
+ $('#gPlus').addEventListener('click', ()=>{ guests=Math.min(8,guests+1); gv.textContent=guests; });
+const rdate = $('#rdate');
+rdate.min = new Date().toISOString().slice(0,10);
+ $('#rform').addEventListener('submit', e=>{
+  e.preventDefault();
+  const name = $('#rname').value.trim(), date = rdate.value, time = $('#rtime').value;
+  if(!name || !date){
+    const f = $('#rform'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
+    toast(!name ? 'We need a name for the reservation — even a nickname works.' : 'Pick a date and we’ll keep the window seat free.', 'ph-warning');
+    return;
+  }
+  const d = new Date(date+'T12:00').toLocaleDateString(undefined, {weekday:'short', month:'short', day:'numeric'});
+  toast(`Table for ${guests} — ${d}, ${time}. Request sent; we’ll confirm by email.`, 'ph-check');
+  e.target.reset(); guests = 2; gv.textContent = 2;
+});
+
+/* ============ newsletter + socials ============ */
+ $('#nform').addEventListener('submit', e=>{
+  e.preventDefault();
+  const v = $('#nmail').value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ toast('That email looks a little under-extracted — one more try?', 'ph-warning'); return; }
+  toast('You’re on the list. First pour lands next month.', 'ph-check');
+  e.target.reset();
+});
+ $$('.soc').forEach(b=>b.addEventListener('click', ()=>
+  toast(`Our ${b.dataset.n} is still brewing — the coffee, however, is very real.`, 'ph-hand-waving')));
+ $('.to-top').addEventListener('click', ()=>goTo(0, 0));
+
+/* ============ anchors + burger ============ */
+const burger = $('.burger');
+function closeNav(){ document.body.classList.remove('nav-open'); burger.setAttribute('aria-expanded','false'); lenis && lenis.start(); }
+burger.addEventListener('click', ()=>{
+  const open = document.body.classList.toggle('nav-open');
+  burger.setAttribute('aria-expanded', open);
+  if(lenis) open ? lenis.stop() : lenis.start();
+});
+ $$('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href');
+    if(id === '#'){ e.preventDefault(); return; }
+    if(id.length>1 && $(id)){
+      e.preventDefault(); closeNav();
+      id === '#top' ? goTo(0,0) : goTo(id);
+    }
+  });
+});
+
+/* ============ magnetic elements ============ */
+if(FINE && hasG && !RM){
+  $$('.magnetic').forEach(el=>{
+    el.addEventListener('mousemove', e=>{
+      const r = el.getBoundingClientRect();
+      gsap.to(el, {x:(e.clientX-r.left-r.width/2)*.32, y:(e.clientY-r.top-r.height/2)*.32, duration:.4, ease:'power2.out'});
+    });
+    el.addEventListener('mouseleave', ()=>gsap.to(el, {x:0, y:0, duration:.7, ease:'elastic.out(1,.45)'}));
+  });
+}
+
+/* ============ custom cursor ============ */
+const dot = $('.cur-dot'), ring = $('.cur-ring');
+let cmx = innerWidth/2, cmy = innerHeight/2, crx = cmx, cry = cmy;
+addEventListener('mousemove', e=>{
+  cmx = e.clientX; cmy = e.clientY;
+  if(FINE) dot.style.transform = `translate(${cmx}px,${cmy}px) translate(-50%,-50%)`;
+});
+if(FINE){
+  const hoverSel = 'a,button,.mrow,.bm,.mtab,label';
+  document.addEventListener('mouseover', e=>{
+    const txt = e.target.closest('input,textarea,select');
+    const hit = e.target.closest(hoverSel);
+    document.body.classList.toggle('cur-text', !!txt);
+    document.body.classList.toggle('cur-hover', !!hit && !txt);
+  });
+}
+function masterLoop(){
+  crx += (cmx-crx)*.16; cry += (cmy-cry)*.16;
+  ring.style.transform = `translate(${crx}px,${cry}px) translate(-50%,-50%)`;
+  ppx += (ptx-ppx)*.14; ppy += (pty-ppy)*.14;
+  const rot = RM ? 0 : Math.max(-12, Math.min(12, (ptx-ppx)*.1));
+  peekEl.style.transform = `translate(${ppx+30}px,${ppy-135}px) rotate(${rot}deg)`;
+  requestAnimationFrame(masterLoop);
+}
+if(FINE) requestAnimationFrame(masterLoop);
+
+/* ============ starfield hero canvas ============ */
+const cv = $('#sky'), cx = cv.getContext('2d');
+let W, H, stars = [], smx = 0, smy = 0, smxT = 0, smyT = 0, shoot = null, nextShoot = 4000, heroVisible = true;
+function sizeSky(){
+  const DPR = Math.min(devicePixelRatio||1, 2);
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = W*DPR; cv.height = H*DPR;
+  cx.setTransform(DPR,0,0,DPR,0,0);
+  const n = Math.round(W*H/9000);
+  stars = Array.from({length:n}, ()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    r:.4+Math.random()*1.15, a:.12+Math.random()*.5,
+    s:.3+Math.random()*1.4, p:Math.random()*Math.PI*2, d:.3+Math.random()*.7
+  }));
+}
+addEventListener('mousemove', e=>{
+  smxT = (e.clientX/innerWidth-.5)*2;
+  smyT = (e.clientY/innerHeight-.5)*2;
+});
+new IntersectionObserver(en=>heroVisible = en[0].isIntersecting).observe($('.hero'));
+function drawSky(t){
+  cx.clearRect(0,0,W,H);
+  cx.fillStyle = '#F1E9DC';
+  for(const s of stars){
+    const a = s.a*(.55+.45*Math.sin(t*.001*s.s+s.p));
+    const ox = smx*18*s.d, oy = smy*12*s.d;
+    cx.globalAlpha = a;
+    cx.beginPath(); cx.arc(s.x+ox, s.y+oy, s.r, 0, 7); cx.fill();
+    if(s.r>1.15){ // cross flare on the brightest ones
+      cx.globalAlpha = a*.45;
+      cx.fillRect(s.x+ox-s.r*3.2, s.y+oy-.4, s.r*6.4, .8);
+      cx.fillRect(s.x+ox-.4, s.y+oy-s.r*3.2, .8, s.r*6.4);
+    }
+  }
+  if(!shoot && t>nextShoot) shoot = {x:W*.15+Math.random()*W*.6, y:Math.random()*H*.35, vx:6+Math.random()*4, vy:2+Math.random()*2, life:1};
+  if(shoot){
+    shoot.x += shoot.vx; shoot.y += shoot.vy; shoot.life -= .02;
+    cx.globalAlpha = Math.max(shoot.life,0)*.8;
+    cx.strokeStyle = '#F1E9DC'; cx.lineWidth = 1.2;
+    cx.beginPath(); cx.moveTo(shoot.x-shoot.vx*7, shoot.y-shoot.vy*7); cx.lineTo(shoot.x, shoot.y); cx.stroke();
+    if(shoot.life<=0 || shoot.x>W+80){ shoot = null; nextShoot = t+6000+Math.random()*9000; }
+  }
+  cx.globalAlpha = 1;
+}
+function skyLoop(t){
+  if(heroVisible){
+    smx += (smxT-smx)*.04; smy += (smyT-smy)*.04;
+    drawSky(t);
+  }
+  requestAnimationFrame(skyLoop);
+}
+sizeSky(); addEventListener('resize', sizeSky);
+if(RM){ drawSky(1200); } else { requestAnimationFrame(skyLoop); }
+
+/* ============ scroll reveals ============ */
+if(hasG && window.ScrollTrigger && !RM){
+  $$('.split').forEach(el=>{
+    splitWords(el);
+    gsap.fromTo($$('.wi', el), {yPercent:115}, {yPercent:0, duration:.9, ease:'power3.out', stagger:.045,
+      scrollTrigger:{trigger:el, start:'top 84%'}});
+  });
+  $$('[data-reveal]').forEach(el=>{
+    gsap.fromTo(el, {y:28, opacity:0}, {y:0, opacity:1, duration:1, ease:'power3.out',
+      scrollTrigger:{trigger:el, start:'top 88%'}});
+  });
+  const iq = $('.in-quote');
+  if(iq){
+    splitWords(iq);
+    gsap.fromTo($$('.wi', iq), {opacity:.14}, {opacity:1, stagger:.08, ease:'none',
+      scrollTrigger:{trigger:iq, start:'top 78%', end:'top 30%', scrub:true}});
+  }
+  const ai = $('.story-fig img');
+  if(ai) gsap.fromTo(ai, {yPercent:-6}, {yPercent:6, ease:'none',
+    scrollTrigger:{trigger:'.story-fig', start:'top bottom', end:'bottom top', scrub:true}});
+  // origin deck: dim + shrink the panel being covered
+  const panels = $$('.opanel');
+  panels.forEach((p,i)=>{
+    if(i < panels.length-1){
+      gsap.to(p, {scale:.93, filter:'brightness(.45)', transformOrigin:'50% 0%', ease:'none',
+        scrollTrigger:{trigger:panels[i+1], start:'top bottom', end:'top top', scrub:true}});
+    }
+    const img = $('.op-fig img', p);
+    if(img) gsap.fromTo(img, {yPercent:-7}, {yPercent:7, ease:'none',
+      scrollTrigger:{trigger:p, start:'top bottom', end:'bottom top', scrub:true}});
+  });
+}
+
+/* ============ preloader + hero intro ============ */
+const pre = $('.preloader');
+const heroTl = (hasG && !RM) ? gsap.timeline({paused:true})
+  .fromTo('.ht-in', {yPercent:112}, {yPercent:0, duration:1.1, ease:'power4.out', stagger:.07}, 0)
+  .fromTo('.site-header', {y:-24, opacity:0}, {y:0, opacity:1, duration:.8, ease:'power3.out'}, .1)
+  .fromTo(['.hero-top','.hero-sub','.hero-bot'], {opacity:0, y:22}, {opacity:1, y:0, duration:.9, stagger:.12, ease:'power3.out'}, .45)
+  .fromTo('#sky', {opacity:0}, {opacity:1, duration:1.4, ease:'power2.out'}, .5)
+  .fromTo('.badge', {scale:.6, opacity:0}, {scale:1, opacity:1, duration:.9, ease:'back.out(1.6)'}, .8)
+  : null;
+if(pre){
+  if(hasG && !RM){
+    lenis && lenis.stop();
+    const cnt = $('.pl-count'), bar = $('.pl-bar i'), o = {v:0};
+    gsap.timeline({onComplete(){ pre.remove(); lenis && lenis.start(); heroTl && heroTl.play(); }})
+      .to(o, {v:100, duration:1.5, ease:'power2.inOut', onUpdate(){
+        cnt.textContent = String(Math.round(o.v)).padStart(3,'0');
+        bar.style.transform = `scaleX(${o.v/100})`;
+      }})
+      .to('.pl-brand', {opacity:0, y:-26, duration:.45, ease:'power2.in'}, '-=.15')
+      .to(cnt, {opacity:0, duration:.35}, '<')
+      .to(pre, {yPercent:-100, duration:.85, ease:'expo.inOut'});
+  }else{
+    pre.remove();
+  }
+  setTimeout(()=>{ pre && pre.parentNode && pre.remove(); }, 5000);
+}
+addEventListener('load', ()=>{ if(hasG) ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
