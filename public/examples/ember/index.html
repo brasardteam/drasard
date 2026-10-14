@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember — Live-Fire Kitchen</title>
+<meta name="description" content="Ember is a fourteen-seat live-fire seafood kitchen on the harbor. Cooked by fire, fed by the sea.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232E7D5B'/%3E%3Cpath d='M16 6c.6 5-4.5 7-4.5 11.5a4.5 4.5 0 0 0 9 0c0-2-1-3.4-2-4.6.3 2.6-1.3 3.4-1.3 3.4.8-3.1-1.7-7.2-1.2-10.3z' fill='%23F4F1E8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+/* ============ FOUNDATION ============ */
+:root{
+  --paper:#F4F1E8; --paper2:#ECE8DB; --mist:#DFE9E1;
+  --ink:#0C2229; --deep:#0E3440; --deeper:#0A2830;
+  --tide:#176B6B; --leaf:#2E7D5B; --kelp:#7FC9A8; --foam:#CDE9DC;
+  --line:rgba(12,34,41,.16); --line-l:rgba(205,233,220,.18);
+  --err:#C2663F;
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Archivo",Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper); color:var(--ink);
+  font:400 16px/1.65 var(--sans);
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+/* print-grain over everything */
+body::after{
+  content:""; position:fixed; inset:0; z-index:2000; pointer-events:none; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+::selection{background:var(--leaf);color:var(--paper)}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+img{display:block;max-width:100%}
+.container{width:min(1180px,92%);margin:0 auto}
+.lucide{width:18px;height:18px;stroke-width:1.8}
+
+.label{
+  font:600 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--leaf);display:inline-flex;align-items:center;gap:.9em;
+}
+.label::before{content:"";width:26px;height:1px;background:currentColor}
+.on-dark-t .label{color:var(--kelp)}
+
+h1,h2,h3{font-weight:500}
+.display{
+  font-family:var(--serif);font-weight:500;letter-spacing:-.02em;
+  font-variation-settings:'opsz' 144;line-height:1.02;
+}
+.display em{font-style:italic;font-weight:400}
+.lede{font-size:1.1rem;color:rgba(12,34,41,.68);max-width:34em}
+.on-dark-t{color:var(--paper)}
+.on-dark-t .lede{color:rgba(205,233,220,.72)}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:.7em;
+  background:var(--ink);color:var(--paper);border:1px solid var(--ink);
+  font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  padding:1.15em 1.7em;border-radius:2px;text-decoration:none;cursor:pointer;
+  transition:background .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease),color .35s var(--ease);
+}
+.btn:hover{background:var(--leaf);border-color:var(--leaf);transform:translateY(-2px)}
+.btn .lucide{width:14px;height:14px;transition:transform .35s var(--ease)}
+.btn:hover .lucide{transform:translateX(3px)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.light{background:var(--foam);border-color:var(--foam);color:var(--ink)}
+.btn.light:hover{background:var(--kelp);border-color:var(--kelp)}
+.btn.light-ghost{background:transparent;border-color:var(--line-l);color:var(--foam)}
+.btn.light-ghost:hover{background:var(--foam);color:var(--ink);border-color:var(--foam)}
+.btn.small{padding:.9em 1.3em}
+
+.link-arrow{
+  display:inline-flex;align-items:center;gap:.6em;text-decoration:none;
+  font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--leaf);border-bottom:1px solid currentColor;padding-bottom:.55em;
+}
+.link-arrow .lucide{width:14px;height:14px;transition:transform .3s var(--ease)}
+.link-arrow:hover .lucide{transform:translate(3px,-3px)}
+.link-arrow.on-dark-t{color:var(--kelp)}
+
+/* duotone image treatment — keeps every photo in the palette */
+.duo{position:relative;overflow:hidden;background:var(--deep);border-radius:2px}
+.duo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.96)}
+.duo::before{content:"";position:absolute;inset:0;background:var(--tide);mix-blend-mode:color}
+.duo::after{content:"";position:absolute;inset:0;background:var(--ink);mix-blend-mode:multiply;opacity:.14}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0ms)}
+.reveal.in{opacity:1;transform:none}
+
+/* pages */
+.page{display:none}
+.page.active{display:block;animation:pageIn .8s var(--ease)}
+@keyframes pageIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ============ HEADER ============ */
+#siteHeader{
+  position:fixed;inset:0 0 auto 0;z-index:100;color:var(--ink);
+  transition:background .45s var(--ease),color .45s var(--ease),box-shadow .45s var(--ease);
+}
+#siteHeader.on-dark,#siteHeader.menu-open{color:var(--paper)}
+#siteHeader.scrolled{
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line);
+}
+#siteHeader.on-dark.scrolled,#siteHeader.menu-open{
+  background:color-mix(in srgb,var(--deeper) 72%,transparent);
+  backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line-l);
+}
+.head-inner{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{
+  display:inline-flex;align-items:center;gap:.7em;text-decoration:none;color:inherit;
+  font:500 1.45rem var(--serif);letter-spacing:-.01em;
+}
+.brand .mark{
+  width:32px;height:32px;border-radius:50%;background:var(--leaf);color:var(--paper);
+  display:grid;place-items:center;flex:none;
+}
+.brand .mark .lucide{width:16px;height:16px}
+.main-nav a{
+  position:relative;color:inherit;text-decoration:none;opacity:.72;
+  font:500 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  margin-left:2.4em;padding:.5em 0;
+}
+.main-nav a:hover,.main-nav a.active{opacity:1}
+.main-nav a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:currentColor;
+  transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);
+}
+.main-nav a:hover::after,.main-nav a.active::after{transform:scaleX(1)}
+.head-right{display:flex;align-items:center;gap:1em}
+#burger{
+  display:none;background:none;border:1px solid currentColor;border-radius:2px;
+  color:inherit;width:42px;height:42px;cursor:pointer;place-items:center;
+}
+#burger .ic-close{display:none}
+body.menu-open #burger .ic-open{display:none}
+body.menu-open #burger .ic-close{display:block}
+
+/* mobile menu */
+.mobile-menu{
+  position:fixed;inset:0;z-index:90;background:var(--deeper);color:var(--paper);
+  transform:translateY(-100%);transition:transform .6s var(--ease);
+  display:flex;flex-direction:column;justify-content:center;padding:100px 8% 40px;
+}
+body.menu-open .mobile-menu{transform:translateY(0)}
+.mobile-menu nav a{
+  display:flex;align-items:baseline;gap:1em;text-decoration:none;color:var(--paper);
+  font:500 clamp(2.2rem,9vw,3.2rem)/1.25 var(--serif);padding:.25em 0;
+  opacity:0;transform:translateY(24px);transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+body.menu-open .mobile-menu nav a{opacity:1;transform:none}
+.mobile-menu nav a span{font:600 11px var(--sans);letter-spacing:.2em;color:var(--kelp)}
+.mobile-menu nav a:hover{font-style:italic;color:var(--kelp)}
+.mm-foot{margin-top:auto;border-top:1px solid var(--line-l);padding-top:1.4em;font-size:.85rem;color:rgba(205,233,220,.6);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;min-height:100vh;background:var(--deep);color:var(--paper);
+  display:flex;align-items:center;overflow:hidden;
+}
+#flame{position:absolute;inset:0;width:100%;height:100%}
+.hero-inner{position:relative;z-index:2;padding:120px 0 60px}
+.eyebrow{display:flex;align-items:center;gap:1em;font:600 11px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--kelp);margin-bottom:1.6em}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--kelp)}
+.hero h1{font-size:clamp(2.9rem,7.6vw,6.4rem)}
+.hero h1 em{color:var(--kelp)}
+.hero .lede{margin:1.8em 0 2.4em;color:rgba(205,233,220,.75)}
+.hero-cta{display:flex;gap:1em;flex-wrap:wrap}
+.hero-side{
+  position:absolute;right:36px;top:50%;z-index:2;
+  writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg);
+  font:600 10px var(--sans);letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(205,233,220,.45);
+}
+.hero-foot{
+  position:absolute;left:0;right:0;bottom:26px;z-index:2;
+  display:flex;justify-content:space-between;align-items:center;
+  font:500 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:rgba(205,233,220,.55);
+}
+.hero-foot .hint{display:inline-flex;align-items:center;gap:.7em}
+.hero-foot .hint .lucide{width:14px;height:14px;color:var(--kelp);animation:flick 1.6s ease-in-out infinite}
+@keyframes flick{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.25);opacity:1}}
+.hero-foot .scroll{display:inline-flex;align-items:center;gap:.6em}
+.hero-foot .scroll .lucide{width:14px;height:14px;animation:dip 2s var(--ease) infinite}
+@keyframes dip{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* ticker */
+.ticker{background:var(--ink);color:var(--foam);overflow:hidden;border-block:1px solid var(--line-l)}
+.ticker-track{display:flex;width:max-content;padding:.95em 0;animation:tick 34s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+.ticker-group{display:flex;align-items:center;gap:2.6em;padding-right:2.6em;white-space:nowrap}
+.ticker-group .tk-label{font:600 11px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--kelp)}
+.ticker-group span{font:500 11px var(--sans);letter-spacing:.18em;text-transform:uppercase}
+.ticker-group b{color:var(--tide);font-weight:400}
+
+/* intro */
+.intro{padding:clamp(90px,13vh,150px) 0 70px}
+.intro-grid{display:grid;grid-template-columns:7fr 4fr;gap:9%;align-items:end}
+.intro h2{font-size:clamp(1.9rem,3.8vw,3.1rem);margin-top:1.4em}
+.intro h2 em{color:var(--leaf)}
+.intro .lede{margin-bottom:2.2em}
+
+/* stats strip */
+.stats{border-block:1px solid var(--line);padding:2.4em 0;margin:40px 0}
+.stats-row{display:flex;justify-content:space-between;gap:2em;flex-wrap:wrap}
+.stat{flex:1;min-width:150px}
+.stat + .stat{border-left:1px solid var(--line);padding-left:2.4em}
+.stat b{display:block;font:500 clamp(2.2rem,4.4vw,3.6rem)/1 var(--serif);letter-spacing:-.02em;margin-bottom:.45em}
+.stat b i{font-style:italic;color:var(--leaf);font-weight:400}
+.stat span{font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:rgba(12,34,41,.55)}
+
+/* tonight's fire (dark) */
+.fire-sec{background:var(--deep);color:var(--paper);padding:clamp(90px,13vh,150px) 0}
+.fire-grid{display:grid;grid-template-columns:5fr 6fr;gap:7%;align-items:start}
+.fire-fig{margin:0}
+.fire-fig .duo{aspect-ratio:4/5}
+.fire-fig figcaption{font:500 12px var(--sans);letter-spacing:.1em;color:rgba(205,233,220,.55);margin-top:1em;display:flex;justify-content:space-between}
+.fire-list h2{font-size:clamp(1.9rem,3.6vw,3rem);margin:.9em 0 .6em}
+.fire-list > p{color:rgba(205,233,220,.65);max-width:30em;margin-bottom:2.4em}
+.fire-row{
+  display:grid;grid-template-columns:auto 1fr auto auto;gap:1.6em;align-items:center;
+  padding:1.5em 0;border-top:1px solid var(--line-l);text-decoration:none;color:inherit;
+  transition:padding-left .4s var(--ease);
+}
+.fire-row:last-of-type{border-bottom:1px solid var(--line-l)}
+.fire-row:hover{padding-left:.8em}
+.fire-row .no{font:600 11px var(--sans);letter-spacing:.12em;color:var(--kelp)}
+.fire-row h3{font:500 1.35rem var(--serif);transition:color .3s}
+.fire-row:hover h3{color:var(--kelp)}
+.fire-row p{font-size:.88rem;color:rgba(205,233,220,.6);margin-top:.25em}
+.fire-row .price{font:500 1.1rem var(--serif);color:var(--foam)}
+.fire-row .lucide{width:16px;height:16px;color:var(--kelp);transition:transform .35s var(--ease)}
+.fire-row:hover .lucide{transform:translate(3px,-3px)}
+.fire-list .btn{margin-top:2.4em}
+
+/* visit */
+.visit{padding:clamp(90px,13vh,150px) 0;border-top:1px solid var(--line)}
+.visit h2{font-size:clamp(1.9rem,3.6vw,3rem);margin:.9em 0 2.2em}
+.visit-grid{display:grid;grid-template-columns:5fr 7fr;gap:8%}
+.v-block{padding:1.6em 0;border-top:1px solid var(--line)}
+.v-block b{display:block;font:500 1.2rem var(--serif);margin-bottom:.2em}
+.v-block p{font-size:.92rem;color:rgba(12,34,41,.62)}
+.v-block .lucide{width:16px;height:16px;color:var(--leaf);vertical-align:-3px;margin-right:.4em}
+.hours-list{display:grid;grid-template-columns:1fr 1fr;gap:0 2.5em;margin-top:.4em}
+.hours-list div{display:flex;justify-content:space-between;gap:1em;padding:.75em 0;border-bottom:1px dotted var(--line);font-size:.92rem}
+.hours-list dt{font-weight:600}
+.hours-list dd{color:rgba(12,34,41,.62)}
+.hours-list .closed dd{color:var(--err);font-weight:600}
+
+/* ============ PAGE HEADS ============ */
+.page-head{padding:170px 0 60px}
+.page-head h1{font-size:clamp(2.6rem,6vw,5rem);margin:.5em 0 .4em}
+.page-head h1 em{color:var(--leaf)}
+.page-head .lede{font-size:1.15rem}
+
+/* ============ MENU PAGE ============ */
+.menu-wrap{padding-bottom:110px}
+.menu-top{display:grid;grid-template-columns:1fr auto;gap:2em;align-items:end;margin-bottom:1em}
+.menu-note{max-width:20em;font-size:.88rem;color:rgba(12,34,41,.6);text-align:right}
+.menu-note .peek{display:inline-flex;align-items:center;gap:.5em;color:var(--leaf);font-weight:600;margin-top:.6em}
+.menu-note .peek .lucide{width:14px;height:14px}
+@media(hover:none){.menu-note .peek{display:none}}
+.tabs{display:flex;gap:2.6em;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.tab{
+  background:none;border:0;cursor:pointer;position:relative;
+  font:500 clamp(1.35rem,2.3vw,1.9rem)/1 var(--serif);color:var(--ink);opacity:.38;
+  padding:0 0 .85em;transition:opacity .3s;
+}
+.tab sup{font:600 10px var(--sans);letter-spacing:.08em;color:var(--leaf);margin-left:.35em}
+.tab:hover{opacity:.75}
+.tab.active{opacity:1;font-style:italic}
+.tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--leaf)}
+.cat-note{font:500 italic 1rem var(--serif);color:rgba(12,34,41,.55);margin:2em 0 .4em}
+.dish{
+  display:grid;grid-template-columns:3em 1fr auto;gap:0 1.4em;align-items:baseline;
+  padding:1.5em 0;border-bottom:1px solid var(--line);
+  opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease);
+}
+.dish.show{opacity:1;transform:none}
+.dish .no{font:600 11px var(--sans);letter-spacing:.12em;color:var(--leaf)}
+.dish h3{font:500 1.3rem var(--serif);transition:color .3s}
+.dish:hover h3{color:var(--tide)}
+.dish .desc{font-size:.92rem;color:rgba(12,34,41,.6);margin-top:.25em;max-width:32em}
+.dish .dots{flex:1;min-width:2em;border-bottom:1px dotted rgba(12,34,41,.35);transform:translateY(-5px)}
+.dish .line1{display:flex;align-items:baseline}
+.dish .price{font:500 1.1rem var(--serif);white-space:nowrap}
+#preview{
+  position:fixed;left:0;top:0;z-index:60;width:232px;aspect-ratio:4/3;
+  pointer-events:none;overflow:hidden;border-radius:3px;opacity:0;
+  box-shadow:0 26px 60px -18px rgba(12,34,41,.5);
+}
+#preview.on{opacity:1}
+#preview img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+#preview::after{content:"";position:absolute;inset:0;background:var(--tide);mix-blend-mode:color}
+#preview figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:.5em .8em;
+  background:rgba(10,40,48,.82);color:var(--foam);
+  font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;
+}
+.tasting{
+  margin-top:5em;padding:2.4em 0;border-top:2px solid var(--ink);
+  display:flex;justify-content:space-between;gap:2em;flex-wrap:wrap;align-items:center;
+}
+.tasting h3{font:500 clamp(1.4rem,2.6vw,2rem) var(--serif);margin-top:.4em;max-width:16em}
+.tasting-right{display:flex;align-items:center;gap:1.6em;flex-wrap:wrap}
+.t-price{font:500 3rem/1 var(--serif);color:var(--leaf)}
+.t-price small{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:rgba(12,34,41,.55);display:block;margin-top:.4em}
+
+/* ============ STORY PAGE ============ */
+.prose{display:grid;grid-template-columns:4fr 6fr;gap:8%;padding-bottom:20px}
+.prose .side-note{font:500 italic 1.05rem var(--serif);color:rgba(12,34,41,.55);border-left:2px solid var(--leaf);padding-left:1.2em;height:fit-content}
+.prose p + p{margin-top:1.4em}
+.prose p{color:rgba(12,34,41,.78);max-width:36em}
+.collage{position:relative;margin:70px 0 40px}
+.collage figure{margin:0}
+.collage figcaption{font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:rgba(12,34,41,.5);margin-top:.8em}
+.c1 .duo{aspect-ratio:4/5}.c2 .duo{aspect-ratio:3/4}.c3 .duo{aspect-ratio:16/10}
+@media(min-width:900px){
+  .collage{height:clamp(500px,72vh,720px)}
+  .collage figure{position:absolute}
+  .c1{left:0;top:0;width:45%}
+  .c2{right:2%;top:5%;width:33%;transform:rotate(2deg)}
+  .c3{left:27%;bottom:0;width:40%;transform:rotate(-1.5deg);z-index:2}
+}
+@media(max-width:899px){
+  .collage{display:grid;gap:2em}
+  .c2{transform:rotate(1.4deg)}
+  .c3{transform:rotate(-1.2deg)}
+}
+.pull{background:var(--mist);padding:clamp(70px,10vh,110px) 0;text-align:center}
+.pull blockquote{font:400 italic clamp(1.7rem,4vw,3rem)/1.3 var(--serif);max-width:22em;margin:0 auto}
+.pull blockquote::before{content:"“";display:block;font-size:1.6em;color:var(--leaf);line-height:.6;margin-bottom:.25em}
+.pull cite{display:block;margin-top:2em;font:600 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;font-style:normal;color:rgba(12,34,41,.55)}
+.steps-band{background:var(--paper2);padding:clamp(80px,11vh,130px) 0}
+.steps-band h2{font-size:clamp(1.8rem,3.4vw,2.8rem);margin:.8em 0 1.6em}
+.step{display:grid;grid-template-columns:8em 1fr;gap:2em;padding:2.2em 0;border-top:1px solid var(--line)}
+.step:last-of-type{border-bottom:1px solid var(--line)}
+.step .s-no{font:400 italic 2.6rem/1 var(--serif);color:var(--leaf)}
+.step h3{font:500 1.45rem var(--serif);margin-bottom:.4em}
+.step p{color:rgba(12,34,41,.65);max-width:34em}
+.story-cta{background:var(--deep);color:var(--paper);text-align:center;padding:clamp(90px,13vh,150px) 0}
+.story-cta h2{font-size:clamp(2rem,4.6vw,3.6rem);margin-bottom:1.8em}
+.story-cta h2 em{color:var(--kelp)}
+
+/* ============ RESERVE PAGE ============ */
+.reserve-sec{background:var(--deep);color:var(--paper);min-height:100vh;padding:170px 0 110px}
+.res-grid{display:grid;grid-template-columns:5fr 6fr;gap:9%;align-items:start}
+.res-info h1{font-size:clamp(2.4rem,5vw,4.2rem);margin:.5em 0 .5em}
+.res-info h1 em{color:var(--kelp)}
+.res-info .lede{color:rgba(205,233,220,.7);margin-bottom:2.4em}
+.res-list{list-style:none}
+.res-list li{display:flex;gap:1.2em;padding:1.3em 0;border-top:1px solid var(--line-l);align-items:flex-start}
+.res-list .lucide{width:18px;height:18px;color:var(--kelp);flex:none;margin-top:.2em}
+.res-list b{display:block;font:500 1.05rem var(--serif)}
+.res-list span{font-size:.88rem;color:rgba(205,233,220,.6)}
+.res-form{border:1px solid var(--line-l);border-radius:3px;padding:clamp(1.6em,4vw,3em);background:rgba(10,40,48,.35)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:2em}
+.field{margin-bottom:1.7em}
+.field > label{display:block;font:600 10px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--kelp);margin-bottom:.65em}
+.field input,.field textarea{
+  width:100%;background:transparent;border:0;border-bottom:1px solid var(--line-l);
+  color:var(--paper);font:400 1.05rem var(--serif);padding:.45em 0;outline:none;border-radius:0;
+  transition:border-color .3s;color-scheme:dark;
+}
+.field input:focus,.field textarea:focus{border-color:var(--foam)}
+.field textarea{resize:vertical;min-height:56px}
+.field .err{display:none;font-size:.8rem;color:#E8A88C;margin-top:.45em}
+.field.invalid input{border-color:var(--err)}
+.field.invalid .err{display:block}
+.field .warn{display:none;font-size:.8rem;color:var(--kelp);margin-top:.45em}
+.field .warn.show{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:.55em}
+.chip{
+  background:transparent;border:1px solid var(--line-l);color:var(--paper);
+  padding:.6em 1em;font:500 13px var(--sans);border-radius:2px;cursor:pointer;transition:.25s;
+}
+.chip:hover{border-color:var(--foam)}
+.chip.sel{background:var(--foam);color:var(--ink);border-color:var(--foam)}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line-l);border-radius:2px}
+.stepper button{background:none;border:0;color:var(--paper);width:42px;height:44px;cursor:pointer;display:grid;place-items:center;transition:background .25s}
+.stepper button:hover:not(:disabled){background:rgba(205,233,220,.12)}
+.stepper button:disabled{opacity:.3;cursor:default}
+.stepper output{width:52px;text-align:center;font:500 1.2rem var(--serif)}
+.form-foot{display:flex;align-items:center;gap:1.4em;flex-wrap:wrap;margin-top:.4em}
+.form-foot small{color:rgba(205,233,220,.55);font-size:.78rem;max-width:18em}
+/* success state */
+.res-success{display:none;text-align:left;animation:pageIn .7s var(--ease)}
+.res-success.show{display:block}
+.res-success .ok{
+  width:56px;height:56px;border-radius:50%;background:var(--leaf);color:var(--paper);
+  display:grid;place-items:center;margin-bottom:1.4em;
+}
+.res-success .ok .lucide{width:24px;height:24px}
+.res-success h3{font:500 2rem var(--serif);margin-bottom:.6em}
+.res-success p{color:rgba(205,233,220,.72);max-width:30em;margin-bottom:2em}
+.res-success p b{color:var(--foam);font-weight:600}
+
+/* ============ FOOTER ============ */
+footer{background:var(--ink);color:var(--paper);padding:clamp(70px,10vh,110px) 0 0}
+.foot-top{display:grid;grid-template-columns:1.2fr 2fr;gap:6%;align-items:end;padding-bottom:60px;border-bottom:1px solid var(--line-l)}
+.foot-word{font:600 clamp(3.6rem,11vw,8.5rem)/.9 var(--serif);letter-spacing:-.03em}
+.foot-word i{font-style:normal;color:var(--leaf)}
+.foot-tag{font:400 italic 1.15rem var(--serif);color:rgba(205,233,220,.6)}
+.foot-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5em;padding:56px 0}
+.foot-cols h4{font:600 10px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--kelp);margin-bottom:1.2em}
+.foot-cols p,.foot-cols a{color:rgba(205,233,220,.72);font-size:.92rem;text-decoration:none;display:block}
+.foot-cols a:hover{color:var(--foam)}
+.foot-cols a + a{margin-top:.4em}
+.foot-cols .with-ic{display:inline-flex;align-items:center;gap:.6em}
+.foot-cols .with-ic .lucide{width:15px;height:15px}
+.foot-cols dt{font-weight:600;font-size:.92rem}
+.foot-cols dd{color:rgba(205,233,220,.6);font-size:.85rem;margin:.15em 0 .6em}
+.foot-bottom{border-top:1px solid var(--line-l);padding:1.6em 0 2em;display:flex;justify-content:space-between;align-items:center;gap:1em;flex-wrap:wrap;font-size:.8rem;color:rgba(205,233,220,.45)}
+#toTop{background:none;border:1px solid var(--line-l);color:var(--foam);width:44px;height:44px;border-radius:50%;cursor:pointer;display:grid;place-items:center;transition:.3s}
+#toTop:hover{background:var(--foam);color:var(--ink);transform:translateY(-3px)}
+
+/* ============ TOAST ============ */
+#toasts{position:fixed;left:22px;bottom:22px;z-index:300;display:flex;flex-direction:column;gap:10px}
+.toast{
+  display:flex;align-items:center;gap:.9em;background:var(--ink);color:var(--paper);
+  border:1px solid rgba(205,233,220,.22);border-radius:3px;padding:1em 1.4em;
+  font:500 14px var(--sans);box-shadow:0 18px 44px -12px rgba(10,40,48,.5);
+  animation:toastIn .5s var(--ease);
+}
+.toast .lucide{color:var(--kelp);width:17px;height:17px;flex:none}
+.toast.out{opacity:0;transform:translateY(10px);transition:.4s var(--ease)}
+@keyframes toastIn{from{opacity:0;transform:translateY(18px)}}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:960px){
+  .main-nav{display:none}
+  #burger{display:grid}
+  .intro-grid,.fire-grid,.visit-grid,.prose,.res-grid{grid-template-columns:1fr;gap:2.4em}
+  .foot-top{grid-template-columns:1fr;gap:1.6em}
+  .hero-side{display:none}
+}
+@media(max-width:640px){
+  .head-reserve{display:none}
+  .stat + .stat{border-left:0;padding-left:0}
+  .stats-row{gap:1.6em}
+  .stat{min-width:40%}
+  .f-row{grid-template-columns:1fr}
+  .step{grid-template-columns:4.2em 1fr}
+  .step .s-no{font-size:2rem}
+  .hero-foot .scroll{display:none}
+  .page-head{padding-top:130px}
+  .reserve-sec{padding-top:130px}
+  .foot-cols{grid-template-columns:1fr 1fr}
+  #preview{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="siteHeader">
+  <div class="container head-inner">
+    <a class="brand" href="#/home" aria-label="Ember — home">
+      <span class="mark"><i data-lucide="flame"></i></span>Ember
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#/home" data-route="home">Home</a>
+      <a href="#/menu" data-route="menu">Menu</a>
+      <a href="#/story" data-route="story">Story</a>
+      <a href="#/reserve" data-route="reserve">Reservations</a>
+    </nav>
+    <div class="head-right">
+      <a class="btn small light head-reserve" href="#/reserve">Reserve a table</a>
+      <button id="burger" aria-label="Toggle menu">
+        <i data-lucide="menu" class="ic-open"></i><i data-lucide="x" class="ic-close"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <a href="#/home"><span>01</span>Home</a>
+    <a href="#/menu"><span>02</span>Menu</a>
+    <a href="#/story"><span>03</span>Story</a>
+    <a href="#/reserve"><span>04</span>Reservations</a>
+  </nav>
+  <div class="mm-foot">
+    <span>14 Coal Dock Lane, Harborside</span>
+    <span>Tue – Sun · from 17:00</span>
+  </div>
+</div>
+
+<main>
+<!-- ==================== HOME ==================== -->
+<section class="page" id="page-home">
+  <div class="hero" id="hero">
+    <canvas id="flame" aria-hidden="true"></canvas>
+    <div class="container hero-inner on-dark-t">
+      <p class="eyebrow reveal" style="--d:60ms">Live-fire kitchen · Harborside</p>
+      <h1 class="display reveal" style="--d:140ms">Cooked by fire,<br><em>fed by the sea.</em></h1>
+      <p class="lede reveal" style="--d:220ms">Ember is a fourteen-seat counter where the day's catch meets oak coals. Nothing leaves the kitchen that the flame hasn't touched.</p>
+      <div class="hero-cta reveal" style="--d:300ms">
+        <a class="btn light" href="#/reserve">Reserve a seat<i data-lucide="arrow-right"></i></a>
+        <a class="btn light-ghost" href="#/menu">Tonight's menu</a>
+      </div>
+    </div>
+    <span class="hero-side">Est. 2019 — Coal Dock Lane</span>
+    <div class="container hero-foot">
+      <span class="hint"><i data-lucide="flame"></i>Move your cursor — click to stoke the fire</span>
+      <span class="scroll">Scroll<i data-lucide="arrow-down"></i></span>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <section class="intro">
+    <div class="container intro-grid">
+      <div class="reveal">
+        <p class="label">(01) The room</p>
+        <h2 class="display">One hearth. Fourteen seats. A menu that changes <em>with the tide.</em></h2>
+      </div>
+      <div class="reveal" style="--d:120ms">
+        <p class="lede">Ember opened in 2019 on a working dock, with a single oak-burning hearth and a rule we've never broken: everything passes through the flame. The catch comes off the boats five minutes away; the greens come from twelve raised beds behind the room. Between the two, there's the fire — and a counter close enough to feel it work.</p>
+        <a class="link-arrow" href="#/story">Read our story<i data-lucide="arrow-up-right"></i></a>
+      </div>
+    </div>
+    <div class="container stats reveal">
+      <div class="stats-row">
+        <div class="stat"><b><i>01</i></b><span>wood-fired hearth</span></div>
+        <div class="stat"><b>14</b><span>counter seats</span></div>
+        <div class="stat"><b>90<i>m</i></b><span>from the pier</span></div>
+        <div class="stat"><b><i>0</i></b><span>freezers on site</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fire-sec on-dark-t">
+    <div class="container fire-grid">
+      <figure class="fire-fig reveal">
+        <div class="duo"><img src="https://picsum.photos/seed/ember-hearthmain/900/1100.jpg" alt="The oak hearth at Ember, coals glowing before service" loading="lazy"></div>
+        <figcaption><span>The hearth</span><span>6:40 pm, before first seating</span></figcaption>
+      </figure>
+      <div class="fire-list">
+        <p class="label reveal">(02) Tonight's fire</p>
+        <h2 class="display reveal" style="--d:80ms">Fresh off <em>the coals.</em></h2>
+        <p class="reveal" style="--d:140ms">A few plates from tonight's board. The rest is written each morning, once we know what the boats brought in.</p>
+        <a class="fire-row reveal" style="--d:180ms" href="#/menu">
+          <span class="no">01</span>
+          <div><h3>Ember Oysters</h3><p>fir-smoked butter, lemon ash</p></div>
+          <span class="price">22</span><i data-lucide="arrow-up-right"></i>
+        </a>
+        <a class="fire-row reveal" style="--d:240ms" href="#/menu">
+          <span class="no">02</span>
+          <div><h3>Whole Day-Boat Fish</h3><p>salt-baked, green sauce, charred lemon</p></div>
+          <span class="price">46</span><i data-lucide="arrow-up-right"></i>
+        </a>
+        <a class="fire-row reveal" style="--d:300ms" href="#/menu">
+          <span class="no">03</span>
+          <div><h3>Grilled Octopus</h3><p>fermented chili, crushed potato</p></div>
+          <span class="price">24</span><i data-lucide="arrow-up-right"></i>
+        </a>
+        <a class="btn light reveal" style="--d:360ms" href="#/menu">See the full menu<i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit">
+    <div class="container">
+      <p class="label reveal">(04) Visit</p>
+      <h2 class="display reveal" style="--d:80ms">Find <em>the smoke.</em></h2>
+      <div class="visit-grid">
+        <div>
+          <div class="v-block reveal">
+            <b><i data-lucide="map-pin"></i>14 Coal Dock Lane</b>
+            <p>Harborside old town — follow the gulls past the fish market, we're the blackened door at the end of the pier road.</p>
+          </div>
+          <div class="v-block reveal" style="--d:100ms">
+            <b><i data-lucide="phone"></i>+1 (555) 014-7320</b>
+            <p>Call for parties over eight, or anything the fire should know about.</p>
+          </div>
+          <div class="v-block reveal" style="--d:140ms">
+            <b><i data-lucide="mail"></i>hello@ember.rest</b>
+            <p>Events, whole-fish feasts, and press enquiries.</p>
+          </div>
+        </div>
+        <div class="v-block reveal" style="--d:120ms">
+          <b><i data-lucide="clock"></i>Hours</b>
+          <dl class="hours-list">
+            <div><dt>Tuesday – Thursday</dt><dd>17:00 – 22:00</dd></div>
+            <div><dt>Friday – Saturday</dt><dd>17:00 – 23:00</dd></div>
+            <div><dt>Sunday</dt><dd>16:00 – 21:00</dd></div>
+            <div class="closed"><dt>Monday</dt><dd>Closed — the fire rests</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ==================== MENU ==================== -->
+<section class="page" id="page-menu">
+  <div class="container page-head">
+    <p class="label reveal">(02) Menu</p>
+    <h1 class="display reveal" style="--d:80ms">What the fire's <em>been eating.</em></h1>
+    <div class="menu-top">
+      <p class="lede reveal" style="--d:140ms">Four rooms of the kitchen, from the coals to the glass. Prices in dollars, service included.</p>
+      <p class="menu-note reveal" style="--d:200ms">The board shifts daily with the catch, and dietary notes are happily handled — just tell us when you book.<br><span class="peek"><i data-lucide="eye"></i>Hover any dish for a peek from tonight's pass.</span></p>
+    </div>
+    <div class="tabs reveal" role="tablist" aria-label="Menu categories">
+      <button class="tab active" role="tab" data-cat="hearth">Hearth</button>
+      <button class="tab" role="tab" data-cat="sea">Sea &amp; Raw</button>
+      <button class="tab" role="tab" data-cat="garden">Garden</button>
+      <button class="tab" role="tab" data-cat="drink">To Drink</button>
+    </div>
+  </div>
+  <div class="container menu-wrap">
+    <p class="cat-note" id="catNote"></p>
+    <div id="dishList"></div>
+    <div class="tasting reveal">
+      <div>
+        <p class="label">The Hearth Tasting</p>
+        <h3>Seven courses, one fire, no choices to make — the whole kitchen, the way we'd eat it.</h3>
+      </div>
+      <div class="tasting-right">
+        <div class="t-price">95<small>per person</small></div>
+        <a class="btn" href="#/reserve">Book the counter<i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+  <figure id="preview" aria-hidden="true"><img alt=""><figcaption></figcaption></figure>
+</section>
+
+<!-- ==================== STORY ==================== -->
+<section class="page" id="page-story">
+  <div class="container page-head">
+    <p class="label reveal">(03) Story</p>
+    <h1 class="display reveal" style="--d:80ms">A fire that started <em>on a boat.</em></h1>
+    <p class="lede reveal" style="--d:140ms">Before there was a room, a hearth, or a name, there was a driftwood fire on the shingle and whatever the nets brought up.</p>
+  </div>
+
+  <div class="container prose">
+    <p class="side-note reveal">Mara Voss &amp; Sen Ito — chef and forager, partners at the pass since 2016.</p>
+    <div>
+      <p class="reveal">Ember started as a driftwood fire on a shingle beach, after the boats came in. Mara used to grill the day's leftover catch for anyone who helped haul the nets; Sen brought herbs from a window box and a bottle of something cold. People started showing up before the boats did.</p>
+      <p class="reveal" style="--d:80ms">In 2019 we found a room on Coal Dock Lane — an old net store with blackened beams and a floor that had already survived a hundred years of salt. We built the hearth first and the kitchen around it. There's no gas line, no electric grill, no freezer. If the fire isn't lit, we're not really open.</p>
+      <p class="reveal" style="--d:140ms">The menu is written each morning after the boats land and the garden's picked. Some nights there's langoustine; some nights there's excellent leeks. Fourteen seats, one sitting that never really ends, and a counter close enough to feel the heat on your forearms while you eat.</p>
+    </div>
+  </div>
+
+  <div class="container collage">
+    <figure class="c1 reveal"><div class="duo"><img src="https://picsum.photos/seed/ember-boat/780/950.jpg" alt="Fishing boats at the harbor at dawn" loading="lazy"></div><figcaption>Dawn, the pier — where the menu starts</figcaption></figure>
+    <figure class="c2 reveal" style="--d:120ms"><div class="duo"><img src="https://picsum.photos/seed/ember-coals/760/990.jpg" alt="Oak coals raked ready for grilling" loading="lazy"></div><figcaption>Oak &amp; birch, two hours down</figcaption></figure>
+    <figure class="c3 reveal" style="--d:200ms"><div class="duo"><img src="https://picsum.photos/seed/ember-counter/1200/750.jpg" alt="Guests seated along the counter by the open fire" loading="lazy"></div><figcaption>The counter, mid-service</figcaption></figure>
+  </div>
+
+  <div class="pull on-dark-t">
+    <div class="container reveal">
+      <blockquote>You don't give the fire instructions. You learn to cook alongside it.</blockquote>
+      <cite>Mara Voss — chef &amp; founder</cite>
+    </div>
+  </div>
+
+  <div class="steps-band">
+    <div class="container">
+      <p class="label reveal">The way it works</p>
+      <h2 class="display reveal" style="--d:80ms">From tide <em>to table.</em></h2>
+      <div class="step reveal"><span class="s-no">01</span><div><h3>The boats</h3><p>We buy whole, direct, and at dawn — whatever the day-boats land at the pier before the market opens. If it isn't swimming this morning, it isn't on the board tonight.</p></div></div>
+      <div class="step reveal" style="--d:80ms"><span class="s-no">02</span><div><h3>The coals</h3><p>Oak and birch, burned down for two hours before service. Every dish passes over, under, or into it — even the ice cream gets its honey charred.</p></div></div>
+      <div class="step reveal" style="--d:140ms"><span class="s-no">03</span><div><h3>The counter</h3><p>Fourteen seats, one hearth, no walls between you and the pass. Dinner takes as long as it takes — the fire doesn't rush, and neither do we.</p></div></div>
+    </div>
+  </div>
+
+  <div class="story-cta on-dark-t">
+    <div class="container reveal">
+      <h2 class="display">Come sit <em>at the counter.</em></h2>
+      <a class="btn light" href="#/reserve">Reserve a table<i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RESERVE ==================== -->
+<section class="page" id="page-reserve">
+  <div class="container reserve-sec on-dark-t">
+    <div class="res-grid">
+      <div class="res-info">
+        <p class="label reveal">(04) Reservations</p>
+        <h1 class="display reveal" style="--d:80ms">Claim a seat <em>by the fire.</em></h1>
+        <p class="lede reveal" style="--d:140ms">We hold the counter for bookings and keep a few stools at the bar for walk-ins — first come, first warmed.</p>
+        <ul class="res-list">
+          <li class="reveal" style="--d:180ms"><i data-lucide="clock"></i><div><b>Tuesday – Sunday, from 17:00</b><span>Kitchen takes last orders at 21:30. Monday the fire rests.</span></div></li>
+          <li class="reveal" style="--d:220ms"><i data-lucide="map-pin"></i><div><b>14 Coal Dock Lane, Harborside</b><span>Five minutes on foot from the pier.</span></div></li>
+          <li class="reveal" style="--d:260ms"><i data-lucide="phone"></i><div><b>+1 (555) 014-7320</b><span>For parties over eight, or the Hearth Tasting.</span></div></li>
+        </ul>
+      </div>
+
+      <div class="res-form reveal" style="--d:160ms">
+        <form id="resForm" novalidate>
+          <div class="f-row">
+            <div class="field" id="fName">
+              <label for="resName">Name</label>
+              <input type="text" id="resName" autocomplete="name" placeholder="Who's coming">
+              <p class="err">Tell us your name so we can greet you properly.</p>
+            </div>
+            <div class="field" id="fContact">
+              <label for="resContact">Phone or email</label>
+              <input type="text" id="resContact" autocomplete="tel" placeholder="Where we confirm">
+              <p class="err">We need one way to reach you.</p>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="field" id="fDate">
+              <label for="resDate">Date</label>
+              <input type="date" id="resDate">
+              <p class="err">Pick a date for your visit.</p>
+              <p class="warn" id="monWarn">We're closed Mondays — the fire rests. Pick another day.</p>
+            </div>
+            <div class="field">
+              <label id="guestLabel">Guests</label>
+              <div class="stepper" role="group" aria-labelledby="guestLabel">
+                <button type="button" id="gMinus" aria-label="Fewer guests"><i data-lucide="minus"></i></button>
+                <output id="gOut" aria-live="polite">2</output>
+                <button type="button" id="gPlus" aria-label="More guests"><i data-lucide="plus"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="field" id="fTime">
+            <label>Time</label>
+            <div class="chips" id="timeChips"></div>
+            <p class="err">Choose a time — the hearth likes to be expected.</p>
+          </div>
+          <div class="field">
+            <label for="resNotes">Anything the fire should know?</label>
+            <textarea id="resNotes" rows="2" placeholder="Allergies, occasions, seating wishes…"></textarea>
+          </div>
+          <div class="form-foot">
+            <button type="submit" class="btn light">Request this table<i data-lucide="arrow-right"></i></button>
+            <small>No deposits, no menus locked in advance — just tell us when you're coming.</small>
+          </div>
+        </form>
+
+        <div class="res-success" id="resSuccess" aria-live="polite">
+          <div class="ok"><i data-lucide="check"></i></div>
+          <h3>Request received.</h3>
+          <p id="successText"></p>
+          <button type="button" class="btn light-ghost" id="amendBtn">Amend this request</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="on-dark-t">
+  <div class="container foot-top">
+    <div>
+      <p class="foot-word">Ember<i>.</i></p>
+    </div>
+    <p class="foot-tag">Cooked by fire. Fed by the sea.<br>Fourteen seats, one hearth, no shortcuts.</p>
+  </div>
+  <div class="container foot-cols">
+    <div>
+      <h4>Visit</h4>
+      <p>14 Coal Dock Lane<br>Harborside old town</p>
+      <p style="margin-top:.8em"><a class="with-ic" href="#/reserve">Reserve a table<i data-lucide="arrow-up-right"></i></a></p>
+    </div>
+    <div>
+      <h4>Hours</h4>
+      <dl>
+        <dt>Tue – Thu</dt><dd>17:00 – 22:00</dd>
+        <dt>Fri – Sat</dt><dd>17:00 – 23:00</dd>
+        <dt>Sun</dt><dd>16:00 – 21:00</dd>
+        <dt>Mon</dt><dd>Closed</dd>
+      </dl>
+    </div>
+    <div>
+      <h4>Follow &amp; call</h4>
+      <a class="with-ic" href="#/home" aria-label="Instagram"><i data-lucide="instagram"></i>ember.harborside</a>
+      <a class="with-ic" href="#/home" aria-label="Facebook"><i data-lucide="facebook"></i>emberkitchen</a>
+      <a class="with-ic" href="#/home"><i data-lucide="phone"></i>+1 (555) 014-7320</a>
+      <a class="with-ic" href="#/home"><i data-lucide="mail"></i>hello@ember.rest</a>
+    </div>
+  </div>
+  <div class="container foot-bottom">
+    <span>© <span id="year"></span> Ember Kitchen — cooked daily, never re-heated.</span>
+    <button id="toTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+  </div>
+</footer>
+
+<div id="toasts"></div>
+
+<script>
+/* ============================================================
+   EMBER — single-file multi-page site
+   pages: home / menu / story / reserve (hash-routed)
+   ============================================================ */
+const $  = (s, c=document) => c.querySelector(s);
+const $$ = (s, c=document) => [...c.querySelectorAll(s)];
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+/* ---------- toast ---------- */
+function toast(msg, icon='check'){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `<i data-lucide="${icon}"></i><span>${msg}</span>`;
+  $('#toasts').appendChild(el);
+  lucide.createIcons();
+  setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(), 420); }, 3600);
+}
+
+/* ---------- header state ---------- */
+const header = $('#siteHeader');
+function headerState(){
+  const onDark = document.body.dataset.page === 'home'
+              && window.scrollY < window.innerHeight - 90;
+  header.classList.toggle('on-dark', onDark && !document.body.classList.contains('menu-open'));
+  header.classList.toggle('menu-open', document.body.classList.contains('menu-open'));
+  header.classList.toggle('scrolled', window.scrollY > 24 || document.body.classList.contains('menu-open'));
+}
+window.addEventListener('scroll', headerState, {passive:true});
+
+/* ---------- mobile menu ---------- */
+ $('#burger').addEventListener('click', ()=>{
+  document.body.classList.toggle('menu-open');
+  headerState();
+});
+ $$('#mobileMenu a').forEach(a=>a.addEventListener('click', ()=>{
+  document.body.classList.remove('menu-open'); headerState();
+}));
+
+/* ---------- reveal on scroll ---------- */
+const io = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+}), {threshold:.12});
+ $$('.reveal').forEach(el=>io.observe(el));
+
+/* ============================================================
+   FLAME — the cold ember (canvas, teal-green fire)
+   ============================================================ */
+const hero = $('#hero'), canvas = $('#flame'), ctx = canvas.getContext('2d');
+let W=0, H=0, parts=[], coals=[], wind=0, flare=0, running=false, rafId=0, heroVisible=true;
+const mouse = {x:0, active:false};
+
+const flameCx = () => W * (W > 760 ? .68 : .5);
+const flameW  = () => Math.min(W * .30, 340);
+
+function sizeCanvas(){
+  const r = hero.getBoundingClientRect();
+  const dpr = Math.min(devicePixelRatio || 1, 1.5);
+  W = r.width; H = r.height;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  coals = Array.from({length:14}, ()=>({
+    x: flameCx() + (Math.random()-.5) * flameW() * 1.15,
+    y: H - 44 - Math.random()*10,
+    r: 1.4 + Math.random()*2.6,
+    sp: .5 + Math.random()*1.4,
+    ph: Math.random()*Math.PI*2
+  }));
+}
+function spawn(burst){
+  parts.push({
+    x: flameCx() + (Math.random()-.5) * flameW(),
+    y: H - 42 + Math.random()*14,
+    vx: (Math.random()-.5)*.4,
+    vy: -(1.3 + Math.random()*2.1) * (H/820 + .35) * (burst ? 1.9 : 1),
+    life: 0, ttl: 70 + Math.random()*80,
+    r: burst ? 4+Math.random()*8 : 7+Math.random()*16,
+    sway: 8 + Math.random()*26,
+    ph: Math.random()*Math.PI*2,
+    fs: .03 + Math.random()*.05,
+    core: Math.random() < .22
+  });
+}
+/* color ramp: deep ink → tide → kelp → foam */
+function ramp(t){
+  const S = [[18,60,74],[23,107,107],[127,201,168],[214,240,226]];
+  let a,b,k;
+  if(t < .4){ a=S[0]; b=S[1]; k=t/.4; }
+  else if(t < .75){ a=S[1]; b=S[2]; k=(t-.4)/.35; }
+  else { a=S[2]; b=S[3]; k=(t-.75)/.25; }
+  return a.map((v,i)=>Math.round(v+(b[i]-v)*k)).join(',');
+}
+function drawCoals(t){
+  for(const c of coals){
+    const f = .5 + .5*Math.sin(t*.004*c.sp + c.ph);
+    const a = (.22 + .4*f) * (1 + flare*.9);
+    const g = ctx.createRadialGradient(c.x,c.y,0,c.x,c.y,c.r*3.4);
+    g.addColorStop(0, `rgba(127,201,168,${a})`);
+    g.addColorStop(1, 'rgba(127,201,168,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(c.x,c.y,c.r*3.4,0,6.2832); ctx.fill();
+    ctx.fillStyle = `rgba(214,240,226,${f*.75})`;
+    ctx.beginPath(); ctx.arc(c.x,c.y,c.r*.55,0,6.2832); ctx.fill();
+  }
+}
+function step(t){
+  ctx.clearRect(0,0,W,H);
+  /* wind: idle breathing + cursor influence */
+  let target = Math.sin(t*.0006)*.22 + Math.sin(t*.0011+2)*.14;
+  if(mouse.active) target += Math.max(-1.6, Math.min(1.6, (mouse.x - flameCx())/(W*.35) * 1.9));
+  wind += (target - wind) * .045;
+  flare *= .945;
+
+  ctx.globalCompositeOperation = 'lighter';
+  /* ember bed glow */
+  const bw = flameW();
+  const g = ctx.createRadialGradient(flameCx(), H-38, 0, flameCx(), H-38, bw*.85);
+  g.addColorStop(0, `rgba(23,107,107,${.15 + .22*flare})`);
+  g.addColorStop(1, 'rgba(23,107,107,0)');
+  ctx.fillStyle = g; ctx.fillRect(flameCx()-bw, H-38-bw, bw*2, bw);
+  drawCoals(t);
+  /* particles */
+  const n = 3 + Math.round(flare*26);
+  if(parts.length < 380) for(let i=0;i<n;i++) spawn(flare > .3);
+  for(let i=parts.length-1; i>=0; i--){
+    const p = parts[i];
+    p.life++;
+    const tt = p.life/p.ttl;
+    if(tt >= 1){ parts.splice(i,1); continue; }
+    p.ph += p.fs;
+    p.vy *= .996;
+    p.x += p.vx + wind*(.6+tt) + Math.sin(p.ph)*p.sway*.04*tt;
+    p.y += p.vy;
+    const r = Math.max(p.r*(1-tt)*(.45+tt*1.1), .4);
+    const a = Math.pow(1-tt,1.5) * (p.core ? .75 : .4) * (.75 + .5*flare);
+    const col = ramp(tt);
+    if(r < 1){
+      ctx.fillStyle = `rgba(${col},${a})`;
+      ctx.beginPath(); ctx.arc(p.x,p.y,r,0,6.2832); ctx.fill();
+    } else {
+      const rg = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r);
+      rg.addColorStop(0, `rgba(${col},${a})`);
+      rg.addColorStop(1, `rgba(${col},0)`);
+      ctx.fillStyle = rg;
+      ctx.beginPath(); ctx.arc(p.x,p.y,r,0,6.2832); ctx.fill();
+    }
+  }
+  ctx.globalCompositeOperation = 'source-over';
+}
+function loop(t){ if(!running) return; step(t); rafId = requestAnimationFrame(loop); }
+function setFlame(on){
+  if(RM){ // static painting for reduced motion
+    if(on && W===0) sizeCanvas();
+    if(on && !running){
+      running = true;
+      ctx.clearRect(0,0,W,H);
+      ctx.globalCompositeOperation='lighter';
+      const g = ctx.createRadialGradient(flameCx(),H-38,0,flameCx(),H-38,flameW()*.85);
+      g.addColorStop(0,'rgba(23,107,107,.2)'); g.addColorStop(1,'rgba(23,107,107,0)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,W,H); drawCoals(1200);
+      for(let i=0;i<220;i++) spawn(false);
+      parts.forEach(p=>{ p.life = Math.random()*p.ttl*.8;
+        p.y += p.vy*p.life; p.x += (p.vx+wind)*p.life; });
+      [...parts].sort((a,b)=>a.life-b.life).forEach(p=>{
+        const tt=p.life/p.ttl; if(tt>=1) return;
+        const r=Math.max(p.r*(1-tt)*(.45+tt*1.1),.4);
+        const a=Math.pow(1-tt,1.5)*(p.core?.75:.4);
+        const rg=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r);
+        rg.addColorStop(0,`rgba(${ramp(tt)},${a})`); rg.addColorStop(1,`rgba(${ramp(tt)},0)`);
+        ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(p.x,p.y,r,0,6.2832); ctx.fill();
+      });
+      ctx.globalCompositeOperation='source-over';
+      parts = [];
+    }
+    if(!on) running = false;
+    return;
+  }
+  if(on && !running && heroVisible && !document.hidden){
+    running = true; rafId = requestAnimationFrame(loop);
+  } else if(!on || !heroVisible || document.hidden){
+    running = false; cancelAnimationFrame(rafId);
+  }
+}
+new IntersectionObserver(es=>{
+  heroVisible = es[0].isIntersecting;
+  setFlame(document.body.dataset.page === 'home');
+},{threshold:.04}).observe(hero);
+document.addEventListener('visibilitychange', ()=> setFlame(document.body.dataset.page==='home' && !document.hidden));
+
+hero.addEventListener('pointermove', e=>{
+  const r = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - r.left; mouse.active = true;
+});
+hero.addEventListener('pointerleave', ()=> mouse.active = false);
+hero.addEventListener('pointerdown', e=>{
+  if(e.target.closest('a,button,input')) return;
+  flare = 1;
+  for(let i=0;i<55;i++) spawn(true);
+});
+window.addEventListener('resize', ()=>{ if(document.body.dataset.page==='home'){ sizeCanvas(); } });
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+const TK = ['Ember oysters','Salt-baked day-boat fish','Charred leeks & kelp oil',
+  'Kelp negroni','Coal-roasted beets','Smoke-baked flatbread','Scallop crudo','Langoustines over oak'];
+const group = `<div class="ticker-group"><span class="tk-label">Tonight's fire</span>${
+  TK.map(i=>`<span>${i}</span><b>·</b>`).join('')}</div>`;
+ $('#tickerTrack').innerHTML = group + group;
+
+/* ============================================================
+   MENU
+   ============================================================ */
+const MENU = {
+  hearth:{ note:'From the coals — oak, birch, and patience.', items:[
+    {n:'Ember Oysters', d:'fir-smoked butter, lemon ash', p:'22'},
+    {n:'Whole Day-Boat Fish', d:'salt-baked, green sauce, charred lemon', p:'46'},
+    {n:'Coal-Roasted Beets', d:'fresh horseradish, dill, rye crumb', p:'15'},
+    {n:'Grilled Octopus', d:'fermented chili, crushed potato', p:'24'},
+    {n:'Charred Leeks', d:'toasted hazelnut, kelp oil', p:'14'},
+    {n:'Smoke-Baked Flatbread', d:'seaweed butter, flaky salt', p:'9'},
+    {n:'Fire-Roasted Squash', d:'brown butter, sage, honeycomb', p:'16'},
+  ]},
+  sea:{ note:'Raw and cured — the sea, barely introduced.', items:[
+    {n:'Scallop Crudo', d:'green apple, verbena, cold-pressed rapeseed', p:'19'},
+    {n:'Bluefin Tataki', d:'smoked ponzu, crisped shallot', p:'26'},
+    {n:'Cured Trout', d:'buttermilk, cucumber, dill oil', p:'18'},
+    {n:'Oysters, Raw', d:'mignonette of sea herbs', p:'21 / ½ dz'},
+    {n:'Langoustines', d:'cooked over oak, sea salt, nothing else', p:'29'},
+    {n:'Sea Bream Carpaccio', d:'lime, green chili, coriander', p:'21'},
+  ]},
+  garden:{ note:'From the beds behind the room, straight into the embers.', items:[
+    {n:'Ember Greens', d:'charred cabbage, anchovy butter', p:'13'},
+    {n:'Salt-Baked Celeriac', d:'black garlic, chive oil', p:'17'},
+    {n:'Asparagus, Over Fire', d:'miso hollandaise, toasted seeds', p:'15'},
+    {n:'Wild Mushrooms', d:'cooked in leaves, thyme butter', p:'18'},
+    {n:'New Potatoes', d:'buried in coals, crème fraîche, trout roe', p:'12'},
+    {n:'Grilled Peach', d:'sorrel, raw honey, burnt cream', p:'14'},
+  ]},
+  drink:{ note:'Smoke, salt, and green things — with or without the proof.', items:[
+    {n:'Tidal Ember', d:'mezcal, sea salt, lime, green herbal liqueur', p:'16'},
+    {n:'Kelp Negroni', d:'gin, kelp-infused bitter, sweet vermouth', p:'15'},
+    {n:'Smoke on the Water', d:'peated scotch, honey, smoked lemon', p:'17'},
+    {n:'Garden Highball', d:'cucumber, verjus, soda', p:'12'},
+    {n:'Low Tide (0%)', d:'verjus, tonic, sea herbs', p:'9'},
+    {n:'Natural Wine', d:'a rotating list — ask at the counter', p:'12 / gl'},
+    {n:'Hearth Coffee', d:'barrel-aged cold brew or single-origin espresso', p:'5'},
+  ]},
+};
+const dishList = $('#dishList'), catNote = $('#catNote');
+const preview = $('#preview'), pvImg = $('#preview img'), pvCap = $('#preview figcaption');
+const pv = {x:0,y:0,tx:0,ty:0,s:0,ts:0,rot:0,on:false,raf:null};
+
+function pvLoop(){
+  pv.x += (pv.tx-pv.x)*.18; pv.y += (pv.ty-pv.y)*.18;
+  pv.s += (pv.ts-pv.s)*.16;
+  const dx = pv.tx-pv.x;
+  pv.rot += (Math.max(-8,Math.min(8,dx*.1))-pv.rot)*.12;
+  preview.style.transform = `translate3d(${pv.x}px,${pv.y}px,0) rotate(${pv.rot}deg) scale(${Math.max(pv.s,.001)})`;
+  if(pv.s > .02 || pv.on) pv.raf = requestAnimationFrame(pvLoop);
+  else pv.raf = null;
+}
+function renderMenu(cat){
+  const data = MENU[cat];
+  catNote.textContent = data.note;
+  dishList.innerHTML = data.items.map((m,i)=>`
+    <article class="dish" data-img="https://picsum.photos/seed/ember-${cat}-${i}/640/480.jpg" data-name="${m.n}">
+      <span class="no">${String(i+1).padStart(2,'0')}</span>
+      <div>
+        <div class="line1"><h3>${m.n}</h3><span class="dots"></span></div>
+        <p class="desc">${m.d}</p>
+      </div>
+      <span class="price">${m.p}</span>
+    </article>`).join('');
+  const rows = $$('.dish', dishList);
+  rows.forEach((r,i)=> r.style.transitionDelay = (i*55)+'ms');
+  requestAnimationFrame(()=>requestAnimationFrame(()=> rows.forEach(r=>r.classList.add('show'))));
+  rows.forEach(r=> r.style.transitionDelay = '0ms');
+}
+ $$('.tab').forEach(tab=>tab.addEventListener('click', ()=>{
+  $$('.tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  renderMenu(tab.dataset.cat);
+}));
+renderMenu('hearth');
+
+if(FINE){
+  dishList.addEventListener('pointerover', e=>{
+    const d = e.target.closest('.dish'); if(!d) return;
+    pvImg.src = d.dataset.img;
+    pvCap.textContent = d.dataset.name;
+    if(!pv.on){
+      pv.on = true; pv.ts = 1;
+      pv.x = pv.tx = e.clientX + 28; pv.y = pv.ty = e.clientY - 86;
+      preview.classList.add('on');
+      if(!pv.raf) pv.raf = requestAnimationFrame(pvLoop);
+    }
+  });
+  dishList.addEventListener('pointermove', e=>{
+    if(!pv.on) return;
+    pv.tx = e.clientX > innerWidth - 320 ? e.clientX - 268 : e.clientX + 28;
+    pv.ty = Math.max(12, e.clientY - 86);
+  });
+  dishList.addEventListener('pointerleave', ()=>{
+    pv.on = false; pv.ts = 0; preview.classList.remove('on');
+  });
+}
+
+/* ============================================================
+   RESERVATIONS
+   ============================================================ */
+const SLOTS = ['17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30'];
+const chipsBox = $('#timeChips');
+let chosenTime = null, guests = 2;
+chipsBox.innerHTML = SLOTS.map(s=>`<button type="button" class="chip" data-t="${s}">${s}</button>`).join('');
+chipsBox.addEventListener('click', e=>{
+  const c = e.target.closest('.chip'); if(!c) return;
+  $$('.chip', chipsBox).forEach(x=>x.classList.remove('sel'));
+  c.classList.add('sel'); chosenTime = c.dataset.t;
+  $('#fTime').classList.remove('invalid');
+});
+const gOut = $('#gOut');
+function setGuests(n){
+  guests = Math.min(8, Math.max(1, n));
+  gOut.textContent = guests;
+  $('#gMinus').disabled = guests <= 1;
+  $('#gPlus').disabled = guests >= 8;
+}
+ $('#gMinus').addEventListener('click', ()=>setGuests(guests-1));
+ $('#gPlus').addEventListener('click', ()=>setGuests(guests+1));
+setGuests(2);
+
+const resDate = $('#resDate');
+{ const d = new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset());
+  resDate.min = d.toISOString().slice(0,10); }
+resDate.addEventListener('change', ()=>{
+  const bad = resDate.value && new Date(resDate.value+'T12:00').getDay() === 1;
+  $('#monWarn').classList.toggle('show', bad);
+  if(!bad) $('#fDate').classList.remove('invalid');
+});
+
+const resForm = $('#resForm'), resSuccess = $('#resSuccess');
+resForm.addEventListener('submit', e=>{
+  e.preventDefault();
+  let ok = true;
+  const need = (id, cond) => { $(id).classList.toggle('invalid', !cond); if(!cond) ok = false; };
+  need('#fName',    $('#resName').value.trim().length > 1);
+  need('#fContact', $('#resContact').value.trim().length > 4);
+  const monday = resDate.value && new Date(resDate.value+'T12:00').getDay() === 1;
+  need('#fDate', !!resDate.value && !monday);
+  need('#fTime', !!chosenTime);
+  if(!ok){ toast('A few details are missing — check the form.', 'alert-circle'); return; }
+
+  const d = new Date(resDate.value+'T00:00')
+    .toLocaleDateString('en-US',{weekday:'long', month:'long', day:'numeric'});
+  $('#successText').innerHTML =
+    `Table for <b>${guests} ${guests===1?'guest':'guests'}</b> · <b>${d}</b> · <b>${chosenTime}</b>.<br>` +
+    `We'll confirm by text to ${$('#resContact').value.trim()} within the hour. ` +
+    `The coals will be ready, ${$('#resName').value.trim().split(' ')[0]}.`;
+  resForm.style.display = 'none';
+  resSuccess.classList.add('show');
+  toast("Request sent — we'll be in touch shortly.", 'flame');
+});
+ $('#amendBtn').addEventListener('click', ()=>{
+  resSuccess.classList.remove('show');
+  resForm.style.display = '';
+});
+ $('#toTop').addEventListener('click', ()=>window.scrollTo({top:0, behavior: RM?'auto':'smooth'}));
+
+/* ============================================================
+   ROUTER
+   ============================================================ */
+const ROUTES = ['home','menu','story','reserve'];
+const TITLES = {home:'Ember — Live-Fire Kitchen', menu:'Menu — Ember',
+                story:'Our Story — Ember', reserve:'Reservations — Ember'};
+function showPage(name){
+  $$('.page').forEach(p=>p.classList.remove('active'));
+  const page = $('#page-'+name);
+  page.classList.add('active');
+  $$('.main-nav a').forEach(a=>a.classList.toggle('active', a.dataset.route===name));
+  document.body.dataset.page = name;
+  document.title = TITLES[name];
+  window.scrollTo(0,0);
+  headerState();
+  setFlame(name === 'home');
+  if(name === 'home' && W === 0) sizeCanvas();
+}
+function router(){
+  let h = location.hash.replace('#/','') || 'home';
+  if(!ROUTES.includes(h)) h = 'home';
+  showPage(h);
+}
+window.addEventListener('hashchange', router);
+router();
+ $('#year').textContent = new Date().getFullYear();
+lucide.createIcons();
+</script>
+</body>
+</html>
