@@ -1055,7 +1055,7 @@ const cl = (v,a,b)=>Math.min(b,Math.max(a,v));
    ========================================================= */
 const I18N = {
 en:{
-  'meta.title':'Aurelia — Ristorante · Cucina del Fuoco',
+  'meta.title':'Aurelia — Fire-Cooked Restaurant',
   'nav.house':'The House','nav.facade':'The Facade','nav.amb':'Ambiance','nav.menu':'The Table','nav.order':'Takeaway','nav.orderbtn':'Order','nav.reserve':'Reserve',
   'msub.house':'the house','msub.facade':'the street','msub.amb':'by candlelight','msub.menu':'the menu','msub.order':'takeaway','msub.reserve':'reserve',
   'mnav.cart':'Your order','mnav.empty':'empty',
@@ -1071,14 +1071,14 @@ en:{
   'h.sig':'Elena Marchetti — third generation, keeper of the fire',
   'facade.cap':'An unmarked wooden door, a hand-forged lantern, windows that glow a little earlier in winter. If you can smell oak smoke and orange peel, you have found us — or let the fire come to you instead.',
   'facade.dusk':'Dusk','facade.night':'Night',
-  'tav.xii':'Pl. XII','tav.xiv':'Pl. XIV','parcel.cap':'copper packing · wax seal',
+  'tav.xii':'Plate XII','tav.xiv':'Plate XIV','parcel.cap':'copper packing · wax seal',
   'amb.label':'The match — drag to light the candles',
   'amb.s0':'Dusk — the room holds its breath.','amb.s1':'The first match catches.','amb.s2':'Candlelight. Conversations soften.','amb.s3':'Full glow — the evening begins.',
   'snd.off':'Sound — off','snd.on':'Sound — on',
   'menu.sub':'Written each afternoon · dine with us, or take the fire home · <sup style="color:var(--gold-dk)">*</sup> cooked over oak embers',
   'menu.head':'cuisine of fire — winter',
   'tab.cena':'Dinner','tab.vini':'Wines',
-  'g.antipasti':'Antipasti','g.primi':'First courses','g.fuoco':'From the Fire','g.dolci':'Desserts','g.rossi':'Reds','g.bianchi':'Whites & Sparkling',
+  'g.antipasti':'Starters','g.primi':'First courses','g.fuoco':'From the Fire','g.dolci':'Desserts','g.rossi':'Reds','g.bianchi':'Whites & Sparkling',
   'menu.foot':'Tasting menu — seven courses from the fire · 95 per person',
   'o.st':'Every dish on tonight\u2019s menu travels — packed in copper-lined tins, sealed with the house wax, each with a small card telling you exactly how to <em>wake it over your own flame</em>.',
   'o.p1':'Delivery goes out by bicycle, within the Old Quarter only — the food should still be breathing when it reaches you. Or collect from the door, where the lantern is lit from six o\u2019clock.',
@@ -1098,7 +1098,7 @@ en:{
   'c.mode':'Mode','m.pickup':'Pickup','m.del':'Delivery',
   'c.addr':'Address','c.vaddr':'Where should the fire travel?',
   'c.when':'When','c.asap':'As soon as the fire allows','c.today':'Today ·',
-  'c.name':'Name','c.vname':'A name for the order, per favore.','c.phone':'Phone','c.vphone':'We need a number to confirm.',
+  'c.name':'Name','c.vname':'A name for the order, please.','c.phone':'Phone','c.vphone':'We need a number to confirm.',
   'c.sub':'Subtotal','c.fee':'Delivery','c.total':'Total','c.place':'Send the order to the fire',
   'c.paynote':'we\u2019ll call to confirm — ready in about 45 minutes',
   'c.doneh':'The order is <em>on the fire</em>.','c.ordernum':'Order',
@@ -1243,6 +1243,35 @@ if(!langSaved){
 }
 const LOCALES = {en:'en-GB', ru:'ru-RU', lv:'lv-LV'};
 const t = k => (I18N[LANG] && I18N[LANG][k]) || I18N.en[k] || k;
+
+/* Apply translations immediately, before the interactive modules initialize.
+   This keeps the page multilingual even if a later visual interaction fails. */
+function applyEarlyLang(l){
+  if(!I18N[l]) return;
+  LANG = l;
+  try{ localStorage.setItem('aurelia-lang', l); }catch(e){}
+  document.documentElement.lang = l;
+  document.title = t('meta.title');
+  document.querySelectorAll('[data-lang]').forEach(b=>{
+    const on = b.dataset.lang === l;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    el.innerHTML = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
+    el.setAttribute('aria-label', t(el.dataset.i18nAria));
+  });
+  const emptyLabel = document.getElementById('mnCartSum');
+  if(emptyLabel && emptyLabel.textContent.trim().toLowerCase()==='vuoto') emptyLabel.textContent = t('mnav.empty');
+  const fabLabel = document.getElementById('fabTxt');
+  if(fabLabel && fabLabel.textContent.trim()==='Ordina') fabLabel.textContent = t('nav.orderbtn');
+}
+document.querySelectorAll('[data-lang]').forEach(b=>{
+  b.addEventListener('click', ()=>applyEarlyLang(b.dataset.lang));
+});
+applyEarlyLang(LANG);
 const ruPl = (n,f)=>{ const a=n%10, b=n%100; return (a===1&&b!==11)?f[0]:(a>=2&&a<=4&&(b<12||b>14))?f[1]:f[2]; };
 const guestWord = n=> LANG==='ru' ? ruPl(n,['гость','гостя','гостей']) : LANG==='lv' ? (n===1?'viesis':'viesi') : (n===1?'guest':'guests');
 const dishWord = n=> LANG==='ru' ? ruPl(n,['блюдо','блюда','блюд']) : LANG==='lv' ? (n===1?'ēdiens':'ēdieni') : (n===1?'dish':'dishes');
