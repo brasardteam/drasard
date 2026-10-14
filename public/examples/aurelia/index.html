@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurelia — Ristorante · Cucina del Fuoco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ---------- Foundations ---------- */
+@property --light{syntax:'<number>';initial-value:.35;inherits:true}
+:root{
+  --bg:#170e08; --bg2:#1d1309; --ink:#120b06;
+  --cream:#eee1c8; --cream2:#d9c8a6; --mut:#9c8a6b;
+  --gold:#c79a4b; --gold2:#e6bd72; --gold-dk:#8a6428;
+  --hair:rgba(199,154,75,.26);
+  --paper:#f0e6d2; --pink:#2a1c0e; --p-mut:#7c6b4f; --p-line:#c9b995;
+  --f-d:'Fraunces','Cormorant',Georgia,serif; --f-s:'Jost',sans-serif;
+}
+html[lang="ru"]{--f-d:'Cormorant','Fraunces',Georgia,serif}
+html[lang="ru"] h2,html[lang="ru"] .statement{font-weight:400}
+html[lang="ru"] .hero-title{font-weight:430}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--cream);font:300 16px/1.7 var(--f-s);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+::selection{background:var(--gold);color:#170e08}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:#140c07}::-webkit-scrollbar-thumb{background:#3c2a15;border-radius:5px}
+a{color:inherit;text-decoration:none}
+section{scroll-margin-top:96px}
+.wrap{width:min(1180px,92vw);margin:0 auto}
+.sec{padding:clamp(90px,11vw,150px) 0}
+.sec-top{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.sec-top .lab{font:400 12px var(--f-s);letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.sec-top .rule{flex:1;height:1px;background:var(--hair)}
+h2{font:340 clamp(32px,4.6vw,58px)/1.12 var(--f-d);letter-spacing:.01em;max-width:820px}
+h2 em{font-style:italic;font-weight:320;color:var(--gold2)}
+.mk{width:15px;height:20px;fill:currentColor;color:var(--gold);flex:none}
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .95s ease var(--rd,0s),transform .95s cubic-bezier(.2,.7,.2,1) var(--rd,0s)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ---------- Buttons & links ---------- */
+.btn{display:inline-block;font:400 12px var(--f-s);letter-spacing:.24em;text-transform:uppercase;padding:15px 30px;border:1px solid var(--gold);color:var(--cream);background:transparent;transition:background .3s,color .3s,border-color .3s;cursor:pointer}
+.btn:hover{background:var(--gold);color:#181008}
+.btn-sm{padding:10px 20px}
+.linkish{background:none;border:none;font:italic 400 15px var(--f-d);color:var(--gold2);cursor:pointer;border-bottom:1px solid var(--hair);padding:2px 0}
+.linkish:hover{color:var(--gold)}
+.on-paper .linkish,.cart .linkish{color:var(--gold-dk);border-bottom-color:var(--p-line)}
+.on-paper .linkish:hover,.cart .linkish:hover{color:var(--pink)}
+
+/* ---------- Language switcher ---------- */
+.langsw{display:flex;gap:2px;border:1px solid var(--hair);padding:3px}
+.langsw button{background:none;border:0;color:var(--mut);font:500 10.5px/1 var(--f-s);letter-spacing:.16em;padding:6px 9px;cursor:pointer;transition:color .25s,background .25s}
+.langsw button:hover{color:var(--cream)}
+.langsw button.on{background:var(--gold);color:#181008}
+.mnav .langsw{align-self:flex-start;margin-bottom:26px}
+
+/* ---------- Loader ---------- */
+.loader{position:fixed;inset:0;z-index:200;background:#140c07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:clip-path .9s cubic-bezier(.7,0,.2,1) .1s;clip-path:inset(0 0 0 0)}
+.loader .mk{width:22px;height:30px;animation:ldp 1.6s ease-in-out infinite}
+@keyframes ldp{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.ld-word{font:400 15px var(--f-s);letter-spacing:.55em;text-indent:.55em;color:var(--cream2)}
+.ld-line{width:0;height:1px;background:var(--gold);animation:ldl 1.1s cubic-bezier(.2,.7,.2,1) .25s forwards}
+@keyframes ldl{to{width:110px}}
+.loader.bye{clip-path:inset(0 0 100% 0);pointer-events:none}
+
+/* ---------- Cursor ---------- */
+.cur-dot,.cur-ring{position:fixed;left:0;top:0;z-index:190;pointer-events:none;border-radius:50%;opacity:0}
+.cur-dot{width:5px;height:5px;background:var(--gold2);margin:-2.5px}
+.cur-ring{width:30px;height:30px;border:1px solid rgba(199,154,75,.55);margin:-15px;transition:width .25s,height .25s,margin .25s,border-color .25s}
+.cur-ring.hot{width:48px;height:48px;margin:-24px;border-color:var(--gold2)}
+body.cur *{cursor:none}
+body.cur input,body.cur textarea,body.cur select{cursor:text}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:clamp(18px,2.6vw,36px);padding:20px min(4vw,44px);transition:background .4s,padding .4s,border-color .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(23,14,8,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:13px min(4vw,44px);border-bottom-color:var(--hair)}
+.brand{display:flex;align-items:center;gap:10px;font:500 17px var(--f-d);letter-spacing:.34em;text-indent:.05em}
+.brand .mk{width:12px;height:16px}
+.nav-links{display:flex;gap:30px;margin-left:auto}
+.nav-links a{font:400 12px var(--f-s);letter-spacing:.2em;text-transform:uppercase;color:var(--cream2);position:relative;padding:4px 0;white-space:nowrap}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .35s ease}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav .btn{position:relative;white-space:nowrap}
+.cbadge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;margin-left:9px;border-radius:9px;background:var(--gold);color:#181008;font:500 10px/1 var(--f-s);letter-spacing:0;vertical-align:1px}
+.cbadge.bump{animation:bump .45s ease}
+@keyframes bump{40%{transform:scale(1.4)}}
+.burger{display:none;margin-left:auto;background:none;border:none;width:36px;height:30px;position:relative;cursor:pointer}
+.burger span{position:absolute;left:4px;right:4px;height:1px;background:var(--cream);transition:.35s}
+.burger span:first-child{top:11px}.burger span:last-child{bottom:11px}
+.burger.open span:first-child{top:14px;transform:rotate(45deg)}
+.burger.open span:last-child{bottom:15px;transform:rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:150;background:#150d07;display:flex;flex-direction:column;justify-content:center;padding:0 10vw;gap:8px;opacity:0;visibility:hidden;transition:opacity .45s,visibility .45s}
+.mnav.open{opacity:1;visibility:visible}
+.mnav a{font:340 38px var(--f-d);color:var(--cream);padding:9px 0;border-bottom:1px solid var(--hair);transform:translateY(18px);opacity:0;transition:.5s ease}
+.mnav.open a{transform:none;opacity:1}
+.mnav a em{font-style:italic;color:var(--gold2);font-size:18px;margin-left:14px}
+.mnav .mfoot{margin-top:30px;font:400 12px var(--f-s);letter-spacing:.2em;text-transform:uppercase;color:var(--mut);transform:none;opacity:1;border:none}
+@media(max-width:1120px){.nav-links{gap:18px}}
+@media(max-width:900px){.nav-links,.nav .btn{display:none}.langsw{margin-left:auto}.burger{display:block;margin-left:14px}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bg)}
+#heroFx{position:absolute;inset:0;width:100%;height:100%}
+.hero-frame{position:absolute;inset:clamp(12px,2.4vw,26px);border:1px solid var(--hair);pointer-events:none;z-index:3}
+.hero-frame .fm{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--bg);padding:0 16px;line-height:0}
+.hero-frame .fm .mk{width:13px;height:18px}
+.hero-wm{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);height:72vh;aspect-ratio:24/32;color:var(--gold);opacity:.055;z-index:1;animation:breathe 9s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.035)}}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:0 5vw}
+.kicker{font:400 13px var(--f-s);letter-spacing:.5em;text-indent:.5em;text-transform:uppercase;color:var(--gold);opacity:0;letter-spacing:.9em;transition:opacity 1.1s ease .2s,letter-spacing 1.4s cubic-bezier(.2,.7,.2,1) .2s}
+.hero.ready .kicker{opacity:1;letter-spacing:.5em}
+.hero-title{font:380 clamp(62px,13vw,182px)/1 var(--f-d);letter-spacing:.05em;margin:26px 0 30px;color:var(--cream)}
+.hero-title .l{display:inline-block;overflow:hidden;vertical-align:bottom}
+.hero-title .l i{display:inline-block;font-style:normal;transform:translateY(115%);transition:transform 1.1s cubic-bezier(.2,.75,.15,1) calc(.35s + var(--i)*70ms),color .35s}
+.hero-title .l:hover i{color:var(--gold2)}
+.hero.ready .hero-title .l i{transform:none}
+.hero-sub{display:flex;justify-content:space-between;align-items:baseline;gap:24px;width:min(880px,86vw);margin:0 auto;opacity:0;transform:translateY(14px);transition:opacity 1s ease .95s,transform 1s ease .95s}
+.hero.ready .hero-sub{opacity:1;transform:none}
+.hs-l{font:italic 320 clamp(17px,2.2vw,23px) var(--f-d);color:var(--gold2)}
+.hs-r{font:400 11px var(--f-s);letter-spacing:.28em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
+.hero-foot{position:absolute;left:0;right:0;bottom:clamp(24px,4vw,44px);z-index:2;display:flex;justify-content:space-between;align-items:flex-end;padding:0 clamp(28px,5vw,56px);font:400 11px var(--f-s);letter-spacing:.24em;text-transform:uppercase;color:var(--mut);opacity:0;transition:opacity 1s ease 1.25s}
+.hero.ready .hero-foot{opacity:1}
+.scrollcue{position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;letter-spacing:.3em}
+.scrollcue i{width:1px;height:42px;background:var(--gold);display:block;transform-origin:top;animation:cue 2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media(max-width:700px){.hero-sub{flex-direction:column;align-items:center;gap:8px}.hero-foot span:last-child{display:none}}
+
+/* ---------- Marquee ---------- */
+.mq{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:20px 0;overflow:hidden}
+.mq-t{display:flex;width:max-content;animation:mq 34s linear infinite}
+.mq:hover .mq-t{animation-play-state:paused}
+.mq-g{display:flex;align-items:center;gap:46px;padding-right:46px}
+.mq-g span{font:italic 320 23px var(--f-d);color:rgba(238,225,200,.5);white-space:nowrap}
+.mq-g .mk{width:11px;height:15px;opacity:.55}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- The House ---------- */
+.house-g{display:grid;grid-template-columns:250px 1fr;gap:clamp(40px,6vw,90px);align-items:start}
+.ledger{list-style:none;border-top:1px solid var(--hair)}
+.ledger li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:15px 2px;border-bottom:1px solid var(--hair);font:400 11px var(--f-s);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.ledger b{font:480 15px var(--f-d);letter-spacing:.06em;color:var(--cream);font-weight:480;text-transform:none}
+.statement{font:340 clamp(25px,3.1vw,38px)/1.3 var(--f-d);color:var(--cream);margin-bottom:46px}
+.statement em{font-style:italic;color:var(--gold2)}
+.house-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,54px)}
+.house-cols p{font-size:15.5px;color:var(--mut)}
+.house-cols p::first-letter{color:var(--cream)}
+.dcap::first-letter{font:400 54px/0.8 var(--f-d);float:left;padding:7px 12px 0 0;color:var(--gold)}
+html[lang="ru"] .dcap::first-letter,html[lang="lv"] .dcap::first-letter{font-size:44px}
+.sigwrap{margin-top:52px;display:flex;align-items:flex-end;gap:22px}
+.sig{width:210px;height:62px;overflow:visible}
+.sdraw{fill:none;stroke:var(--gold);stroke-width:1.8;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2s ease .4s}
+.sigwrap.in .sdraw{stroke-dashoffset:0}
+.sigcap{font:italic 320 14.5px var(--f-d);color:var(--mut);max-width:230px;line-height:1.5}
+@media(max-width:820px){.house-g{grid-template-columns:1fr}.ledger{display:grid;grid-template-columns:1fr 1fr;border-top:none;column-gap:30px}.house-cols{grid-template-columns:1fr}}
+
+/* ---------- Plates (facade & parcel) ---------- */
+.plate{position:relative;--gb:.62;border:1px solid var(--hair);background:#1a1109;padding:clamp(14px,3.4vw,46px);overflow:hidden}
+.ct{position:absolute;width:14px;height:14px;border:0 solid var(--gold);opacity:.8}
+.ct.tl{top:8px;left:8px;border-top-width:1px;border-left-width:1px}
+.ct.tr{top:8px;right:8px;border-top-width:1px;border-right-width:1px}
+.ct.bl{bottom:8px;left:8px;border-bottom-width:1px;border-left-width:1px}
+.ct.br{bottom:8px;right:8px;border-bottom-width:1px;border-right-width:1px}
+.plate .tav{position:absolute;bottom:10px;right:16px;font:400 10px var(--f-s);letter-spacing:.3em;color:var(--mut);text-transform:uppercase}
+.face-svg{display:block;width:100%;height:auto}
+.face-svg :where(path,line,circle,rect,ellipse){fill:none;stroke:#ead9bd;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.face-svg .dim{stroke:rgba(234,217,189,.5)}
+.face-svg .draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.5s cubic-bezier(.35,0,.25,1) var(--d,0s)}
+.plate.drawn .draw{stroke-dashoffset:0}
+.face-svg .fade{opacity:0;transition:opacity 1.2s ease var(--d,0s)}
+.plate.drawn .fade{opacity:var(--o,1)}
+.face-svg .wglow{opacity:0;transition:opacity .9s ease}
+.plate.drawn .wglow{opacity:calc(var(--gb) + var(--gh,0)*.3)}
+.plate.drawn .wglow.dg{opacity:calc(var(--gb)*.5)}
+.plate.dusk{--gb:.24}
+.win{--gh:0}
+.win:hover{--gh:1}
+.face-svg .ttl{font-family:var(--f-d);font-size:40px;font-weight:480;letter-spacing:12px;fill:var(--gold);stroke:none}
+.face-svg .pt{font-family:var(--f-s);font-size:12px;letter-spacing:2px;fill:rgba(234,217,189,.75);stroke:none}
+.face-svg .moon{fill:#d9b26b;stroke:none}
+.face-svg .pdot{fill:#ead9bd;stroke:none}
+.face-svg .leaf{fill:#cdb98e;stroke:none}
+.face-svg .fl path:first-child{fill:#ffc879;stroke:none}
+.face-svg .fl path:last-child{fill:#fff3d6;stroke:none}
+.fl{transform-box:fill-box;transform-origin:50% 100%;animation:flick 1.7s ease-in-out infinite}
+@keyframes flick{0%,100%{transform:scale(1)}26%{transform:scale(.93,1.08)}52%{transform:scale(1.05,.94) skewX(2.5deg)}78%{transform:scale(.96,1.03) skewX(-2deg)}}
+.gpulse{animation:gp 2.6s ease-in-out infinite}
+@keyframes gp{0%,100%{opacity:.72}45%{opacity:.95}62%{opacity:.6}}
+.wisp{transform-box:fill-box;animation:wisp 5.5s ease-in-out infinite}
+@keyframes wisp{50%{transform:translateY(-6px)}}
+.face-cap{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-top:24px;flex-wrap:wrap}
+.face-cap p{max-width:520px;font:italic 320 16.5px var(--f-d);color:var(--mut);line-height:1.65}
+.ltoggle{display:flex;gap:10px}
+.lbtn{background:none;border:1px solid var(--hair);color:var(--mut);font:400 11px var(--f-s);letter-spacing:.2em;text-transform:uppercase;padding:9px 18px;cursor:pointer;transition:.3s}
+.lbtn.on{border-color:var(--gold);color:var(--gold2)}
+.lbtn:hover{color:var(--cream)}
+
+/* ---------- Ambiance ---------- */
+.stage{position:relative;border:1px solid var(--hair);background:#120a05;overflow:hidden}
+.room-svg{display:block;width:100%;height:auto}
+.room-svg :where(path,line,circle,rect,ellipse){fill:none;stroke:#ead9bd;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.room-svg .dim{stroke:rgba(234,217,189,.45)}
+.room-svg .veil{fill:#0d0703;stroke:none}
+.room-svg .wsky{fill:#0b0714;stroke:none}
+.room-svg .chair{fill:#0f0905;stroke:none}
+.room-svg .fsh{fill:#000;stroke:none;opacity:.35}
+.room-svg .fdot{fill:#ffe6bd;stroke:none}
+.room-svg .moonI{fill:#ffd98f;stroke:none}
+.room-svg .gc{fill:url(#rg);stroke:none}
+.room-svg .wash{fill:url(#washG);stroke:none}
+.room-svg .art{opacity:calc(.2 + var(--light)*.8)}
+.room-svg .top{opacity:calc(.22 + var(--light)*.78)}
+.room-svg .veil{opacity:calc(.86 - var(--light)*.66)}
+.room-svg .glow{opacity:calc(var(--light)*.9);transform:scale(calc(.25 + var(--light)*1.05));transform-box:fill-box;transform-origin:center}
+.room-svg .fl path:first-child{fill:#ffc879;stroke:none}
+.room-svg .fl path:last-child{fill:#fff3d6;stroke:none}
+#ambFx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 130px 42px rgba(7,4,2,.85)}
+.amb-bar{display:flex;align-items:center;gap:34px;margin-top:28px;flex-wrap:wrap}
+.match{user-select:none;-webkit-user-select:none}
+.match-lab{font:400 11px var(--f-s);letter-spacing:.24em;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
+.ms{position:relative;width:min(320px,66vw);height:36px;touch-action:none;outline:none}
+.ms-track{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--hair)}
+.ms-fill{position:absolute;left:0;top:50%;height:1px;background:var(--gold);width:calc(var(--k,.35)*100%)}
+.ms-knob{position:absolute;left:calc(var(--k,.35)*100%);top:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;border:1px solid var(--gold);background:#241708;display:flex;align-items:center;justify-content:center}
+.ms-knob svg{width:13px;height:18px;color:var(--gold2);transform:scale(calc(.55 + var(--k,.35)*.75));transform-origin:50% 90%}
+.ms:focus-visible .ms-knob{box-shadow:0 0 0 2px rgba(230,189,114,.4)}
+.amb-state{flex:1;min-width:230px;text-align:center;font:italic 320 clamp(17px,2vw,21px) var(--f-d);color:var(--gold2)}
+.snd{display:flex;align-items:center;gap:12px;background:none;border:1px solid var(--hair);color:var(--mut);font:400 11px var(--f-s);letter-spacing:.22em;text-transform:uppercase;padding:12px 18px;cursor:pointer;transition:.3s}
+.snd:hover{color:var(--cream)}
+.snd.on{border-color:var(--gold);color:var(--gold2)}
+.sbars{display:flex;align-items:flex-end;gap:2px;height:12px}
+.sbars b{width:2px;height:5px;background:currentColor;transform:scaleY(.5);transform-origin:bottom}
+.snd.on .sbars b{animation:sb .9s ease-in-out infinite}
+.snd.on .sbars b:nth-child(2){animation-delay:.22s}.snd.on .sbars b:nth-child(3){animation-delay:.44s}
+@keyframes sb{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
+/* ---------- Menu ---------- */
+.on-paper{background:var(--paper);color:var(--pink)}
+.on-paper .sec-top .lab{color:var(--gold-dk)}
+.on-paper .sec-top .rule{background:var(--p-line)}
+.on-paper h2 em{color:var(--gold-dk)}
+.on-paper .msub{font:italic 320 17px var(--f-d);color:var(--p-mut);margin-top:14px}
+.tabs{display:flex;gap:34px;position:relative;margin:54px 0 0;border-bottom:1px solid var(--p-line);width:min(760px,100%);margin-left:auto;margin-right:auto}
+.tab{background:none;border:none;font:400 13px var(--f-s);letter-spacing:.26em;text-transform:uppercase;color:var(--p-mut);padding:0 2px 16px;cursor:pointer;transition:color .3s}
+.tab.on,.tab:hover{color:var(--pink)}
+#tind{position:absolute;bottom:-1px;height:2px;background:var(--gold-dk);transition:left .45s cubic-bezier(.2,.7,.2,1),width .45s cubic-bezier(.2,.7,.2,1)}
+.mcard{width:min(760px,100%);margin:34px auto 0;border-top:2px solid var(--pink);padding-top:6px;position:relative}
+.mcard::before{content:"";display:block;border-top:1px solid var(--pink);margin-bottom:44px}
+.mcard::after{content:"";display:block;border-bottom:1px solid var(--pink);margin-top:44px}
+.mhead{text-align:center;margin-bottom:46px}
+.mhead .mk{width:14px;height:19px;color:var(--gold-dk)}
+.mhead h3{font:480 26px var(--f-d);letter-spacing:.3em;text-indent:.3em;margin:10px 0 6px}
+.mhead p{font:italic 320 15px var(--f-d);color:var(--p-mut)}
+.mgroup{margin-bottom:42px}
+.mgroup h4{display:flex;align-items:center;gap:18px;font:400 12px var(--f-s);letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:24px}
+.mgroup h4::before,.mgroup h4::after{content:"";flex:1;height:1px;background:var(--p-line)}
+.dish{padding:13px 0;transition:transform .3s}
+.dish:hover{transform:translateX(5px)}
+.drow{display:flex;align-items:center;gap:14px}
+.dname{font:450 21px var(--f-d);white-space:nowrap}
+.dname sup{color:var(--gold-dk);font-size:13px}
+.dish:hover .dname{color:var(--gold-dk)}
+.leader{flex:1;border-bottom:1px dotted rgba(42,28,14,.42);transform:translateY(-4px);min-width:30px}
+.price{font:400 15px var(--f-s);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.addb{width:30px;height:30px;border-radius:50%;border:1px solid var(--gold-dk);background:transparent;color:var(--gold-dk);font:300 17px/1 var(--f-s);cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;transition:background .25s,color .25s,opacity .25s;margin-left:4px;opacity:.55}
+.addb:hover,.dish:hover .addb{opacity:1;background:var(--gold-dk);color:var(--paper)}
+.addb:active{transform:scale(.86)}
+.addb:focus-visible{box-shadow:0 0 0 2px rgba(138,100,40,.45)}
+.addb.added{animation:pulseA .5s ease}
+@keyframes pulseA{0%{transform:scale(1)}40%{transform:scale(1.3)}100%{transform:scale(1)}}
+.ddesc{font:300 14px/1.6 var(--f-s);color:var(--p-mut);margin-top:4px;max-width:86%}
+.mfoot-note{text-align:center;font:italic 320 15.5px var(--f-d);color:var(--p-mut)}
+.mpanel{display:none}
+.mpanel.onp{display:block;animation:fadeUp .55s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- Order / Asporto ---------- */
+.ord-g{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);margin-top:56px;align-items:start}
+.ord-copy p{font-size:15.5px;color:var(--mut);margin-bottom:16px;max-width:520px}
+.ord-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:34px}
+.ord-g .plate{margin-bottom:22px}
+@media(max-width:900px){.ord-g{grid-template-columns:1fr}}
+
+/* ---------- Reserve ---------- */
+.res-g{display:grid;grid-template-columns:1.05fr .85fr;gap:clamp(40px,6vw,80px);align-items:start;margin-top:56px}
+.rslip{background:var(--paper);color:var(--pink);padding:clamp(28px,4vw,52px);position:relative}
+.rslip::before{content:"";position:absolute;inset:10px;border:1px solid var(--p-line);pointer-events:none}
+.rslip h3{font:480 21px var(--f-d);letter-spacing:.24em;text-transform:uppercase;text-align:center;margin-bottom:8px}
+.rslip .rsub{text-align:center;font:italic 320 14.5px var(--f-d);color:var(--p-mut);margin-bottom:38px}
+.field{margin-bottom:30px;position:relative}
+.field label{display:block;font:400 11px var(--f-s);letter-spacing:.26em;text-transform:uppercase;color:var(--p-mut);margin-bottom:6px}
+.field input{width:100%;background:transparent;border:0;border-bottom:1px solid var(--p-line);padding:9px 2px;font:400 19px var(--f-d);color:var(--pink);border-radius:0;color-scheme:light}
+.field input:focus{outline:none;border-bottom-color:var(--gold-dk)}
+.field select{width:100%;appearance:none;-webkit-appearance:none;background:transparent;border:0;border-bottom:1px solid var(--p-line);padding:9px 26px 9px 2px;font:400 19px var(--f-d);color:var(--pink);border-radius:0;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232a1c0e' stroke-width='1.4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center}
+.field select:focus{outline:none;border-bottom-color:var(--gold-dk)}
+.field .msg{display:none;font:italic 320 13px var(--f-d);color:#a3402c;margin-top:6px}
+.field.err .msg{display:block}
+.field.err input,.field.err select{border-bottom-color:#a3402c}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.stepper{display:flex;align-items:center;gap:20px;padding-top:6px}
+.stp{width:36px;height:36px;border-radius:50%;border:1px solid var(--p-line);background:none;font:300 18px var(--f-s);color:var(--pink);cursor:pointer;transition:.3s}
+.stp:hover{border-color:var(--gold-dk);color:var(--gold-dk)}
+.gval{font:480 26px var(--f-d);min-width:26px;text-align:center}
+.pills{display:flex;flex-wrap:wrap;gap:10px;padding-top:6px}
+.pills input{position:absolute;opacity:0;pointer-events:none}
+.pills label{display:inline-block;padding:9px 16px;border:1px solid var(--p-line);font:400 13px var(--f-s);letter-spacing:.1em;cursor:pointer;transition:.25s;margin:0}
+.pills input:checked + label{background:var(--pink);color:var(--paper);border-color:var(--pink)}
+.pills input:focus-visible + label{box-shadow:0 0 0 2px rgba(138,100,40,.45)}
+.btn-full{width:100%;border-color:var(--pink);color:var(--pink);margin-top:10px}
+.btn-full:hover{background:var(--gold-dk);border-color:var(--gold-dk);color:var(--paper)}
+.conf{text-align:center;padding:30px 0 12px;animation:fadeUp .6s ease}
+.conf .mk{width:22px;height:30px;color:var(--gold-dk)}
+.conf h3{font:italic 420 32px var(--f-d);letter-spacing:.02em;text-transform:none;margin:16px 0 12px}
+.c-line{font:400 13px var(--f-s);letter-spacing:.24em;text-transform:uppercase;color:var(--p-mut);margin-bottom:16px}
+.c-note{font:italic 320 15.5px var(--f-d);color:var(--p-mut);max-width:340px;margin:0 auto 22px}
+.rslip.done form{display:none}
+.raside .block{margin-bottom:40px}
+.raside h4{font:400 12px var(--f-s);letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.raside h4::after{content:"";flex:1;height:1px;background:var(--hair)}
+.raside p{color:var(--cream2);font-size:15.5px}
+.raside a{border-bottom:1px solid var(--hair);transition:.3s}
+.raside a:hover{color:var(--gold2);border-color:var(--gold2)}
+.rnote{font:italic 320 16px var(--f-d);color:var(--mut);border-left:1px solid var(--gold);padding-left:18px;margin-top:44px;max-width:320px}
+@media(max-width:880px){.res-g{grid-template-columns:1fr}.frow{grid-template-columns:1fr}}
+
+/* ---------- Cart drawer ---------- */
+.cveil{position:fixed;inset:0;z-index:140;background:rgba(10,6,3,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:.4s}
+.cveil.open{opacity:1;visibility:visible}
+.cart{position:fixed;top:0;right:0;bottom:0;z-index:145;width:min(440px,100vw);background:var(--paper);color:var(--pink);transform:translateX(103%);transition:transform .55s cubic-bezier(.2,.75,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 60px rgba(0,0,0,.4)}
+.cart.open{transform:none}
+.cart::before{content:"";position:absolute;inset:10px;border:1px solid var(--p-line);pointer-events:none}
+.cart-head{padding:26px 28px 18px;border-bottom:1px solid var(--p-line);position:relative}
+.cart-eyebrow{display:flex;align-items:center;gap:8px;font:400 10px var(--f-s);letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dk)}
+.cart-head h3{font:italic 460 30px var(--f-d);margin-top:6px}
+.cx{position:absolute;top:24px;right:24px;width:34px;height:34px;border-radius:50%;border:1px solid var(--p-line);background:none;color:var(--pink);font:300 15px/1 var(--f-s);cursor:pointer;transition:.25s}
+.cx:hover{border-color:var(--gold-dk);color:var(--gold-dk)}
+.cart-body{flex:1;overflow-y:auto;padding:18px 28px;scrollbar-width:thin}
+.cart-empty{text-align:center;padding:64px 10px 40px}
+.cart-empty .mk{width:20px;height:27px;color:var(--gold-dk)}
+.cart-empty h4{font:italic 440 25px var(--f-d);margin:16px 0 10px}
+.cart-empty p{font:300 14px/1.6 var(--f-s);color:var(--p-mut);max-width:270px;margin:0 auto 20px}
+.ci{padding:16px 0;border-bottom:1px dashed rgba(42,28,14,.25)}
+.ci-row{display:flex;align-items:center;gap:12px}
+.ci-qty{display:flex;align-items:center;gap:8px;flex:none}
+.ci-qty button{width:24px;height:24px;border-radius:50%;border:1px solid var(--p-line);background:none;cursor:pointer;font:400 14px/1 var(--f-s);color:var(--pink);transition:.2s;display:flex;align-items:center;justify-content:center}
+.ci-qty button:hover{border-color:var(--gold-dk);color:var(--gold-dk)}
+.ci-n{font:480 16px var(--f-d);min-width:18px;text-align:center}
+.ci-name{font:450 17px/1.35 var(--f-d);flex:1}
+.ci-total{font:400 15px var(--f-s);font-variant-numeric:tabular-nums;flex:none}
+.ci-sub{margin-top:7px;font:300 12.5px var(--f-s);color:var(--p-mut);display:flex;justify-content:space-between;align-items:baseline}
+.ci-rm{background:none;border:none;font:italic 320 12.5px var(--f-d);color:#a3402c;cursor:pointer;padding:0;border-bottom:1px solid transparent}
+.ci-rm:hover{border-color:#a3402c}
+.cart-sec{padding:22px 0 8px;border-top:1px solid var(--p-line);margin-top:6px}
+.cart-sec .field{margin-bottom:24px}
+.trow{display:flex;align-items:baseline;gap:12px;font:400 13.5px var(--f-s);letter-spacing:.08em;padding:5px 0}
+.trow .leader{transform:translateY(-3px)}
+.trow.total{font:480 21px var(--f-d);padding-top:12px;margin-top:8px;border-top:1px solid var(--pink)}
+.cart-foot{padding:18px 28px 28px;border-top:1px solid var(--p-line)}
+.paynote{margin-top:12px;text-align:center;font:italic 320 13px var(--f-d);color:var(--p-mut)}
+.cart-done{text-align:center;padding:46px 8px 24px;animation:fadeUp .6s ease}
+.cart-done .mk{width:20px;height:27px;color:var(--gold-dk)}
+.cart-done h4{font:italic 440 30px var(--f-d);margin:16px 0 14px}
+.cart-done h4 em{color:var(--gold-dk)}
+#oNum{font:480 22px var(--f-d);letter-spacing:.14em;text-transform:none;margin-bottom:8px;color:var(--pink)}
+.cdone-line{font:400 12.5px var(--f-s);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+.cdone-note{font:italic 320 14.5px/1.6 var(--f-d);color:var(--p-mut);max-width:280px;margin:16px auto 20px}
+.fab{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(90px);z-index:120;display:flex;align-items:center;gap:10px;background:var(--gold);color:#181008;border:none;padding:14px 24px;font:500 12px var(--f-s);letter-spacing:.18em;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:transform .45s cubic-bezier(.2,.75,.2,1)}
+.fab.show{transform:translateX(-50%) translateY(0)}
+.fab .mk{width:12px;height:16px}
+@media(min-width:901px){.fab{display:none}}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);z-index:170;background:#241708;border:1px solid var(--gold);color:var(--cream);padding:12px 22px;display:flex;align-items:center;gap:10px;font:italic 330 15px var(--f-d);opacity:0;pointer-events:none;transition:.35s;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.toast .mk{width:11px;height:15px;color:var(--gold2)}
+@media(max-width:900px){.toast{bottom:92px}}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--hair);padding:70px 0 30px;overflow:hidden}
+.f-top{display:flex;justify-content:space-between;align-items:center;gap:26px;flex-wrap:wrap;margin-bottom:40px}
+.f-links{display:flex;gap:26px;flex-wrap:wrap}
+.f-links a{font:400 11px var(--f-s);letter-spacing:.22em;text-transform:uppercase;color:var(--mut);transition:color .3s}
+.f-links a:hover{color:var(--gold2)}
+.f-word{font:480 clamp(64px,15vw,215px)/0.95 var(--f-d);letter-spacing:.06em;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(199,154,75,.32);user-select:none;transform:translateY(8%)}
+.f-bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--hair);margin-top:-14px;padding-top:22px;font:400 11px var(--f-s);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  [data-reveal]{opacity:1!important;transform:none!important}
+  .face-svg .draw,.sdraw{stroke-dashoffset:0!important}
+  .face-svg .fade{opacity:var(--o,1)!important}
+  .plate.drawn .wglow,.plate.drawn .wglow.dg{opacity:calc(var(--gb) + var(--gh,0)*.3)}
+  .loader{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Shared flame mark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="flame" viewBox="0 0 24 32">
+    <path fill-rule="evenodd" d="M12 2C17.5 9 21 13.6 21 20a9 9 0 1 1-18 0C3 13.6 6.5 9 12 2Zm0 11c-2.6 2.3-4 4.4-4 6.7a4 4 0 1 0 8 0c0-2.3-1.4-4.4-4-6.7Z"/>
+  </symbol>
+</svg>
+
+<!-- Loader -->
+<div class="loader" id="loader" aria-hidden="true">
+  <svg class="mk"><use href="#flame"/></svg>
+  <div class="ld-word">AURELIA</div>
+  <div class="ld-line"></div>
+</div>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <a class="brand" href="#top"><svg class="mk"><use href="#flame"/></svg><span>AURELIA</span></a>
+  <div class="nav-links">
+    <a href="#house" data-i18n="nav.house">La Casa</a>
+    <a href="#facade" data-i18n="nav.facade">La Facciata</a>
+    <a href="#ambiance" data-i18n="nav.amb">L'Atmosfera</a>
+    <a href="#menu" data-i18n="nav.menu">La Tavola</a>
+    <a href="#order" data-i18n="nav.order">Da Asporto</a>
+  </div>
+  <div class="langsw" role="group" data-i18n-aria="a.lang" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    <button type="button" data-lang="lv" aria-pressed="false">LV</button>
+  </div>
+  <button class="btn btn-sm" id="cartBtn" type="button"><span data-i18n="nav.orderbtn">Ordina</span><b class="cbadge" id="cbadge" hidden>0</b></button>
+  <a class="btn btn-sm" href="#reserve" data-i18n="nav.reserve">Reserve</a>
+  <button class="burger" id="burger" data-i18n-aria="a.menu" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+</nav>
+
+<div class="mnav" id="mnav">
+  <div class="langsw" role="group" data-i18n-aria="a.lang" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    <button type="button" data-lang="lv" aria-pressed="false">LV</button>
+  </div>
+  <a href="#house"><span data-i18n="nav.house">La Casa</span> <em><span data-i18n="msub.house">la casa</span></em></a>
+  <a href="#facade"><span data-i18n="nav.facade">La Facciata</span> <em><span data-i18n="msub.facade">la facciata</span></em></a>
+  <a href="#ambiance"><span data-i18n="nav.amb">L'Atmosfera</span> <em><span data-i18n="msub.amb">la luce</span></em></a>
+  <a href="#menu"><span data-i18n="nav.menu">La Tavola</span> <em><span data-i18n="msub.menu">il menu</span></em></a>
+  <a href="#order"><span data-i18n="nav.order">Da Asporto</span> <em><span data-i18n="msub.order">da asporto</span></em></a>
+  <a href="#" data-cart><span data-i18n="mnav.cart">Il tuo ordine</span> <em id="mnCartSum">vuoto</em></a>
+  <a href="#reserve"><span data-i18n="nav.reserve">La Serata</span> <em><span data-i18n="msub.reserve">prenotare</span></em></a>
+  <p class="mfoot">Via delle Erbe 12 · <span data-i18n="f.quarter">Old Quarter</span> · +39 055 214 887</p>
+</div>
+
+<!-- Hero -->
+<header class="hero" id="top">
+  <canvas id="heroFx" aria-hidden="true"></canvas>
+  <svg class="hero-wm" viewBox="0 0 24 32" aria-hidden="true"><use href="#flame"/></svg>
+  <div class="hero-frame">
+    <span class="fm"><svg class="mk"><use href="#flame"/></svg></span>
+  </div>
+  <div class="hero-inner">
+    <p class="kicker" data-i18n="hero.kicker">Ristorante · Cucina del Fuoco</p>
+    <h1 class="hero-title" aria-label="Aurelia">
+      <span class="l" style="--i:0"><i>A</i></span><span class="l" style="--i:1"><i>U</i></span><span class="l" style="--i:2"><i>R</i></span><span class="l" style="--i:3"><i>E</i></span><span class="l" style="--i:4"><i>L</i></span><span class="l" style="--i:5"><i>I</i></span><span class="l" style="--i:6"><i>A</i></span>
+    </h1>
+    <div class="hero-sub">
+      <p class="hs-l" data-i18n="hero.tag">the table behind <em>the wooden door</em> — or yours</p>
+      <p class="hs-r" data-i18n="hero.addr">Via delle Erbe 12 — Old Quarter</p>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <span data-i18n="hero.est">Est. MCMLXXXVII</span>
+    <span class="scrollcue"><i></i><span data-i18n="hero.scroll">scorri</span></span>
+    <span data-i18n="hero.star">Una stella — Guida MMXXV</span>
+  </div>
+</header>
+
+<main>
+  <!-- Marquee (built by JS so the words translate) -->
+  <div class="mq" aria-hidden="true"><div class="mq-t" id="mqT"></div></div>
+
+  <!-- 01 · The House -->
+  <section class="sec" id="house">
+    <div class="wrap">
+      <div class="sec-top" data-reveal>
+        <svg class="mk"><use href="#flame"/></svg>
+        <span class="lab" data-i18n="s.house">N° 01 · La Casa</span>
+        <span class="rule"></span>
+      </div>
+      <h2 data-i18n="h.house" data-reveal style="--rd:.08s">A house of <em>fire</em> and patience.</h2>
+      <div class="house-g" style="margin-top:60px">
+        <ul class="ledger" data-reveal style="--rd:.15s">
+          <li><span data-i18n="l.est">Est.</span> <b>MCMLXXXVII</b></li>
+          <li><span data-i18n="l.seats">Posti</span> <b data-i18n="l.seatsv">34 seats</b></li>
+          <li><span data-i18n="l.fire">Fuoco</span> <b data-i18n="l.firev">one wood fire</b></li>
+          <li><span data-i18n="l.star">Guida</span> <b data-i18n="l.starv">una stella</b></li>
+        </ul>
+        <div>
+          <p class="statement" data-i18n="h.st" data-reveal style="--rd:.1s">Thirty-four seats gathered around a single oak fire, in a house that has been feeding this street since long before we thought to <em>give it a name</em>.</p>
+          <div class="house-cols">
+            <p class="dcap" data-i18n="h.p1" data-reveal style="--rd:.2s">The building was an olive press until 1987, when Aurelia Marchetti traded her last harvest for the deed. The presses came out; the hearth went in. Three generations later the same oak burns in the same fireplace, and the menu is still written each afternoon — after the market, never before.</p>
+            <p data-i18n="h.p2" data-reveal style="--rd:.28s">Chef Elena Marchetti cooks the way her grandmother did: over embers, with patience, and with whatever the morning trusted her with. Nothing foamed. Nothing was deconstructed. The fire is the only technique this kitchen has ever needed — everything else is just attention.</p>
+          </div>
+          <div class="sigwrap" data-reveal style="--rd:.32s">
+            <svg class="sig" viewBox="0 0 240 70" aria-hidden="true">
+              <path class="sdraw" pathLength="1" d="M8 52C26 14 52 6 47 24c-4 15-24 24-33 21 18 8 44 3 60-8-3 12 6 16 18 8 10-7 4-18-4-12-7 5 0 14 14 11 13-3 22-11 30-20 3 12 12 15 22 8 8-6 6-14-2-12-6 2-4 10 6 12 12 2 24-4 34-12"/>
+            </svg>
+            <p class="sigcap" data-i18n="h.sig">Elena Marchetti — third generation, keeper of the fire</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · The Facade -->
+  <section class="sec" id="facade" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-top" data-reveal>
+        <svg class="mk"><use href="#flame"/></svg>
+        <span class="lab" data-i18n="s.facade">N° 02 · La Facciata</span>
+        <span class="rule"></span>
+      </div>
+      <h2 data-i18n="h.facade" data-reveal style="--rd:.08s">Seen from <em>the street</em>.</h2>
+
+      <div class="plate night" id="plate" data-reveal style="--rd:.14s;margin-top:56px">
+        <span class="ct tl"></span><span class="ct tr"></span><span class="ct bl"></span><span class="ct br"></span>
+        <span class="tav" data-i18n="tav.xii">Tav. XII</span>
+        <svg class="face-svg" viewBox="0 0 1000 660" data-i18n-aria="a.facade" role="img" aria-label="Architectural drawing of the Aurelia facade: arched windows, wooden door, hanging lantern">
+          <defs>
+            <radialGradient id="wg" cx="50%" cy="55%" r="62%">
+              <stop offset="0" stop-color="#ffbe6a" stop-opacity=".9"/>
+              <stop offset=".5" stop-color="#e08b34" stop-opacity=".35"/>
+              <stop offset="1" stop-color="#e08b34" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="7"/></filter>
+          </defs>
+
+          <g id="plxSky">
+            <path class="moon fade" style="--d:2.1s;--o:.85" d="M905 34a40 40 0 1 0 48 58 38 38 0 1 1-48-58Z"/>
+            <path class="fade dim" style="--d:2.2s;--o:.6" d="M128 84v10m-5-5h10"/>
+            <path class="fade dim" style="--d:2.3s;--o:.6" d="M212 138v8m-4-4h8"/>
+            <path class="fade dim" style="--d:2.35s;--o:.55" d="M84 176v8m-4-4h8"/>
+            <path class="fade dim" style="--d:2.25s;--o:.6" d="M948 148v8m-4-4h8"/>
+          </g>
+
+          <g id="plxBld">
+            <path class="draw" style="--d:.05s" pathLength="1" d="M70 588H930"/>
+            <path class="draw" style="--d:.2s" pathLength="1" d="M160 588V110H840V588"/>
+            <path class="draw" style="--d:.45s" pathLength="1" d="M138 110H862"/>
+            <path class="draw" style="--d:.5s" pathLength="1" d="M150 96H850"/>
+            <line class="fade" style="--d:.85s;--o:.75" x1="160" y1="103" x2="840" y2="103" stroke-width="11" stroke-dasharray="4 21"/>
+            <path class="draw dim" style="--d:.55s" pathLength="1" d="M172 82H828"/>
+            <path class="draw" style="--d:.65s" pathLength="1" d="M160 150H840"/>
+            <path class="draw" style="--d:.7s" pathLength="1" d="M160 214H840"/>
+            <path class="draw dim" style="--d:.85s" pathLength="1" d="M170 158H830"/>
+            <text class="ttl fade" style="--d:1.25s" x="500" y="198" text-anchor="middle">AURELIA</text>
+            <g class="fade" style="--d:1.35s;--o:.9" fill="#c79a4b"><path fill-rule="evenodd" d="M331 168l3.4 4.9c2 3 3 5.2 3 7.4a6.3 6.3 0 1 1-12.6 0c0-2.2 1-4.4 3-7.4Zm0 5.4c-1.1 1-1.7 1.9-1.7 2.9a1.7 1.7 0 1 0 3.4 0c0-1-.6-1.9-1.7-2.9Z"/></g>
+            <g class="fade" style="--d:1.4s;--o:.9" fill="#c79a4b"><path fill-rule="evenodd" d="M669 168l3.4 4.9c2 3 3 5.2 3 7.4a6.3 6.3 0 1 1-12.6 0c0-2.2 1-4.4 3-7.4Zm0 5.4c-1.1 1-1.7 1.9-1.7 2.9a1.7 1.7 0 1 0 3.4 0c0-1-.6-1.9-1.7-2.9Z"/></g>
+
+            <g class="win">
+              <path class="wglow" d="M195 480V330A80 80 0 0 1 355 330V480Z" fill="url(#wg)" filter="url(#soft)"/>
+              <path class="draw" style="--d:.9s" pathLength="1" d="M195 480V330A80 80 0 0 1 355 330V480"/>
+              <path class="draw dim" style="--d:1.15s" pathLength="1" d="M275 254V480"/>
+              <path class="draw dim" style="--d:1.2s" pathLength="1" d="M195 362H355"/>
+              <path class="draw dim" style="--d:1.25s" pathLength="1" d="M195 430H355"/>
+              <path class="draw dim" style="--d:1.3s" pathLength="1" d="M275 330L219 274"/>
+              <path class="draw dim" style="--d:1.35s" pathLength="1" d="M275 330L331 274"/>
+              <path class="draw" style="--d:1.2s" pathLength="1" d="M180 480H370"/>
+              <path class="draw dim" style="--d:1.25s" pathLength="1" d="M188 492H362"/>
+              <path class="draw dim" style="--d:1.5s" pathLength="1" d="M204 498V516H346V498"/>
+              <path class="draw dim" style="--d:1.55s" pathLength="1" d="M226 498V482"/>
+              <path class="draw dim" style="--d:1.6s" pathLength="1" d="M275 498V478"/>
+              <path class="draw dim" style="--d:1.65s" pathLength="1" d="M324 498V482"/>
+              <circle class="pdot fade" style="--d:1.8s;--o:.85" cx="226" cy="478" r="3.4"/>
+              <circle class="pdot fade" style="--d:1.85s;--o:.85" cx="275" cy="474" r="3.4"/>
+              <circle class="pdot fade" style="--d:1.9s;--o:.85" cx="324" cy="478" r="3.4"/>
+            </g>
+
+            <g class="win">
+              <path class="wglow" d="M665 480V330A80 80 0 0 1 825 330V480Z" fill="url(#wg)" filter="url(#soft)"/>
+              <path class="draw" style="--d:1s" pathLength="1" d="M665 480V330A80 80 0 0 1 825 330V480"/>
+              <path class="draw dim" style="--d:1.2s" pathLength="1" d="M745 254V480"/>
+              <path class="draw dim" style="--d:1.25s" pathLength="1" d="M665 362H825"/>
+              <path class="draw dim" style="--d:1.3s" pathLength="1" d="M665 430H825"/>
+              <path class="draw dim" style="--d:1.35s" pathLength="1" d="M745 330L689 274"/>
+              <path class="draw dim" style="--d:1.4s" pathLength="1" d="M745 330L801 274"/>
+              <path class="draw" style="--d:1.25s" pathLength="1" d="M650 480H840"/>
+              <path class="draw dim" style="--d:1.3s" pathLength="1" d="M658 492H832"/>
+              <path class="draw dim" style="--d:1.55s" pathLength="1" d="M674 498V516H816V498"/>
+              <path class="draw dim" style="--d:1.6s" pathLength="1" d="M696 498V482"/>
+              <path class="draw dim" style="--d:1.65s" pathLength="1" d="M745 498V478"/>
+              <path class="draw dim" style="--d:1.7s" pathLength="1" d="M794 498V482"/>
+              <circle class="pdot fade" style="--d:1.85s;--o:.85" cx="696" cy="478" r="3.4"/>
+              <circle class="pdot fade" style="--d:1.9s;--o:.85" cx="745" cy="474" r="3.4"/>
+              <circle class="pdot fade" style="--d:1.95s;--o:.85" cx="794" cy="478" r="3.4"/>
+            </g>
+
+            <g class="win">
+              <path class="wglow dg" d="M440 556V400A60 60 0 0 1 560 400V556Z" fill="url(#wg)" filter="url(#soft)"/>
+              <path class="draw" style="--d:1.05s" pathLength="1" d="M440 556V400A60 60 0 0 1 560 400V556"/>
+              <path class="draw dim" style="--d:1.25s" pathLength="1" d="M452 556V404A48 48 0 0 1 548 404V556"/>
+              <path class="draw dim" style="--d:1.3s" pathLength="1" d="M440 400H560"/>
+              <path class="draw dim" style="--d:1.35s" pathLength="1" d="M500 400L448 370"/>
+              <path class="draw dim" style="--d:1.39s" pathLength="1" d="M500 400L470 348"/>
+              <path class="draw dim" style="--d:1.43s" pathLength="1" d="M500 400V340"/>
+              <path class="draw dim" style="--d:1.47s" pathLength="1" d="M500 400L530 348"/>
+              <path class="draw dim" style="--d:1.51s" pathLength="1" d="M500 400L552 370"/>
+              <path class="draw dim" style="--d:1.55s" pathLength="1" d="M458 418H492V542H458Z"/>
+              <path class="draw dim" style="--d:1.6s" pathLength="1" d="M508 418H542V542H508Z"/>
+              <circle class="pdot fade" style="--d:1.85s;--o:.9" cx="534" cy="472" r="3.4"/>
+            </g>
+            <path class="draw" style="--d:1.5s" pathLength="1" d="M426 556H574"/>
+            <path class="draw dim" style="--d:1.56s" pathLength="1" d="M412 571H588"/>
+
+            <path class="draw" style="--d:1.7s" pathLength="1" d="M612 250H656"/>
+            <path class="draw dim" style="--d:1.76s" pathLength="1" d="M656 250a9 9 0 1 1-9-9"/>
+            <path class="draw dim" style="--d:1.8s" pathLength="1" d="M656 250V264"/>
+            <circle class="pdot fade" style="--d:1.95s;--o:.9" cx="656" cy="268" r="3"/>
+            <path class="draw" style="--d:1.85s" pathLength="1" d="M644 276L656 266L668 276"/>
+            <path class="draw" style="--d:1.9s" pathLength="1" d="M644 276H668L662 322H650Z"/>
+            <path class="draw dim" style="--d:1.95s" pathLength="1" d="M648 322H664"/>
+            <path class="draw dim" style="--d:2s" pathLength="1" d="M656 322V330"/>
+            <g class="fade" style="--d:1.95s;--o:.9"><circle class="gpulse" cx="656" cy="298" r="46" fill="url(#wg)" filter="url(#soft)"/></g>
+            <g class="fade flame" style="--d:1.95s;--o:1" transform="translate(656,302)">
+              <g class="fl">
+                <path d="M0 -9C3.4 -4.9 5 -2.2 5 .8a5 5 0 1 1-10 0C-5 -2.2 -3.4 -4.9 0 -9Z"/>
+                <path d="M0 -4.5c1.6 1.9 2.3 3.2 2.3 4.6a2.3 2.3 0 1 1-4.6 0C-2.3 -1.3 -1.6 -2.6 0 -4.5Z"/>
+              </g>
+            </g>
+
+            <path class="draw dim" style="--d:1.6s" pathLength="1" d="M373 506H421"/>
+            <path class="draw" style="--d:1.65s" pathLength="1" d="M379 506L383 540H411L415 506"/>
+            <path class="draw" style="--d:1.7s" pathLength="1" d="M397 506V436"/>
+            <path class="draw dim" style="--d:1.75s" pathLength="1" d="M397 462C383 452 375 444 369 430"/>
+            <path class="draw dim" style="--d:1.8s" pathLength="1" d="M397 456C411 446 419 438 425 424"/>
+            <path class="draw dim" style="--d:1.85s" pathLength="1" d="M397 444C391 432 389 422 389 410"/>
+            <ellipse class="leaf fade" style="--d:1.95s;--o:.8" cx="368" cy="427" rx="5" ry="2.3" transform="rotate(-38 368 427)"/>
+            <ellipse class="leaf fade" style="--d:2s;--o:.8" cx="426" cy="421" rx="5" ry="2.3" transform="rotate(36 426 421)"/>
+            <ellipse class="leaf fade" style="--d:2.05s;--o:.8" cx="388" cy="407" rx="4.6" ry="2.2" transform="rotate(-78 388 407)"/>
+            <ellipse class="leaf fade" style="--d:2.1s;--o:.8" cx="406" cy="440" rx="4.6" ry="2.2" transform="rotate(24 406 440)"/>
+            <rect class="draw dim" style="--d:1.7s" pathLength="1" x="368" y="268" width="58" height="30" rx="3"/>
+            <text class="pt fade" style="--d:1.9s" x="397" y="288" text-anchor="middle">N° 12</text>
+          </g>
+
+          <g id="plxFg">
+            <g class="fade" style="--d:1.1s;--o:.55" stroke="rgba(234,217,189,.5)">
+              <ellipse cx="150" cy="598" rx="15" ry="3.5"/><ellipse cx="215" cy="604" rx="12" ry="3"/>
+              <ellipse cx="300" cy="600" rx="14" ry="3.2"/><ellipse cx="395" cy="606" rx="11" ry="2.8"/>
+              <ellipse cx="480" cy="600" rx="15" ry="3.4"/><ellipse cx="585" cy="606" rx="12" ry="3"/>
+              <ellipse cx="665" cy="600" rx="14" ry="3.2"/><ellipse cx="755" cy="605" rx="12" ry="3"/>
+              <ellipse cx="845" cy="600" rx="15" ry="3.4"/><ellipse cx="905" cy="607" rx="10" ry="2.6"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="face-cap" data-reveal style="--rd:.2s">
+        <p data-i18n="facade.cap">An unmarked wooden door, a hand-forged lantern, windows that glow a little earlier in winter. If you can smell oak smoke and orange peel, you have found us — or let the fire come to you instead.</p>
+        <div class="ltoggle" role="group" data-i18n-aria="a.lighting" aria-label="Facade lighting">
+          <button class="lbtn" data-m="dusk" type="button" data-i18n="facade.dusk">Tramonto</button>
+          <button class="lbtn on" data-m="night" type="button" data-i18n="facade.night">Notte</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · Ambiance -->
+  <section class="sec" id="ambiance">
+    <div class="wrap">
+      <div class="sec-top" data-reveal>
+        <svg class="mk"><use href="#flame"/></svg>
+        <span class="lab" data-i18n="s.amb">N° 03 · L'Atmosfera</span>
+        <span class="rule"></span>
+      </div>
+      <h2 data-i18n="h.amb" data-reveal style="--rd:.08s">The room, <em>by candlelight</em>.</h2>
+
+      <div class="stage" data-reveal style="--rd:.14s;margin-top:56px">
+        <svg class="room-svg" id="roomSvg" style="--light:.35" viewBox="0 0 1000 560" data-i18n-aria="a.room" role="img" aria-label="The dining room at Aurelia: a long table set with candles and wine glasses">
+          <defs>
+            <radialGradient id="rg" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#ffdfae" stop-opacity=".95"/>
+              <stop offset=".55" stop-color="#f0a24a" stop-opacity=".32"/>
+              <stop offset="1" stop-color="#f0a24a" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="washG" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#ffa646" stop-opacity=".4"/>
+              <stop offset="1" stop-color="#ffa646" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="soft2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
+          </defs>
+
+          <g class="art">
+            <path class="dim" d="M40 88H960"/>
+            <path d="M40 318H960"/>
+            <path class="dim" d="M130 318V398"/><path class="dim" d="M225 318V398"/><path class="dim" d="M320 318V398"/>
+            <path class="dim" d="M415 318V398"/><path class="dim" d="M510 318V398"/><path class="dim" d="M605 318V398"/>
+            <path class="dim" d="M700 318V398"/><path class="dim" d="M795 318V398"/><path class="dim" d="M890 318V398"/>
+            <path d="M40 398H960"/>
+            <path class="dim" d="M40 448H960"/><path class="dim" d="M40 506H960"/>
+            <path class="dim" d="M40 560L190 398"/><path class="dim" d="M960 560L810 398"/>
+
+            <path class="wsky" d="M100 300V190A65 65 0 0 1 230 190V300Z"/>
+            <circle class="fdot" cx="135" cy="175" r="1.6"/><circle class="fdot" cx="190" cy="148" r="1.4"/>
+            <circle class="fdot" cx="160" cy="220" r="1.4"/><circle class="fdot" cx="115" cy="250" r="1.3"/>
+            <path class="moonI" d="M198 168a13 13 0 1 0 15 19 12 12 0 1 1-15-19Z"/>
+            <path d="M100 300V190A65 65 0 0 1 230 190V300"/>
+            <path class="dim" d="M165 127V300"/><path class="dim" d="M100 222H230"/>
+            <path d="M90 300H240"/>
+            <path class="dim" d="M96 186C88 236 88 276 98 318"/><path class="dim" d="M234 186C242 236 242 276 232 318"/>
+
+            <path d="M700 178H952"/><path class="dim" d="M726 178L740 200"/><path class="dim" d="M926 178L912 200"/>
+            <path d="M700 262H952"/><path class="dim" d="M726 262L740 284"/><path class="dim" d="M926 262L912 284"/>
+            <path d="M752 262V230Q752 220 759 216V204H765V216Q772 220 772 230V262"/>
+            <path class="dim" d="M790 262V240Q790 232 796 229V220H802V229Q808 232 808 240V262"/>
+            <path class="dim" d="M828 262V224H842V262"/><path class="dim" d="M832 224V210H838V224"/>
+            <circle class="dim" cx="876" cy="246" r="15"/><path class="dim" d="M872 232V218H880V232"/>
+            <path class="dim" d="M908 246H928L924 262H912Z"/>
+            <path d="M736 178V138H754V178"/><path class="dim" d="M764 178L775 140L785 143L776 178"/>
+            <path class="dim" d="M802 170H830A14 14 0 0 1 802 170Z"/>
+
+            <rect class="dim" x="480" y="128" width="130" height="96"/>
+            <path class="dim" d="M496 202L524 168L542 186L566 156L594 202"/>
+            <circle class="dim" cx="578" cy="150" r="5"/>
+
+            <ellipse class="fsh" cx="500" cy="532" rx="245" ry="13"/>
+            <path class="chair" d="M128 560V470q0-26 26-26t26 26v90h-13v-62h-26v62Z"/>
+            <path class="chair" d="M872 560V470q0-26-26-26t-26 26v90h13v-62h26v62Z"/>
+          </g>
+
+          <rect class="veil" x="0" y="0" width="1000" height="560"/>
+
+          <g class="top">
+            <ellipse class="wash" cx="500" cy="330" rx="410" ry="210"/>
+            <path d="M250 380H750" stroke-width="2.2"/>
+            <path class="dim" d="M262 392H738"/>
+            <path d="M272 380V522"/><path d="M728 380V522"/>
+            <path class="dim" d="M305 392V470"/><path class="dim" d="M695 392V470"/>
+            <path class="dim" d="M256 380c8 22 4 44 10 62"/><path class="dim" d="M744 380c-8 22-4 44-10 62"/>
+            <ellipse cx="312" cy="380" rx="27" ry="5.5"/><ellipse class="dim" cx="312" cy="379" rx="18" ry="3"/>
+            <ellipse cx="688" cy="380" rx="27" ry="5.5"/><ellipse class="dim" cx="688" cy="379" rx="18" ry="3"/>
+
+            <g><ellipse cx="380" cy="377" rx="15" ry="4"/><ellipse class="dim" cx="380" cy="376" rx="8" ry="2"/><path stroke-width="2" d="M380 373V320"/><path d="M374 320V298H386V320"/><path class="dim" d="M380 298V293"/></g>
+            <g><ellipse cx="500" cy="377" rx="15" ry="4"/><ellipse class="dim" cx="500" cy="376" rx="8" ry="2"/><path stroke-width="2" d="M500 373V320"/><path d="M494 320V298H506V320"/><path class="dim" d="M500 298V293"/></g>
+            <g><ellipse cx="620" cy="377" rx="15" ry="4"/><ellipse class="dim" cx="620" cy="376" rx="8" ry="2"/><path stroke-width="2" d="M620 373V320"/><path d="M614 320V298H626V320"/><path class="dim" d="M620 298V293"/></g>
+
+            <path d="M431 336c0 16 6 23 14 23c8 0 14-7 14-23"/><path class="dim" d="M431 336h28"/><path class="dim" d="M434 344h22"/><path d="M445 359v14"/><path d="M435 375h20"/>
+            <path d="M546 336c0 16 6 23 14 23c8 0 14-7 14-23"/><path class="dim" d="M546 336h28"/><path class="dim" d="M549 344h22"/><path d="M560 359v14"/><path d="M550 375h20"/>
+
+            <g transform="translate(380,284)"><g class="glow"><circle class="gpulse gc" r="95" filter="url(#soft2)"/></g></g>
+            <g transform="translate(500,284)"><g class="glow"><circle class="gpulse gc" r="95" filter="url(#soft2)"/></g></g>
+            <g transform="translate(620,284)"><g class="glow"><circle class="gpulse gc" r="95" filter="url(#soft2)"/></g></g>
+            <g class="flame" transform="translate(380,285)"><g class="fl"><path d="M0 -12C4.5 -6.5 6.5 -3 6.5 1a6.5 6.5 0 1 1-13 0C-6.5 -3 -4.5 -6.5 0 -12Z"/><path d="M0 -6c2.4 2.9 3.4 4.8 3.4 6.9a3.4 3.4 0 1 1-6.8 0C-3.4 -1.2 -2.4 -3.1 0 -6Z"/></g></g>
+            <g class="flame" transform="translate(500,285)"><g class="fl"><path d="M0 -12C4.5 -6.5 6.5 -3 6.5 1a6.5 6.5 0 1 1-13 0C-6.5 -3 -4.5 -6.5 0 -12Z"/><path d="M0 -6c2.4 2.9 3.4 4.8 3.4 6.9a3.4 3.4 0 1 1-6.8 0C-3.4 -1.2 -2.4 -3.1 0 -6Z"/></g></g>
+            <g class="flame" transform="translate(620,285)"><g class="fl"><path d="M0 -12C4.5 -6.5 6.5 -3 6.5 1a6.5 6.5 0 1 1-13 0C-6.5 -3 -4.5 -6.5 0 -12Z"/><path d="M0 -6c2.4 2.9 3.4 4.8 3.4 6.9a3.4 3.4 0 1 1-6.8 0C-3.4 -1.2 -2.4 -3.1 0 -6Z"/></g></g>
+          </g>
+        </svg>
+        <canvas id="ambFx" aria-hidden="true"></canvas>
+      </div>
+
+      <div class="amb-bar" data-reveal style="--rd:.2s">
+        <div class="match">
+          <p class="match-lab" data-i18n="amb.label">The match — drag to light the candles</p>
+          <div class="ms" id="ms" role="slider" tabindex="0" data-i18n-aria="a.slider" aria-label="Candlelight" aria-valuemin="0" aria-valuemax="100" aria-valuenow="35">
+            <div class="ms-track"></div>
+            <div class="ms-fill"></div>
+            <div class="ms-knob"><svg viewBox="0 0 24 32"><use href="#flame"/></svg></div>
+          </div>
+        </div>
+        <p class="amb-state" id="ambState"></p>
+        <button class="snd" id="sndBtn" type="button" aria-pressed="false">
+          <span class="sbars"><b></b><b></b><b></b></span>
+          <span id="sndTxt">Sound — off</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · Menu -->
+  <section class="sec on-paper" id="menu">
+    <div class="wrap">
+      <div class="sec-top" data-reveal>
+        <svg class="mk" style="color:var(--gold-dk)"><use href="#flame"/></svg>
+        <span class="lab" data-i18n="s.menu">N° 04 · La Tavola</span>
+        <span class="rule"></span>
+      </div>
+      <h2 data-i18n="h.menu" data-reveal style="--rd:.08s">Short menu, <em>long fire</em>.</h2>
+      <p class="msub" data-i18n="menu.sub" data-reveal style="--rd:.14s">Written each afternoon · dine with us, or take the fire home · <sup style="color:var(--gold-dk)">*</sup> cooked over oak embers</p>
+
+      <div class="tabs" data-reveal style="--rd:.18s" role="tablist">
+        <button class="tab on" data-tab="p-cena" role="tab" aria-selected="true" type="button" data-i18n="tab.cena">La Cena</button>
+        <button class="tab" data-tab="p-vini" role="tab" aria-selected="false" type="button" data-i18n="tab.vini">I Vini</button>
+        <span id="tind"></span>
+      </div>
+
+      <div class="mcard" data-reveal style="--rd:.22s">
+        <div class="mhead">
+          <svg class="mk"><use href="#flame"/></svg>
+          <h3>AURELIA</h3>
+          <p data-i18n="menu.head">cucina del fuoco — inverno</p>
+        </div>
+        <div class="mpanel onp" id="p-cena" role="tabpanel"></div>
+        <div class="mpanel" id="p-vini" role="tabpanel"></div>
+        <p class="mfoot-note" data-i18n="menu.foot">Tasting menu — seven courses from the fire · 95 per person</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · Order / Asporto -->
+  <section class="sec" id="order">
+    <div class="wrap">
+      <div class="sec-top" data-reveal>
+        <svg class="mk"><use href="#flame"/></svg>
+        <span class="lab" data-i18n="s.order">N° 05 · L'Ordine — Da Asporto</span>
+        <span class="rule"></span>
+      </div>
+      <h2 data-i18n="h.order" data-reveal style="--rd:.08s">The fire, <em>to take home</em>.</h2>
+
+      <div class="ord-g">
+        <div>
+          <p class="statement" data-i18n="o.st" data-reveal style="--rd:.1s">Every dish on tonight's menu travels — packed in copper-lined tins, sealed with the house wax, each with a small card telling you exactly how to <em>wake it over your own flame</em>.</p>
+          <div class="ord-copy">
+            <p data-i18n="o.p1" data-reveal style="--rd:.18s">Delivery goes out by bicycle, within the Old Quarter only — the food should still be breathing when it reaches you. Or collect from the door, where the lantern is lit from six o'clock.</p>
+            <p data-i18n="o.p2" data-reveal style="--rd:.24s">Wines travel too, wrapped in the evening's newspaper. Orders are confirmed by telephone within fifteen minutes; the fire decides the rest.</p>
+          </div>
+          <div class="ord-cta" data-reveal style="--rd:.3s">
+            <button class="btn" id="ctaOrder" type="button" data-i18n="o.cta">Comincia il tuo ordine</button>
+            <a class="linkish" href="tel:+39055214887"><span data-i18n="o.call">or call</span>&nbsp;+39 055 214 887</a>
+          </div>
+        </div>
+
+        <div data-reveal style="--rd:.2s">
+          <div class="plate">
+            <span class="ct tl"></span><span class="ct tr"></span><span class="ct bl"></span><span class="ct br"></span>
+            <span class="tav" data-i18n="tav.xiv">Tav. XIV</span>
+            <svg class="face-svg" viewBox="0 0 420 340" data-i18n-aria="a.parcel" role="img" aria-label="Line drawing of an Aurelia takeaway parcel, tied with string and sealed with wax">
+              <path class="draw dim wisp" style="--d:2s" pathLength="1" d="M186 92c-8-12 2-20-4-34"/>
+              <path class="draw dim wisp" style="--d:2.15s" pathLength="1" d="M232 84c-8-14 4-22-2-38"/>
+              <path class="draw dim wisp" style="--d:2.3s" pathLength="1" d="M276 92c-8-12 2-20-4-34"/>
+              <circle class="pdot fade gpulse" style="--d:2.1s" cx="164" cy="70" r="2.2"/>
+              <circle class="pdot fade gpulse" style="--d:2.25s" cx="298" cy="60" r="2"/>
+              <g transform="rotate(-2 210 215)">
+                <rect class="draw" style="--d:.3s" pathLength="1" x="120" y="150" width="180" height="140" rx="2"/>
+                <line class="draw" style="--d:.8s" pathLength="1" x1="210" y1="150" x2="210" y2="290"/>
+                <line class="draw" style="--d:.9s" pathLength="1" x1="120" y1="220" x2="300" y2="220"/>
+                <path class="draw" style="--d:1.1s" pathLength="1" d="M210 150c-16-22-40-20-34-4 4 11 22 10 34 4"/>
+                <path class="draw" style="--d:1.2s" pathLength="1" d="M210 150c16-22 40-20 34-4-4 11-22 10-34 4"/>
+                <path class="draw dim" style="--d:1.3s" pathLength="1" d="M210 150v-12"/>
+                <path class="draw dim" style="--d:1.35s" pathLength="1" d="M244 146c14 6 22 16 24 30"/>
+                <circle class="draw" style="--d:1.45s" pathLength="1" cx="210" cy="220" r="17"/>
+                <use href="#flame" x="203" y="209" width="14" height="20" fill="#c79a4b" stroke="none" class="fade" style="--d:1.75s"/>
+                <rect class="draw dim" style="--d:1.55s" pathLength="1" x="168" y="252" width="84" height="24" rx="2"/>
+                <text class="pt fade" style="--d:1.85s" x="210" y="268" text-anchor="middle">AURELIA</text>
+              </g>
+              <text class="pt fade" style="--d:2.05s" data-i18n="parcel.cap" x="210" y="324" text-anchor="middle">imballo di rame · sigillo di cera</text>
+            </svg>
+          </div>
+          <ul class="ledger">
+            <li><span data-i18n="o.l1">Ritiro</span> <b data-i18n="o.lv1">18:00 – 22:00 · at the door</b></li>
+            <li><span data-i18n="o.l2">Consegna</span> <b data-i18n="o.lv2">Old Quarter · €6</b></li>
+            <li><span data-i18n="o.l3">Imballo</span> <b data-i18n="o.lv3">copper &amp; wax</b></li>
+            <li><span data-i18n="o.l4">Tempo</span> <b data-i18n="o.lv4">45 min dal fuoco</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · Reserve -->
+  <section class="sec" id="reserve" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-top" data-reveal>
+        <svg class="mk"><use href="#flame"/></svg>
+        <span class="lab" data-i18n="s.reserve">N° 06 · La Serata</span>
+        <span class="rule"></span>
+      </div>
+      <h2 data-i18n="h.reserve" data-reveal style="--rd:.08s">Reserve your <em>evening</em>.</h2>
+
+      <div class="res-g">
+        <div class="rslip" id="rslip" data-reveal style="--rd:.14s">
+          <form id="rform" novalidate>
+            <h3 data-i18n="r.title">Richiesta di Prenotazione</h3>
+            <p class="rsub" data-i18n="r.sub">we answer within the hour, by candlelight or telephone</p>
+            <div class="field" id="fName">
+              <label for="rname" data-i18n="r.name">Nome — Name</label>
+              <input type="text" id="rname" autocomplete="name" spellcheck="false">
+              <em class="msg" data-i18n="r.vname">Please tell us your name.</em>
+            </div>
+            <div class="frow">
+              <div class="field" id="fDate">
+                <label for="rdate" data-i18n="r.date">Data — Date</label>
+                <input type="date" id="rdate">
+                <em class="msg" data-i18n="r.vdate">Choose a date from today onward.</em>
+              </div>
+              <div class="field">
+                <label data-i18n="r.guests">Ospiti — Guests</label>
+                <div class="stepper">
+                  <button type="button" class="stp" id="gMinus" data-i18n-aria="a.fewer" aria-label="Fewer guests">−</button>
+                  <span class="gval" id="gVal">2</span>
+                  <button type="button" class="stp" id="gPlus" data-i18n-aria="a.more" aria-label="More guests">+</button>
+                </div>
+              </div>
+            </div>
+            <div class="field" id="fTime">
+              <label data-i18n="r.hour">Ora — Hour</label>
+              <div class="pills">
+                <input type="radio" name="hora" id="h1" value="18:00"><label for="h1">18:00</label>
+                <input type="radio" name="hora" id="h2" value="18:30"><label for="h2">18:30</label>
+                <input type="radio" name="hora" id="h3" value="19:00"><label for="h3">19:00</label>
+                <input type="radio" name="hora" id="h4" value="19:30"><label for="h4">19:30</label>
+                <input type="radio" name="hora" id="h5" value="20:30"><label for="h5">20:30</label>
+                <input type="radio" name="hora" id="h6" value="21:00"><label for="h6">21:00</label>
+              </div>
+              <em class="msg" data-i18n="r.vtime">Choose an hour for the table.</em>
+            </div>
+            <button class="btn btn-full" type="submit" data-i18n="r.submit">Request the table</button>
+          </form>
+
+          <div class="conf" id="conf" hidden>
+            <svg class="mk"><use href="#flame"/></svg>
+            <h3><span data-i18n="r.thanks">Grazie,</span>&nbsp;<span id="cName"></span>.</h3>
+            <p class="c-line" id="cDetail"></p>
+            <p class="c-note" data-i18n="r.hold">We hold the table for twenty minutes past the hour. The fire does not wait twice.</p>
+            <button class="linkish" id="amend" type="button" data-i18n="r.amend">Amend the request</button>
+          </div>
+        </div>
+
+        <aside class="raside" data-reveal style="--rd:.22s">
+          <div class="block">
+            <h4 data-i18n="r.where">Dove — Where</h4>
+            <p data-i18n="r.whereP">Via delle Erbe 12, Old Quarter.<br>Look for the lantern; the door is unmarked but for a brass number.</p>
+          </div>
+          <div class="block">
+            <h4 data-i18n="r.hours">Quando — Hours</h4>
+            <ul class="ledger">
+              <li><span data-i18n="r.d1">Martedì — Domenica</span> <b>18:00 – 23:30</b></li>
+              <li><span data-i18n="r.d2">Lunedì</span> <b data-i18n="r.closed">chiuso</b></li>
+              <li><span data-i18n="r.d3">Cucina</span> <b data-i18n="r.until">until 22:30</b></li>
+              <li><span data-i18n="r.d4">Asporto</span> <b>18:00 – 22:00</b></li>
+            </ul>
+          </div>
+          <div class="block">
+            <h4 data-i18n="r.contact">Contatto</h4>
+            <p><a href="tel:+39055214887">+39 055 214 887</a><br><a href="mailto:tavola@aurelia.it">tavola@aurelia.it</a></p>
+          </div>
+          <p class="rnote" data-i18n="r.note">Parties of seven or more dine at the chef's counter, facing the fire. Jacket preferred, curiosity required.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Cart drawer -->
+<div class="cveil" id="cartVeil"></div>
+<aside class="cart" id="cart" data-i18n-aria="a.cart" aria-hidden="true" aria-label="Your order">
+  <div class="cart-head">
+    <p class="cart-eyebrow"><svg class="mk" style="width:10px;height:14px"><use href="#flame"/></svg><span data-i18n="c.eyebrow">Aurelia · Nota d'Ordine</span></p>
+    <h3 data-i18n="c.title">Il Tuo Ordine</h3>
+    <button class="cx" id="cartClose" type="button" data-i18n-aria="c.close" aria-label="Close order">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty" hidden>
+      <svg class="mk"><use href="#flame"/></svg>
+      <h4 data-i18n="c.eh">La tavola è ancora vuota.</h4>
+      <p data-i18n="c.ep">Choose from tonight's menu — every dish travels well in copper and wax.</p>
+      <button class="linkish" id="emptyGo" type="button" data-i18n="c.ego">Vai alla tavola</button>
+    </div>
+
+    <div id="cartForm">
+      <div id="cartItems"></div>
+      <div class="cart-sec">
+        <div class="field">
+          <label data-i18n="c.mode">Modalità — Mode</label>
+          <div class="pills">
+            <input type="radio" name="omode" id="mPick" value="pickup" checked><label for="mPick" data-i18n="m.pickup">Ritiro</label>
+            <input type="radio" name="omode" id="mDel" value="delivery"><label for="mDel" data-i18n="m.del">Consegna</label>
+          </div>
+        </div>
+        <div id="delOnly" hidden>
+          <div class="field" id="fOAddr">
+            <label for="oAddr" data-i18n="c.addr">Indirizzo — Address</label>
+            <input type="text" id="oAddr" autocomplete="street-address" spellcheck="false">
+            <em class="msg" data-i18n="c.vaddr">Where should the fire travel?</em>
+          </div>
+        </div>
+        <div class="field">
+          <label for="slotSel" data-i18n="c.when">Quando — When</label>
+          <select id="slotSel"></select>
+        </div>
+        <div class="field" id="fOName">
+          <label for="oName" data-i18n="c.name">Nome — Name</label>
+          <input type="text" id="oName" autocomplete="name" spellcheck="false">
+          <em class="msg" data-i18n="c.vname">A name for the order, per favore.</em>
+        </div>
+        <div class="field" id="fOPhone">
+          <label for="oPhone" data-i18n="c.phone">Telefono — Phone</label>
+          <input type="tel" id="oPhone" autocomplete="tel">
+          <em class="msg" data-i18n="c.vphone">We need a number to confirm.</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-done" id="cartDone" hidden>
+      <svg class="mk"><use href="#flame"/></svg>
+      <h4 data-i18n="c.doneh">L'ordine è <em>al fuoco</em>.</h4>
+      <p id="oNum"></p>
+      <p class="cdone-line" id="oDetail"></p>
+      <p class="cdone-line" id="oModeLine"></p>
+      <p class="cdone-line" id="oAddrLine" hidden></p>
+      <p class="cdone-note" data-i18n="c.donep">Show this note at the door. Payment on collection or delivery — cash or card.</p>
+      <button class="linkish" id="newOrder" type="button" data-i18n="c.new">Nuovo ordine</button>
+    </div>
+  </div>
+  <div class="cart-foot" id="cartFoot" hidden>
+    <div class="trow"><span data-i18n="c.sub">Subtotale</span><span class="leader"></span><span id="tSub">€0</span></div>
+    <div class="trow" id="feeRow" hidden><span data-i18n="c.fee">Consegna</span><span class="leader"></span><span>€6</span></div>
+    <div class="trow total"><span data-i18n="c.total">Totale</span><span class="leader"></span><span id="tTotal">€0</span></div>
+    <button class="btn btn-full" id="placeOrder" type="button" data-i18n="c.place">Invia l'ordine al fuoco</button>
+    <p class="paynote" data-i18n="c.paynote">we'll call to confirm — ready in about 45 minutes</p>
+  </div>
+</aside>
+
+<!-- Mobile floating cart -->
+<button class="fab" id="fab" type="button">
+  <svg class="mk"><use href="#flame"/></svg>
+  <span id="fabTxt">Ordina</span>
+</button>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status"><svg class="mk"><use href="#flame"/></svg><span></span></div>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <a class="brand" href="#top"><svg class="mk"><use href="#flame"/></svg><span>AURELIA</span></a>
+      <div class="f-links">
+        <a href="#house" data-i18n="nav.house">La Casa</a><a href="#facade" data-i18n="nav.facade">La Facciata</a><a href="#ambiance" data-i18n="nav.amb">L'Atmosfera</a><a href="#menu" data-i18n="nav.menu">La Tavola</a><a href="#order" data-i18n="nav.order">Da Asporto</a><a href="#reserve" data-i18n="nav.reserve">Reserve</a>
+      </div>
+    </div>
+    <div class="f-word" aria-hidden="true">AURELIA</div>
+    <div class="f-bot">
+      <span data-i18n="f.copy">© MMXXV Aurelia — cooked over oak since 1987</span>
+      <span data-i18n="f.addr">Via delle Erbe 12 · Old Quarter</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(()=>{
+'use strict';
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE = matchMedia('(pointer: fine)').matches;
+const cl = (v,a,b)=>Math.min(b,Math.max(a,v));
+
+/* =========================================================
+   I18N — English · Русский · Latviešu  (complete coverage)
+   ========================================================= */
+const I18N = {
+en:{
+  'meta.title':'Aurelia — Ristorante · Cucina del Fuoco',
+  'nav.house':'The House','nav.facade':'The Facade','nav.amb':'Ambiance','nav.menu':'The Table','nav.order':'Takeaway','nav.orderbtn':'Order','nav.reserve':'Reserve',
+  'msub.house':'the house','msub.facade':'the street','msub.amb':'by candlelight','msub.menu':'the menu','msub.order':'takeaway','msub.reserve':'reserve',
+  'mnav.cart':'Your order','mnav.empty':'empty',
+  'hero.kicker':'Restaurant · Cuisine of Fire','hero.tag':'the table behind <em>the wooden door</em> — or yours','hero.addr':'Via delle Erbe 12 — Old Quarter',
+  'hero.est':'Est. MCMLXXXVII','hero.scroll':'scroll','hero.star':'One star — Guide MMXXV',
+  'mq.words':'fire,embers,wine,salt,time,bread,oil,orange',
+  's.house':'N° 01 · The House','s.facade':'N° 02 · The Facade','s.amb':'N° 03 · Ambiance','s.menu':'N° 04 · The Table','s.order':'N° 05 · Takeaway','s.reserve':'N° 06 · The Evening',
+  'h.house':'A house of <em>fire</em> and patience.','h.facade':'Seen from <em>the street</em>.','h.amb':'The room, <em>by candlelight</em>.','h.menu':'Short menu, <em>long fire</em>.','h.order':'The fire, <em>to take home</em>.','h.reserve':'Reserve your <em>evening</em>.',
+  'l.est':'Est.','l.seats':'Seats','l.seatsv':'34 seats','l.fire':'Fire','l.firev':'one wood fire','l.star':'Guide','l.starv':'one star',
+  'h.st':'Thirty-four seats gathered around a single oak fire, in a house that has been feeding this street since long before we thought to <em>give it a name</em>.',
+  'h.p1':'The building was an olive press until 1987, when Aurelia Marchetti traded her last harvest for the deed. The presses came out; the hearth went in. Three generations later the same oak burns in the same fireplace, and the menu is still written each afternoon — after the market, never before.',
+  'h.p2':'Chef Elena Marchetti cooks the way her grandmother did: over embers, with patience, and with whatever the morning trusted her with. Nothing foamed. Nothing was deconstructed. The fire is the only technique this kitchen has ever needed — everything else is just attention.',
+  'h.sig':'Elena Marchetti — third generation, keeper of the fire',
+  'facade.cap':'An unmarked wooden door, a hand-forged lantern, windows that glow a little earlier in winter. If you can smell oak smoke and orange peel, you have found us — or let the fire come to you instead.',
+  'facade.dusk':'Dusk','facade.night':'Night',
+  'tav.xii':'Pl. XII','tav.xiv':'Pl. XIV','parcel.cap':'copper packing · wax seal',
+  'amb.label':'The match — drag to light the candles',
+  'amb.s0':'Dusk — the room holds its breath.','amb.s1':'The first match catches.','amb.s2':'Candlelight. Conversations soften.','amb.s3':'Full glow — the evening begins.',
+  'snd.off':'Sound — off','snd.on':'Sound — on',
+  'menu.sub':'Written each afternoon · dine with us, or take the fire home · <sup style="color:var(--gold-dk)">*</sup> cooked over oak embers',
+  'menu.head':'cuisine of fire — winter',
+  'tab.cena':'Dinner','tab.vini':'Wines',
+  'g.antipasti':'Antipasti','g.primi':'First courses','g.fuoco':'From the Fire','g.dolci':'Desserts','g.rossi':'Reds','g.bianchi':'Whites & Sparkling',
+  'menu.foot':'Tasting menu — seven courses from the fire · 95 per person',
+  'o.st':'Every dish on tonight\u2019s menu travels — packed in copper-lined tins, sealed with the house wax, each with a small card telling you exactly how to <em>wake it over your own flame</em>.',
+  'o.p1':'Delivery goes out by bicycle, within the Old Quarter only — the food should still be breathing when it reaches you. Or collect from the door, where the lantern is lit from six o\u2019clock.',
+  'o.p2':'Wines travel too, wrapped in the evening\u2019s newspaper. Orders are confirmed by telephone within fifteen minutes; the fire decides the rest.',
+  'o.cta':'Begin your order','o.call':'or call',
+  'o.l1':'Pickup','o.lv1':'18:00 – 22:00 · at the door','o.l2':'Delivery','o.lv2':'Old Quarter · €6','o.l3':'Packing','o.lv3':'copper & wax','o.l4':'Timing','o.lv4':'45 min from the fire',
+  'r.title':'Reservation Request','r.sub':'we answer within the hour, by candlelight or telephone',
+  'r.name':'Name','r.date':'Date','r.guests':'Guests','r.hour':'Hour',
+  'r.vname':'Please tell us your name.','r.vdate':'Choose a date from today onward.','r.vtime':'Choose an hour for the table.',
+  'r.submit':'Request the table','r.thanks':'Thank you,',
+  'r.hold':'We hold the table for twenty minutes past the hour. The fire does not wait twice.','r.amend':'Amend the request',
+  'r.where':'Where','r.whereP':'Via delle Erbe 12, Old Quarter.<br>Look for the lantern; the door is unmarked but for a brass number.',
+  'r.hours':'Hours','r.d1':'Tuesday — Sunday','r.d2':'Monday','r.closed':'closed','r.d3':'Kitchen','r.until':'until 22:30','r.d4':'Takeaway','r.contact':'Contact',
+  'r.note':'Parties of seven or more dine at the chef\u2019s counter, facing the fire. Jacket preferred, curiosity required.',
+  'c.eyebrow':'Aurelia · Order note','c.title':'Your Order',
+  'c.eh':'The table is still empty.','c.ep':'Choose from tonight\u2019s menu — every dish travels well in copper and wax.','c.ego':'Go to the menu',
+  'c.mode':'Mode','m.pickup':'Pickup','m.del':'Delivery',
+  'c.addr':'Address','c.vaddr':'Where should the fire travel?',
+  'c.when':'When','c.asap':'As soon as the fire allows','c.today':'Today ·',
+  'c.name':'Name','c.vname':'A name for the order, per favore.','c.phone':'Phone','c.vphone':'We need a number to confirm.',
+  'c.sub':'Subtotal','c.fee':'Delivery','c.total':'Total','c.place':'Send the order to the fire',
+  'c.paynote':'we\u2019ll call to confirm — ready in about 45 minutes',
+  'c.doneh':'The order is <em>on the fire</em>.','c.ordernum':'Order',
+  'c.donep':'Show this note at the door. Payment on collection or delivery — cash or card.','c.new':'New order',
+  't.added':'Added — {n}','t.each':'{p} each','t.rm':'remove','t.sent':'Order {num} sent to the fire',
+  't.asap2':'as soon as possible','t.around':'around','t.at':'today at {t}',
+  'f.quarter':'Old Quarter','f.copy':'© MMXXV Aurelia — cooked over oak since 1987','f.addr':'Via delle Erbe 12 · Old Quarter',
+  'a.facade':'Architectural drawing of the Aurelia facade: arched windows, wooden door, hanging lantern',
+  'a.room':'The dining room at Aurelia: a long table set with candles and wine glasses',
+  'a.parcel':'Line drawing of an Aurelia takeaway parcel, tied with string and sealed with wax',
+  'a.slider':'Candlelight','a.lighting':'Facade lighting','a.lang':'Language','a.cart':'Your order','a.menu':'Open menu',
+  'a.fewer':'Fewer guests','a.more':'More guests','c.close':'Close order',
+  'a.add':'Add {n} to your order','a.dec':'One less {n}','a.inc':'One more {n}'
+},
+ru:{
+  'meta.title':'Aurelia — Ристоранте · Кухня огня',
+  'nav.house':'О доме','nav.facade':'Фасад','nav.amb':'Атмосфера','nav.menu':'Меню','nav.order':'С собой','nav.orderbtn':'Заказать','nav.reserve':'Забронировать',
+  'msub.house':'сам дом','msub.facade':'с улицы','msub.amb':'при свечах','msub.menu':'меню','msub.order':'с собой','msub.reserve':'бронь',
+  'mnav.cart':'Ваш заказ','mnav.empty':'пусто',
+  'hero.kicker':'Ристоранте · Кухня огня','hero.tag':'стол за <em>деревянной дверью</em> — или у вас дома','hero.addr':'Via delle Erbe 12 — Старый квартал',
+  'hero.est':'Осн. MCMLXXXVII','hero.scroll':'листайте','hero.star':'Одна звезда — Гид MMXXV',
+  'mq.words':'огонь,угли,вино,соль,время,хлеб,масло,апельсин',
+  's.house':'N° 01 · Дом','s.facade':'N° 02 · Фасад','s.amb':'N° 03 · Атмосфера','s.menu':'N° 04 · Меню','s.order':'N° 05 · С собой','s.reserve':'N° 06 · Вечер',
+  'h.house':'Дом <em>огня</em> и терпения.','h.facade':'Таким нас видит <em>улица</em>.','h.amb':'Зал при <em>свечах</em>.','h.menu':'Короткое меню — <em>долгий огонь</em>.','h.order':'Огонь — <em>к вам домой</em>.','h.reserve':'Забронируйте свой <em>вечер</em>.',
+  'l.est':'Осн.','l.seats':'Мест','l.seatsv':'34 места','l.fire':'Очаг','l.firev':'один дровяной огонь','l.star':'Гид','l.starv':'одна звезда',
+  'h.st':'Тридцать четыре места вокруг единственного дубового огня — в доме, который кормит эту улицу задолго до того, как нам пришло в голову <em>дать ему имя</em>.',
+  'h.p1':'До 1987 года здесь была маслобойня — пока Аурелия Маркетти не выменяла свой последний урожай на купчую. Прессы вынесли, очаг внесли. Три поколения спустя в том же камине горит тот же дуб, а меню по-прежнему пишут каждый день после рынка — и никогда раньше.',
+  'h.p2':'Шеф Елена Маркетти готовит так, как готовила её бабушка: на углях, с терпением и из того, что утро доверило её рукам. Ничего не взбивается в пену. Ничего не деконструируется. Огонь — единственная техника, которая когда-либо была нужна этой кухне; всё остальное — просто внимание.',
+  'h.sig':'Елена Маркетти — третье поколение, хранительница огня',
+  'facade.cap':'Ничем не отмеченная деревянная дверь, кованый фонарь, окна, которые зимой теплеют чуть раньше. Если чуете дубовый дым и апельсиновую цедру — вы нашли нас. Или позвольте огню прийти к вам.',
+  'facade.dusk':'Закат','facade.night':'Ночь',
+  'tav.xii':'Лист XII','tav.xiv':'Лист XIV','parcel.cap':'медная упаковка · восковая печать',
+  'amb.label':'Спичка — потяните, чтобы зажечь свечи',
+  'amb.s0':'Сумерки — зал затаил дыхание.','amb.s1':'Первая спичка вспыхнула.','amb.s2':'Свечи горят, разговоры стихают.','amb.s3':'Полное сияние — вечер начинается.',
+  'snd.off':'Звук — выкл.','snd.on':'Звук — вкл.',
+  'menu.sub':'Составляется каждое утро после рынка · ужинайте у нас или возьмите огонь домой · <sup style="color:var(--gold-dk)">*</sup> на дубовых углях',
+  'menu.head':'кухня огня — зима',
+  'tab.cena':'Ужин','tab.vini':'Вина',
+  'g.antipasti':'Закуски','g.primi':'Первые блюда','g.fuoco':'От огня','g.dolci':'Десерты','g.rossi':'Красные','g.bianchi':'Белые и игристые',
+  'menu.foot':'Дегустационное меню — семь блюд от огня · 95 с персоны',
+  'o.st':'Каждое блюдо вечернего меню отправляется в путь — в лотках на медной подкладке, запечатанных фирменным воском, с карточкой, где точно сказано, как <em>разбудить его на вашем огне</em>.',
+  'o.p1':'Доставляем на велосипеде и только по Старому кварталу — еда должна прибыть к вам ещё дышащей. Или забирайте у двери: фонарь там зажигают с шести.',
+  'o.p2':'Вина тоже путешествуют — завёрнутые в вечернюю газету. Заказы подтверждаем по телефону в течение пятнадцати минут; остальное решает огонь.',
+  'o.cta':'Начать заказ','o.call':'или позвоните',
+  'o.l1':'Самовывоз','o.lv1':'18:00 – 22:00 · у двери','o.l2':'Доставка','o.lv2':'Старый квартал · €6','o.l3':'Упаковка','o.lv3':'медь и воск','o.l4':'Время','o.lv4':'45 мин от огня',
+  'r.title':'Заявка на бронирование','r.sub':'ответим в течение часа — при свечах или по телефону',
+  'r.name':'Имя','r.date':'Дата','r.guests':'Гости','r.hour':'Время',
+  'r.vname':'Скажите нам своё имя.','r.vdate':'Выберите дату — начиная с сегодняшней.','r.vtime':'Выберите час для столика.',
+  'r.submit':'Забронировать столик','r.thanks':'Спасибо,',
+  'r.hold':'Мы держим столик двадцать минут после назначенного часа. Огонь дважды не ждёт.','r.amend':'Изменить заявку',
+  'r.where':'Где','r.whereP':'Via delle Erbe 12, Старый квартал.<br>Ищите фонарь: на двери — только латунный номер.',
+  'r.hours':'Часы работы','r.d1':'Вторник — воскресенье','r.d2':'Понедельник','r.closed':'закрыто','r.d3':'Кухня','r.until':'до 22:30','r.d4':'С собой','r.contact':'Контакты',
+  'r.note':'Компании от семи человек ужинают у поварской стойки, лицом к огню. Пиджак приветствуется, любопытство обязательно.',
+  'c.eyebrow':'Aurelia · Бланк заказа','c.title':'Ваш заказ',
+  'c.eh':'Стол пока пуст.','c.ep':'Выбирайте из вечернего меню — каждое блюдо хорошо переносит дорогу в меди и воске.','c.ego':'К меню',
+  'c.mode':'Способ получения','m.pickup':'Самовывоз','m.del':'Доставка',
+  'c.addr':'Адрес','c.vaddr':'Куда отправить огонь?',
+  'c.when':'Когда','c.asap':'Как только позволит огонь','c.today':'Сегодня ·',
+  'c.name':'Имя','c.vname':'Назовите имя для заказа.','c.phone':'Телефон','c.vphone':'Нужен номер, чтобы подтвердить заказ.',
+  'c.sub':'Подытог','c.fee':'Доставка','c.total':'Итого','c.place':'Отправить заказ в огонь',
+  'c.paynote':'мы позвоним, чтобы подтвердить — будет готово примерно через 45 минут',
+  'c.doneh':'Заказ <em>на огне</em>.','c.ordernum':'Заказ',
+  'c.donep':'Покажите эту записку у двери. Оплата при получении — наличные или карта.','c.new':'Новый заказ',
+  't.added':'Добавлено — {n}','t.each':'{p} за порцию','t.rm':'убрать','t.sent':'Заказ {num} отправлен в огонь',
+  't.asap2':'как можно скорее','t.around':'около','t.at':'сегодня в {t}',
+  'f.quarter':'Старый квартал','f.copy':'© MMXXV Aurelia — готовим на дубовых углях с 1987 года','f.addr':'Via delle Erbe 12 · Старый квартал',
+  'a.facade':'Архитектурный чертёж фасада Aurelia: арочные окна, деревянная дверь, фонарь',
+  'a.room':'Зал ресторана Aurelia: длинный стол со свечами и бокалами вина',
+  'a.parcel':'Рисунок заказа Aurelia с собой: коробка, перевязанная бечёвкой, с восковой печатью',
+  'a.slider':'Свет свечей','a.lighting':'Освещение фасада','a.lang':'Язык','a.cart':'Ваш заказ','a.menu':'Открыть меню',
+  'a.fewer':'Меньше гостей','a.more':'Больше гостей','c.close':'Закрыть заказ',
+  'a.add':'Добавить «{n}» в заказ','a.dec':'Одной порцией меньше — {n}','a.inc':'Одной порцией больше — {n}'
+},
+lv:{
+  'meta.title':'Aurelia — Restorāns · Uguns virtuve',
+  'nav.house':'Māja','nav.facade':'Fasāde','nav.amb':'Atmosfēra','nav.menu':'Ēdienkarte','nav.order':'Līdzņemšanai','nav.orderbtn':'Pasūtīt','nav.reserve':'Rezervēt',
+  'msub.house':'māja','msub.facade':'iela','msub.amb':'sveču gaismā','msub.menu':'ēdienkarte','msub.order':'līdzņemšanai','msub.reserve':'rezervācija',
+  'mnav.cart':'Jūsu pasūtījums','mnav.empty':'tukšs',
+  'hero.kicker':'Restorāns · Uguns virtuve','hero.tag':'galds aiz <em>koka durvīm</em> — vai jūsu mājās','hero.addr':'Via delle Erbe 12 — Vecpilsēta',
+  'hero.est':'Dib. MCMLXXXVII','hero.scroll':'ritiniet','hero.star':'Viena zvaigzne — Ceļvedis MMXXV',
+  'mq.words':'uguns,ogles,vīns,sāls,laiks,maize,eļļa,apelsīns',
+  's.house':'N° 01 · Māja','s.facade':'N° 02 · Fasāde','s.amb':'N° 03 · Atmosfēra','s.menu':'N° 04 · Ēdienkarte','s.order':'N° 05 · Līdzņemšanai','s.reserve':'N° 06 · Vakars',
+  'h.house':'Māja, kurā valda <em>uguns</em> un pacietība.','h.facade':'Kā mūs redz <em>iela</em>.','h.amb':'Zāle <em>sveču gaismā</em>.','h.menu':'Īsa ēdienkarte, <em>ilga uguns</em>.','h.order':'Uguns, <em>kuru ņemat līdzi</em>.','h.reserve':'Rezervējiet savu <em>vakaru</em>.',
+  'l.est':'Dib.','l.seats':'Vietas','l.seatsv':'34 vietas','l.fire':'Uguns','l.firev':'viena malkas uguns','l.star':'Ceļvedis','l.starv':'viena zvaigzne',
+  'h.st':'Trīsdesmit četras vietas ap vienu ozala uguni — mājā, kas baro šo ielu jau ilgi pirms mums ienāca prātā tai <em>dot vārdu</em>.',
+  'h.p1':'Līdz 1987. gadam šeit bija eļļas spiede — līdz Aurelia Marchetti savu pēdējo ražu samainīja pret pirkuma aktu. Spedes iznesa, pavardu ienesa. Trīs paaudzes vēlāk tajā pašā kamīā deg tas pats ozols, un ēdienkarti vēl joprojām raksta katru pēcpusdienu — pēc tirdziņa, nekad pirms.',
+  'h.p2':'Šefpavāre Elena Marchetti gatavo tā, kā gatavoja viņas vecmāmiņa: uz oglēm, ar pacietību un no tā, ko rīts uzticēja viņas rokām. Nekas netiek pārvērsts putās. Nekas netiek dekonstruēts. Uguns ir vienīgā tehnika, kāda šai virtuvei jebkad vajadzēja — pārējais ir tikai vērība.',
+  'h.sig':'Elena Marchetti — trešā paaudze, uguns sargātāja',
+  'facade.cap':'Neiezīmētas koka durvis, kalta laterna, logi, kas ziemā kvēlo jau kādu brīdi agrāk. Ja jūtat ozala dūmu un apelsīna mizas smaržu, jūs esat mūs atradis — vai arī ļaujiet ugunim nākt pie jums.',
+  'facade.dusk':'Krēsla','facade.night':'Nakts',
+  'tav.xii':'Pl. XII','tav.xiv':'Pl. XIV','parcel.cap':'vara iepakojums · vaska zīmogs',
+  'amb.label':'Sērkociņš — velciet, lai iededzinātu sveces',
+  'amb.s0':'Krēsla — zāle aizturas elpu.','amb.s1':'Pirmais sērkociņš aizdegas.','amb.s2':'Sveces deg, sarunas kļūst klusākas.','amb.s3':'Pilna gaisma — vakars sākas.',
+  'snd.off':'Skaņa — izslēgta','snd.on':'Skaņa — ieslēgta',
+  'menu.sub':'Rakstīta katru pēcpusdienu · ēdiet pie mums vai ņemiet uguni līdzi · <sup style="color:var(--gold-dk)">*</sup> gatavots uz ozala oglēm',
+  'menu.head':'uguns virtuve — ziema',
+  'tab.cena':'Vakariņas','tab.vini':'Vīni',
+  'g.antipasti':'Uzkodas','g.primi':'Pirmie ēdieni','g.fuoco':'No uguns','g.dolci':'Deserti','g.rossi':'Sarkanie','g.bianchi':'Baltie un dzirkstošie',
+  'menu.foot':'Degustācijas ēdienkarte — septiņi ēdieni no uguns · 95 uz personu',
+  'o.st':'Katrs ēdiens no šovakara ēdienkartes dodas ceļā — ievietots vara odriņotos traukos, aizzīmogots ar nama vasku, ar kartīti, kas precīzi paskaidro, kā to <em>modināt uz jūsu paša uguns</em>.',
+  'o.p1':'Piegādājam ar velosipēdu un tikai Vecpilsētā — ēdienam, nonākot pie jums, vēl vajadzētu elpot. Vai saņemiet pie durvīm: laternu tur iededz no pulksten sešiem.',
+  'o.p2':'Arī vīni ceļo — ietīti vakara avīzē. Pasūtījumus apstiprinām pa tālruni piecpadsmit minūšu laikā; pārējo izlemj uguns.',
+  'o.cta':'Sākt pasūtījumu','o.call':'vai zvaniet',
+  'o.l1':'Saņemšana','o.lv1':'18:00 – 22:00 · pie durvīm','o.l2':'Piegāde','o.lv2':'Vecpilsēta · €6','o.l3':'Iepakojums','o.lv3':'varš un vasks','o.l4':'Laiks','o.lv4':'45 min no uguns',
+  'r.title':'Rezervācijas pieprasījums','r.sub':'atbildēsim stundas laikā — sveču gaismā vai pa tālruni',
+  'r.name':'Vārds','r.date':'Datums','r.guests':'Viesi','r.hour':'Laiks',
+  'r.vname':'Lūdzu, pasakiet savu vārdu.','r.vdate':'Izvēlieties datumu, sākot ar šodienu.','r.vtime':'Izvēlieties laiku galdam.',
+  'r.submit':'Pieprasīt galdu','r.thanks':'Paldies,',
+  'r.hold':'Mēs turam galdu divdesmit minūtes pēc norunātā laika. Uguns negaida divreiz.','r.amend':'Labot pieprasījumu',
+  'r.where':'Kur','r.whereP':'Via delle Erbe 12, Vecpilsēta.<br>Meklējiet laternu: uz durvīm vienīgi misiņa numurs.',
+  'r.hours':'Darba laiks','r.d1':'Otrdiena — svētdiena','r.d2':'Pirmdiena','r.closed':'slēgts','r.d3':'Virtuve','r.until':'līdz 22:30','r.d4':'Līdzņemšanai','r.contact':'Kontakti',
+  'r.note':'Kompānijas no septiņiem viesiem un vairāk sēž pie šefpavāra letes, pretī ugunij. Uzvalks vēlams, ziņkāre obligāta.',
+  'c.eyebrow':'Aurelia · Pasūtījuma lapa','c.title':'Jūsu pasūtījums',
+  'c.eh':'Galds vēl ir tukšs.','c.ep':'Izvēlieties no vakara ēdienkartes — katrs ēdiens labi iztur ceļu varā un vaskā.','c.ego':'Uz ēdienkarti',
+  'c.mode':'Veids','m.pickup':'Saņemšana','m.del':'Piegāde',
+  'c.addr':'Adrese','c.vaddr':'Uz kurieni jādodas ugunij?',
+  'c.when':'Kad','c.asap':'Tiklīdz uguns atļauj','c.today':'Šodien ·',
+  'c.name':'Vārds','c.vname':'Pasakiet vārdu pasūtījumam.','c.phone':'Tālrunis','c.vphone':'Vajag tālruņa numuru apstiprinājumam.',
+  'c.sub':'Starpsumma','c.fee':'Piegāde','c.total':'Kopā','c.place':'Sūtīt pasūtījumu ugunī',
+  'c.paynote':'mēs zvanīsim apstiprināt — gatavs aptuveni 45 minūšu laikā',
+  'c.doneh':'Pasūtījums <em>ugunī</em>.','c.ordernum':'Pasūtījums',
+  'c.donep':'Rādiet šo lapu pie durvīm. Samaksa saņemot — skaidrā naudā vai ar karti.','c.new':'Jauns pasūtījums',
+  't.added':'Pievienots — {n}','t.each':'{p} gab.','t.rm':'noņemt','t.sent':'Pasūtījums {num} nosūtīts ugunī',
+  't.asap2':'cik ātri iespējams','t.around':'ap','t.at':'šodien plkst. {t}',
+  'f.quarter':'Vecpilsēta','f.copy':'© MMXXV Aurelia — gatavots uz ozala oglēm kopš 1987. gada','f.addr':'Via delle Erbe 12 · Vecpilsēta',
+  'a.facade':'Aurelia fasādes arhitektonisks zīmējums: arkveida logi, koka durvis, laterna',
+  'a.room':'Aurelia ēdamzāle: gars galds ar svecēm un vīna glāzēm',
+  'a.parcel':'Aurelia līdzņemšanas pakas zīmējums, sasiets ar auklu un apzīmogots ar vasku',
+  'a.slider':'Sveču gaisma','a.lighting':'Fasādes apgaismojums','a.lang':'Valoda','a.cart':'Jūsu pasūtījums','a.menu':'Atvērt izvēlni',
+  'a.fewer':'Mazāk viesu','a.more':'Vairāk viesu','c.close':'Aizvērt pasūtījumu',
+  'a.add':'Pievienot {n} pasūtījumam','a.dec':'Par vienu mazāk — {n}','a.inc':'Par vienu vairāk — {n}'
+}};
+
+let LANG = 'en', langSaved = false;
+try{
+  const saved = localStorage.getItem('aurelia-lang');
+  if(['en','ru','lv'].includes(saved)){ LANG = saved; langSaved = true; }
+}catch(e){}
+if(!langSaved){
+  const nl = (navigator.language||'en').toLowerCase();
+  LANG = nl.startsWith('ru') ? 'ru' : nl.startsWith('lv') ? 'lv' : 'en';
+}
+const LOCALES = {en:'en-GB', ru:'ru-RU', lv:'lv-LV'};
+const t = k => (I18N[LANG] && I18N[LANG][k]) || I18N.en[k] || k;
+const ruPl = (n,f)=>{ const a=n%10, b=n%100; return (a===1&&b!==11)?f[0]:(a>=2&&a<=4&&(b<12||b>14))?f[1]:f[2]; };
+const guestWord = n=> LANG==='ru' ? ruPl(n,['гость','гостя','гостей']) : LANG==='lv' ? (n===1?'viesis':'viesi') : (n===1?'guest':'guests');
+const dishWord = n=> LANG==='ru' ? ruPl(n,['блюдо','блюда','блюд']) : LANG==='lv' ? (n===1?'ēdiens':'ēdieni') : (n===1?'dish':'dishes');
+
+/* ---------- Loader ---------- */
+const loader = document.getElementById('loader');
+const hero = document.querySelector('.hero');
+let opened = false;
+function open(){
+  if(opened) return; opened = true;
+  loader.classList.add('bye');
+  hero.classList.add('ready');
+  setTimeout(()=>loader.remove(), 1200);
+}
+if(RM){ loader.remove(); hero.classList.add('ready'); opened = true; }
+else{
+  setTimeout(open, 1700);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>setTimeout(open, 700));
+}
+
+/* ---------- Nav ---------- */
+const nav = document.getElementById('nav');
+addEventListener('scroll', ()=>nav.classList.toggle('scrolled', scrollY > 30), {passive:true});
+const burger = document.getElementById('burger');
+const mnav = document.getElementById('mnav');
+burger.addEventListener('click', ()=>{
+  const o = mnav.classList.toggle('open');
+  burger.classList.toggle('open', o);
+  burger.setAttribute('aria-expanded', o);
+  document.body.style.overflow = o ? 'hidden' : '';
+});
+mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
+  mnav.classList.remove('open'); burger.classList.remove('open');
+  burger.setAttribute('aria-expanded','false'); document.body.style.overflow='';
+  if(a.hasAttribute('data-cart')) setTimeout(openCart, 60);
+}));
+
+/* ---------- Reveal on scroll ---------- */
+const revEls = document.querySelectorAll('[data-reveal]');
+if(RM){ revEls.forEach(el=>el.classList.add('in')); }
+else{
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {threshold:.15, rootMargin:'0px 0px -40px'});
+  revEls.forEach(el=>io.observe(el));
+}
+
+/* ---------- Plates draw-in (facade + parcel) ---------- */
+const plateIO = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('drawn'); plateIO.unobserve(e.target); }
+}), {threshold:.25});
+document.querySelectorAll('.plate').forEach(p=>plateIO.observe(p));
+
+/* day / dusk toggle */
+const lbtns = document.querySelectorAll('.lbtn');
+lbtns.forEach(b=>b.addEventListener('click', ()=>{
+  lbtns.forEach(x=>x.classList.toggle('on', x===b));
+  const plate = document.getElementById('plate');
+  plate.classList.toggle('dusk', b.dataset.m === 'dusk');
+  plate.classList.toggle('night', b.dataset.m === 'night');
+}));
+
+/* facade mouse parallax */
+const sky = document.getElementById('plxSky');
+const bld = document.getElementById('plxBld');
+const fg  = document.getElementById('plxFg');
+const plateEl = document.getElementById('plate');
+if(FINE && !RM){
+  let tx=0, ty=0, lx=0, ly=0;
+  plateEl.addEventListener('pointermove', e=>{
+    const r = plateEl.getBoundingClientRect();
+    tx = ((e.clientX - r.left)/r.width)*2 - 1;
+    ty = ((e.clientY - r.top)/r.height)*2 - 1;
+  });
+  plateEl.addEventListener('pointerleave', ()=>{ tx=0; ty=0; });
+  (function pl(){
+    lx += (tx-lx)*.06; ly += (ty-ly)*.06;
+    sky.style.transform = `translate(${lx*-9}px, ${ly*-5}px)`;
+    bld.style.transform = `translate(${lx*5}px, ${ly*3}px)`;
+    fg.style.transform  = `translate(${lx*12}px, ${ly*6}px)`;
+    requestAnimationFrame(pl);
+  })();
+}
+
+/* ---------- Embers canvas ---------- */
+const SPRITE = (()=>{
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const g = c.getContext('2d');
+  const gr = g.createRadialGradient(32,32,0,32,32,32);
+  gr.addColorStop(0,'rgba(255,200,120,1)');
+  gr.addColorStop(.35,'rgba(255,160,70,.55)');
+  gr.addColorStop(1,'rgba(255,140,50,0)');
+  g.fillStyle = gr; g.fillRect(0,0,64,64);
+  return c;
+})();
+
+class Embers{
+  constructor(canvas, o){
+    this.c = canvas; this.g = canvas.getContext('2d'); this.o = o;
+    this.p = []; this.t = 0; this.run = false;
+    this.resize();
+    addEventListener('resize', ()=>this.resize());
+    new IntersectionObserver(es=>{
+      const vis = es[0].isIntersecting;
+      const was = this.run;
+      this.run = vis && !RM;
+      if(this.run && !was) this.loop();
+    }, {threshold:0}).observe(canvas);
+    for(let i=0;i<o.n;i++) this.p.push(this.seed(true));
+  }
+  resize(){
+    const r = this.c.parentElement.getBoundingClientRect();
+    const d = Math.min(devicePixelRatio||1, 2);
+    this.w = r.width; this.h = r.height;
+    this.c.width = r.width*d; this.c.height = r.height*d;
+    this.g.setTransform(d,0,0,d,0,0);
+  }
+  seed(init){
+    const s = this.o.spawn(this.w, this.h);
+    return { x:s.x, y: init ? Math.random()*this.h*(this.o.top||1) : s.y,
+      vy:-(6+Math.random()*18)*(this.o.spd||1), r:.6+Math.random()*1.9,
+      a:.25+Math.random()*.6, ph:Math.random()*6.28, sw:8+Math.random()*26, sf:.4+Math.random()*1.2 };
+  }
+  loop(){
+    if(!this.run) return;
+    const g = this.g, w = this.w, h = this.h;
+    this.t += 1/60;
+    g.clearRect(0,0,w,h);
+    const ga = this.o.alpha ? this.o.alpha() : 1;
+    if(ga > .01){
+      g.globalCompositeOperation = 'lighter';
+      if(this.o.glows) for(const gl of this.o.glows){
+        const a = gl.a*ga*(.72 + .22*Math.sin(this.t*gl.f + gl.p) + .06*Math.sin(this.t*3.1 + gl.p*2));
+        const R = gl.r*h;
+        g.globalAlpha = Math.max(a,0);
+        g.drawImage(SPRITE, gl.x*w - R/2, gl.y*h - R/2, R, R);
+      }
+      for(const p of this.p){
+        p.ph += p.sf/60; p.y += p.vy/60;
+        if(p.y < -20){ Object.assign(p, this.seed(false)); p.y = this.h + 12; }
+        const x = p.x + Math.sin(p.ph)*p.sw;
+        const rr = p.r*6;
+        g.globalAlpha = Math.max(p.a*ga*(.6 + .4*Math.sin(p.ph*2.3)), 0);
+        g.drawImage(SPRITE, x - rr/2, p.y - rr/2, rr, rr);
+      }
+      g.globalCompositeOperation = 'source-over';
+      g.globalAlpha = 1;
+    }
+    requestAnimationFrame(()=>this.loop());
+  }
+}
+
+new Embers(document.getElementById('heroFx'), {
+  n: 70,
+  spawn: (w,h)=>({x:Math.random()*w, y:h+20}),
+  glows: [
+    {x:.5,  y:1.05, r:.95, a:.55, f:.7,  p:0},
+    {x:.2,  y:1.1,  r:.6,  a:.34, f:.55, p:2.1},
+    {x:.82, y:1.12, r:.65, a:.4,  f:.8,  p:4.2}
+  ]
+});
+
+let ambLight = .35;
+new Embers(document.getElementById('ambFx'), {
+  n: 42, top:.55, spd:.55,
+  spawn: (w,h)=>({x:w*(.3 + Math.random()*.42), y:h*.55}),
+  alpha: ()=>ambLight
+});
+
+/* ---------- Ambiance: the match slider ---------- */
+const ms = document.getElementById('ms');
+const roomSvg = document.getElementById('roomSvg');
+const ambState = document.getElementById('ambState');
+
+function stateTxt(v){
+  return v < .14 ? t('amb.s0') : v < .45 ? t('amb.s1') : v < .8 ? t('amb.s2') : t('amb.s3');
+}
+function setLight(v){
+  v = cl(v, 0, 1);
+  ambLight = v;
+  ms.style.setProperty('--k', v);
+  roomSvg.style.setProperty('--light', v);
+  ms.setAttribute('aria-valuenow', Math.round(v*100));
+  ambState.textContent = stateTxt(v);
+  Snd.setLight(v);
+}
+let dragging = false;
+const fromEvt = e=>{
+  const r = ms.getBoundingClientRect();
+  setLight((e.clientX - r.left)/r.width);
+};
+ms.addEventListener('pointerdown', e=>{ dragging = true; ms.setPointerCapture(e.pointerId); fromEvt(e); });
+ms.addEventListener('pointermove', e=>{ if(dragging) fromEvt(e); });
+ms.addEventListener('pointerup', ()=>dragging = false);
+ms.addEventListener('keydown', e=>{
+  const cur = parseFloat(getComputedStyle(ms).getPropertyValue('--k')) || 0;
+  if(e.key==='ArrowRight'||e.key==='ArrowUp'){ setLight(cur+.05); e.preventDefault(); }
+  if(e.key==='ArrowLeft'||e.key==='ArrowDown'){ setLight(cur-.05); e.preventDefault(); }
+  if(e.key==='Home'){ setLight(0); e.preventDefault(); }
+  if(e.key==='End'){ setLight(1); e.preventDefault(); }
+});
+setLight(.35);
+
+/* ---------- Fire crackle, synthesized ---------- */
+const Snd = {
+  ctx:null, on:false, master:null, room:null, tiny:null, light:.35, tm:null,
+  init(){
+    const C = window.AudioContext || window.webkitAudioContext;
+    this.ctx = new C();
+    this.master = this.ctx.createGain();
+    this.master.gain.value = 0;
+    this.master.connect(this.ctx.destination);
+    const len = 2*this.ctx.sampleRate;
+    const b = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+    const d = b.getChannelData(0);
+    let last = 0;
+    for(let i=0;i<len;i++){ const w = Math.random()*2-1; last = (last + .02*w)/1.02; d[i] = last*3.2; }
+    const src = this.ctx.createBufferSource(); src.buffer = b; src.loop = true;
+    const lp = this.ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 340;
+    this.room = this.ctx.createGain(); this.room.gain.value = .3 + this.light*.7;
+    src.connect(lp); lp.connect(this.room); this.room.connect(this.master); src.start();
+    const tl = Math.ceil(.12*this.ctx.sampleRate);
+    const tb = this.ctx.createBuffer(1, tl, this.ctx.sampleRate);
+    const td = tb.getChannelData(0);
+    for(let i=0;i<tl;i++) td[i] = (Math.random()*2-1)*(1 - i/tl);
+    this.tiny = tb;
+  },
+  loop(){ if(!this.on) return; this.pop(); this.tm = setTimeout(()=>this.loop(), 70 + Math.random()*420); },
+  pop(){
+    const t0 = this.ctx.currentTime;
+    const s = this.ctx.createBufferSource();
+    s.buffer = this.tiny; s.playbackRate.value = .7 + Math.random()*.9;
+    const bp = this.ctx.createBiquadFilter(); bp.type = 'bandpass';
+    bp.frequency.value = 800 + Math.random()*2800; bp.Q.value = 7;
+    const g = this.ctx.createGain();
+    const v = (.04 + Math.random()*.2)*(.35 + this.light*.75);
+    g.gain.setValueAtTime(v, t0);
+    g.gain.exponentialRampToValueAtTime(.0001, t0 + .05 + Math.random()*.08);
+    s.connect(bp); bp.connect(g); g.connect(this.master);
+    s.start(t0); s.stop(t0 + .16);
+  },
+  toggle(){
+    if(!this.ctx) this.init();
+    this.ctx.resume();
+    this.on = !this.on;
+    this.master.gain.setTargetAtTime(this.on ? .85 : 0, this.ctx.currentTime, .25);
+    if(this.on) this.loop(); else clearTimeout(this.tm);
+    return this.on;
+  },
+  setLight(v){ this.light = v; if(this.ctx && this.on) this.room.gain.setTargetAtTime(.3 + v*.7, this.ctx.currentTime, .4); }
+};
+const sndBtn = document.getElementById('sndBtn');
+const sndTxt = document.getElementById('sndTxt');
+sndBtn.addEventListener('click', ()=>{
+  const on = Snd.toggle();
+  sndBtn.classList.toggle('on', on);
+  sndBtn.setAttribute('aria-pressed', on);
+  sndTxt.textContent = t(on ? 'snd.on' : 'snd.off');
+});
+
+/* ---------- Menu data — names AND descriptions in all three languages ---------- */
+const CENA = [
+  {g:'antipasti', items:[
+    {id:'crudo',   p:24, e:0,
+     n:{en:'Beef Crudo', ru:'Карпаччо из говядины', lv:'Liellopa karpaccio'},
+     d:{en:'dry-aged beef, smoked olive oil, toasted hazelnut', ru:'выдержанная говядина, копчёное оливковое масло, жареный фундук', lv:'sausās nogatavināšanas liellopa gaļa, kūpināta olīveļļa, grauzdēti lazdu rieksti'}},
+    {id:'burrata', p:19, e:0,
+     n:{en:'Fire-Blistered Burrata', ru:'Буррата на углях', lv:'Burrata uz oglēm'},
+     d:{en:'flame-blistered burrata, charred leek, aged balsamico', ru:'буррата с огня, обугленный лук-порей, выдержанный бальзамик', lv:'ugunī apcepta burrata, pārogļināts puravs, nogatavināts balsamiko'}},
+    {id:'funghi',  p:18, e:0,
+     n:{en:'Porcini Trifolati', ru:'Белые грибы трифолати', lv:'Baravikas trifolati'},
+     d:{en:'porcini from the bosco, garlic, parsley, polenta crisps', ru:'белые грибы из леса, чеснок, петрушка, хрустящая полента', lv:'baravikas no meža, ķiploki, pētersīļi, kraukšķīga polenta'}},
+    {id:'pane',    p:9, e:0,
+     n:{en:'Bread & Flame', ru:'Хлеб и пламя', lv:'Maize un liesma'},
+     d:{en:'hearth sourdough, whipped marrow butter, sel gris', ru:'хлеб на закваске из печи, взбитое костное масло, сель гру', lv:'skābmaizes maize no krāsns, putraimu sviests, sāls pārslas'}}
+  ]},
+  {g:'primi', items:[
+    {id:'tartufo', p:34, e:1,
+     n:{en:'Tagliatelle with Truffle', ru:'Тальятелле с трюфелем', lv:'Taljatelle ar trifeli'},
+     d:{en:'hand-cut, winter truffle, butter di Parma', ru:'ручная нарезка, зимний трюфель, масло из Пармы', lv:'griezts ar rokām, ziemas trifele, Parmas sviests'}},
+    {id:'risotto', p:29, e:0,
+     n:{en:'Saffron Risotto', ru:'Ризотто с шафраном', lv:'Rizots ar safrānu'},
+     d:{en:'carnaroli, saffron, roast bone marrow', ru:'карнароли, шафран, жареный костный мозг', lv:'karnaroli, safrāns, grauzdēti kaulu smadzenes'}},
+    {id:'gnocchi', p:27, e:0,
+     n:{en:'Chestnut Gnocchi', ru:'Каштановые ньокки', lv:'Kastaņu njoki'},
+     d:{en:'chestnut gnocchi, porcini, crisp sage', ru:'каштановые ньокки, белые грибы, хрустящий шалфей', lv:'kastaņu njoki, baravikas, kraukšķīga salvija'}},
+    {id:'aglio',   p:23, e:0,
+     n:{en:'Spaghettone with Garlic', ru:'Спагеттоне с чесноком', lv:'Spageti ar ķiplokiem'},
+     d:{en:'whole garlic, chili, toasted breadcrumb', ru:'целый чеснок, чили, поджаренные сухари', lv:'veseli ķiploki, čili, grauzdētas maizes drupatas'}}
+  ]},
+  {g:'fuoco', items:[
+    {id:'branzino',p:52, e:0,
+     n:{en:'Salt-Crust Sea Bass', ru:'Морской окунь в соли', lv:'Jūras asaris sāls garozā'},
+     d:{en:'whole sea bass in salt crust, lemon, new olive oil', ru:'морской окунь целиком в соляной корке, лимон, масло нового урожая', lv:'vess jūras asaris sāls garozā, citrons, jauna olīveļļa'}},
+    {id:'bistecca',p:68, e:1,
+     n:{en:'Ember-Grilled Ribeye', ru:'Рибай на углях', lv:'Ribaja uz oglēm'},
+     d:{en:'45-day dry-aged ribeye, ember-baked onions, bone salt', ru:'рибай сухого выдерживания 45 дней, лук из углей, костная соль', lv:'45 dienas sausā nogatavinātā ribaja, oglēs cepti sīpoli, kaulu sāls'}},
+    {id:'piccione',p:46, e:1,
+     n:{en:'Ember-Roasted Pigeon', ru:'Голубь на углях', lv:'Balodis uz oglēm'},
+     d:{en:'ember-roasted pigeon, cherry mostarda, cooking jus', ru:'голубь, запечённый в углях, вишнёвая мостарда, сок приготовления', lv:'oglēs cepts balodis, ķiršu mostarda, gatavošanas sula'}},
+    {id:'verdure', p:26, e:0,
+     n:{en:'Grilled Vegetables', ru:'Овощи с гриля', lv:'Grila dārzeņi'},
+     d:{en:'whatever the market gave us, salsa verde', ru:'всё, что дал нам рынок, сальса верде', lv:'viss, ko deva tirgus, salsa verde'}}
+  ]},
+  {g:'dolci', items:[
+    {id:'barozzi', p:16, e:1,
+     n:{en:'Torta Barozzi', ru:'Торта Бароцци', lv:'Torta Barozzi'},
+     d:{en:'dark chocolate, espresso, sea salt — baked in the oven\u2019s dying heat', ru:'тёмный шоколад, эспрессо, морская соль — печётся в остывающей печи', lv:'tumšā šokolāde, espresso, jūras sāls — cepts krāsns mirstošajā karstumā'}},
+    {id:'panna',   p:14, e:0,
+     n:{en:'Caramel Panna Cotta', ru:'Панна-котта с карамелью', lv:'Panna kota ar karameli'},
+     d:{en:'burnt caramel, hazelnut praline', ru:'жжёная карамель, фундучное пралине', lv:'sadedzināta karamele, lazdu riekstu praline'}},
+    {id:'zabaione',p:15, e:0,
+     n:{en:'Zabaione over Coals', ru:'Дзабайоне на углях', lv:'Zabajone uz oglēm'},
+     d:{en:'whipped over the coals, brutti ma buoni', ru:'взбивается прямо на углях — brutti ma buoni', lv:'putots tieši uz oglēm — brutti ma buoni'}}
+  ]}
+];
+const VINI = [
+  {g:'rossi', items:[
+    {id:'barolo',  p:120, e:0, n:{en:'Barolo, Ravera', ru:'Бароло, Равера', lv:'Barolo, Ravera'}, d:{en:'Piedmont · 2016', ru:'Пьемонт · 2016', lv:'Pjemonta · 2016'}},
+    {id:'brunello',p:210, e:0, n:{en:'Brunello di Montalcino', ru:'Брунелло ди Монтальчино', lv:'Brunello di Montalcino'}, d:{en:'Tuscany · 2015', ru:'Тоскана · 2015', lv:'Toskāna · 2015'}},
+    {id:'etna',    p:95,  e:0, n:{en:'Etna Rosso, Arcuria', ru:'Этна Россо, Аркурия', lv:'Etna Rosso, Arcuria'}, d:{en:'Sicily · 2018', ru:'Сицилия · 2018', lv:'Sicīlija · 2018'}},
+    {id:'chianti', p:62,  e:0, n:{en:'Chianti Classico, Radda', ru:'Кьянти Классико, Радда', lv:'Chianti Classico, Radda'}, d:{en:'Tuscany · 2019', ru:'Тоскана · 2019', lv:'Toskāna · 2019'}}
+  ]},
+  {g:'bianchi', items:[
+    {id:'champ',   p:140, e:0, n:{en:'Champagne Blanc de Blancs', ru:'Шампань Блан де Блан', lv:'Champagne Blanc de Blancs'}, d:{en:'Côte des Blancs · n.v.', ru:'Côte des Blancs · n.v.', lv:'Côte des Blancs · n.v.'}},
+    {id:'franci',  p:88,  e:0, n:{en:'Franciacorta Brut', ru:'Франчакорта Брют', lv:'Franciacorta Brut'}, d:{en:'Lombardy · 2017', ru:'Ломбардия · 2017', lv:'Lombardija · 2017'}},
+    {id:'vermen',  p:58,  e:0, n:{en:'Vermentino, Bolgheri', ru:'Верментино, Болгери', lv:'Vermentino, Bolgheri'}, d:{en:'Tuscany · 2021', ru:'Тоскана · 2021', lv:'Toskāna · 2021'}},
+    {id:'fiano',   p:54,  e:0, n:{en:'Fiano', ru:'Фиано', lv:'Fiano'}, d:{en:'Campania · 2020', ru:'Кампания · 2020', lv:'Kampanija · 2020'}}
+  ]}
+];
+const ALL = {};
+[...CENA, ...VINI].forEach(grp=>grp.items.forEach(it=>ALL[it.id] = it));
+const nameOf = it => it.n[LANG] || it.n.en;
+const euro = n=>'€' + n;
+
+function renderMenu(){
+  const html = data => data.map(grp=>`<div class="mgroup"><h4>${t('g.'+grp.g)}</h4>${grp.items.map(dishHTML).join('')}</div>`).join('');
+  document.getElementById('p-cena').innerHTML = html(CENA);
+  document.getElementById('p-vini').innerHTML = html(VINI);
+}
+function dishHTML(it){
+  const nm = nameOf(it), safe = nm.replace(/"/g,'&quot;');
+  return `<div class="dish"><div class="drow"><span class="dname">${nm}${it.e?'<sup>&nbsp;*</sup>':''}</span><span class="leader"></span><span class="price">${it.p}</span><button class="addb" data-add="${it.id}" aria-label="${t('a.add').replace('{n}', safe)}" type="button">+</button></div><p class="ddesc">${it.d[LANG] || it.d.en}</p></div>`;
+}
+
+/* ---------- Marquee (words per language) ---------- */
+function renderMarquee(){
+  const words = t('mq.words').split(',');
+  const g = `<div class="mq-g">${words.map(w=>`<span>${w}</span><svg class="mk"><use href="#flame"/></svg>`).join('')}</div>`;
+  document.getElementById('mqT').innerHTML = g + g;
+}
+
+/* ---------- Toast ---------- */
+const toastEl = document.getElementById('toast');
+let toastTm;
+function toast(msg){
+  toastEl.querySelector('span').textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTm);
+  toastTm = setTimeout(()=>toastEl.classList.remove('show'), 2400);
+}
+
+/* ---------- Cart ---------- */
+let cart = {};
+try{ const s = JSON.parse(localStorage.getItem('aurelia-cart')); if(s && typeof s==='object') cart = s; }catch(e){}
+Object.keys(cart).forEach(id=>{ if(!ALL[id] || !(cart[id]>0)) delete cart[id]; });
+function saveCart(){ try{ localStorage.setItem('aurelia-cart', JSON.stringify(cart)); }catch(e){} }
+
+const cartEl = document.getElementById('cart');
+const cartVeil = document.getElementById('cartVeil');
+const cartBody = document.getElementById('cartBody');
+const cartItems = document.getElementById('cartItems');
+const cartEmpty = document.getElementById('cartEmpty');
+const cartForm = document.getElementById('cartForm');
+const cartFoot = document.getElementById('cartFoot');
+const cartDone = document.getElementById('cartDone');
+const cbadge = document.getElementById('cbadge');
+const fab = document.getElementById('fab');
+const fabTxt = document.getElementById('fabTxt');
+const mnCartSum = document.getElementById('mnCartSum');
+const feeRow = document.getElementById('feeRow');
+const tSub = document.getElementById('tSub');
+const tTotal = document.getElementById('tTotal');
+const DEL_FEE = 6;
+
+let mode = 'pickup';
+function cartCount(){ return Object.values(cart).reduce((s,q)=>s+q, 0); }
+function cartSub(){ return Object.entries(cart).reduce((s,[id,q])=>s + ALL[id].p*q, 0); }
+
+function refreshChrome(){
+  const n = cartCount(), sub = cartSub();
+  cbadge.hidden = n === 0;
+  cbadge.textContent = n;
+  fabTxt.textContent = n ? `${t('nav.orderbtn')} · ${n} — ${euro(sub)}` : t('nav.orderbtn');
+  fab.classList.toggle('show', n > 0 && !cartEl.classList.contains('open'));
+  mnCartSum.textContent = n ? `${n} · ${euro(sub)}` : t('mnav.empty');
+}
+function itemRow(id){
+  const it = ALL[id], q = cart[id];
+  const nm = nameOf(it), safe = nm.replace(/"/g,'&quot;');
+  return `<div class="ci" data-id="${id}">
+    <div class="ci-row">
+      <div class="ci-qty">
+        <button type="button" data-dec aria-label="${t('a.dec').replace('{n}', safe)}">−</button>
+        <span class="ci-n">${q}</span>
+        <button type="button" data-inc aria-label="${t('a.inc').replace('{n}', safe)}">+</button>
+      </div>
+      <span class="ci-name">${nm}</span>
+      <span class="ci-total">${euro(it.p*q)}</span>
+    </div>
+    <div class="ci-sub"><span>${t('t.each').replace('{p}', euro(it.p))}</span><button type="button" class="ci-rm" data-rm>${t('t.rm')}</button></div>
+  </div>`;
+}
+function renderCart(){
+  refreshChrome();
+  if(!cartDone.hidden) return; // confirmation view owns the body
+  const ids = Object.keys(cart);
+  cartEmpty.hidden = ids.length > 0;
+  cartForm.hidden = ids.length === 0;
+  cartFoot.hidden = ids.length === 0;
+  cartItems.innerHTML = ids.map(itemRow).join('');
+  const sub = cartSub(), fee = mode === 'delivery' ? DEL_FEE : 0;
+  tSub.textContent = euro(sub);
+  feeRow.hidden = mode !== 'delivery';
+  tTotal.textContent = euro(sub + fee);
+}
+function bumpBadge(){
+  cbadge.hidden = false;
+  cbadge.classList.remove('bump'); void cbadge.offsetWidth;
+  cbadge.classList.add('bump');
+}
+function addToCart(id, btn){
+  cart[id] = (cart[id] || 0) + 1;
+  renderCart();
+  bumpBadge();
+  toast(t('t.added').replace('{n}', nameOf(ALL[id])) + (cart[id] > 1 ? ` ×${cart[id]}` : ''));
+  if(btn){ btn.classList.remove('added'); void btn.offsetWidth; btn.classList.add('added'); }
+}
+document.addEventListener('click', e=>{
+  const add = e.target.closest('[data-add]');
+  if(add){ addToCart(add.dataset.add, add); return; }
+  const row = e.target.closest('.ci');
+  if(row){
+    const id = row.dataset.id;
+    if(e.target.closest('[data-inc]')) cart[id]++;
+    else if(e.target.closest('[data-dec]')){ cart[id]--; if(cart[id] <= 0) delete cart[id]; }
+    else if(e.target.closest('[data-rm]')) delete cart[id];
+    else return;
+    renderCart();
+  }
+});
+
+/* drawer open / close */
+function openCart(){
+  cartEl.classList.add('open');
+  cartVeil.classList.add('open');
+  cartEl.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('cartClose').focus();
+}
+function closeCart(){
+  cartEl.classList.remove('open');
+  cartVeil.classList.remove('open');
+  cartEl.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+document.getElementById('cartBtn').addEventListener('click', openCart);
+document.getElementById('ctaOrder').addEventListener('click', openCart);
+fab.addEventListener('click', openCart);
+document.getElementById('cartClose').addEventListener('click', closeCart);
+cartVeil.addEventListener('click', closeCart);
+document.getElementById('emptyGo').addEventListener('click', ()=>{
+  closeCart();
+  document.getElementById('menu').scrollIntoView({behavior: RM ? 'auto' : 'smooth'});
+});
+addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    if(cartEl.classList.contains('open')) closeCart();
+    else if(mnav.classList.contains('open')) burger.click();
+  }
+});
+
+/* mode + slots */
+document.querySelectorAll('input[name="omode"]').forEach(r=>r.addEventListener('change', ()=>{
+  mode = r.value;
+  document.getElementById('delOnly').hidden = mode !== 'delivery';
+  renderCart();
+}));
+const slotSel = document.getElementById('slotSel');
+const SLOTS = ['18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30'];
+function renderSlots(){
+  const cur = slotSel.value;
+  slotSel.innerHTML = `<option value="asap">${t('c.asap')}</option>`
+    + SLOTS.map(x=>`<option value="${x}">${t('c.today')} ${x}</option>`).join('');
+  if(cur) slotSel.value = cur;
+}
+renderSlots();
+
+/* checkout */
+let lastOrder = null, lastRes = null;
+function etaTxt(mins){
+  const d = new Date(Date.now() + mins*60000);
+  return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+}
+function renderOrderDone(){
+  if(!lastOrder) return;
+  document.getElementById('oNum').textContent = `${t('c.ordernum')} ${lastOrder.num}`;
+  document.getElementById('oDetail').textContent = `${lastOrder.n} ${dishWord(lastOrder.n)} · ${euro(lastOrder.total)}`;
+  document.getElementById('oModeLine').textContent =
+    t(lastOrder.mode === 'delivery' ? 'm.del' : 'm.pickup') +
+    (lastOrder.slot === 'asap'
+      ? ` · ${t('t.asap2')} · ${t('t.around')} ${etaTxt(lastOrder.eta)}`
+      : ` · ${t('t.at').replace('{t}', lastOrder.slot)}`);
+  const al = document.getElementById('oAddrLine');
+  al.hidden = lastOrder.mode !== 'delivery';
+  if(lastOrder.mode === 'delivery') al.textContent = lastOrder.addr;
+}
+document.getElementById('placeOrder').addEventListener('click', ()=>{
+  const name = document.getElementById('oName').value.trim();
+  const phone = document.getElementById('oPhone').value.replace(/\D/g,'');
+  const addr = document.getElementById('oAddr').value.trim();
+  const fN = document.getElementById('fOName'), fP = document.getElementById('fOPhone'), fA = document.getElementById('fOAddr');
+  let bad = null;
+  fN.classList.toggle('err', !name);            if(!name && !bad) bad = fN;
+  fP.classList.toggle('err', phone.length < 6); if(phone.length < 6 && !bad) bad = fP;
+  if(mode === 'delivery'){ fA.classList.toggle('err', !addr); if(!addr && !bad) bad = fA; }
+  if(bad){ bad.querySelector('input').focus(); return; }
+
+  const slot = slotSel.value;
+  const n = cartCount(), sub = cartSub(), fee = mode === 'delivery' ? DEL_FEE : 0;
+  const num = 'A-' + (2000 + Math.floor(Math.random()*8000));
+  lastOrder = {num, n, total: sub + fee, mode, slot, addr, eta: mode === 'delivery' ? 60 : 45};
+  cartDone.hidden = false;
+  cartForm.hidden = true;
+  cartFoot.hidden = true;
+  cartEmpty.hidden = true;
+  renderOrderDone();
+  cart = {}; saveCart(); refreshChrome();
+  cartBody.scrollTop = 0;
+  toast(t('t.sent').replace('{num}', num));
+});
+document.getElementById('newOrder').addEventListener('click', ()=>{
+  lastOrder = null;
+  cartDone.hidden = true;
+  renderCart();
+  document.getElementById('oName').focus();
+});
+['oName','oPhone','oAddr'].forEach(id=>{
+  const el = document.getElementById(id);
+  el.addEventListener('input', ()=>el.closest('.field').classList.remove('err'));
+});
+
+/* ---------- Menu tabs ---------- */
+const tabs = [...document.querySelectorAll('.tab')];
+const ind = document.getElementById('tind');
+function moveInd(){
+  const a = document.querySelector('.tab.on');
+  if(!a) return;
+  ind.style.left = a.offsetLeft + 'px';
+  ind.style.width = a.offsetWidth + 'px';
+}
+tabs.forEach(tb=>tb.addEventListener('click', ()=>{
+  tabs.forEach(x=>{ x.classList.toggle('on', x===tb); x.setAttribute('aria-selected', x===tb); });
+  document.querySelectorAll('.mpanel').forEach(p=>p.classList.toggle('onp', p.id === tb.dataset.tab));
+  moveInd();
+}));
+addEventListener('resize', moveInd);
+
+/* ---------- Reservation ---------- */
+const gVal = document.getElementById('gVal');
+let guests = 2;
+const setG = v=>{ guests = cl(v, 1, 8); gVal.textContent = guests; };
+document.getElementById('gMinus').addEventListener('click', ()=>setG(guests-1));
+document.getElementById('gPlus').addEventListener('click', ()=>setG(guests+1));
+
+const rdate = document.getElementById('rdate');
+rdate.min = new Date().toISOString().slice(0,10);
+
+const rform = document.getElementById('rform');
+const rslip = document.getElementById('rslip');
+const conf = document.getElementById('conf');
+const fName = document.getElementById('fName');
+const fDate = document.getElementById('fDate');
+const fTime = document.getElementById('fTime');
+
+function renderResConfirm(){
+  if(!lastRes) return;
+  document.getElementById('cName').textContent = lastRes.first;
+  const ds = new Date(lastRes.date + 'T12:00:00')
+    .toLocaleDateString(LOCALES[LANG], {weekday:'long', day:'numeric', month:'long'});
+  document.getElementById('cDetail').textContent =
+    `${lastRes.guests} ${guestWord(lastRes.guests)} · ${ds} · ${lastRes.time}`;
+}
+rform.addEventListener('submit', e=>{
+  e.preventDefault();
+  const name = document.getElementById('rname').value.trim();
+  const date = rdate.value;
+  const time = document.querySelector('input[name="hora"]:checked');
+  let ok = true;
+  fName.classList.toggle('err', !name); if(!name) ok = false;
+  const badDate = !date || date < rdate.min;
+  fDate.classList.toggle('err', badDate); if(badDate) ok = false;
+  fTime.classList.toggle('err', !time); if(!time) ok = false;
+  if(!ok) return;
+  lastRes = {first: name.split(' ')[0], guests, date, time: time.value};
+  rslip.classList.add('done');
+  conf.hidden = false;
+  renderResConfirm();
+});
+document.getElementById('rname').addEventListener('input', ()=>fName.classList.remove('err'));
+rdate.addEventListener('input', ()=>fDate.classList.remove('err'));
+document.querySelectorAll('input[name="hora"]').forEach(r=>r.addEventListener('change', ()=>fTime.classList.remove('err')));
+document.getElementById('amend').addEventListener('click', ()=>{
+  lastRes = null;
+  rslip.classList.remove('done');
+  conf.hidden = true;
+  document.getElementById('rname').focus();
+});
+
+/* ---------- Custom cursor ---------- */
+if(FINE && !RM){
+  document.body.classList.add('cur');
+  const dot = document.createElement('div'), ring = document.createElement('div');
+  dot.className = 'cur-dot'; ring.className = 'cur-ring';
+  document.body.append(dot, ring);
+  let x = innerWidth/2, y = innerHeight/2, rx = x, ry = y;
+  addEventListener('pointermove', e=>{
+    x = e.clientX; y = e.clientY;
+    const tg = e.target;
+    const hot = tg.closest && tg.closest('a, button, label, .ms, .win, .tab, input[type="radio"]');
+    const txt = tg.closest && tg.closest('input[type="text"], input[type="date"], input[type="tel"], textarea, select');
+    ring.classList.toggle('hot', !!hot);
+    const hide = !!txt;
+    dot.style.opacity = hide ? 0 : 1;
+    ring.style.opacity = hide ? 0 : 1;
+  }, {passive:true});
+  (function cl2(){
+    rx += (x-rx)*.16; ry += (y-ry)*.16;
+    dot.style.transform = `translate(${x}px, ${y}px)`;
+    ring.style.transform = `translate(${rx}px, ${ry}px)`;
+    requestAnimationFrame(cl2);
+  })();
+}
+
+/* =========================================================
+   Language switching — full sweep
+   ========================================================= */
+function applyLang(l){
+  LANG = l;
+  try{ localStorage.setItem('aurelia-lang', l); }catch(e){}
+  document.documentElement.lang = l;
+  document.title = t('meta.title');
+  document.querySelectorAll('[data-lang]').forEach(b=>{
+    const on = b.dataset.lang === l;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    el.innerHTML = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
+    el.setAttribute('aria-label', t(el.dataset.i18nAria));
+  });
+  renderMarquee();
+  renderMenu();
+  renderSlots();
+  renderCart();
+  setLight(ambLight);
+  sndTxt.textContent = t(Snd.on ? 'snd.on' : 'snd.off');
+  if(!conf.hidden && lastRes) renderResConfirm();
+  if(!cartDone.hidden && lastOrder) renderOrderDone();
+  requestAnimationFrame(()=>{
+    moveInd();
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(moveInd);
+  });
+}
+document.querySelectorAll('[data-lang]').forEach(b=>
+  b.addEventListener('click', ()=>{ if(b.dataset.lang !== LANG) applyLang(b.dataset.lang); })
+);
+applyLang(LANG);
+
+})();
+</script>
+</body>
+</html>
