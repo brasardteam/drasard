@@ -96,7 +96,7 @@ const navItems = ["Solutions", "Examples", "Pricing", "About", "How It Works"];
 
 const en = {
   nav: navItems,
-  book: "Book a Consultation",
+  book: "Enquire",
   hero: "Premium digital experiences for local businesses.",
   heroBody:
     "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses — from elegant digital showcases to complete online ordering experiences.",
@@ -105,7 +105,7 @@ const en = {
 
 const lv = {
   nav: ["Risinājumi", "Piemēri", "Cenas", "Par mums", "Kā tas notiek"],
-  book: "Pieteikt konsultāciju",
+  book: "Sazināties",
   hero: "Izcila digitālā pieredze vietējiem uzņēmumiem.",
   heroBody:
     "Mēs veidojam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem — no eleganta tēla līdz pilnvērtīgai pasūtīšanas pieredzei.",
@@ -291,7 +291,7 @@ function PricingCard({ commerce = false }: { commerce?: boolean }) {
       {commerce && <div className="recommended">FULL BUSINESS EXPERIENCE</div>}
       <div className="price-top">
         <Eyebrow light={!commerce}>{commerce ? "02 — COMMERCE" : "01 — SHOWCASE"}</Eyebrow>
-        <div className="price"><span>{commerce ? "€550+" : "€350"}</span><small>{commerce ? "One-time setup + from €50/month" : "One-time payment"}</small></div>
+        <div className="price"><span>{commerce ? "€550+" : "€350"}</span><small>{commerce ? "One-time setup + monthly fee" : "One-time payment"}</small></div>
         <p>{commerce ? "A complete digital business experience designed to help customers browse, order and pay online." : "A premium website designed to present your business beautifully and make it easy for customers to discover you."}</p>
       </div>
       <div className="feature-list">
@@ -481,7 +481,7 @@ function Comparison() {
       <div className="container comparison-grid">
         <div>
           <SectionTitle eyebrow="SIMPLE STARTING POINTS" title="Built around your business." body="Final pricing depends on customization, content, integrations and required functionality." light />
-          <Button href="#contact">Book a Consultation</Button>
+          <Button href="#contact">Enquire</Button>
         </div>
         <div className="compare-table">
           <div className="table-row table-head"><span>FEATURE</span><b>SHOWCASE<br /><em>€350</em></b><b>COMMERCE<br /><em>€550+</em></b></div>
@@ -586,7 +586,7 @@ function Contact() {
             <div className="field-row"><label>Business type<select name="businessType" defaultValue=""><option value="" disabled>Select type</option><option>Restaurant</option><option>Café</option><option>Other local business</option></select></label><label>Website type<select name="websiteType" defaultValue=""><option value="" disabled>Select experience</option><option>Showcase</option><option>Commerce</option><option>Not sure yet</option></select></label></div>
             <label>Tell us about your project<textarea name="message" rows={4} placeholder="What would you like your website to do?" /></label>
             <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="form-honeypot" />
-            <button className="form-submit" type="submit" disabled={sending}>{sending ? "Sending…" : "Book a Consultation"} {!sending && <Icon name="arrow" />}</button>
+            <button className="form-submit" type="submit" disabled={sending}>{sending ? "Sending…" : "Enquire"} {!sending && <Icon name="arrow" />}</button>
             {error && <p role="alert" className="form-error">{error}</p>}
             <small>By sending this form, you agree to our privacy policy.</small>
           </>}
