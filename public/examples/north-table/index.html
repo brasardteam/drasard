@@ -454,7 +454,7 @@ const DISHES=[
     const langBtn = e.target.closest('[data-lang]');
     if (langBtn) { lang = langBtn.getAttribute('data-lang'); activeCat='all'; ls.set('north-table-lang',lang); render(); return; }
     const catBtn = e.target.closest('[data-cat]');
-    if (catBtn) { activeCat=catBtn.getAttribute('data-cat'); $('.f-btn',app).forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-cat')===activeCat));}); renderDishes(); return; }
+    if (catBtn) { activeCat=catBtn.getAttribute('data-cat'); $$('.f-btn',app).forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-cat')===activeCat));}); renderDishes(); return; }
     if (e.target.closest('.nav-tg')) { const nav=document.getElementById('mobile-nav'); const open=nav.hidden; nav.hidden=!open; document.body.classList.toggle('lock',open); e.target.closest('.nav-tg').setAttribute('aria-expanded',String(open)); return; }
     if (e.target.closest('[data-close-nav]') || e.target.closest('#mobile-nav a')) { const nav=document.getElementById('mobile-nav'); if(nav) nav.hidden=true; document.body.classList.remove('lock'); const tg=$('.nav-tg'); if(tg) tg.setAttribute('aria-expanded','false'); return; }
     if (e.target.closest('#ck-accept') || e.target.closest('#ck-min')) { ls.set('north-table-cookie','1'); const c=document.getElementById('cookie'); if(c)c.hidden=true; return; }
