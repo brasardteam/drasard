@@ -450,7 +450,7 @@ const DISHES=[
       cookie.hidden = false;
     } else if (cookie) cookie.hidden = true;
   }
-  app.addEventListener('click', function(e){
+  document.addEventListener('click', function(e){
     const langBtn = e.target.closest('[data-lang]');
     if (langBtn) { lang = langBtn.getAttribute('data-lang'); activeCat='all'; ls.set('north-table-lang',lang); render(); return; }
     const catBtn = e.target.closest('[data-cat]');
