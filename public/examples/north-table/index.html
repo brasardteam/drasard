@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NORTH TABLE — Modern Baltic Restaurant in Riga</title>
+<meta name="description" content="Seasonal Baltic cuisine cooked over birch embers, ten minutes from Riga Old Town. Smoked fish, wild game, dark rye. Reserve your table.">
+<meta property="og:title" content="NORTH TABLE — Modern Baltic Restaurant in Riga">
+<meta property="og:description" content="Seasonal Baltic cuisine cooked over birch embers, ten minutes from Riga Old Town.">
+<meta property="og:site_name" content="NORTH TABLE">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="lv_LV">
+<meta name="theme-color" content="#F4EFE6">
+<link rel="canonical" href="https://www.northtable.lv/">
+<div id="hl"></div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4EFE6; --paper2:#ECE4D4;
+  --ink:#211D16; --ink3:#544B3C; --ink2:#6B6252;
+  --ember:#A8481F; --spruce:#232E27; --spruce2:#1B241F;
+  --line:rgba(33,29,22,.16); --line-soft:rgba(33,29,22,.09);
+  --serif:'Fraunces',Georgia,serif; --sans:'Archivo',Helvetica,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-padding-top:96px}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+::selection{background:var(--ember);color:var(--paper)}
+img{max-width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;top:-70px;left:20px;z-index:100;background:var(--ink);color:var(--paper);padding:12px 18px;font-size:13px;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+.ic{width:18px;height:18px;flex:none}
+
+/* ---------- header ---------- */
+.hd{position:sticky;top:0;z-index:70;background:rgba(244,239,230,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd-in{max-width:1280px;margin:auto;padding:0 clamp(20px,4vw,48px);height:76px;display:flex;align-items:center;gap:36px}
+.logo{font-family:var(--serif);font-weight:600;letter-spacing:.14em;font-size:19px;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center}
+.logo i{display:inline-block;width:7px;height:7px;background:var(--ember);margin-left:9px}
+.logo.on-dark{color:var(--paper)}
+.hd-nav{margin-left:auto}
+.hd-nav ul{display:flex;gap:26px;list-style:none}
+.hd-nav a{font-size:12.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;color:var(--ink2);padding:6px 0;position:relative}
+.hd-nav a::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--ember);transition:width .25s}
+.hd-nav a:hover::after,.hd-nav a[aria-current]::after{width:100%}
+.hd-nav a[aria-current]{color:var(--ink)}
+.hd-end{display:flex;align-items:center;gap:16px;margin-left:auto}
+.hd-nav + .hd-end{margin-left:0}
+.lang{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{appearance:none;background:none;border:0;font:600 12px/1 var(--sans);letter-spacing:.1em;padding:9px 14px;border-radius:999px;cursor:pointer;color:var(--ink2);transition:background .2s,color .2s}
+.lang button + button{border-left:1px solid var(--line)}
+.lang button:hover{color:var(--ink)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;font:500 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);cursor:pointer;transition:background .25s,color .25s,border-color .25s;background:transparent;color:var(--ink)}
+.btn .ic{width:15px;height:15px}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover{background:var(--ember);border-color:var(--ember)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.paper{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.btn.paper:hover{background:var(--ember);border-color:var(--ember);color:var(--paper)}
+.btn.op{border-color:rgba(244,239,230,.45);color:var(--paper)}
+.btn.op:hover{border-color:var(--paper)}
+.hd-cta{padding:11px 18px;font-size:11.5px}
+.nav-tg{display:none;background:none;border:1px solid var(--line);width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;color:var(--ink)}
+
+/* mobile nav */
+.mnav{position:fixed;inset:0;background:var(--paper);z-index:60;padding:118px clamp(20px,6vw,48px) 40px;display:flex;flex-direction:column;justify-content:space-between;animation:mFade .3s both}
+@keyframes mFade{from{opacity:0}to{opacity:1}}
+.mnav ol{list-style:none;display:grid;gap:4px}
+.mnav a{font-family:var(--serif);font-size:clamp(1.9rem,7.5vw,3rem);line-height:1.15;color:var(--ink);text-decoration:none;display:inline-block;padding:4px 0;animation:rise .5s both;animation-delay:calc(var(--i)*60ms)}
+.mnav a:hover{color:var(--ember);font-style:italic}
+.mnav a[aria-current]{color:var(--ember)}
+.mnav-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+
+/* ---------- shared layout ---------- */
+.sec{max-width:1280px;margin:0 auto;padding:clamp(68px,9vw,124px) clamp(20px,4vw,48px)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;margin-bottom:clamp(30px,4vw,52px);flex-wrap:wrap}
+.sec-side{max-width:36ch;color:var(--ink3);font-size:.98rem}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--ink2);display:flex;gap:12px;align-items:center}
+.eyebrow::before{content:'';width:34px;height:1px;background:var(--ember);flex:none}
+.eyebrow.on-dark{color:rgba(244,239,230,.65)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.015em;margin:16px 0 18px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.8vw,3.1rem);line-height:1.06;letter-spacing:-.01em;margin-top:14px}
+h3{font-family:var(--serif);font-weight:400}
+.sub-h{font-family:var(--serif);font-size:1.5rem;margin:34px 0 8px}
+.lead-p{max-width:62ch;color:var(--ink3);margin-top:18px}
+.serif-lead{font-family:var(--serif);font-weight:340;font-size:clamp(1.35rem,2.5vw,1.9rem);line-height:1.4;color:var(--ink);max-width:44ch;margin-top:26px}
+.q{font-style:italic;font-weight:340;max-width:24ch}
+.split{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,88px);align-items:start;margin-top:clamp(30px,5vw,56px)}
+.lnk{display:inline-flex;align-items:center;gap:10px;margin-top:34px;font:500 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:6px;transition:color .25s,border-color .25s}
+.lnk .ic{width:16px;height:16px;transition:transform .25s}
+.lnk:hover{color:var(--ember);border-color:var(--ember)}
+.lnk:hover .ic{transform:translateX(5px)}
+.rows{display:grid}
+.rows .row{display:grid;grid-template-columns:minmax(120px,220px) 1fr;gap:20px;padding:16px 0;border-top:1px solid var(--line-soft)}
+.rows dt{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);padding-top:4px}
+.rows dd{font-size:1.02rem}
+.dot-list{list-style:none;display:grid;gap:12px;margin-top:24px}
+.dot-list li{display:flex;gap:14px;color:var(--ink3);font-size:.98rem}
+.dot-list li::before{content:'—';color:var(--ember);flex:none}
+.hr-row{display:flex;justify-content:space-between;gap:16px;padding:13px 2px;border-bottom:1px solid var(--line-soft);font-size:.98rem}
+.hr-row b{font-weight:500;font-variant-numeric:tabular-nums}
+.ph{border:1px solid var(--line);padding:10px;background:var(--paper2);margin:0}
+.ph img{width:100%;display:block;filter:sepia(.22) saturate(.85) contrast(1.04) brightness(.97)}
+.ph figcaption{font-size:12px;color:var(--ink2);padding:10px 4px 2px;letter-spacing:.04em}
+.ph.wide{margin:clamp(28px,4vw,48px) 0}
+.img-duo{display:grid;grid-template-columns:7fr 5fr;gap:clamp(20px,4vw,48px);align-items:start;margin:clamp(30px,5vw,56px) 0}
+.img-duo .off{margin-top:clamp(28px,6vw,72px)}
+.chef-n{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);margin-top:14px}
+.drop::first-letter{font-family:var(--serif);font-size:3.1em;float:left;line-height:.82;padding:5px 12px 0 0;color:var(--ember)}
+.sea-row{display:grid;grid-template-columns:minmax(110px,200px) 1fr;gap:20px;padding:16px 0;border-top:1px solid var(--line-soft)}
+.sea-n{font-family:var(--serif);font-style:italic;font-size:1.3rem}
+.sea-d{color:var(--ink3);align-self:center}
+.page{animation:mFade .4s both}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:calc(100vh - 76px);min-height:calc(100svh - 76px);display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
+#lines{position:absolute;inset:0}
+.hero-in{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:90px clamp(20px,4vw,48px) clamp(44px,8vh,88px)}
+.hero h1{font-size:clamp(3.1rem,9vw,7.4rem);margin:20px 0 0}
+.it{font-style:italic;font-weight:340;color:var(--ember)}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-top:26px}
+.hero-sub{max-width:46ch;color:var(--ink3)}
+.hero-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.hero-side{position:absolute;right:clamp(16px,3vw,40px);top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:11px;letter-spacing:.28em;color:var(--ink2);z-index:2}
+@media(max-width:900px){.hero-side{display:none}}
+.chip{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);padding:9px 15px;font-size:12.5px;letter-spacing:.03em;color:var(--ink3);background:rgba(244,239,230,.75)}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:#3E7A4E;animation:pp 2.2s infinite}
+.chip.closed .dot{background:var(--ember);animation-name:ppc}
+@keyframes pp{0%{box-shadow:0 0 0 0 rgba(62,122,78,.45)}100%{box-shadow:0 0 0 7px rgba(62,122,78,0)}}
+@keyframes ppc{0%{box-shadow:0 0 0 0 rgba(168,72,31,.45)}100%{box-shadow:0 0 0 7px rgba(168,72,31,0)}}
+
+/* marquee band */
+.band{background:var(--ember);color:var(--paper);overflow:hidden}
+.band-track{display:flex;width:max-content;animation:mq 26s linear infinite}
+.band:hover .band-track{animation-play-state:paused}
+.band-seq{display:flex;align-items:center}
+.band span{font-family:var(--serif);font-style:italic;font-weight:340;font-size:clamp(1.15rem,2.4vw,1.6rem);padding:17px 0;white-space:nowrap}
+.dia{width:8px;height:8px;background:rgba(244,239,230,.9);transform:rotate(45deg);margin:0 30px;flex:none}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* signatures */
+.sig-row{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(20px,4vw,56px);align-items:baseline;padding:32px 0;border-top:1px solid var(--line);transition:background .3s}
+.sig-row:last-child{border-bottom:1px solid var(--line)}
+.sig-row:hover{background:rgba(33,29,22,.03)}
+.sig-num{font-family:var(--serif);font-style:italic;color:var(--ember);font-size:15px}
+.sig-name{font-family:var(--serif);font-weight:400;font-size:clamp(1.45rem,3vw,2.2rem);transition:transform .3s}
+.sig-row:hover .sig-name{transform:translateX(7px)}
+.sig-desc{color:var(--ink3);max-width:56ch;margin-top:5px;font-size:.98rem}
+.sig-price{font-family:var(--serif);font-size:1.25rem;font-variant-numeric:tabular-nums}
+
+/* dark visit panel */
+.visit{background:var(--spruce);color:var(--paper)}
+.visit h2{color:var(--paper)}
+.visit-in{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(36px,6vw,90px)}
+.visit-c{list-style:none;margin-top:28px;display:grid;gap:14px}
+.visit-c li{display:flex;gap:14px;align-items:center;color:rgba(244,239,230,.88)}
+.visit-c .ic{width:18px;height:18px;color:rgba(244,239,230,.8)}
+.visit-c a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(244,239,230,.3);transition:border-color .2s}
+.visit-c a:hover{border-color:var(--paper)}
+.visit .hr-row{border-color:rgba(244,239,230,.16)}
+.visit-r .btn{margin-top:28px}
+
+/* ---------- menu ---------- */
+.menu-wrap{display:grid;grid-template-columns:260px 1fr;gap:clamp(36px,6vw,84px);align-items:start}
+.filters{position:sticky;top:100px}
+.f-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2);margin-bottom:10px}
+.f-btn{display:flex;width:100%;justify-content:space-between;align-items:center;gap:12px;background:none;border:0;border-bottom:1px solid var(--line-soft);padding:12px 2px 12px 18px;font:500 14px var(--sans);color:var(--ink2);cursor:pointer;position:relative;transition:color .2s;text-align:left}
+.f-btn::before{content:'';position:absolute;left:0;top:50%;translate:0 -50%;width:0;height:1px;background:var(--ember);transition:width .28s}
+.f-btn:hover{color:var(--ink)}
+.f-btn[aria-pressed="true"]{color:var(--ink)}
+.f-btn[aria-pressed="true"]::before{width:12px}
+.f-btn[aria-pressed="true"] .cnt{color:var(--ember)}
+.cnt{font-size:12px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.cat-h{display:flex;align-items:baseline;gap:14px;font:500 12px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--ember);margin:38px 0 4px}
+.cat-h span{color:var(--ink2);letter-spacing:.05em}
+.cat-h::after{content:'';flex:1;height:1px;background:var(--line-soft);align-self:center}
+.dish{padding:22px 0 20px;border-bottom:1px solid var(--line-soft);animation:rise .55s cubic-bezier(.22,.61,.36,1) both;animation-delay:calc(var(--i)*28ms)}
+.dish-line{display:flex;align-items:baseline;gap:14px}
+.dish-n{font-family:var(--serif);font-weight:400;font-size:1.28rem;transition:transform .3s}
+.dish:hover .dish-n{transform:translateX(6px)}
+.lead{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-5px)}
+.dish-p{font-family:var(--serif);font-size:1.12rem;font-variant-numeric:tabular-nums;white-space:nowrap;transition:color .3s}
+.dish:hover .dish-p{color:var(--ember)}
+.dish .v{font-size:10px;font-family:var(--sans);border:1px solid var(--line);padding:2px 7px;letter-spacing:.08em;color:var(--ink2);margin-left:10px;border-radius:999px;vertical-align:2px}
+.dish-d{color:var(--ink3);font-size:.95rem;max-width:62ch;margin-top:5px}
+.menu-notes{display:grid;gap:8px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:.9rem;max-width:70ch}
+.menu-cta{margin-top:64px;padding-top:44px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.menu-cta h3{font-size:clamp(1.5rem,2.6vw,2.1rem)}
+.menu-cta p{color:var(--ink3)}
+
+/* ---------- forms ---------- */
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 32px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2)}
+.field label b{color:var(--ember);font-weight:500}
+.field input,.field select,.field textarea{background:transparent;border:0;border-bottom:1px solid var(--line);padding:10px 2px;font:400 16px var(--sans);color:var(--ink);border-radius:0;transition:border-color .25s;width:100%}
+.field textarea{resize:vertical;min-height:110px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-color:var(--ink)}
+.field select{appearance:none;cursor:pointer;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23211D16' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 4px center/14px;padding-right:26px}
+.field.err input,.field.err select,.field.err textarea{border-bottom-color:var(--ember)}
+.err-msg{font-size:12.5px;color:var(--ember);display:none}
+.field.err .err-msg{display:block}
+.f-actions{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid var(--line);padding-top:22px;flex-wrap:wrap}
+.req-note{font-size:12.5px;color:var(--ink2)}
+.f-err{grid-column:1/-1;color:var(--ember);font-size:.95rem;border:1px solid var(--ember);padding:12px 16px}
+.ok{grid-column:1/-1;border:1px solid var(--ink);padding:clamp(28px,5vw,52px);display:grid;gap:14px;justify-items:start;animation:rise .5s both;outline:none}
+.ok-ic{width:46px;height:46px;border-radius:50%;background:var(--spruce);color:var(--paper);display:grid;place-items:center}
+.ok-ic .ic{width:20px;height:20px}
+.ok h3{font-family:var(--serif);font-size:1.7rem}
+.ok p{color:var(--ink3);max-width:56ch}
+.ok-s{font-size:.9rem;color:var(--ink2)}
+.call-box{margin-top:34px;border:1px solid var(--line);padding:26px;display:flex;gap:18px;align-items:center}
+.call-box .ic{width:22px;height:22px;color:var(--ember)}
+.call-box span{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.call-box a{font-family:var(--serif);font-size:1.45rem;color:var(--ink);text-decoration:none}
+.call-box a:hover{color:var(--ember)}
+
+/* ---------- footer ---------- */
+.ft{background:var(--spruce2);color:var(--paper);border-top:1px solid rgba(244,239,230,.14)}
+.ft h3{font:500 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.55);margin-bottom:16px}
+.ft ul{list-style:none;display:grid;gap:10px;font-size:.95rem;color:rgba(244,239,230,.85)}
+.ft a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.ft a:hover{border-color:rgba(244,239,230,.5)}
+.ft-grid{display:grid;grid-template-columns:1.4fr .8fr 1fr 1fr;gap:clamp(28px,4vw,56px);padding-bottom:52px}
+.ft-tag{margin-top:14px;color:rgba(244,239,230,.7);max-width:30ch}
+.ft-mark{font-family:var(--serif);font-weight:600;font-size:clamp(2.6rem,11vw,10rem);line-height:.95;color:transparent;-webkit-text-stroke:1px rgba(244,239,230,.3);letter-spacing:.04em;user-select:none;padding:24px 0 14px;white-space:nowrap;overflow:hidden}
+.ft-bot{display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(244,239,230,.14);padding-top:20px;font-size:13px;color:rgba(244,239,230,.6);flex-wrap:wrap}
+.ft-ck{background:none;border:0;color:rgba(244,239,230,.85);font:inherit;font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* cookie */
+.ck{position:fixed;left:20px;right:20px;bottom:20px;z-index:80;max-width:560px;margin:auto;background:var(--ink);color:var(--paper);padding:24px 26px;display:grid;gap:14px;border:1px solid rgba(244,239,230,.2);animation:rise .5s both}
+.ck-h{font-family:var(--serif);font-size:1.3rem}
+.ck-p{color:rgba(244,239,230,.78);font-size:.92rem}
+.ck-b{display:flex;gap:12px;flex-wrap:wrap}
+
+/* reveal + motion */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.61,.36,1);transition-delay:var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .dish,.mnav a,.ok,.ck{animation:none!important;opacity:1;transform:none}
+  .band-track{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:960px){
+  .hd-nav,.hd-cta{display:none}
+  .nav-tg{display:inline-flex}
+  .menu-wrap{grid-template-columns:1fr}
+  .filters{position:sticky;top:75px;z-index:5;background:var(--paper);display:flex;gap:8px;overflow-x:auto;padding:12px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .f-label{display:none}
+  .f-btn{border:1px solid var(--line);border-radius:999px;padding:8px 15px;white-space:nowrap;width:auto;flex:none}
+  .f-btn::before{display:none}
+  .f-btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .f-btn[aria-pressed="true"] .cnt{color:rgba(244,239,230,.8)}
+}
+@media(max-width:860px){
+  .split,.visit-in,.img-duo{grid-template-columns:1fr}
+  .img-duo .off{margin-top:0}
+  .ft-grid{grid-template-columns:1fr 1fr}
+  .hero{min-height:auto}
+  .hero-in{padding-top:72px;padding-bottom:56px}
+}
+@media(max-width:600px){
+  .ft-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  .rows .row,.sea-row{grid-template-columns:1fr;gap:4px}
+}
+</style>
+</head>
+<body>
+<noscript><div style="padding:28px;text-align:center;font-family:Georgia,serif">NORTH TABLE — please enable JavaScript to view this site. / Lūdzu, iespējojiet JavaScript, lai apskatītu šo vietni.</div></noscript>
+<div id="app"></div>
+
+<div id="cookie" class="ck" role="region" hidden>
+  <h2 class="ck-h" id="ck-h"></h2>
+  <p class="ck-p" id="ck-p"></p>
+  <div class="ck-b">
+    <button type="button" class="btn paper" id="ck-accept"></button>
+    <button type="button" class="btn op" id="ck-min"></button>
+  </div>
+</div>
+<div id="live" class="sr-only" role="status" aria-live="polite"></div>
+
+<script>
+/* ============ helpers ============ */
+const $=(s,c=document)=>c.querySelector(s); const $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+const IC={
+  ar:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  ph:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  ml:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  pin:'<path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  ck:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/>',
+  cl:'<path d="M6 6l12 12M18 6L6 18"/>',
+  tg:'<path d="M4 7h16M4 12h16M4 17h16"/>'
+};
+const ic=n=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
+
+/* ============ language-independent business data ============ */
+const BIZ={addr:'Tērbatas iela 12, Rīga, LV-1001',phone:'+371 67 222 444',email:'hello@northtable.lv',res:'reservations@northtable.lv'};
+
+/* ============ menu dataset ============ */
+const CATS=[
+  {id:'begin',  en:'To Begin',        lv:'Sākumi'},
+  {id:'garden', en:'From the Garden',lv:'No dārza'},
+  {id:'sea',    en:'From the Sea',   lv:'No jūras'},
+  {id:'land',   en:'From the Land',  lv:'No zemes'},
+  {id:'sides',  en:'Sides',          lv:'Piedavas'},
+  {id:'desserts',en:'Desserts',      lv:'Deserti'}
+];
+const D=(id,cat,price,v,en,lv)=>({id,cat,price,v,en:{n:en[0],d:en[1]},lv:{n:lv[0],d:lv[1]}});
+const DISHES=[
+  /* To Begin */
+  D('rye-butter','begin',6,1,['Smoked Butter & Rye','House-baked rye, smoked butter, sea salt flakes.'],['Kūpināts sviests un rudzu maize','Mājās cepta rudzu maize, kūpināts sviests, jūras sāls pārslas.']),
+  D('beet-tartare','begin',11,1,['Beetroot Tartare','Ember-roasted beetroot, horseradish cream, mustard seed, rye crisp.'],['Biešu tartars','Uz oglēm ceptas bietes, mārrutku krēms, sinepju sēklas, rudzu čipsi.']),
+  D('herring','begin',12,0,['Herring in Apple Marinade','Herring cured in apple juice, crème fraîche, dill, warm new potatoes.'],['Siļķe ābolu marinādē','Siļķe ābolu sulā, skābais krējums, dilles, siltie jaunie kartupeļi.']),
+  D('forest-broth','begin',10,0,['Forest Broth','Clear mushroom broth, quail egg, pine oil, chives.'],['Meža buljons','Dzidra sēņu buljons, paipalas ola, priežu eļļa, griezti zaļie loki.']),
+  D('mackerel-toast','begin',14,0,['Smoked Mackerel on Rye','Hot-smoked mackerel, pickled shallot, dill mayonnaise, dark rye.'],['Kūpināta makrele uz rudzu maizes','Karsti kūpināta makrele, marinēts šalotes sīpols, diļļu majonēze, tumša rudzu maize.']),
+  D('venison-tartare','begin',16,0,['Venison Tartare','Hand-cut venison, juniper, smoked egg yolk, sourdough crisps.'],['Brieža tartars','Rokās griezta brieža gaļa, kadiķogas, kūpināts olu dzeltenums, skābmaizes čipsi.']),
+  D('scallop','begin',17,0,['Seared Scallop','Scallop, roasted cauliflower, brown butter, trout roe.'],['Cepta jūras skalope','Jūras skalope, cepts ziedkāposts, brūnais sviests, foreļu ikri.']),
+  D('prawns','begin',16,0,['Baltic Prawns','Butter-poached prawns, lemon, dill oil, grilled sourdough.'],['Baltijas garneles','Sviestā vārītas garneles, citrons, diļļu eļļa, grilēta skābmaize.']),
+  D('cabbage-rolls','begin',13,1,['Smoked Cabbage Rolls','Fermented cabbage, pearl barley, wild mushrooms, smoked crème.'],['Kūpināti kāpostu tīteņi','Fermentēti kāposti, mieži, meža sēnes, kūpināts krēms.']),
+  D('duck-parfait','begin',15,0,['Duck Liver Parfait','Parfait, sour-cherry gastrique, brioche, toasted pistachio.'],['Pīles aknu parfe','Parfe, skābo ķiršu gastrikē, briohaša, grauzdētas pistācijas.']),
+  /* From the Garden */
+  D('tomatoes','garden',12,1,['Heritage Tomatoes','Heritage tomatoes, sea-buckthorn vinegar, whipped curd, basil.'],['Šķirņu tomāti','Šķirņu tomāti, smiltsērkšķu etiķis, putoti biezpiens, baziliks.']),
+  D('celeriac','garden',14,1,['Whole Roast Celeriac','Hay-baked celeriac, hazelnut, black garlic, thyme.'],['Vesla cepta selerijas sakne','Sienā cepta selerijas sakne, lazdu rieksti, melnais ķiploks, timiāns.']),
+  D('asparagus','garden',13,1,['Charred Asparagus','Green asparagus, cured egg yolk, aged cheese, wild garlic.'],['Uz oglēm grauzdināti sparģeļi','Zaļie sparģeļi, kaltēts olu dzeltenums, izturēts siers, meža ķiploki.']),
+  D('mushrooms','garden',15,1,['Foraged Mushrooms','Forest mushrooms, spelt groats, chanterelle cream, pickled onion.'],['Meža sēnes','Meža sēnes, speltas graudi, gaiļbietu krēms, marinēts sīpols.']),
+  D('pumpkin','garden',12,1,['Ember-Roasted Pumpkin','Pumpkin, buckwheat, brown butter, burnt sage.'],['Uz oglēm cepts ķirbis','Ķirbis, griķi, brūnais sviests, apdedzināta salvija.']),
+  D('leek','garden',13,1,['Grilled Leek','Leek, almond romesco, hazelnuts, sheep’s cheese.'],['Grilēts prāss','Prāss, mandeļu romesko, lazdu rieksti, aitu siers.']),
+  /* From the Sea */
+  D('baltic-salmon','sea',19.5,0,['Baltic Salmon','Roasted salmon, crushed potatoes, dill cream, pickled cucumber.'],['Baltijas lasis','Cepts lasis, sadrupināti kartupeļi, diļļu krēms un marinēts gurķis.']),
+  D('trout','sea',18,0,['Cured Trout','Lightly cured trout, cucumber, horseradish, rye crumbs.'],['Sālīta forele','Viegli sālīta forele, gurķis, mārrutki, rudzu drupačas.']),
+  D('mussels','sea',17,0,['Steamed Mussels','Mussels, white wine, garlic, parsley, grilled bread.'],['Tvaicēti vēdergliemeži','Vēdergliemeži, baltvīns, ķiploki, pētersīļi, grilēta maize.']),
+  D('cod','sea',24,0,['Butter-Roasted Cod','Cod, roasted fennel, mussel velouté, dill.'],['Sviestā cepta menca','Menca, cepts fenhelis, vēdergliemežu velutē, dilles.']),
+  D('char','sea',23,0,['Arctic Char','Confit char, celeriac, brown butter, fried capers.'],['Arktiskā palija','Konfitēta arktiskā palija, selerijas sakne, brūnais sviests, cepti kaperi.']),
+  D('eel','sea',21,0,['Smoked Eel','Smoked eel, beetroot, crème fraîche, watercress.'],['Kūpināts zutrs','Kūpināts zutrs, bietes, skābais krējums, ūdenskreses.']),
+  D('fish-stew','sea',22,0,['Baltic Fish Stew','Cod, salmon and prawns in saffron broth, aioli, lemon.'],['Baltijas zivju sautējums','Menca, lasis un garneles safrāna buljonā, aioli, citrons.']),
+  D('halibut','sea',27,0,['Pan-Fried Halibut','Halibut, brown shrimp, beurre blanc, sea vegetables.'],['Pannā cepts halibuts','Halibuts, mazās garneles, beurre blanc mērce, jūras zāles.']),
+  /* From the Land */
+  D('farm-chicken','land',21,0,['Farm Chicken','Chicken leg, morels, spring vegetables, roasted chicken sauce.'],['Lauku cālis','Cāļa kāja, palielas sēnes, pavasara dārzeņi, cepta cāļa mērce.']),
+  D('pork-neck','land',23,0,['12-Hour Pork Neck','Slow-cooked pork neck, baked apple, mustard sauce, crackling.'],['12 stundu dusināts cūkas kakls','Lēni dusināts cūkas kakls, cepts ābols, sinepju mērce, kraukšķīgā ādina.']),
+  D('quail','land',20,0,['Grilled Quail','Quail, glazed carrots, paprika oil, thyme jus.'],['Grilēta paipala','Paipala, glazēti burkāni, paprikas eļļa, timiāna mērce.']),
+  D('boar','land',25,0,['Braised Wild Boar','Boar shoulder, juniper, redcurrant, roots and barley.'],['Dusināta mežacūka','Mežacūkas plecs, kadiķogas, jāņogas, sakņu dārzeņi un mieži.']),
+  D('duck','land',42,0,['Whole Roast Duck (for two)','Herb-brined duck, roasted plums, red cabbage, natural jus.'],['Vesla cepta pīle (diviem)','Garšaugos marinēta pīle, ceptas plūmes, sarkanie kāposti, gaļas sula.']),
+  D('lamb','land',27,0,['Grilled Lamb Rump','Lamb, smoked aubergine, mint yoghurt, pickled garlic scapes.'],['Grilēta jēra muguras daļa','Jēra gaļa, kūpināts baklažāns, mentas jogurta mērce, marinēti ķiploku stublāji.']),
+  D('sirloin','land',31,0,['45-Day Dry-Aged Sirloin','Sirloin, bone-marrow butter, fermented pepper, triple-cooked fries.'],['45 dienas izturēta liellopa gaļa','Liellopa muguras daļa, kaulu smadzeņu sviests, fermentēti pipari, trīs reizes cepti kartupeļi.']),
+  D('short-rib','land',28,0,['Glazed Beef Short Rib','12-hour short rib, smoked potato purée, marrow crumb.'],['Glazēti liellopa ribas','12 stundu dusinātas ribas, kūpināts kartupeļu biezenis, kaulu smadzeņu drupačas.']),
+  D('veal','land',22,0,['Veal Schnitzel','Breaded veal, caper butter, lemon, pickled cucumber, boiled potatoes.'],['Teļa šnicele','Panēta teļa gaļa, kaperu sviests, citrons, marinēts gurķis, vārīti kartupeļi.']),
+  D('venison-loin','land',29,0,['Roasted Venison Loin','Venison loin, blackcurrant, celeriac, juniper jus.'],['Cepta brieža fileja','Brieža fileja, upenes, selerijas sakne, kadiķu mērce.']),
+  /* Sides */
+  D('fries','sides',6,1,['Triple-Cooked Fries','Rosemary salt, smoked aioli.'],['Trīs reizes cepti kartupeļi','Rozmarīna sāls, kūpināts aioli.']),
+  D('new-potatoes','sides',6,1,['Brown Butter Potatoes','New potatoes, brown butter, dill, crème fraîche.'],['Kartupeļi brūnajā sviestā','Jaunie kartupeļi, brūnais sviests, dilles, skābais krējums.']),
+  D('greens','sides',6,1,['Charred Seasonal Greens','Seasonal greens, lemon oil, sea salt.'],['Uz oglēm grauzdināti sezonas dārzeņi','Sezonas dārzeņi, citrona eļļa, jūras sāls.']),
+  D('leaf-salad','sides',5.5,1,['Leaf Salad','Dressed leaves, toasted seeds, pickled shallot.'],['Lapu salāti','Svaigi lapu salāti ar mērci, grauzdētām sēklām un marinētu šalotes sīpolu.']),
+  D('barley-mushrooms','sides',7,1,['Mushrooms & Barley','Wild mushrooms, pearl barley, herbs.'],['Sēnes ar miežiem','Meža sēnes, mieži, garšaugi.']),
+  D('pickled-beets','sides',5.5,1,['Pickled Beets','Beets, fermented honey, caraway.'],['Marinētas bietes','Bietes, fermentēts medus, ķimenes.']),
+  /* Desserts */
+  D('rye-ice-cream','desserts',9,1,['Rye Bread Ice Cream','Malted rye ice cream, sour cherry, dark chocolate.'],['Rudzu maizes saldējums','Rudzu saldējums, skābie ķirši, tumšā šokolāde.']),
+  D('honey-parfait','desserts',9,1,['Honey & Whey','Honey parfait, whey caramel, oat crumble, bee pollen.'],['Medus un sūkalas','Medus parfe, sūkalu karamels, auzu drupačas, bišu ziedputekšņi.']),
+  D('berry-soup','desserts',8.5,1,['Warm Forest Berries','Warm berry soup, vanilla ice cream, meringue, lemon balm.'],['Siltās meža ogas','Silta ogu zupa, vaniļas saldējums, bezē, melisas lapas.']),
+  D('chocolate-tart','desserts',10,1,['Dark Chocolate Tart','70% chocolate, sea-buckthorn caramel, crème fraîche.'],['Tumšās šokolādes tartē','70% šokolāde, smiltsērkšķu karamels, skābais krējums.']),
+  D('apple-cake','desserts',9,1,['Baked Apple','Warm spiced apple, oat crumble, vanilla ice cream.'],['Cepts ābols','Silts garšvielu ābols, auzu drupačas, vaniļas saldējums.'])
+];
+</script>
+</body>
+</html>
