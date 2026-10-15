@@ -1,4 +1,4 @@
-const translations = {
+export const translations = {
   // Navigation and global UI
   "Solutions": "Risinājumi",
   "Examples": "Piemēri",
@@ -221,70 +221,3 @@ const translations = {
   "Riga, Latvia": "Rīga, Latvija",
   "© 2025 DRASARD STUDIO": "© 2025 DRASARD STUDIJA",
 };
-
-const originalText = new WeakMap();
-
-function translateNode(root, toLatvian) {
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-  const nodes = [];
-  while (walker.nextNode()) nodes.push(walker.currentNode);
-
-  nodes.forEach((node) => {
-    const parent = node.parentElement;
-    if (!parent || ["SCRIPT", "STYLE", "NOSCRIPT"].includes(parent.tagName)) return;
-    const value = node.nodeValue || "";
-    if (!originalText.has(node)) originalText.set(node, value);
-    const source = originalText.get(node);
-    if (!toLatvian) {
-      node.nodeValue = source;
-      return;
-    }
-
-    let result = source;
-    // Long phrases first so smaller word mappings cannot interfere.
-    Object.entries(translations)
-      .sort(([a], [b]) => b.length - a.length)
-      .forEach(([from, to]) => {
-        result = result.split(from).join(to);
-      });
-    node.nodeValue = result;
-  });
-}
-
-function applyLanguage() {
-  const isLV = localStorage.getItem("drasard-language") === "LV";
-  translateNode(document.body, isLV);
-  document.documentElement.lang = isLV ? "lv" : "en";
-}
-
-function initLatvianOverlay() {
-  document.addEventListener("click", (event) => {
-    const target = event.target.closest("button");
-    if (!target) return;
-    const label = target.textContent.trim();
-    if (label === "LV") {
-      localStorage.setItem("drasard-language", "LV");
-      setTimeout(applyLanguage, 20);
-      setTimeout(applyLanguage, 180);
-    } else if (label === "EN") {
-      localStorage.setItem("drasard-language", "EN");
-      setTimeout(applyLanguage, 20);
-      setTimeout(applyLanguage, 180);
-    }
-  });
-
-  const observer = new MutationObserver(() => {
-    clearTimeout(window.__drasardTranslationTimer);
-    window.__drasardTranslationTimer = setTimeout(applyLanguage, 30);
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
-  applyLanguage();
-}
-
-if (typeof window !== "undefined") {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initLatvianOverlay, { once: true });
-  } else {
-    initLatvianOverlay();
-  }
-}
