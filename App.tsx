@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { translations } from "./lv-translation.js";
 
 type MenuItem = {
   name: string;
@@ -11,6 +12,34 @@ type MenuCategory = {
   name: string;
   items: MenuItem[];
 };
+
+const translationEntries = Object.entries(translations).sort(([a], [b]) => b.length - a.length);
+
+function translateText(value: string): string {
+  return translationEntries.reduce((result, [from, to]) => result.split(from).join(to), value);
+}
+
+function translateReactNode(node: React.ReactNode): React.ReactNode {
+  if (typeof node === "string") return translateText(node);
+  if (typeof node === "number" || node == null || typeof node === "boolean") return node;
+  if (Array.isArray(node)) return node.map((child, index) => <React.Fragment key={index}>{translateReactNode(child)}</React.Fragment>);
+  if (!React.isValidElement(node)) return node;
+
+  const props = node.props as Record<string, unknown>;
+  const nextProps: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(props)) {
+    if (typeof value === "string" && ["aria-label", "alt", "placeholder", "title"].includes(key)) {
+      nextProps[key] = translateText(value);
+    } else if (key !== "children") {
+      nextProps[key] = value;
+    }
+  }
+  return React.cloneElement(node, nextProps, translateReactNode(props.children as React.ReactNode));
+}
+
+function TranslatedTree({ lang, children }: { lang: "EN" | "LV"; children: React.ReactNode }) {
+  return lang === "LV" ? <>{translateReactNode(children)}</> : <>{children}</>;
+}
 
 const images = {
   restaurant:
@@ -617,20 +646,22 @@ export default function App() {
   }, [lang]);
   return (
     <div className="app">
-      <Nav lang={lang} setLang={setLang} />
-      <main>
-        <Hero lang={lang} />
-        <Palindrome />
-        <Audience />
-        <Packages />
-        <RestaurantDemo />
-        <Portfolio />
-        <Comparison />
-        <Process />
-        <About />
-        <Contact />
-      </main>
-      <Footer lang={lang} setLang={setLang} />
+      <TranslatedTree lang={lang}>
+        <Nav lang={lang} setLang={setLang} />
+        <main>
+          <Hero lang={lang} />
+          <Palindrome />
+          <Audience />
+          <Packages />
+          <RestaurantDemo />
+          <Portfolio />
+          <Comparison />
+          <Process />
+          <About />
+          <Contact />
+        </main>
+        <Footer lang={lang} setLang={setLang} />
+      </TranslatedTree>
     </div>
   );
 }
