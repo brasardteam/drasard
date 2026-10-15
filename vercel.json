@@ -1,6 +1,14 @@
 {
   "rewrites": [
     { "source": "/nova", "destination": "/nova.html" },
-    { "source": "/nova/", "destination": "/nova.html" }
+    { "source": "/nova/", "destination": "/nova.html" },
+    { "source": "/examples/nova-cafe", "destination": "/nova.html" },
+    { "source": "/examples/nova-cafe/", "destination": "/nova.html" },
+    { "source": "/examples/aurelia", "destination": "/examples/aurelia/index.html" },
+    { "source": "/examples/aurelia/", "destination": "/examples/aurelia/index.html" },
+    { "source": "/examples/north-table", "destination": "/examples/north-table/index.html" },
+    { "source": "/examples/north-table/", "destination": "/examples/north-table/index.html" },
+    { "source": "/examples/ember", "destination": "/examples/ember/index.html" },
+    { "source": "/examples/ember/", "destination": "/examples/ember/index.html" }
   ]
 }
