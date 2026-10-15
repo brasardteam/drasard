@@ -14,32 +14,46 @@ type MenuCategory = {
 };
 
 const translationEntries = Object.entries(translations).sort(([a], [b]) => b.length - a.length);
+const originalTextNodes = new WeakMap<Node, string>();
+const originalAttributes = new WeakMap<Element, Map<string, string>>();
 
-function translateText(value: string): string {
-  return translationEntries.reduce((result, [from, to]) => result.split(from).join(to), value);
+function translatedValue(source: string, lang: "EN" | "LV"): string {
+  if (lang === "EN") return source;
+  return translationEntries.reduce((result, [from, to]) => result.split(from).join(to), source);
 }
 
-function translateReactNode(node: React.ReactNode): React.ReactNode {
-  if (typeof node === "string") return translateText(node);
-  if (typeof node === "number" || node == null || typeof node === "boolean") return node;
-  if (Array.isArray(node)) return node.map((child, index) => <React.Fragment key={index}>{translateReactNode(child)}</React.Fragment>);
-  if (!React.isValidElement(node)) return node;
+function applyPageLanguage(root: HTMLElement, lang: "EN" | "LV") {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const textNodes: Node[] = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
 
-  const props = node.props as Record<string, unknown>;
-  const nextProps: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(props)) {
-    if (typeof value === "string" && ["aria-label", "alt", "placeholder", "title"].includes(key)) {
-      nextProps[key] = translateText(value);
-    } else if (key !== "children") {
-      nextProps[key] = value;
-    }
+  for (const node of textNodes) {
+    const parent = node.parentElement;
+    if (!parent || ["SCRIPT", "STYLE", "NOSCRIPT"].includes(parent.tagName)) continue;
+    if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue || "");
+    const source = originalTextNodes.get(node) || "";
+    const next = translatedValue(source, lang);
+    if (node.nodeValue !== next) node.nodeValue = next;
   }
-  return React.cloneElement(node, nextProps, translateReactNode(props.children as React.ReactNode));
+
+  const attributes = ["aria-label", "alt", "placeholder", "title"];
+  root.querySelectorAll("*").forEach((element) => {
+    let originals = originalAttributes.get(element);
+    if (!originals) {
+      originals = new Map<string, string>();
+      originalAttributes.set(element, originals);
+    }
+    for (const attribute of attributes) {
+      const current = element.getAttribute(attribute);
+      if (current === null) continue;
+      if (!originals.has(attribute)) originals.set(attribute, current);
+      const source = originals.get(attribute) || "";
+      const next = translatedValue(source, lang);
+      if (current !== next) element.setAttribute(attribute, next);
+    }
+  });
 }
 
-function TranslatedTree({ lang, children }: { lang: "EN" | "LV"; children: React.ReactNode }) {
-  return lang === "LV" ? <>{translateReactNode(children)}</> : <>{children}</>;
-}
 
 const images = {
   restaurant:
@@ -643,25 +657,30 @@ export default function App() {
   const [lang, setLang] = useState<"EN" | "LV">("EN");
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang.toLowerCase());
+    const root = document.querySelector<HTMLElement>(".app");
+    if (!root) return;
+    const apply = () => applyPageLanguage(root, lang);
+    apply();
+    const observer = new MutationObserver(() => apply());
+    observer.observe(root, { childList: true, subtree: true });
+    return () => observer.disconnect();
   }, [lang]);
   return (
     <div className="app">
-      <TranslatedTree lang={lang}>
-        <Nav lang={lang} setLang={setLang} />
-        <main>
-          <Hero lang={lang} />
-          <Palindrome />
-          <Audience />
-          <Packages />
-          <RestaurantDemo />
-          <Portfolio />
-          <Comparison />
-          <Process />
-          <About />
-          <Contact />
-        </main>
-        <Footer lang={lang} setLang={setLang} />
-      </TranslatedTree>
+      <Nav lang={lang} setLang={setLang} />
+      <main>
+        <Hero lang={lang} />
+        <Palindrome />
+        <Audience />
+        <Packages />
+        <RestaurantDemo />
+        <Portfolio />
+        <Comparison />
+        <Process />
+        <About />
+        <Contact />
+      </main>
+      <Footer lang={lang} setLang={setLang} />
     </div>
   );
 }
