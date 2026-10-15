@@ -10,6 +10,9 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, "index.html"),
         nova: path.resolve(__dirname, "nova.html"),
+        aurelia: path.resolve(__dirname, "examples/aurelia/index.html"),
+        northTable: path.resolve(__dirname, "examples/north-table/index.html"),
+        ember: path.resolve(__dirname, "examples/ember/index.html"),
       },
     },
   },
