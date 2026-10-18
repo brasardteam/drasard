@@ -18,7 +18,7 @@ export const translations = {
   // Hero
   "WEB STUDIO · RIGA, LATVIA": "TĪMEKĻA STUDIJA · RĪGA, LATVIJA",
   "Premium digital experiences for local businesses.": "Augstvērtīga digitālā pieredze vietējiem uzņēmumiem.",
-  "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses; from elegant digital showcases to complete online ordering experiences.": "Mēs izstrādājam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem; no eleganta digitālā tēla līdz pilnvērtīgai pasūtīšanas pieredzei tiešsaistē.",
+  "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses, from elegant digital showcases to complete online ordering experiences.": "Mēs izstrādājam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem, no eleganta digitālā tēla līdz pilnvērtīgai pasūtīšanas pieredzei tiešsaistē.",
   "Professional websites for local businesses,": "Profesionālas mājaslapas vietējiem uzņēmumiem,",
   "without the agency price tag.": "bez aģentūras cenu zīmes.",
   "WEB DESIGN": "TĪMEKĻA DIZAINS",
@@ -46,7 +46,7 @@ export const translations = {
   "Restaurants": "Restorāni",
   "Menus, reservations, stories and complete ordering experiences.": "Ēdienkartes, rezervācijas, stāsti un pilnvērtīga pasūtīšanas pieredze.",
   "Cafés": "Kafejnīcas",
-  "Products, locations and ordering; beautifully presented.": "Produkti, atrašanās vietas un pasūtīšana; skaisti pasniegti.",
+  "Products, locations and ordering, beautifully presented.": "Produkti, atrašanās vietas un pasūtīšana, skaisti pasniegti.",
   "Atmospheric restaurant interior": "Atmosfērisks restorāna interjers",
   "Warm contemporary cafe interior": "Silts mūsdienīgas kafejnīcas interjers",
 
@@ -175,7 +175,7 @@ export const translations = {
   "Small studio.": "Neliela studija.",
   "Serious attention to detail.": "Nopietna uzmanība detaļām.",
   "Drasard is a Riga-based web development studio focused on creating premium digital experiences for local businesses.": "Drasard ir Rīgā bāzēta tīmekļa izstrādes studija, kas koncentrējas uz augstvērtīgas digitālās pieredzes radīšanu vietējiem uzņēmumiem.",
-  "We believe a local business deserves a website that feels as considered and professional as the business itself. From a refined digital showcase to a complete online ordering experience, we build around what your business actually needs.": "Mēs uzskatām, ka vietējs uzņēmums ir pelnījis mājaslapu, kas ir tikpat pārdomāta un profesionāla kā pats uzņēmums. No izsmalcinātas digitālās prezentācijas līdz pilnvērtīgai pasūtīšanai tiešsaistē; mēs veidojam to, kas jūsu uzņēmumam patiešām nepieciešams.",
+  "We believe a local business deserves a website that feels as considered and professional as the business itself. From a refined digital showcase to a complete online ordering experience, we build around what your business actually needs.": "Mēs uzskatām, ka vietējs uzņēmums ir pelnījis mājaslapu, kas ir tikpat pārdomāta un profesionāla kā pats uzņēmums. No izsmalcinātas digitālās prezentācijas līdz pilnvērtīgai pasūtīšanai tiešsaistē, mēs veidojam to, kas jūsu uzņēmumam patiešām nepieciešams.",
   "Premium by default": "Augstvērtīgs pēc noklusējuma",
   "Every website is a considered digital representation of your brand.": "Katra mājaslapa ir pārdomāta jūsu zīmola digitālā reprezentācija.",
   "Built for local": "Veidots vietējiem uzņēmumiem",
