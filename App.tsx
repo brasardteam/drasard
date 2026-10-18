@@ -284,7 +284,7 @@ function Hero({ lang }: { lang: "EN" | "LV" }) {
         </div>
       </div>
       <div className="hero-ticker">
-        <span>WEB DESIGN</span><i>◆</i><span>DEVELOPMENT</span><i>◆</i><span>ONLINE ORDERING</span><i>◆</i><span>RIGA, LATVIA</span><i>◆</i>
+        <span>WEB DESIGN</span><span>DEVELOPMENT</span><span>ONLINE ORDERING</span><span>RIGA, LATVIA</span>
       </div>
     </section>
   );
