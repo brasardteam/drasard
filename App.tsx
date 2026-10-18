@@ -142,7 +142,7 @@ const en = {
   book: "Enquire",
   hero: "Premium digital experiences for local businesses.",
   heroBody:
-    "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses; from elegant digital showcases to complete online ordering experiences.",
+    "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses, from elegant digital showcases to complete online ordering experiences.",
   explore: "Explore Our Websites",
 };
 
@@ -151,7 +151,7 @@ const lv = {
   book: "Sazināties",
   hero: "Izcila digitālā pieredze vietējiem uzņēmumiem.",
   heroBody:
-    "Mēs veidojam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem; no eleganta tēla līdz pilnvērtīgai pasūtīšanas pieredzei.",
+    "Mēs veidojam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem, no eleganta tēla līdz pilnvērtīgai pasūtīšanas pieredzei.",
   explore: "Apskatīt mājaslapas",
 };
 
@@ -316,7 +316,7 @@ function Audience() {
           </article>
           <article className="image-card">
             <img src={images.cafe} alt="Warm contemporary cafe interior" />
-            <div className="image-overlay"><span>02</span><div><h3>Cafés</h3><p>Products, locations and ordering; beautifully presented.</p></div><Icon name="arrow" /></div>
+            <div className="image-overlay"><span>02</span><div><h3>Cafés</h3><p>Products, locations and ordering, beautifully presented.</p></div><Icon name="arrow" /></div>
           </article>
         </div>
       </div>
