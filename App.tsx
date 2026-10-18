@@ -142,7 +142,7 @@ const en = {
   book: "Enquire",
   hero: "Premium digital experiences for local businesses.",
   heroBody:
-    "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses — from elegant digital showcases to complete online ordering experiences.",
+    "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses; from elegant digital showcases to complete online ordering experiences.",
   explore: "Explore Our Websites",
 };
 
@@ -151,7 +151,7 @@ const lv = {
   book: "Sazināties",
   hero: "Izcila digitālā pieredze vietējiem uzņēmumiem.",
   heroBody:
-    "Mēs veidojam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem — no eleganta tēla līdz pilnvērtīgai pasūtīšanas pieredzei.",
+    "Mēs veidojam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem; no eleganta tēla līdz pilnvērtīgai pasūtīšanas pieredzei.",
   explore: "Apskatīt mājaslapas",
 };
 
@@ -316,7 +316,7 @@ function Audience() {
           </article>
           <article className="image-card">
             <img src={images.cafe} alt="Warm contemporary cafe interior" />
-            <div className="image-overlay"><span>02</span><div><h3>Cafés</h3><p>Products, locations and ordering — beautifully presented.</p></div><Icon name="arrow" /></div>
+            <div className="image-overlay"><span>02</span><div><h3>Cafés</h3><p>Products, locations and ordering; beautifully presented.</p></div><Icon name="arrow" /></div>
           </article>
         </div>
       </div>
@@ -333,7 +333,7 @@ function PricingCard({ commerce = false }: { commerce?: boolean }) {
     <article className={`price-card ${commerce ? "price-card-featured" : ""}`}>
       {commerce && <div className="recommended">FULL BUSINESS EXPERIENCE</div>}
       <div className="price-top">
-        <Eyebrow light={!commerce}>{commerce ? "02 — COMMERCE" : "01 — SHOWCASE"}</Eyebrow>
+        <Eyebrow light={!commerce}>{commerce ? "02: COMMERCE" : "01: SHOWCASE"}</Eyebrow>
         <div className="price"><div className="price-main"><del>{commerce ? "€750" : "€450"}</del><span>{commerce ? "€550" : "€350"}</span><b className="discount-badge">{commerce ? "27% OFF" : "22% OFF"}</b></div><small>{commerce ? "One-time setup + monthly fee" : "One-time payment"}</small></div>
         <p>{commerce ? "A complete digital business experience designed to help customers browse, order and pay online." : "A premium website designed to present your business beautifully and make it easy for customers to discover you."}</p>
       </div>
@@ -415,7 +415,7 @@ function Checkout({ step, setStep, total }: { step: number; setStep: (step: numb
       <div className="confirmation">
         <div className="confirmation-mark"><Icon name="check" /></div>
         <small>ORDER #AUR-2048</small><h3>Order confirmed</h3><p>Thank you. The kitchen has received your order and will begin preparing it shortly.</p>
-        <div className="prep-time"><span>ESTIMATED PREPARATION</span><strong>25–35 minutes</strong></div>
+        <div className="prep-time"><span>ESTIMATED PREPARATION</span><strong>25 to 35 minutes</strong></div>
         <button onClick={() => setStep(0)}>Return to menu</button>
       </div>
     );
@@ -528,7 +528,7 @@ function Comparison() {
         </div>
         <div className="compare-table">
           <div className="table-row table-head"><span>FEATURE</span><b>SHOWCASE<br /><em>€350</em></b><b>COMMERCE<br /><em>€550</em></b></div>
-          {comparison.map(([name, showcase, commerce]) => <div className="table-row" key={String(name)}><span>{name}</span><b>{showcase ? <Icon name="check" /> : "—"}</b><b>{commerce ? <Icon name="check" /> : "—"}</b></div>)}
+          {comparison.map(([name, showcase, commerce]) => <div className="table-row" key={String(name)}><span>{name}</span><b>{showcase ? <Icon name="check" /> : "Not included"}</b><b>{commerce ? <Icon name="check" /> : "Not included"}</b></div>)}
         </div>
       </div>
     </section>
