@@ -325,7 +325,7 @@ function Audience() {
 }
 
 const showcaseFeatures = ["Premium responsive design", "Business information", "Menu / services", "Pricing & gallery", "Location & contact", "Mobile-first experience", "Custom visual design"];
-const commerceFeatures = ["Everything in Showcase", "Online ordering", "Cart & online payments", "Order management", "Customer interactions", "Business management", "Ongoing technical support"];
+const commerceFeatures = ["Everything in Showcase", "Online ordering", "Cart & online payments", "Order management", "Customer interactions", "Business management", "Owner training and launch handover"];
 
 function PricingCard({ commerce = false }: { commerce?: boolean }) {
   const features = commerce ? commerceFeatures : showcaseFeatures;
@@ -334,7 +334,7 @@ function PricingCard({ commerce = false }: { commerce?: boolean }) {
       {commerce && <div className="recommended">FULL BUSINESS EXPERIENCE</div>}
       <div className="price-top">
         <Eyebrow light={!commerce}>{commerce ? "02: COMMERCE" : "01: SHOWCASE"}</Eyebrow>
-        <div className="price"><div className="price-main"><del>{commerce ? "€750" : "€450"}</del><span>{commerce ? "€550" : "€350"}</span><b className="discount-badge">{commerce ? "27% OFF" : "22% OFF"}</b></div><small>{commerce ? "One-time setup + monthly fee" : "One-time payment"}</small></div>
+        <div className="price"><div className="price-main"><del>{commerce ? "€750" : "€450"}</del><span>{commerce ? "€690" : "€390"}</span><b className="discount-badge">{commerce ? "8% OFF" : "13% OFF"}</b></div><small>{"One-time payment"}</small></div>
         <p>{commerce ? "A complete digital business experience designed to help customers browse, order and pay online." : "A premium website designed to present your business beautifully and make it easy for customers to discover you."}</p>
       </div>
       <div className="feature-list">
@@ -527,7 +527,7 @@ function Comparison() {
           <Button href="#contact">Enquire</Button>
         </div>
         <div className="compare-table">
-          <div className="table-row table-head"><span>FEATURE</span><b>SHOWCASE<br /><em>€350</em></b><b>COMMERCE<br /><em>€550</em></b></div>
+          <div className="table-row table-head"><span>FEATURE</span><b>SHOWCASE<br /><em>€390</em></b><b>COMMERCE<br /><em>€690</em></b></div>
           {comparison.map(([name, showcase, commerce]) => <div className="table-row" key={String(name)}><span>{name}</span><b>{showcase ? <Icon name="check" /> : "Not included"}</b><b>{commerce ? <Icon name="check" /> : "Not included"}</b></div>)}
         </div>
       </div>
