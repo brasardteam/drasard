@@ -74,7 +74,7 @@ export const translations = {
   "Order management": "Pasūtījumu pārvaldība",
   "Customer interactions": "Klientu mijiedarbība",
   "Business management": "Uzņēmuma pārvaldība",
-  "Ongoing technical support": "Nepārtraukts tehniskais atbalsts",
+  "Owner training and launch handover": "Īpašnieka apmācība un projekta nodošana",
   "Explore Showcase": "Apskatīt prezentāciju",
   "Explore Commerce": "Apskatīt komercijas risinājumu",
   "Customization available depending on requirements.": "Pielāgošana pieejama atbilstoši prasībām.",
