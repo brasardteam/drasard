@@ -122,6 +122,8 @@
     "No real orders or reservations are processed": ["Īsti pasūtījumi vai rezervācijas netiek apstrādāti", "Реальные заказы и бронирования не обрабатываются"],
     "The Aurelia philosophy": ["Aurelia filozofija", "Философия Aurelia"]
   
+  });
+
   function tr(value, lang) {
     if (lang === "EN") return value;
     const trimmed = value.trim();
