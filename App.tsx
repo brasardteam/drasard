@@ -244,10 +244,10 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
           <Button href="#contact">{t.book}</Button>
         </div>
         <div className="nav-actions">
-          <div className="language" aria-label="Language">
-            <button className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}<button aria-label="English" title="English" className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button>
+          <div className="language" aria-label="Choose language">
+            <button aria-label="English" title="English" className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button>
             <span aria-hidden="true">|</span>
-            <button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}<button aria-label="Latviešu valoda" title="Latviešu" className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button>
+            <button aria-label="Latviešu valoda" title="Latviešu" className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button>
             <span aria-hidden="true">|</span>
             <button aria-label="Русский язык" title="Русский" className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button>
           </div>
