@@ -462,6 +462,7 @@ footer{background:var(--ink);color:var(--paper);padding:clamp(70px,10vh,110px) 0
   .reveal{opacity:1;transform:none}
 }
 </style>
+<style>.demo-language{display:flex;align-items:center;gap:4px;padding:4px;border:1px solid rgba(190,160,100,.5);border-radius:999px;margin-inline:12px;white-space:nowrap}.demo-language button{border:1px solid transparent;border-radius:999px;background:transparent;color:inherit;padding:7px 8px;font:600 11px/1 inherit;letter-spacing:.06em;cursor:pointer}.demo-language button[aria-pressed="true"]{background:#d6bd83;color:#171713;border-color:#d6bd83}.demo-language button:focus-visible{outline:2px solid currentColor;outline-offset:2px}@media(max-width:760px){.demo-language{margin:8px 0}}</style>
 </head>
 <body>
 
@@ -478,6 +479,7 @@ footer{background:var(--ink);color:var(--paper);padding:clamp(70px,10vh,110px) 0
       <a href="#/reserve" data-route="reserve">Reservations</a>
     </nav>
     <div class="head-right">
+      <div class="demo-language" aria-label="Choose language"><button type="button" data-demo-lang="en" aria-pressed="true">EN</button><button type="button" data-demo-lang="lv" aria-pressed="false">LV</button><button type="button" data-demo-lang="ru" aria-pressed="false">RU</button></div>
       <a class="btn small light head-reserve" href="#/reserve">Reserve a table</a>
       <button id="burger" aria-label="Toggle menu">
         <i data-lucide="menu" class="ic-open"></i><i data-lucide="x" class="ic-close"></i>
@@ -1198,6 +1200,26 @@ window.addEventListener('hashchange', router);
 router();
  $('#year').textContent = new Date().getFullYear();
 lucide.createIcons();
+</script>
+<script>
+(function(){
+ const dictionaries={"lv":{"Home":"Sākums","Menu":"Ēdienkarte","Story":"Stāsts","Reservations":"Rezervācijas","Reserve a table":"Rezervēt galdiņu","Cooked by fire,":"Gatavots uz uguns,","fed by the sea.":"iedvesmots no jūras.","Our story":"Mūsu stāsts","Find us":"Atrodiet mūs","Opening hours":"Darba laiks","Make a reservation":"Veikt rezervāciju","Your name":"Jūsu vārds","Email address":"E-pasta adrese","Send reservation request":"Nosūtīt rezervācijas pieprasījumu","Close":"Aizvērt","All dishes":"Visi ēdieni"},"ru":{"Home":"Главная","Menu":"Меню","Story":"История","Reservations":"Бронирование","Reserve a table":"Забронировать столик","Cooked by fire,":"Приготовлено на огне,","fed by the sea.":"вдохновлено морем.","Our story":"Наша история","Find us":"Как нас найти","Opening hours":"Часы работы","Make a reservation":"Забронировать столик","Your name":"Ваше имя","Email address":"Электронная почта","Send reservation request":"Отправить запрос на бронирование","Close":"Закрыть","All dishes":"Все блюда"}};
+ const buttons=[...document.querySelectorAll('[data-demo-lang]')];
+ const originals=new WeakMap();
+ const attrs=['placeholder','aria-label','title','alt'];
+ let lang='en';
+ function translate(value){if(lang==='en')return value;const map=dictionaries[lang]||{};return Object.keys(map).sort((a,b)=>b.length-a.length).reduce((v,k)=>v.split(k).join(map[k]),value);}
+ function apply(){
+  document.documentElement.lang=lang;
+  buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.demoLang===lang)));
+  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(n=>{if(!n.parentElement||['SCRIPT','STYLE'].includes(n.parentElement.tagName))return;if(!originals.has(n))originals.set(n,n.nodeValue||'');n.nodeValue=translate(originals.get(n)||'');});
+  document.querySelectorAll('*').forEach(el=>attrs.forEach(a=>{const v=el.getAttribute(a);if(v===null)return;const key='__demoOriginal_'+a;if(!el.hasAttribute(key))el.setAttribute(key,v);el.setAttribute(a,translate(el.getAttribute(key)||''));}));
+ }
+ buttons.forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.demoLang;try{localStorage.setItem('ember-lang',lang)}catch(e){}apply();}));
+ try{const saved=localStorage.getItem('ember-lang');if(['en','lv','ru'].includes(saved))lang=saved}catch(e){}
+ apply();
+})();
 </script>
 </body>
 </html>
