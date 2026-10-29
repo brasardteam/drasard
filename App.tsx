@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { translations } from "./lv-translation.js";
+import { translations as lvTranslations } from "./lv-translation.js";
+import { translations as ruTranslations } from "./ru-translation.js";
 
 type MenuItem = {
   name: string;
@@ -13,7 +14,7 @@ type MenuCategory = {
   items: MenuItem[];
 };
 
-const translationEntries = Object.entries(translations).sort(([a], [b]) => b.length - a.length);
+const translationEntriesFor = (lang: "EN" | "LV" | "RU") => Object.entries(lang === "RU" ? ruTranslations : lvTranslations).sort(([a], [b]) => b.length - a.length);
 const originalTextNodes = new WeakMap<Node, string>();
 const originalAttributes = new WeakMap<Element, Map<string, string>>();
 
@@ -22,7 +23,7 @@ function translatedValue(source: string, lang: "EN" | "LV"): string {
   return translationEntries.reduce((result, [from, to]) => result.split(from).join(to), source);
 }
 
-function applyPageLanguage(root: HTMLElement, lang: "EN" | "LV") {
+function applyPageLanguage(root: HTMLElement, lang: "EN" | "LV" | "RU") {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   const textNodes: Node[] = [];
   while (walker.nextNode()) textNodes.push(walker.currentNode);
@@ -231,7 +232,7 @@ function BrowserMockup({ className = "", image = images.restaurant }: { classNam
   );
 }
 
-function Nav({ lang, setLang }: { lang: "EN" | "LV"; setLang: (lang: "EN" | "LV") => void }) {
+function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN" | "LV" | "RU") => void }) {
   const [open, setOpen] = useState(false);
   const t = lang === "EN" ? en : lv;
   return (
@@ -246,7 +247,7 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV"; setLang: (lang: "EN" | "LV"
           <div className="language" aria-label="Language">
             <button className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button>
             <span>/</span>
-            <button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button>
+            <button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button>\n            <span>/</span>\n            <button className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button>
           </div>
           <a className="nav-cta" href="#contact">{t.book}</a>
           <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle menu"><Icon name={open ? "close" : "menu"} /></button>
@@ -639,13 +640,13 @@ function Contact() {
   );
 }
 
-function Footer({ lang, setLang }: { lang: "EN" | "LV"; setLang: (lang: "EN" | "LV") => void }) {
+function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN" | "LV" | "RU") => void }) {
   return (
     <footer>
       <div className="container footer-main">
         <div><Logo /><p>Premium digital experiences<br />for local businesses.</p></div>
         <div className="footer-links"><span>EXPLORE</span>{["Home", ...navItems, "Contact"].map((item) => <a key={item} href={`#${item === "Home" ? "home" : item === "How It Works" ? "process" : item.toLowerCase()}`}>{item}</a>)}</div>
-        <div className="footer-contact"><span>CONTACT</span><a href="mailto:brasard.team@gmail.com">brasard.team@gmail.com</a><p>Riga, Latvia</p><div className="language"><button className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button><span>/</span><button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button></div></div>
+        <div className="footer-contact"><span>CONTACT</span><a href="mailto:brasard.team@gmail.com">brasard.team@gmail.com</a><p>Riga, Latvia</p><div className="language"><button className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button><span>/</span><button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button><span>/</span><button className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button></div></div>
       </div>
       <div className="container footer-word">DRASARD</div>
       <div className="container footer-bottom"><span>© 2025 DRASARD STUDIO</span><div><a href="#home">Privacy Policy</a><a href="#home">Terms</a></div><span>RIGA · 56.9496° N</span></div>
@@ -654,7 +655,7 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV"; setLang: (lang: "EN" | "
 }
 
 export default function App() {
-  const [lang, setLang] = useState<"EN" | "LV">("EN");
+  const [lang, setLang] = useState<"EN" | "LV" | "RU">("EN");
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang.toLowerCase());
     const root = document.querySelector<HTMLElement>(".app");
