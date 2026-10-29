@@ -351,6 +351,7 @@ body.nav-open .nav-overlay{transform:translateY(0)}
   .toast,.t-ind,.m-name,.bm-name{transition:none!important}
 }
 </style>
+<style>.demo-language{display:flex;align-items:center;gap:4px;padding:4px;border:1px solid rgba(190,160,100,.5);border-radius:999px;margin-inline:12px;white-space:nowrap}.demo-language button{border:1px solid transparent;border-radius:999px;background:transparent;color:inherit;padding:7px 8px;font:600 11px/1 inherit;letter-spacing:.06em;cursor:pointer}.demo-language button[aria-pressed="true"]{background:#d6bd83;color:#171713;border-color:#d6bd83}.demo-language button:focus-visible{outline:2px solid currentColor;outline-offset:2px}@media(max-width:760px){.demo-language{margin:8px 0}}</style>
 </head>
 <body>
 
@@ -378,6 +379,7 @@ body.nav-open .nav-overlay{transform:translateY(0)}
   <nav class="nav" aria-label="Primary">
     <a href="#story">Story</a><a href="#menu">Menu</a><a href="#brew">Brew bar</a><a href="#origins">Origins</a><a href="#visit">Visit</a>
   </nav>
+  <div class="demo-language" aria-label="Choose language"><button type="button" data-demo-lang="en" aria-pressed="true">EN</button><button type="button" data-demo-lang="lv" aria-pressed="false">LV</button><button type="button" data-demo-lang="ru" aria-pressed="false">RU</button></div>
   <a class="btn header-cta magnetic" href="#visit"><span>Book a table</span><i class="ph-light ph-arrow-up-right"></i></a>
   <button class="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
 </header>
@@ -1165,6 +1167,26 @@ if(pre){
   setTimeout(()=>{ pre && pre.parentNode && pre.remove(); }, 5000);
 }
 addEventListener('load', ()=>{ if(hasG) ScrollTrigger.refresh(); });
+})();
+</script>
+<script>
+(function(){
+ const dictionaries={"lv":{"Story":"Stāsts","Menu":"Ēdienkarte","Brew bar":"Kafijas bārs","Origins":"Izcelsme","Visit":"Apmeklēt","Book a table":"Rezervēt galdiņu","Specialty coffee - small batch roastery":"Īpašā kafija · nelielas grauzdēšanas partijas","Est. 2019 - Old Town":"Dibināts 2019. gadā · Vecpilsēta","Our story":"Mūsu stāsts","Explore the menu":"Apskatīt ēdienkarti","Visit us":"Apmeklējiet mūs","Opening hours":"Darba laiks","Find us":"Atrodiet mūs","Reservations":"Rezervācijas","Coffee":"Kafija","All":"Viss","Add to order":"Pievienot pasūtījumam","Your order":"Jūsu pasūtījums","Checkout":"Noformēt pasūtījumu"},"ru":{"Story":"История","Menu":"Меню","Brew bar":"Кофейный бар","Origins":"Происхождение","Visit":"Посетить","Book a table":"Забронировать столик","Specialty coffee - small batch roastery":"Спешелти-кофе · небольшая обжарка","Est. 2019 - Old Town":"Основано в 2019 году · Старый город","Our story":"Наша история","Explore the menu":"Посмотреть меню","Visit us":"Как нас найти","Opening hours":"Часы работы","Find us":"Как нас найти","Reservations":"Бронирование","Coffee":"Кофе","All":"Все","Add to order":"Добавить в заказ","Your order":"Ваш заказ","Checkout":"Оформить заказ"}};
+ const buttons=[...document.querySelectorAll('[data-demo-lang]')];
+ const originals=new WeakMap();
+ const attrs=['placeholder','aria-label','title','alt'];
+ let lang='en';
+ function translate(value){if(lang==='en')return value;const map=dictionaries[lang]||{};return Object.keys(map).sort((a,b)=>b.length-a.length).reduce((v,k)=>v.split(k).join(map[k]),value);}
+ function apply(){
+  document.documentElement.lang=lang;
+  buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.demoLang===lang)));
+  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(n=>{if(!n.parentElement||['SCRIPT','STYLE'].includes(n.parentElement.tagName))return;if(!originals.has(n))originals.set(n,n.nodeValue||'');n.nodeValue=translate(originals.get(n)||'');});
+  document.querySelectorAll('*').forEach(el=>attrs.forEach(a=>{const v=el.getAttribute(a);if(v===null)return;const key='__demoOriginal_'+a;if(!el.hasAttribute(key))el.setAttribute(key,v);el.setAttribute(a,translate(el.getAttribute(key)||''));}));
+ }
+ buttons.forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.demoLang;try{localStorage.setItem('nova-cafe-lang',lang)}catch(e){}apply();}));
+ try{const saved=localStorage.getItem('nova-cafe-lang');if(['en','lv','ru'].includes(saved))lang=saved}catch(e){}
+ apply();
 })();
 </script>
 </body>
