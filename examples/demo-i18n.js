@@ -110,9 +110,27 @@
     "The menu": ["Ēdienkarte", "Меню"]
   });
 
+
+    "COFFEE": ["KAFIJA", "КОФЕ"], "BRUNCH": ["VĒLĀS BROKASTIS", "БРАНЧ"], "BAKERY": ["MAIZNĪCA", "ВЫПЕЧКА"], "DRINKS": ["DZĒRIENI", "НАПИТКИ"], "SWEET": ["SALDUMI", "ДЕСЕРТЫ"],
+    "+ Add": ["+ Pievienot", "+ Добавить"],
+    "Reserve": ["Rezervēt", "Забронировать"],
+    "YOUR BAG · 0": ["JŪSU GROZS · 0", "ВАША КОРЗИНА · 0"],
+    "aurelia": ["aurelia", "aurelia"],
+    "North Table - Fire, field, table.": ["North Table — uguns, lauks, galds", "North Table — огонь, поле, стол"],
+    "Choose a time": ["Izvēlieties laiku", "Выберите время"],
+    "Name": ["Vārds", "Имя"], "Email": ["E-pasts", "Электронная почта"],
+    "No real orders or reservations are processed": ["Īsti pasūtījumi vai rezervācijas netiek apstrādāti", "Реальные заказы и бронирования не обрабатываются"],
+    "The Aurelia philosophy": ["Aurelia filozofija", "Философия Aurelia"]
+  
   function tr(value, lang) {
     if (lang === "EN") return value;
-    const item = d[value.trim()];
+    const trimmed = value.trim();
+    if (trimmed.startsWith("YOUR BAG · ")) {
+      const count = trimmed.slice("YOUR BAG · ".length);
+      const prefix = lang === "LV" ? "JŪSU GROZS · " : "ВАША КОРЗИНА · ";
+      return prefix + count;
+    }
+    const item = d[trimmed];
     if (!item) return value;
     const leading = (value.match(/^\s*/) || [""])[0];
     const trailing = (value.match(/\s*$/) || [""])[0];
