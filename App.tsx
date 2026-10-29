@@ -257,7 +257,7 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
   );
 }
 
-function Hero({ lang }: { lang: "EN" | "LV" }) {
+function Hero({ lang }: { lang: "EN" | "LV" | "RU" }) {
   const t = lang === "EN" ? en : lv;
   return (
     <section className="hero" id="home">
