@@ -421,16 +421,16 @@ const DISHES=[
       const c = CATS.find(function(x){return x.id === d.cat;});
       if (activeCat === 'all' && current !== d.cat) {
         current = d.cat;
-        out += '<h3 class="cat-h">'+c[lang]+' <span>'+String(shown.filter(function(x){return x.cat===d.cat;}).length).padStart(2,'0')+'</span></h3>';
+        out += '<h3 class="cat-h">'+(c[lang] || c.en)+' <span>'+String(shown.filter(function(x){return x.cat===d.cat;}).length).padStart(2,'0')+'</span></h3>';
       }
-      out += '<article class="dish" style="--i:'+Math.min(i,12)+'"><div class="dish-line"><h3 class="dish-n">'+esc(d[lang].n)+(d.v ? ' <span class="v">'+t('vegetarian')+'</span>' : '')+'</h3><span class="lead"></span><span class="dish-p">'+money(d.price)+'</span></div><p class="dish-d">'+esc(d[lang].d)+'</p></article>';
+      out += '<article class="dish" style="--i:'+Math.min(i,12)+'"><div class="dish-line"><h3 class="dish-n">'+esc((d[lang] || d.en).n)+(d.v ? ' <span class="v">'+t('vegetarian')+'</span>' : '')+'</h3><span class="lead"></span><span class="dish-p">'+money(d.price)+'</span></div><p class="dish-d">'+esc((d[lang] || d.en).d)+'</p></article>';
     });
     list.innerHTML = out;
   }
   function render(){
     document.documentElement.lang = lang;
     document.title = lang === 'lv' ? 'NORTH TABLE - Mūsdienu Baltijas restorāns Rīgā' : 'NORTH TABLE - Modern Baltic Restaurant in Riga';
-    const counts = CATS.map(function(c){return '<button type="button" class="f-btn" data-cat="'+c.id+'" aria-pressed="'+(activeCat===c.id)+'">'+esc(c[lang])+' <span class="cnt">'+DISHES.filter(function(d){return d.cat===c.id;}).length+'</span></button>';}).join('');
+    const counts = CATS.map(function(c){return '<button type="button" class="f-btn" data-cat="'+c.id+'" aria-pressed="'+(activeCat===c.id)+'">'+esc((c[lang] || c.en))+' <span class="cnt">'+DISHES.filter(function(d){return d.cat===c.id;}).length+'</span></button>';}).join('');
     app.innerHTML =
       '<header class="hd"><div class="hd-in"><a class="logo" href="#home" aria-label="North Table home">NORTH TABLE<i></i></a><nav class="hd-nav" aria-label="Main navigation"><ul><li><a href="#home">'+t('navHome')+'</a></li><li><a href="#menu">'+t('navMenu')+'</a></li><li><a href="#story">'+t('navStory')+'</a></li><li><a href="#visit">'+t('navVisit')+'</a></li></ul></nav><div class="hd-end"><div class="lang" aria-label="Language"><button type="button" data-lang="en" aria-pressed="'+(lang==='en')+'">EN</button><button type="button" data-lang="lv" aria-pressed="'+(lang==='lv')+'">LV</button><button type="button" data-lang="ru" aria-pressed="'+(lang==='ru')+'">RU</button></div><a class="btn solid hd-cta" href="#reserve">'+t('navReserve')+'</a><button class="nav-tg" type="button" aria-label="Open navigation" aria-expanded="false">'+ic('tg')+'</button></div></div></header>'+
       '<nav class="mnav" id="mobile-nav" hidden aria-label="Mobile navigation"><ol><li><a href="#home" style="--i:1">'+t('navHome')+'</a></li><li><a href="#menu" style="--i:2">'+t('navMenu')+'</a></li><li><a href="#story" style="--i:3">'+t('navStory')+'</a></li><li><a href="#visit" style="--i:4">'+t('navVisit')+'</a></li><li><a href="#reserve" style="--i:5">'+t('navReserve')+'</a></li></ol><div class="mnav-foot"><span>'+t('location')+'</span><button type="button" class="btn ghost" data-close-nav>Close '+ic('cl')+'</button></div></nav>'+
