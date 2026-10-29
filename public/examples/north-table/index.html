@@ -383,7 +383,7 @@ const DISHES=[
 (function () {
   'use strict';
   const app = document.getElementById('app');
-  let lang = (function(){ try { return localStorage.getItem('north-table-lang') === 'lv' ? 'lv' : 'en'; } catch(e) { return 'en'; } })();
+  let lang = (function(){ try { return ['lv','ru'].includes(localStorage.getItem('north-table-lang')) ? localStorage.getItem('north-table-lang') : 'en'; } catch(e) { return 'en'; } })();
   let activeCat = 'all';
   const T = {
     en: {
@@ -408,7 +408,7 @@ const DISHES=[
     }
   };
   const t = function(k){ return T[lang][k] || T.en[k] || k; };
-  function money(n){ return Number(n).toLocaleString(lang === 'lv' ? 'lv-LV' : 'en-GB',{minimumFractionDigits: Number(n)%1 ? 2 : 0, maximumFractionDigits:2}) + ' €'; }
+  function money(n){ return Number(n).toLocaleString(lang === 'lv' ? 'lv-LV' : (lang === 'ru' ? 'ru-RU' : 'en-GB'),{minimumFractionDigits: Number(n)%1 ? 2 : 0, maximumFractionDigits:2}) + ' €'; }
   function renderDishes(){
     const list = document.getElementById('menu-list');
     if (!list) return;
@@ -431,7 +431,7 @@ const DISHES=[
     document.title = lang === 'lv' ? 'NORTH TABLE - Mūsdienu Baltijas restorāns Rīgā' : 'NORTH TABLE - Modern Baltic Restaurant in Riga';
     const counts = CATS.map(function(c){return '<button type="button" class="f-btn" data-cat="'+c.id+'" aria-pressed="'+(activeCat===c.id)+'">'+esc(c[lang])+' <span class="cnt">'+DISHES.filter(function(d){return d.cat===c.id;}).length+'</span></button>';}).join('');
     app.innerHTML =
-      '<header class="hd"><div class="hd-in"><a class="logo" href="#home" aria-label="North Table home">NORTH TABLE<i></i></a><nav class="hd-nav" aria-label="Main navigation"><ul><li><a href="#home">'+t('navHome')+'</a></li><li><a href="#menu">'+t('navMenu')+'</a></li><li><a href="#story">'+t('navStory')+'</a></li><li><a href="#visit">'+t('navVisit')+'</a></li></ul></nav><div class="hd-end"><div class="lang" aria-label="Language"><button type="button" data-lang="en" aria-pressed="'+(lang==='en')+'">EN</button><button type="button" data-lang="lv" aria-pressed="'+(lang==='lv')+'">LV</button></div><a class="btn solid hd-cta" href="#reserve">'+t('navReserve')+'</a><button class="nav-tg" type="button" aria-label="Open navigation" aria-expanded="false">'+ic('tg')+'</button></div></div></header>'+
+      '<header class="hd"><div class="hd-in"><a class="logo" href="#home" aria-label="North Table home">NORTH TABLE<i></i></a><nav class="hd-nav" aria-label="Main navigation"><ul><li><a href="#home">'+t('navHome')+'</a></li><li><a href="#menu">'+t('navMenu')+'</a></li><li><a href="#story">'+t('navStory')+'</a></li><li><a href="#visit">'+t('navVisit')+'</a></li></ul></nav><div class="hd-end"><div class="lang" aria-label="Language"><button type="button" data-lang="en" aria-pressed="'+(lang==='en')+'">EN</button><button type="button" data-lang="lv" aria-pressed="'+(lang==='lv')+'">LV</button><button type="button" data-lang="ru" aria-pressed="'+(lang==='ru')+'">RU</button></div><a class="btn solid hd-cta" href="#reserve">'+t('navReserve')+'</a><button class="nav-tg" type="button" aria-label="Open navigation" aria-expanded="false">'+ic('tg')+'</button></div></div></header>'+
       '<nav class="mnav" id="mobile-nav" hidden aria-label="Mobile navigation"><ol><li><a href="#home" style="--i:1">'+t('navHome')+'</a></li><li><a href="#menu" style="--i:2">'+t('navMenu')+'</a></li><li><a href="#story" style="--i:3">'+t('navStory')+'</a></li><li><a href="#visit" style="--i:4">'+t('navVisit')+'</a></li><li><a href="#reserve" style="--i:5">'+t('navReserve')+'</a></li></ol><div class="mnav-foot"><span>'+t('location')+'</span><button type="button" class="btn ghost" data-close-nav>Close '+ic('cl')+'</button></div></nav>'+
       '<main id="home" class="page"><section class="hero"><svg id="lines" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="opacity:.32"><g fill="none" stroke="#A8481F" stroke-width="1">'+Array.from({length:18},function(_,i){return '<path d="M '+(520+i*22)+' -20 C '+(430+i*25)+' 180, '+(820-i*9)+' 380, '+(550+i*28)+' 740"/>';}).join('')+'</g></svg><div class="hero-in"><p class="eyebrow">'+t('eyebrow')+'</p><h1>'+t('heroA')+'<br><span class="it">'+t('heroB')+'</span></h1><div class="hero-foot"><p class="hero-sub">'+t('heroSub')+'</p><div class="hero-cta"><a class="btn solid" href="#reserve">'+t('reserve')+' '+ic('ar')+'</a><a class="btn ghost" href="#menu">'+t('explore')+'</a></div></div><p class="eyebrow" style="margin-top:38px">'+t('location')+'</p></div><span class="hero-side">56°57′N · 24°07′E</span></section>'+
       '<div class="band" aria-label="Restaurant philosophy"><div class="band-track"><div class="band-seq"><span>Local ingredients</span><i class="dia"></i><span>Open fire</span><i class="dia"></i><span>Baltic seasons</span><i class="dia"></i><span>Local ingredients</span><i class="dia"></i><span>Open fire</span><i class="dia"></i><span>Baltic seasons</span><i class="dia"></i></div><div class="band-seq" aria-hidden="true"><span>Local ingredients</span><i class="dia"></i><span>Open fire</span><i class="dia"></i><span>Baltic seasons</span><i class="dia"></i><span>Local ingredients</span><i class="dia"></i><span>Open fire</span><i class="dia"></i><span>Baltic seasons</span><i class="dia"></i></div></div></div>'+
