@@ -18,7 +18,7 @@ const translationEntriesFor = (lang: "EN" | "LV" | "RU") => Object.entries(lang 
 const originalTextNodes = new WeakMap<Node, string>();
 const originalAttributes = new WeakMap<Element, Map<string, string>>();
 
-function translatedValue(source: string, lang: "EN" | "LV"): string {
+function translatedValue(source: string, lang: "EN" | "LV" | "RU"): string {
   if (lang === "EN") return source;
   return translationEntries.reduce((result, [from, to]) => result.split(from).join(to), source);
 }
