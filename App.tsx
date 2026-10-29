@@ -20,7 +20,7 @@ const originalAttributes = new WeakMap<Element, Map<string, string>>();
 
 function translatedValue(source: string, lang: "EN" | "LV" | "RU"): string {
   if (lang === "EN") return source;
-  return translationEntries.reduce((result, [from, to]) => result.split(from).join(to), source);
+  return translationEntriesFor(lang).reduce((result, [from, to]) => result.split(from).join(to), source);
 }
 
 function applyPageLanguage(root: HTMLElement, lang: "EN" | "LV" | "RU") {
@@ -234,7 +234,7 @@ function BrowserMockup({ className = "", image = images.restaurant }: { classNam
 
 function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN" | "LV" | "RU") => void }) {
   const [open, setOpen] = useState(false);
-  const t = lang === "EN" ? en : lv;
+  const t = lang === "LV" ? lv : en;
   return (
     <header className="nav-shell">
       <nav className="nav">
@@ -258,7 +258,7 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
 }
 
 function Hero({ lang }: { lang: "EN" | "LV" | "RU" }) {
-  const t = lang === "EN" ? en : lv;
+  const t = lang === "LV" ? lv : en;
   return (
     <section className="hero" id="home">
       <div className="hero-grid container">
