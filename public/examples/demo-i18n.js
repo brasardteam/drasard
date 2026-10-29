@@ -215,25 +215,33 @@
       b.title = labels[code];
       b.setAttribute("aria-label", labels[code]);
       b.addEventListener("click", () => setLanguage(code));
+      b.dataset.languageBound = "true";
       wrap.appendChild(b);
     });
     return wrap;
   }
 
   function init() {
-    if (document.querySelector(".demo-language")) return;
+    const existingControl = document.querySelector(".demo-language");
     const nav = document.querySelector(".nav");
     const novaHeader = document.querySelector(".nova2 header");
-    const control = selector();
-    if (nav) {
-      const links = nav.querySelector(".navlinks");
-      nav.insertBefore(control, links || null);
-    } else if (novaHeader) {
-      const actions = novaHeader.querySelector(".head-actions");
-      novaHeader.insertBefore(control, actions || null);
-    } else {
-      document.body.appendChild(control);
+    const control = existingControl || selector();
+    if (!existingControl) {
+      if (nav) {
+        const links = nav.querySelector(".navlinks");
+        nav.insertBefore(control, links || null);
+      } else if (novaHeader) {
+        const actions = novaHeader.querySelector(".head-actions");
+        novaHeader.insertBefore(control, actions || null);
+      } else {
+        document.body.appendChild(control);
+      }
     }
+    control.querySelectorAll("button").forEach((button) => {
+      if (button.dataset.languageBound === "true") return;
+      button.addEventListener("click", () => setLanguage(button.dataset.lang || "EN"));
+      button.dataset.languageBound = "true";
+    });
     const style = document.createElement("style");
     style.textContent = [
       ".demo-language{display:flex;align-items:center;justify-content:center;gap:3px;padding:3px 5px;border:1px solid currentColor;border-radius:999px;color:inherit;font:600 10px/1 Arial,sans-serif;letter-spacing:.04em;white-space:nowrap;flex-shrink:0;position:relative;z-index:20}",
