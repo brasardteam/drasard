@@ -124,6 +124,10 @@
   
   });
 
+  Object.assign(d, {
+    "YOUR BAG ·": ["JŪSU GROZS ·", "ВАША КОРЗИНА ·"]
+  });
+
   function tr(value, lang) {
     if (lang === "EN") return value;
     const trimmed = value.trim();
@@ -182,6 +186,9 @@
       b.setAttribute("aria-pressed", active ? "true" : "false");
     });
   }
+
+  const nativeAlert = window.alert.bind(window);
+  window.alert = (message) => nativeAlert(tr(String(message), current));
 
   function setLanguage(lang) {
     current = lang;
