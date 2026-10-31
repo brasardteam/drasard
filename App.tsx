@@ -337,7 +337,7 @@ function PricingCard({ commerce = false }: { commerce?: boolean }) {
       {commerce && <div className="recommended">FULL BUSINESS EXPERIENCE</div>}
       <div className="price-top">
         <Eyebrow light={!commerce}>{commerce ? "02: COMMERCE" : "01: SHOWCASE"}</Eyebrow>
-        <div className="price"><div className="price-main"><del>{commerce ? "€1,190" : "€490"}</del><span>{commerce ? "€990" : "€390"}</span><b className="discount-badge">{commerce ? "17% OFF" : "20% OFF"}</b></div><small>{"One-time payment"}</small></div>
+        <div className="price"><div className="price-main"><del>{commerce ? "€1,290" : "€490"}</del><span>{commerce ? "€990" : "€390"}</span><b className="discount-badge">{commerce ? "23% OFF" : "20% OFF"}</b></div><small>{"One-time payment"}</small></div>
         <p>{commerce ? "A complete digital business experience designed to help customers browse, order and pay online." : "A premium website designed to present your business beautifully and make it easy for customers to discover you."}</p>
       </div>
       <div className="feature-list">
