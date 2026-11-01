@@ -593,7 +593,7 @@ function Contact() {
       setSent(true);
       form.reset();
     } catch {
-      setError("We couldn't send your inquiry right now. Please email us directly at brasard.team@gmail.com.");
+      setError("We couldn't send your inquiry right now. Please email us directly at contact@drasard.agency.");
     } finally {
       setSending(false);
     }
@@ -606,7 +606,7 @@ function Contact() {
           <Eyebrow>START A CONVERSATION</Eyebrow>
           <h2>Let's build something<br />worth visiting.</h2>
           <p>Tell us about your business and what you want your website to do. We'll help you find the right approach.</p>
-          <a href="mailto:brasard.team@gmail.com"><Icon name="mail" />brasard.team@gmail.com</a>
+          <a href="mailto:contact@drasard.agency"><Icon name="mail" />contact@drasard.agency</a>
           <div className="contact-place"><span>DRASARD STUDIO</span><b>Riga, Latvia</b><small>Working with ambitious local businesses.</small></div>
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
@@ -632,7 +632,7 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "
       <div className="container footer-main">
         <div><Logo /><p>Premium digital experiences<br />for local businesses.</p></div>
         <div className="footer-links"><span>EXPLORE</span>{["Home", ...navItems, "Contact"].map((item) => <a key={item} href={`#${item === "Home" ? "home" : item === "How It Works" ? "process" : item.toLowerCase()}`}>{item}</a>)}</div>
-        <div className="footer-contact"><span>CONTACT</span><a href="mailto:brasard.team@gmail.com">brasard.team@gmail.com</a><p>Riga, Latvia</p><div className="language"><button className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button><span>/</span><button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button><span>/</span><button className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button></div></div>
+        <div className="footer-contact"><span>CONTACT</span><a href="mailto:contact@drasard.agency">contact@drasard.agency</a><p>Riga, Latvia</p><div className="language"><button className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button><span>/</span><button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button><span>/</span><button className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button></div></div>
       </div>
       <div className="container footer-word">DRASARD</div>
       <div className="container footer-bottom"><span>© 2025 DRASARD STUDIO</span><div><a href="#home">Privacy Policy</a><a href="#home">Terms</a></div><span>RIGA · 56.9496° N</span></div>
