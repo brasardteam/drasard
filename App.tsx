@@ -478,7 +478,6 @@ const projects = [
   { name: "AURELIA", type: "Restaurant · Commerce", image: images.restaurant, text: "A complete dining and ordering experience.", href: "/examples/aurelia/" },
   { name: "NOVA CAFÉ", type: "Café · Showcase", image: images.cafeAlt, text: "A warm digital home for a neighbourhood ritual.", href: "/examples/nova-cafe/" },
   { name: "EMBER", type: "Kitchen · Commerce", image: images.plate, text: "Open-fire cooking, translated to the screen.", href: "/examples/ember/" },
-  { name: "NORTH TABLE", type: "Restaurant · Showcase", image: images.dessert, text: "Seasonal dining with editorial restraint.", href: "/examples/north-table/" },
   { name: "SANGAK", type: "Turkish Restaurant · Showcase", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
 ];
 
