@@ -209,7 +209,7 @@ export const translations = {
   "Thank you.": "Paldies!",
   "Your inquiry has been sent to Drasard. We'll be in touch shortly.": "Jūsu pieprasījums ir nosūtīts Drasard. Mēs ar jums drīzumā sazināsimies.",
   "Send another inquiry": "Nosūtīt vēl vienu pieprasījumu",
-  "We couldn't send your inquiry right now. Please email us directly at brasard.team@gmail.com.": "Šobrīd neizdevās nosūtīt jūsu pieprasījumu. Lūdzu, rakstiet mums uz brasard.team@gmail.com.",
+  "We couldn't send your inquiry right now. Please email us directly at contact@drasard.agency.": "Šobrīd neizdevās nosūtīt jūsu pieprasījumu. Lūdzu, rakstiet mums uz contact@drasard.agency.",
   "Send another inquiry": "Nosūtīt vēl vienu pieprasījumu",
   "By sending this form, you agree to our privacy policy.": "Nosūtot šo veidlapu, jūs piekrītat mūsu privātuma politikai.",
   "Send": "Nosūtīt",
