@@ -530,7 +530,7 @@ function Comparison() {
           <Button href="#contact">Enquire</Button>
         </div>
         <div className="compare-table">
-          <div className="table-row table-head"><span>FEATURE</span><b>SHOWCASE<br /><em>€390</em></b><b>COMMERCE<br /><em>€690</em></b></div>
+          <div className="table-row table-head"><span>FEATURE</span><b>SHOWCASE<br /><em>€390</em></b><b>COMMERCE<br /><em>€990</em></b></div>
           {comparison.map(([name, showcase, commerce]) => <div className="table-row" key={String(name)}><span>{name}</span><b>{showcase ? <Icon name="check" /> : "Not included"}</b><b>{commerce ? <Icon name="check" /> : "Not included"}</b></div>)}
         </div>
       </div>
