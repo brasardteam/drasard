@@ -111,7 +111,10 @@ export const translations = {
   "Send another inquiry": "Отправить ещё один запрос",
   "We couldn't send your inquiry right now. Please email us directly at brasard.team@gmail.com.": "Сейчас не удалось отправить запрос. Напишите нам напрямую: brasard.team@gmail.com.",
   "By sending this form, you agree to our privacy policy.": "Отправляя форму, вы соглашаетесь с политикой конфиденциальности.",
-  "Send": "Отправить", "EXPLORE": "РАЗДЕЛЫ", "CONTACT": "КОНТАКТЫ", "Riga, Latvia": "Рига, Латвия",
+  "Send": "Отправить",
+  "Turkish Restaurant · Showcase": "Турецкий ресторан · Showcase",
+  "A welcoming online presence for a Turkish restaurant in Riga.": "Приветливая цифровая площадка для турецкого ресторана в Риге.",
+  "EXPLORE": "РАЗДЕЛЫ", "CONTACT": "КОНТАКТЫ", "Riga, Latvia": "Рига, Латвия",
   "© 2025 DRASARD STUDIO": "© 2025 СТУДИЯ DRASARD", "Privacy": "Конфиденциальность",
   "aurelia-riga.lv": "aurelia-riga.lv"
 };
