@@ -308,23 +308,7 @@ function Palindrome() {
 }
 
 function Audience() {
-  return (
-    <section className="section-pad audience" id="solutions">
-      <div className="container">
-        <SectionTitle eyebrow="WHO WE BUILD FOR" title="Built for businesses people remember." body="Local business. Premium digital presence." />
-        <div className="audience-grid">
-          <article className="image-card image-card-wide">
-            <img src={images.dining} alt="Atmospheric restaurant interior" />
-            <div className="image-overlay"><span>01</span><div><h3>Restaurants</h3><p>Menus, reservations, stories and complete ordering experiences.</p></div><Icon name="arrow" /></div>
-          </article>
-          <article className="image-card">
-            <img src={images.cafe} alt="Warm contemporary cafe interior" />
-            <div className="image-overlay"><span>02</span><div><h3>Cafés</h3><p>Products, locations and ordering, beautifully presented.</p></div><Icon name="arrow" /></div>
-          </article>
-        </div>
-      </div>
-    </section>
-  );
+  return null;
 }
 
 const showcaseFeatures = ["Premium responsive design", "Business information", "Menu / services", "Pricing & gallery", "Location & contact", "Mobile-first experience", "Custom visual design"];
