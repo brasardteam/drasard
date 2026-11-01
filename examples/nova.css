@@ -131,3 +131,42 @@ footer small{font-size:8px;letter-spacing:.12em}
   footer{grid-template-columns:1fr}
   footer>div:last-of-type{grid-column:auto}
 }
+
+/* Expanded Nova homepage sections */
+.nova-featured{padding:110px 7vw 120px;background:#eae5d9}
+.nova-section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:42px}
+.nova-section-head>div{max-width:620px}
+.nova-section-head h2,.nova-experience-copy h2,.nova-visit-strip h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(38px,5vw,66px);line-height:1.03;margin:18px 0}
+.nova-section-head p,.nova-experience-copy p,.nova-visit-strip p{font-size:14px;line-height:1.9;max-width:490px;color:rgba(24,32,27,.72)}
+.nova-section-head>button,.nova-experience-copy>button{font-size:11px;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid;padding:0 0 8px;white-space:nowrap}
+.nova-featured-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 18px}
+.nova-featured-card{background:var(--cream);min-width:0}
+.nova-featured-card img{display:block;width:100%;aspect-ratio:1.25;object-fit:cover}
+.nova-featured-card>div{padding:18px 20px 22px}
+.nova-featured-card small{font-size:9px;letter-spacing:.13em;opacity:.65}
+.nova-featured-card h3{font-family:'Playfair Display',serif;font-size:23px;font-weight:500;margin:8px 0}
+.nova-featured-card p{font-size:12px;line-height:1.7;min-height:40px;opacity:.72;margin:0 0 14px}
+.nova-featured-card strong{font-size:13px}
+.nova-experience{display:grid;grid-template-columns:1fr 1fr;min-height:560px;background:#d9dfcb}
+.nova-experience-image{background:url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1400&q=85') center/cover;min-height:420px}
+.nova-experience-copy{padding:90px clamp(32px,7vw,110px);align-self:center}
+.nova-experience-copy p+p{margin-top:14px}
+.nova-experience-copy>button{margin-top:20px}
+.nova-visit-strip{padding:85px 7vw;display:flex;justify-content:space-between;align-items:center;gap:30px;background:var(--lime)}
+.nova-visit-strip h2{margin-bottom:12px}
+.nova-visit-strip .dark-btn{white-space:nowrap}
+@media(max-width:760px){
+ .nova-featured{padding:75px 6vw}
+ .nova-section-head{display:block}
+ .nova-section-head>button{margin-top:18px}
+ .nova-featured-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+ .nova-featured-card>div{padding:14px}
+ .nova-featured-card h3{font-size:19px}
+ .nova-featured-card p{font-size:11px}
+ .nova-experience{grid-template-columns:1fr}
+ .nova-experience-image{min-height:340px}
+ .nova-experience-copy{padding:60px 7vw}
+ .nova-visit-strip{padding:65px 7vw;display:block}
+ .nova-visit-strip .dark-btn{margin-top:22px}
+}
+@media(max-width:460px){.nova-featured-grid{grid-template-columns:1fr}.nova-featured-card img{aspect-ratio:1.5}}
