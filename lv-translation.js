@@ -214,6 +214,9 @@ export const translations = {
   "By sending this form, you agree to our privacy policy.": "Nosūtot šo veidlapu, jūs piekrītat mūsu privātuma politikai.",
   "Send": "Nosūtīt",
 
+  "Turkish Restaurant · Showcase": "Turku restorāns · Showcase",
+  "A welcoming online presence for a Turkish restaurant in Riga.": "Viesmīlīga digitālā klātbūtne turku restorānam Rīgā.",
+
   // Footer
   "Premium digital experiences": "Augstvērtīga digitālā pieredze",
   "for local businesses.": "vietējiem uzņēmumiem.",
