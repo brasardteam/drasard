@@ -109,7 +109,7 @@ export const translations = {
   "Sending…": "Отправка…", "Thank you.": "Спасибо!",
   "Your inquiry has been sent to Drasard. We'll be in touch shortly.": "Ваш запрос отправлен в Drasard. Скоро мы свяжемся с вами.",
   "Send another inquiry": "Отправить ещё один запрос",
-  "We couldn't send your inquiry right now. Please email us directly at brasard.team@gmail.com.": "Сейчас не удалось отправить запрос. Напишите нам напрямую: brasard.team@gmail.com.",
+  "We couldn't send your inquiry right now. Please email us directly at contact@drasard.agency.": "Сейчас не удалось отправить запрос. Напишите нам напрямую: contact@drasard.agency.",
   "By sending this form, you agree to our privacy policy.": "Отправляя форму, вы соглашаетесь с политикой конфиденциальности.",
   "Send": "Отправить",
   "Turkish Restaurant · Showcase": "Турецкий ресторан · Showcase",
