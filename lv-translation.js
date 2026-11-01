@@ -8,6 +8,7 @@ export const translations = {
   "Home": "Sākums",
   "Contact": "Kontakti",
   "Book a Consultation": "Pieteikt konsultāciju",
+  "Enquire": "Sazināties",
   "Explore Our Websites": "Apskatīt mūsu mājaslapas",
   "View Demo": "Apskatīt demo",
   "Privacy Policy": "Privātuma politika",
