@@ -1,7 +1,7 @@
 export const translations = {
   "Solutions": "Решения", "Examples": "Примеры", "Pricing": "Цены", "About": "О нас",
   "How It Works": "Как это работает", "Home": "Главная", "Contact": "Контакты",
-  "Book a Consultation": "Записаться на консультацию", "Explore Our Websites": "Посмотреть сайты",
+  "Book a Consultation": "Записаться на консультацию", "Enquire": "Связаться", "Explore Our Websites": "Посмотреть сайты",
   "View Demo": "Посмотреть демо", "Privacy Policy": "Политика конфиденциальности", "Terms": "Условия",
   "WEB STUDIO · RIGA, LATVIA": "ВЕБ-СТУДИЯ · РИГА, ЛАТВИЯ",
   "Premium digital experiences for local businesses.": "Премиальные цифровые решения для местного бизнеса.",
