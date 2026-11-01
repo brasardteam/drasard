@@ -322,12 +322,12 @@ function PricingCard({ commerce = false }: { commerce?: boolean }) {
       <div className="price-top">
         <Eyebrow light={!commerce}>{commerce ? "02: COMMERCE" : "01: SHOWCASE"}</Eyebrow>
         <div className="price"><div className="price-main"><del>{commerce ? "€1,290" : "€490"}</del><span>{commerce ? "€990" : "€390"}</span><b className="discount-badge">{commerce ? "23% OFF" : "20% OFF"}</b></div><small>{"One-time payment"}</small></div>
-        <p>{commerce ? "A complete digital business experience designed to help customers browse, order and pay online." : "A premium website designed to present your business beautifully and make it easy for customers to discover you."}</p>
+        <p>{commerce ? "Everything in Showcase, with online ordering, payments and order management in one connected experience." : "A polished website that presents your business, menu or services, and makes it easy for customers to get in touch."}</p>
       </div>
       <div className="feature-list">
         {features.map((feature) => <div key={feature}><span><Icon name="check" /></span>{feature}</div>)}
       </div>
-      <Button variant={commerce ? "primary" : "secondary"} href="#demo">Explore {commerce ? "Commerce" : "Showcase"}</Button>
+      <Button variant={commerce ? "primary" : "secondary"} href="#examples">See examples</Button>
       <small className="price-note">{commerce ? "Customization and advanced functionality priced according to requirements." : "Customization available depending on requirements."}</small>
     </article>
   );
@@ -337,7 +337,7 @@ function Packages() {
   return (
     <section className="section-pad packages" id="pricing">
       <div className="container">
-        <SectionTitle eyebrow="TWO WEBSITE EXPERIENCES" title="Two ways to build your digital presence." body="Start with a beautiful digital showcase or turn your website into a complete business channel." light />
+        <SectionTitle eyebrow="WEBSITE PACKAGES" title="Choose the website that fits your business." body="Compare the two starting points below, then explore the examples to see how each type of website can work in practice." light />
         <div className="pricing-grid"><PricingCard /><PricingCard commerce /></div>
         <div className="journey">
           <div className="journey-title"><Eyebrow>SEE THE DIFFERENCE</Eyebrow><h3>One beautiful foundation.<br />Two levels of possibility.</h3></div>
@@ -660,7 +660,6 @@ export default function App() {
         <Palindrome />
         <Audience />
         <Packages />
-        <RestaurantDemo />
         <Portfolio />
         <Comparison />
         <Process />
