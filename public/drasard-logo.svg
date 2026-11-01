@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="90" viewBox="0 0 420 90" role="img" aria-labelledby="logo-title">
+  <title id="logo-title">DRASARD</title>
+  <path fill="#C5AD7A" fill-rule="evenodd" d="M0 0H44C70 0 90 20 90 45S70 90 44 90H0V64L26 45 0 26ZM20 20V70H44C59 70 70 60 70 45S59 20 44 20H20Z"/>
+  <text x="116" y="59" fill="#F2EFE7" font-family="Manrope, Arial, sans-serif" font-size="43" font-weight="500" letter-spacing="8.5">DRASARD</text>
+</svg>

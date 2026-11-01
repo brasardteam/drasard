@@ -188,7 +188,7 @@ function Button({
 function Logo() {
   return (
     <a className="logo" href="#home" aria-label="Drasard home">
-      <span className="logo-d">D</span><span>RASAR</span><span className="logo-d logo-d-end">D</span>
+      <img className="logo-image" src="/drasard-logo.svg" alt="" />
     </a>
   );
 }
