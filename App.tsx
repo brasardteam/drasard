@@ -479,6 +479,7 @@ const projects = [
   { name: "NOVA CAFÉ", type: "Café · Showcase", image: images.cafeAlt, text: "A warm digital home for a neighbourhood ritual.", href: "/examples/nova-cafe/" },
   { name: "EMBER", type: "Kitchen · Commerce", image: images.plate, text: "Open-fire cooking, translated to the screen.", href: "/examples/ember/" },
   { name: "NORTH TABLE", type: "Restaurant · Showcase", image: images.dessert, text: "Seasonal dining with editorial restraint.", href: "/examples/north-table/" },
+  { name: "SANGAK", type: "Turkish Restaurant · Showcase", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
 ];
 
 function Portfolio() {
@@ -489,7 +490,7 @@ function Portfolio() {
         <div className="portfolio-grid">
           {projects.map((project, i) => (
             <article className={`project-card project-${i + 1}`} key={project.name}>
-              <div className="project-image"><img src={project.image} alt={`${project.name} website concept`} /><div className="project-browser"><i /><i /><i /><span>{project.name.toLowerCase().replace(" ", "")}.lv</span></div><span className="project-number">0{i + 1}</span></div>
+              <div className="project-image"><img src={project.image} alt={`${project.name} website concept`} /><div className="project-browser"><i /><i /><i /><span>{project.domain || `${project.name.toLowerCase().replace(" ", "")}.lv`}</span></div><span className="project-number">0{i + 1}</span></div>
               <div className="project-info"><div><small>{project.type}</small><h3>{project.name}</h3><p>{project.text}</p></div><Button variant="text" href={project.href}>View Demo</Button></div>
             </article>
           ))}
