@@ -1185,7 +1185,12 @@ addEventListener('load', ()=>{ if(hasG) ScrollTrigger.refresh(); });
   document.querySelectorAll('*').forEach(el=>attrs.forEach(a=>{const v=el.getAttribute(a);if(v===null)return;const key='__demoOriginal_'+a;if(!el.hasAttribute(key))el.setAttribute(key,v);el.setAttribute(a,translate(el.getAttribute(key)||''));}));
  }
  buttons.forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.demoLang;try{localStorage.setItem('nova-cafe-lang',lang)}catch(e){}apply();}));
- try{const saved=localStorage.getItem('nova-cafe-lang');if(['en','lv','ru'].includes(saved))lang=saved}catch(e){}
+ try{
+   const requested=new URLSearchParams(window.location.search).get('lang');
+   const saved=requested||localStorage.getItem('nova-cafe-lang');
+   if(['en','lv','ru'].includes(saved))lang=saved;
+   if(['en','lv','ru'].includes(requested))localStorage.setItem('nova-cafe-lang',requested);
+ }catch(e){}
  apply();
 })();
 </script>

@@ -524,7 +524,7 @@ const projects = [
   { name: "SANGAK", type: "Turkish Restaurant · Showcase", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
 ];
 
-function Portfolio() {
+function Portfolio({ lang }: { lang: "EN" | "LV" | "RU" }) {
   return (
     <section className="section-pad portfolio" id="examples">
       <div className="container">
@@ -533,7 +533,7 @@ function Portfolio() {
           {projects.map((project, i) => (
             <article className={`project-card project-${i + 1}`} key={project.name}>
               <div className="project-image"><img src={project.image} alt={`${project.name} website concept`} /><div className="project-browser"><i /><i /><i /><span>{project.domain || `${project.name.toLowerCase().replace(" ", "")}.lv`}</span></div><span className="project-number">0{i + 1}</span></div>
-              <div className="project-info"><div><small>{project.type}</small><h3>{project.name}</h3><p>{project.text}</p></div><Button variant="text" href={project.href}>View Demo</Button></div>
+              <div className="project-info"><div><small>{project.type}</small><h3>{project.name}</h3><p>{project.text}</p></div><Button variant="text" href={project.href.startsWith("https://") ? project.href : `${project.href}?lang=${lang.toLowerCase()}`}>View Demo</Button></div>
             </article>
           ))}
         </div>
@@ -587,7 +587,7 @@ function Process() {
   );
 }
 
-function CustomerExperience() {
+function CustomerExperience({ lang }: { lang: "EN" | "LV" | "RU" }) {
   const offerings = [
     {
       number: "01",
@@ -645,7 +645,8 @@ function CustomerExperience() {
                 </div>
                 <div className="experience-frame-window">
                   <iframe
-                    src={offer.src}
+                    key={lang}
+                    src={`${offer.src}?lang=${lang.toLowerCase()}`}
                     title={offer.frameTitle}
                     loading="lazy"
                     tabIndex={-1}
@@ -754,15 +755,39 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "
 }
 
 export default function App() {
-  const [lang, setLang] = useState<"EN" | "LV" | "RU">("EN");
+  const [lang, setLang] = useState<"EN" | "LV" | "RU">(() => {
+    try {
+      const saved = localStorage.getItem("drasard-language");
+      if (saved === "LV" || saved === "RU" || saved === "EN") return saved;
+    } catch {}
+    return "EN";
+  });
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang.toLowerCase());
+    try { localStorage.setItem("drasard-language", lang); } catch {}
+    document.title = lang === "LV"
+      ? "DRASARD: Augstvērtīga digitālā pieredze"
+      : lang === "RU"
+        ? "DRASARD: Премиальные цифровые решения"
+        : "Drasard: Premium Digital Experiences";
+    const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    if (description) description.content = lang === "LV"
+      ? "DRASARD veido augstvērtīgas mājaslapas restorāniem, kafejnīcām un vietējiem uzņēmumiem Rīgā, Latvijā."
+      : lang === "RU"
+        ? "DRASARD создаёт премиальные сайты для ресторанов, кафе и местных компаний в Риге, Латвия."
+        : "Drasard creates premium websites and digital experiences for restaurants, cafés, and ambitious local businesses in Riga, Latvia.";
+    const ogDescription = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
+    if (ogDescription) ogDescription.content = lang === "LV"
+      ? "Profesionālas mājaslapas vietējiem uzņēmumiem bez aģentūras cenu zīmes."
+      : lang === "RU"
+        ? "Профессиональные сайты для местного бизнеса без агентских цен."
+        : "Professional websites for local businesses, without the agency price tag.";
     const root = document.querySelector<HTMLElement>(".app");
     if (!root) return;
     const apply = () => applyPageLanguage(root, lang);
     apply();
     const observer = new MutationObserver(() => apply());
-    observer.observe(root, { childList: true, subtree: true });
+    observer.observe(root, { childList: true, subtree: true, characterData: true });
     return () => observer.disconnect();
   }, [lang]);
   return (
@@ -774,11 +799,11 @@ export default function App() {
         <Audience />
         <Packages />
         <CommerceOverview />
-        <Portfolio />
+        <Portfolio lang={lang} />
         <RestaurantDemo />
         <Comparison />
         <Process />
-        <CustomerExperience />
+        <CustomerExperience lang={lang} />
         
         <Contact />
       </main>
