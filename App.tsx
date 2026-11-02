@@ -587,28 +587,108 @@ function Process() {
   );
 }
 
-function About() {
-  const reasons = [
-    ["Premium by default", "Every website is a considered digital representation of your brand."],
-    ["Built for local", "We understand the needs of restaurants, cafés and independent businesses."],
-    ["Designed for customers", "Every interaction makes discovering and using your business easier."],
-    ["Made to grow", "Start with Showcase and expand into Commerce when the time is right."],
-    ["No needless complexity", "Only the functionality your business and customers actually need."],
+function CustomerExperience() {
+  const offerings = [
+    {
+      number: "01",
+      type: "LANDING PAGE",
+      title: "Present your business.",
+      description: "A professional website that helps customers discover your business, explore what you offer and get in touch.",
+      demoLabel: "SAMPLE WEBSITE · NOVA CAFÉ",
+      src: "/examples/nova-cafe/",
+      frameTitle: "Nova Café Landing Page sample",
+      steps: ["Discover your restaurant", "Explore menu and information", "Find location and contact details"],
+      price: "€390",
+      payment: "One-time payment",
+      action: "Open Landing Page demo",
+      href: "/examples/nova-cafe/",
+      className: "experience-landing",
+    },
+    {
+      number: "02",
+      type: "E-COMMERCE WEBSITE",
+      title: "Accept online orders.",
+      description: "A restaurant website connected to an ordering experience, so customers can browse, add items and submit orders.",
+      demoLabel: "SAMPLE ORDERING WEBSITE · AURELIA",
+      src: "/examples/aurelia/",
+      frameTitle: "Aurelia restaurant E-commerce sample",
+      steps: ["Browse the digital menu", "Add items and checkout", "Restaurant receives the order"],
+      price: "€790",
+      payment: "One-time payment + partner monthly subscription",
+      action: "Open E-commerce demo",
+      href: "/examples/aurelia/",
+      className: "experience-ecommerce",
+    },
   ];
+
   return (
-    <section className="about" id="about">
-      <div className="about-visual">
-        <div className="riga-map" aria-hidden="true"><span>RĪGA</span><i /><i /><i /><i /></div>
-        <div className="about-coordinate">56°56′58″ N<br />24°06′20″ E</div>
-      </div>
-      <div className="about-content">
-        <Eyebrow>ABOUT DRASARD · RIGA, LATVIA</Eyebrow>
-        <h2>Small studio.<br />Serious attention to detail.</h2>
-        <p className="about-lead">Drasard is a Riga-based web development studio focused on creating premium digital experiences for local businesses.</p>
-        <p>We believe a local business deserves a website that feels as considered and professional as the business itself. From a refined digital showcase to a complete online ordering experience, we build around what your business actually needs.</p>
-        <div className="reasons">
-          {reasons.map(([title, text], i) => <div key={title}><span>0{i + 1}</span><h3>{title}</h3><p>{text}</p></div>)}
+    <section className="customer-experience section-pad" id="customer-experience">
+      <div className="container">
+        <div className="experience-heading">
+          <Eyebrow>CUSTOMER EXPERIENCE</Eyebrow>
+          <h2>Two websites. Two different purposes.</h2>
+          <p>See what customers can actually do when they visit your business online.</p>
         </div>
+        <div className="experience-grid">
+          {offerings.map((offer) => (
+            <article className={`experience-card ${offer.className}`} key={offer.number}>
+              <div className="experience-card-heading">
+                <span className="experience-type">{offer.number} · {offer.type}</span>
+                <h3>{offer.title}</h3>
+                <p>{offer.description}</p>
+              </div>
+              <div className="experience-preview">
+                <div className="experience-browser-bar">
+                  <span className="browser-dots"><i /><i /><i /></span>
+                  <span>{offer.demoLabel}</span>
+                  <span className="preview-live-label">DEMO</span>
+                </div>
+                <div className="experience-frame-window">
+                  <iframe
+                    src={offer.src}
+                    title={offer.frameTitle}
+                    loading="lazy"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                  />
+                </div>
+              </div>
+              <div className="experience-card-bottom">
+                <div className="experience-journey">
+                  <span className="experience-detail-label">CUSTOMER JOURNEY</span>
+                  <ol>
+                    {offer.steps.map((step, index) => (
+                      <li key={step}><span>0{index + 1}</span>{step}</li>
+                    ))}
+                  </ol>
+                </div>
+                <div className="experience-price">
+                  <div><strong>{offer.price}</strong><span>{offer.payment}</span></div>
+                  <a href={offer.href} target="_blank" rel="noreferrer" className="experience-demo-link">
+                    {offer.action}<Icon name="arrow" />
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="experience-cost-note">
+          <span>IMPORTANT</span>
+          <p>Ordering platform subscriptions, optional modules and payment-processing fees are separate costs. Payment availability and ordering functionality are confirmed for each restaurant before launch.</p>
+        </div>
+        <p className="experience-disclaimer">Demo previews only. These are sample websites, not live client systems. Ordering and payment flows are illustrative and must be configured and tested for each restaurant.</p>
+      </div>
+    </section>
+  );
+}
+
+function StudioNote() {
+  return (
+    <section className="studio-note" id="about">
+      <div className="container studio-note-inner">
+        <Eyebrow>ABOUT DRASARD · RIGA, LATVIA</Eyebrow>
+        <h2>A small web studio in Riga, Latvia.</h2>
+        <p>DRASARD builds considered websites for restaurants, cafés and local businesses. We combine thoughtful design with practical functionality, from a clear online presence to connected restaurant ordering.</p>
       </div>
     </section>
   );
@@ -710,8 +790,9 @@ export default function App() {
         <RestaurantDemo />
         <Comparison />
         <Process />
-        <About />
+        <CustomerExperience />
         <Contact />
+        <StudioNote />
       </main>
       <Footer lang={lang} setLang={setLang} />
     </div>
