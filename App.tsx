@@ -709,7 +709,7 @@ function TechnologyPartners() {
               <span className="partner-status">REGISTERED PARTNER</span>
               <span className="partner-index">01</span>
             </div>
-            <div className="partner-wordmark partner-wordmark-wix" aria-label="Wix Studio">WIX<span>STUDIO</span></div>
+            <div className="partner-brand-name partner-brand-name-wix">Wix Studio</div>
             <h3>Website design & development</h3>
             <p>Wix Studio provides professional tools for designing, building and managing responsive business websites. We use it where it is a good fit for the project.</p>
             <a href="https://www.wix.com/studio" target="_blank" rel="noreferrer" className="partner-link">Explore Wix Studio <Icon name="arrow" /></a>
@@ -719,7 +719,7 @@ function TechnologyPartners() {
               <span className="partner-status">AFFILIATE PARTNER</span>
               <span className="partner-index">02</span>
             </div>
-            <div className="partner-wordmark partner-wordmark-upmenu" aria-label="UpMenu">upmenu<span>.</span></div>
+            <div className="partner-brand-name partner-brand-name-upmenu">UpMenu</div>
             <h3>Restaurant ordering & management</h3>
             <p>UpMenu provides restaurant tools for digital menus, online ordering and order management. Available features depend on the restaurant's plan and selected modules.</p>
             <a href="https://www.upmenu.com/" target="_blank" rel="noreferrer" className="partner-link">Explore UpMenu <Icon name="arrow" /></a>
