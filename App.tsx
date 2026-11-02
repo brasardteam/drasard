@@ -136,7 +136,7 @@ const menu: MenuCategory[] = [
   },
 ];
 
-const navItems = ["Solutions", "Examples", "Pricing", "About", "How It Works"];
+const navItems = ["Solutions", "Examples", "Pricing", "About", "How It Works", "Partners"];
 
 const en = {
   nav: navItems,
@@ -148,7 +148,7 @@ const en = {
 };
 
 const lv = {
-  nav: ["Risinājumi", "Piemēri", "Cenas", "Par mums", "Kā tas notiek"],
+  nav: ["Risinājumi", "Piemēri", "Cenas", "Par mums", "Kā tas notiek", "Partneri"],
   book: "Sazināties",
   hero: "Izcila digitālā pieredze vietējiem uzņēmumiem.",
   heroBody:
@@ -240,7 +240,7 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
       <nav className="nav">
         <Logo />
         <div className={`nav-links ${open ? "open" : ""}`}>
-          {t.nav.map((item, i) => <a key={item} href={`#${["solutions", "examples", "pricing", "about", "process"][i]}`} onClick={() => setOpen(false)}>{item}</a>)}
+          {t.nav.map((item, i) => <a key={item} href={`#${["solutions", "examples", "pricing", "about", "process", "partners"][i]}`} onClick={() => setOpen(false)}>{item}</a>)}
           <Button href="#contact">{t.book}</Button>
         </div>
         <div className="nav-actions">
@@ -694,6 +694,46 @@ function StudioNote() {
   );
 }
 
+function TechnologyPartners() {
+  return (
+    <section className="technology-partners section-pad" id="partners">
+      <div className="container">
+        <div className="partners-heading">
+          <Eyebrow>TECHNOLOGY & PLATFORM PARTNERS</Eyebrow>
+          <h2>The platforms behind your digital experience.</h2>
+          <p>DRASARD is a registered Wix Partner and an UpMenu Affiliate Partner. We choose the platform based on what your project needs—not one solution for every business.</p>
+        </div>
+        <div className="partners-grid">
+          <article className="partner-card partner-wix">
+            <div className="partner-card-top">
+              <span className="partner-status">REGISTERED PARTNER</span>
+              <span className="partner-index">01</span>
+            </div>
+            <div className="partner-wordmark partner-wordmark-wix" aria-label="Wix Studio">WIX<span>STUDIO</span></div>
+            <h3>Website design & development</h3>
+            <p>Wix Studio provides professional tools for designing, building and managing responsive business websites. We use it where it is a good fit for the project.</p>
+            <a href="https://www.wix.com/studio" target="_blank" rel="noreferrer" className="partner-link">Explore Wix Studio <Icon name="arrow" /></a>
+          </article>
+          <article className="partner-card partner-upmenu">
+            <div className="partner-card-top">
+              <span className="partner-status">AFFILIATE PARTNER</span>
+              <span className="partner-index">02</span>
+            </div>
+            <div className="partner-wordmark partner-wordmark-upmenu" aria-label="UpMenu">upmenu<span>.</span></div>
+            <h3>Restaurant ordering & management</h3>
+            <p>UpMenu provides restaurant tools for digital menus, online ordering and order management. Available features depend on the restaurant's plan and selected modules.</p>
+            <a href="https://www.upmenu.com/" target="_blank" rel="noreferrer" className="partner-link">Explore UpMenu <Icon name="arrow" /></a>
+          </article>
+        </div>
+        <div className="partner-disclosure">
+          <span>PARTNER DISCLOSURE</span>
+          <p>DRASARD participates in the UpMenu Affiliate Program and may receive a commission for eligible referrals. UpMenu subscriptions, optional modules and payment-processing fees are separate charges set by the relevant providers.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -791,6 +831,7 @@ export default function App() {
         <Comparison />
         <Process />
         <CustomerExperience />
+        <TechnologyPartners />
         <Contact />
         <StudioNote />
       </main>
