@@ -136,7 +136,7 @@ const menu: MenuCategory[] = [
   },
 ];
 
-const navItems = ["Solutions", "Examples", "Pricing", "About", "How It Works", "Partners"];
+const navItems = ["Solutions", "Examples", "Pricing", "How It Works", "Partners"];
 
 const en = {
   nav: navItems,
@@ -148,7 +148,7 @@ const en = {
 };
 
 const lv = {
-  nav: ["Risinājumi", "Piemēri", "Cenas", "Par mums", "Kā tas notiek", "Partneri"],
+  nav: ["Risinājumi", "Piemēri", "Cenas", "Kā tas notiek", "Partneri"],
   book: "Sazināties",
   hero: "Izcila digitālā pieredze vietējiem uzņēmumiem.",
   heroBody:
@@ -240,7 +240,7 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
       <nav className="nav">
         <Logo />
         <div className={`nav-links ${open ? "open" : ""}`}>
-          {t.nav.map((item, i) => <a key={item} href={`#${["solutions", "examples", "pricing", "about", "process", "partners"][i]}`} onClick={() => setOpen(false)}>{item}</a>)}
+          {t.nav.map((item, i) => <a key={item} href={`#${["solutions", "examples", "pricing", "process", "partners"][i]}`} onClick={() => setOpen(false)}>{item}</a>)}
           <Button href="#contact">{t.book}</Button>
         </div>
         <div className="nav-actions">
@@ -682,18 +682,6 @@ function CustomerExperience() {
   );
 }
 
-function StudioNote() {
-  return (
-    <section className="studio-note" id="about">
-      <div className="container studio-note-inner">
-        <Eyebrow>ABOUT DRASARD · RIGA, LATVIA</Eyebrow>
-        <h2>A small web studio in Riga, Latvia.</h2>
-        <p>DRASARD builds considered websites for restaurants, cafés and local businesses. We combine thoughtful design with practical functionality, from a clear online presence to connected restaurant ordering.</p>
-      </div>
-    </section>
-  );
-}
-
 function TechnologyPartners() {
   return (
     <section className="technology-partners section-pad" id="partners">
@@ -722,12 +710,9 @@ function TechnologyPartners() {
             <div className="partner-brand-name partner-brand-name-upmenu">UpMenu</div>
             <h3>Restaurant ordering & management</h3>
             <p>UpMenu provides restaurant tools for digital menus, online ordering and order management. Available features depend on the restaurant's plan and selected modules.</p>
+            <p className="partner-affiliate-note">Affiliate relationship: DRASARD may receive a commission on eligible referrals.</p>
             <a href="https://www.upmenu.com/" target="_blank" rel="noreferrer" className="partner-link">Explore UpMenu <Icon name="arrow" /></a>
           </article>
-        </div>
-        <div className="partner-disclosure">
-          <span>PARTNER DISCLOSURE</span>
-          <p>DRASARD participates in the UpMenu Affiliate Program and may receive a commission for eligible referrals. UpMenu subscriptions, optional modules and payment-processing fees are separate charges set by the relevant providers.</p>
         </div>
       </div>
     </section>
@@ -833,7 +818,6 @@ export default function App() {
         <CustomerExperience />
         <TechnologyPartners />
         <Contact />
-        <StudioNote />
       </main>
       <Footer lang={lang} setLang={setLang} />
     </div>

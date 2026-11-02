@@ -308,8 +308,6 @@ export const translations = {
   "IMPORTANT": "SVARĪGI",
   "Ordering platform subscriptions, optional modules and payment-processing fees are separate costs. Payment availability and ordering functionality are confirmed for each restaurant before launch.": "Pasūtījumu platformas abonements, papildu moduļi un maksājumu apstrādes komisijas ir atsevišķas izmaksas. Maksājumu un pasūtīšanas funkciju pieejamību apstiprinām katram restorānam pirms palaišanas.",
   "Demo previews only. These are sample websites, not live client systems. Ordering and payment flows are illustrative and must be configured and tested for each restaurant.": "Tie ir demonstrācijas priekšskatījumi, nevis klientu aktīvās sistēmas. Pasūtīšanas un maksājumu plūsmas ir ilustratīvas, un tās jākonfigurē un jāpārbauda katram restorānam.",
-  "A small web studio in Riga, Latvia.": "Neliela tīmekļa studija Rīgā, Latvijā.",
-  "DRASARD builds considered websites for restaurants, cafés and local businesses. We combine thoughtful design with practical functionality, from a clear online presence to connected restaurant ordering.": "DRASARD veido pārdomātas mājaslapas restorāniem, kafejnīcām un vietējiem uzņēmumiem. Mēs apvienojam pārdomātu dizainu ar praktisku funkcionalitāti — no skaidras klātbūtnes tiešsaistē līdz restorānu pasūtījumu sistēmām.",
   "Partners": "Partneri",
   "TECHNOLOGY & PLATFORM PARTNERS": "TEHNOLOĢIJU UN PLATFORMU PARTNERI",
   "The platforms behind your digital experience.": "Platformas, kas nodrošina jūsu digitālo pieredzi.",
@@ -322,6 +320,5 @@ export const translations = {
   "Restaurant ordering & management": "Restorānu pasūtījumi un pārvaldība",
   "UpMenu provides restaurant tools for digital menus, online ordering and order management. Available features depend on the restaurant's plan and selected modules.": "UpMenu piedāvā restorānu rīkus digitālajām ēdienkartēm, tiešsaistes pasūtījumiem un pasūtījumu pārvaldībai. Pieejamās funkcijas ir atkarīgas no restorāna plāna un izvēlētajiem moduļiem.",
   "Explore UpMenu": "Iepazīt UpMenu",
-  "PARTNER DISCLOSURE": "INFORMĀCIJA PAR PARTNERĪBU",
-  "DRASARD participates in the UpMenu Affiliate Program and may receive a commission for eligible referrals. UpMenu subscriptions, optional modules and payment-processing fees are separate charges set by the relevant providers.": "DRASARD piedalās UpMenu Affiliate programmā un var saņemt komisijas maksu par atbilstošiem ieteikumiem. UpMenu abonementi, papildu moduļi un maksājumu apstrādes komisijas ir atsevišķas maksas, ko nosaka attiecīgie pakalpojumu sniedzēji.",
+  "Affiliate relationship: DRASARD may receive a commission on eligible referrals.": "Partnerības informācija: DRASARD var saņemt komisiju par atbilstošiem ieteikumiem.",
 };
