@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, business, email, businessType, websiteType, message, website } = req.body || {};
+  const { name, business, email, phone, businessType, websiteType, message, website } = req.body || {};
 
   if (clean(website)) {
     return res.status(200).json({ ok: true });
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
   const cleanName = clean(name, 120);
   const cleanBusiness = clean(business, 160);
   const cleanEmail = clean(email, 254);
+  const cleanPhone = clean(phone, 40);
   const cleanBusinessType = clean(businessType, 80);
   const cleanWebsiteType = clean(websiteType, 80);
   const cleanMessage = clean(message, 4000);
@@ -52,6 +53,7 @@ export default async function handler(req, res) {
       <p><strong>Name:</strong> ${escapeHtml(cleanName)}</p>
       <p><strong>Business:</strong> ${escapeHtml(cleanBusiness || 'Not provided')}</p>
       <p><strong>Email:</strong> ${escapeHtml(cleanEmail)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(cleanPhone || 'Not provided')}</p>
       <p><strong>Business type:</strong> ${escapeHtml(cleanBusinessType || 'Not provided')}</p>
       <p><strong>Website type:</strong> ${escapeHtml(cleanWebsiteType || 'Not provided')}</p>
       <p><strong>Project details:</strong></p>
