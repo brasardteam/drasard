@@ -992,23 +992,6 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
 .experience-cost-note > span { color: #896F46; font-size: 9px; font-weight: 700; letter-spacing: .15em; }
 .experience-cost-note p { color: #536055; font-size: 11px; line-height: 1.65; }
 .experience-disclaimer { margin-top: 13px; color: #858479; font-size: 9px; line-height: 1.6; }
-.studio-note {
-  padding: 62px 0 68px;
-  color: #F1EBDD;
-  background: #111713;
-  border-top: 1px solid rgba(216,198,160,.18);
-}
-.studio-note-inner { max-width: 970px; }
-.studio-note .eyebrow { color: #C5AD7D; }
-.studio-note h2 {
-  margin: 18px 0 11px;
-  color: #F5F0E5;
-  font-family: var(--display);
-  font-size: clamp(30px,3.4vw,43px);
-  font-weight: 400;
-  line-height: 1.12;
-}
-.studio-note p { max-width: 760px; color: #BCC7BD; font-size: 13px; line-height: 1.75; }
 @media (max-width: 900px) {
   .experience-grid { grid-template-columns: 1fr; gap: 18px; }
   .experience-frame-window { height: 490px; }
@@ -1030,8 +1013,6 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   .experience-demo-link { width: 100%; min-height: 46px; }
   .experience-cost-note { grid-template-columns: 1fr; gap: 8px; padding: 16px; }
   .experience-disclaimer { font-size: 9px; }
-  .studio-note { padding: 48px 0 52px; }
-  .studio-note h2 { font-size: 32px; }
 }
 
 
@@ -1070,9 +1051,7 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
 .partner-link { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; color: #31483A; font-size: 11px; font-weight: 700; }
 .partner-upmenu .partner-link { color: #E9DFC9; }
 .partner-link .icon { width: 15px; height: 15px; }
-.partner-disclosure { margin-top: 20px; padding: 17px 20px; display: grid; grid-template-columns: 145px 1fr; gap: 16px; border: 1px solid #D6CCBA; background: #E6DFD2; }
-.partner-disclosure > span { color: #806B47; font-size: 9px; font-weight: 700; letter-spacing: .15em; }
-.partner-disclosure p { color: #566257; font-size: 11px; line-height: 1.65; }
+.partner-affiliate-note { margin-top: -10px; margin-bottom: 18px; color: #D2C7B0 !important; font-size: 10px !important; line-height: 1.55 !important; }
 @media (max-width: 800px) { .partners-grid { grid-template-columns: 1fr; } .partner-card { min-height: 0; } }
 @media (max-width: 700px) {
   .partners-heading { margin-bottom: 30px; }
@@ -1080,5 +1059,4 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   .partners-heading > p { font-size: 13px; }
   .partner-card { padding: 25px 22px; }
   .partner-brand-name { min-height: 70px; margin: 18px 0; font-size: 43px; }
-  .partner-disclosure { grid-template-columns: 1fr; gap: 8px; padding: 15px 16px; }
 }
