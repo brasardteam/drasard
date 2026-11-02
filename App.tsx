@@ -312,7 +312,15 @@ function Audience() {
 }
 
 const showcaseFeatures = ["Premium responsive design", "Business information", "Menu / services", "Pricing & gallery", "Location & contact", "Mobile-first experience", "Custom visual design"];
-const commerceFeatures = ["Everything in Showcase", "Online ordering", "Cart & online payments", "Order management", "Customer interactions", "Business management", "Owner training and launch handover"];
+const commerceFeatures = [
+  "Everything in Showcase",
+  "Online ordering and menu configuration",
+  "Cart and checkout",
+  "Pickup and delivery settings",
+  "Restaurant order dashboard",
+  "Owner app and order notifications",
+  "Setup guidance and launch handover",
+];
 
 function PricingCard({ commerce = false }: { commerce?: boolean }) {
   const features = commerce ? commerceFeatures : showcaseFeatures;
@@ -322,13 +330,13 @@ function PricingCard({ commerce = false }: { commerce?: boolean }) {
       <div className="price-top">
         <Eyebrow light={!commerce}>{commerce ? "02: COMMERCE" : "01: SHOWCASE"}</Eyebrow>
         <div className="price"><div className="price-main"><del>{commerce ? "€1,290" : "€490"}</del><span>{commerce ? "€990" : "€390"}</span><b className="discount-badge">{commerce ? "23% OFF" : "20% OFF"}</b></div><small>{"One-time payment"}</small></div>
-        <p>{commerce ? "Everything in Showcase, with online ordering, payments and order management in one connected experience." : "A polished website that presents your business, menu or services, and makes it easy for customers to get in touch."}</p>
+        <p>{commerce ? "A restaurant website with online ordering, checkout and a restaurant operations platform configured around your workflow. The platform subscription and payment processing are billed separately." : "A polished website that presents your business, menu or services, and makes it easy for customers to get in touch."}</p>
       </div>
       <div className="feature-list">
         {features.map((feature) => <div key={feature}><span><Icon name="check" /></span>{feature}</div>)}
       </div>
-      <Button variant={commerce ? "primary" : "secondary"} href="#examples">See examples</Button>
-      <small className="price-note">{commerce ? "Customization and advanced functionality priced according to requirements." : "Customization available depending on requirements."}</small>
+      <Button variant={commerce ? "primary" : "secondary"} href={commerce ? "#commerce" : "#examples"}>{commerce ? "Explore Commerce" : "See examples"}</Button>
+      <small className="price-note">{commerce ? "Platform subscription, payment processing and optional modules are separate costs. Payment availability depends on provider support." : "Customization available depending on requirements."}</small>
     </article>
   );
 }
@@ -385,13 +393,13 @@ function Cart({
     <aside className="cart">
       <div className="cart-head"><div><small>YOUR ORDER</small><h4>Cart</h4></div><span>{cart.length} items</span></div>
       {cart.length === 0 ? (
-        <div className="empty-cart"><Icon name="bag" /><p>Your table is ready.<br />Add something from the menu.</p></div>
+        <div className="empty-cart"><Icon name="bag" /><p>Your cart is empty. Add a dish from the menu to try the demo.</p></div>
       ) : (
         <div className="cart-items">
           {cart.map((item, i) => <div className="cart-item" key={`${item.name}-${i}`}><span>1</span><div><strong>{item.name}</strong><small>€{item.price}</small></div><button onClick={() => onRemove(i)}>×</button></div>)}
         </div>
       )}
-      <div className="cart-total"><div><span>Subtotal</span><b>€{total}</b></div><small>Taxes included · Pickup at Aurelia</small><button disabled={!cart.length} onClick={onCheckout}>Continue to checkout <Icon name="arrow" /></button></div>
+      <div className="cart-total"><div><span>Subtotal</span><b>€{total}</b></div><small>Sample order · demo only</small><button disabled={!cart.length} onClick={onCheckout}>Continue to checkout <Icon name="arrow" /></button></div>
     </aside>
   );
 }
@@ -401,8 +409,9 @@ function Checkout({ step, setStep, total }: { step: number; setStep: (step: numb
     return (
       <div className="confirmation">
         <div className="confirmation-mark"><Icon name="check" /></div>
-        <small>ORDER #AUR-2048</small><h3>Order confirmed</h3><p>Thank you. The kitchen has received your order and will begin preparing it shortly.</p>
-        <div className="prep-time"><span>ESTIMATED PREPARATION</span><strong>25 to 35 minutes</strong></div>
+        <small>INTERACTIVE PREVIEW</small><h3>Demo complete</h3>
+        <p>This is an illustrative prototype. No payment was taken and no order was sent to a restaurant.</p>
+        <div className="prep-time"><span>WHAT THIS DEMO SHOWS</span><strong>Customer ordering journey</strong></div>
         <button onClick={() => setStep(0)}>Return to menu</button>
       </div>
     );
@@ -410,11 +419,11 @@ function Checkout({ step, setStep, total }: { step: number; setStep: (step: numb
   return (
     <div className="checkout">
       <div className="checkout-progress">
-        {["Details", "Payment", "Confirmed"].map((label, i) => <div className={step >= i + 1 ? "active" : ""} key={label}><span>{i + 1}</span><small>{label}</small></div>)}
+        {["Details", "Payment preview", "Complete"].map((label, i) => <div className={step >= i + 1 ? "active" : ""} key={label}><span>{i + 1}</span><small>{label}</small></div>)}
       </div>
       <div className="checkout-content">
-        <small>{step === 1 ? "CUSTOMER INFORMATION" : "SECURE PAYMENT"}</small>
-        <h3>{step === 1 ? "Where should we send updates?" : "Complete your order"}</h3>
+        <small>{step === 1 ? "CUSTOMER INFORMATION" : "PAYMENT STEP PREVIEW"}</small>
+        <h3>{step === 1 ? "Where should we send updates?" : "Payment setup depends on the restaurant."}</h3>
         {step === 1 ? (
           <div className="checkout-fields">
             <label>Full name<input placeholder="Your name" /></label>
@@ -422,11 +431,12 @@ function Checkout({ step, setStep, total }: { step: number; setStep: (step: numb
             <label>Phone<input placeholder="+371" /></label>
           </div>
         ) : (
-          <div className="payment-card">
-            <div className="card-chip" /><span>•••• •••• •••• 2048</span><div><small>AURELIA GUEST</small><small>08 / 29</small></div>
+          <div className="demo-payment-notice">
+            <strong>Payment provider setup</strong>
+            <p>Online payments require a supported payment provider and account approval. This demonstration does not process payments.</p>
           </div>
         )}
-        <button onClick={() => setStep(step + 1)}>{step === 1 ? "Continue to payment" : `Pay €${total}`} <Icon name="arrow" /></button>
+        <button onClick={() => setStep(step + 1)}>{step === 1 ? "Review demo checkout" : "Finish demo"} <Icon name="arrow" /></button>
       </div>
     </div>
   );
@@ -451,6 +461,7 @@ function RestaurantDemo() {
             <button className={mode === "commerce" ? "active" : ""} onClick={() => switchMode("commerce")}>COMMERCE</button>
           </div>
         </div>
+        <p className="demo-not-live">Interactive demo · illustrative only. This prototype is not connected to a live restaurant system and does not process real payments or orders.</p>
         <div className={`restaurant-demo ${mode}`}>
           <div className="demo-browser-bar"><div><i /><i /><i /></div><span>Interactive Demo · aurelia-riga.lv</span><em>{mode}</em></div>
           <div className="restaurant-hero">
@@ -469,6 +480,37 @@ function RestaurantDemo() {
           )}
         </div>
         <div className="demo-caption"><span>{mode === "showcase" ? "Browse → Discover → Contact" : "Browse → Order → Pay → Manage"}</span><p>{mode === "showcase" ? "A refined, complete digital presence." : "Your website becomes an active business channel."}</p></div>
+      </div>
+    </section>
+  );
+}
+
+function CommerceOverview() {
+  const capabilityGroups = [
+    { title: "Customer ordering", items: ["Restaurant-branded ordering page", "Digital menu with item options and add-ons", "Cart, checkout and order notes", "Pickup, delivery and pre-orders (where supported)", "QR menu access"], note: "Ordering options depend on the selected platform plan and setup." },
+    { title: "Restaurant operations", items: ["Order dashboard and owner app", "Incoming order notifications and status updates", "Opening hours and delivery-area settings", "Order printing and receipt options", "POS connections where supported"], note: "Available tools vary by platform, plan and compatible equipment." },
+    { title: "Growth and expansion", items: ["Promotions and discount codes", "Customer database and marketing tools", "Loyalty programs", "Branded mobile app", "Driver and marketplace integrations", "Multi-location management"], note: "Advanced features may require optional modules or integrations." },
+  ];
+  return (
+    <section className="section-pad commerce-overview" id="commerce">
+      <div className="container">
+        <SectionTitle eyebrow="COMMERCE FOR RESTAURANTS" title="Turn your website into an ordering channel." body="Give customers a clear path from browsing your menu to placing an order. DRASARD designs your website and helps configure a separate restaurant ordering platform around your workflow." />
+        <div className="commerce-capabilities">
+          {capabilityGroups.map((group, index) => (
+            <article className="commerce-capability" key={group.title}>
+              <span className="commerce-capability-number">0{index + 1}</span>
+              <h3>{group.title}</h3>
+              <ul>{group.items.map((item) => <li key={item}><Icon name="check" />{item}</li>)}</ul>
+              <p>{group.note}</p>
+            </article>
+          ))}
+        </div>
+        <div className="commerce-costs">
+          <article><span>DRASARD WEBSITE DEVELOPMENT</span><strong>€990 one-time</strong><p>Website design, development and the agreed setup.</p></article>
+          <article><span>ORDERING PLATFORM SUBSCRIPTION</span><strong>Paid separately</strong><p>The restaurant subscribes directly to the ordering platform. Its plan and optional modules determine the monthly price.</p></article>
+          <article><span>PAYMENT PROCESSING</span><strong>Provider-dependent</strong><p>Payment methods and processing fees are set by the selected provider. We confirm Latvian availability before launch.</p></article>
+        </div>
+        <p className="commerce-disclaimer">The DRASARD development fee is one-time. The platform subscription, optional modules and payment-processing fees are separate costs paid to their respective providers. Features and availability depend on the selected plan, integrations and country.</p>
       </div>
     </section>
   );
@@ -502,7 +544,9 @@ function Portfolio() {
 const comparison = [
   ["Premium responsive design", true, true], ["Menu / services", true, true], ["Gallery", true, true],
   ["Business information", true, true], ["Contact", true, true], ["Online ordering", false, true],
-  ["Cart & online payments", false, true], ["Order management", false, true], ["Ongoing service", false, true],
+  ["Cart & checkout", false, true], ["Online payment setup (provider-dependent)", false, true],
+  ["Pickup and delivery settings", false, true], ["Restaurant order dashboard", false, true],
+  ["Owner app and order notifications", false, true],
 ];
 
 function Comparison() {
@@ -660,7 +704,9 @@ export default function App() {
         <Palindrome />
         <Audience />
         <Packages />
+        <CommerceOverview />
         <Portfolio />
+        <RestaurantDemo />
         <Comparison />
         <Process />
         <About />

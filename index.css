@@ -484,3 +484,36 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
 .form-honeypot { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important; }
 .form-submit:disabled { opacity: .6; cursor: wait; }
 .form-error { margin: 12px 0 0; color: #9b3d31; font-size: 10px; line-height: 1.5; }
+
+
+/* Commerce package enhancements */
+.commerce-overview { color: var(--ink); background: #f4f1e8; }
+.commerce-overview .section-heading { max-width: 820px; }
+.commerce-capabilities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.commerce-capability { min-height: 360px; padding: 30px 26px; border: 1px solid #d6d0c3; background: rgba(255,255,255,.28); }
+.commerce-capability-number { color: #927b52; font-size: 9px; letter-spacing: .14em; }
+.commerce-capability h3 { margin: 26px 0 20px; font-family: var(--display); font-size: 27px; font-weight: 400; }
+.commerce-capability ul { margin: 0; padding: 0; display: grid; gap: 13px; list-style: none; }
+.commerce-capability li { display: flex; align-items: flex-start; gap: 9px; color: #66665f; font-size: 10px; line-height: 1.55; }
+.commerce-capability li .icon { width: 14px; height: 14px; flex: 0 0 14px; color: #8a744d; }
+.commerce-capability > p { margin-top: 24px; padding-top: 15px; border-top: 1px solid #ddd7cb; color: #89867d; font-size: 9px; line-height: 1.5; }
+.commerce-costs { margin-top: 34px; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #c9c2b4; }
+.commerce-costs article { min-height: 180px; padding: 25px; }
+.commerce-costs article + article { border-left: 1px solid #c9c2b4; }
+.commerce-costs article > span { color: #88744f; font-size: 8px; letter-spacing: .14em; }
+.commerce-costs article strong { display: block; margin: 17px 0 9px; font-family: var(--display); font-size: 24px; font-weight: 400; }
+.commerce-costs article p { max-width: 300px; color: #77766f; font-size: 10px; line-height: 1.6; }
+.commerce-disclaimer { max-width: 900px; margin: 18px 0 0; color: #8b877d; font-size: 9px; line-height: 1.65; }
+.demo-not-live { margin: -20px 0 20px; padding: 12px 16px; color: #6d6659; border-left: 2px solid var(--gold); background: #eee9dc; font-size: 10px; line-height: 1.6; }
+.demo-payment-notice { min-height: 160px; padding: 25px; display: flex; flex-direction: column; justify-content: center; gap: 13px; border: 1px solid #d7d1c4; background: #f1eee6; }
+.demo-payment-notice strong { color: #806d49; font-family: var(--display); font-size: 20px; font-weight: 400; }
+.demo-payment-notice p { color: #7e7b72; font-size: 10px; line-height: 1.7; }
+@media (max-width: 900px) { .commerce-capabilities { grid-template-columns: 1fr 1fr; } .commerce-capability:last-child { grid-column: 1 / -1; } }
+@media (max-width: 700px) {
+ .commerce-capabilities, .commerce-costs { grid-template-columns: 1fr; }
+ .commerce-capability { min-height: auto; padding: 25px 21px; }
+ .commerce-capability:last-child { grid-column: auto; }
+ .commerce-costs article { min-height: auto; padding: 22px; }
+ .commerce-costs article + article { border-left: 0; border-top: 1px solid #c9c2b4; }
+ .demo-not-live { margin-top: -10px; font-size: 9px; }
+}
