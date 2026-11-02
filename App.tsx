@@ -166,7 +166,7 @@ const en = {
 };
 
 const lv = {
-  nav: ["Risinājumi", "Piemēri", "Cenas", "Par mums", "Kā tas notiek"],
+  nav: ["Risinājumi", "Kam mēs palīdzam", "Piemēri", "Cenas", "BUJ"],
   book: "Sazināties",
   hero: "Mājaslapas, kas palīdz restorāniem augt.",
   heroBody:
@@ -380,7 +380,7 @@ function PricingCard({ commerce = false }: { commerce?: boolean }) {
       <div className="feature-list">
         {features.map((feature) => <div key={feature}><span><Icon name="check" /></span>{feature}</div>)}
       </div>
-      <Button variant={commerce ? "primary" : "secondary"} href={commerce ? "#commerce" : "#examples"}>{commerce ? "Explore Commerce" : "See examples"}</Button>
+      <Button variant={commerce ? "primary" : "secondary"} href={commerce ? "#commerce" : "#examples"}>{commerce ? "Explore E-commerce" : "See examples"}</Button>
       <small className="price-note">{commerce ? "Partner subscription, payment processing and optional modules are separate costs. Payment availability is confirmed before setup." : "Final scope and customization are confirmed in your project quote."}</small>
     </article>
   );
@@ -561,7 +561,7 @@ function CommerceOverview() {
   return (
     <section className="section-pad commerce-overview" id="commerce">
       <div className="container">
-        <SectionTitle eyebrow="COMMERCE FOR RESTAURANTS" title="Turn your website into an ordering channel." body="Give customers a clear path from browsing your menu to placing an order. DRASARD designs your website and helps configure a separate restaurant ordering platform around your workflow." />
+        <SectionTitle eyebrow="E-COMMERCE FOR RESTAURANTS" title="Turn your website into an ordering channel." body="Give customers a clear path from browsing your menu to placing an order. DRASARD designs your website and helps configure a separate restaurant ordering platform around your workflow." />
         <div className="commerce-capabilities">
           {capabilityGroups.map((group, index) => (
             <article className="commerce-capability" key={group.title}>
@@ -584,10 +584,10 @@ function CommerceOverview() {
 }
 
 const projects = [
-  { name: "AURELIA", type: "Restaurant · Commerce", image: images.restaurant, text: "A complete dining and ordering experience.", href: "/examples/aurelia/" },
-  { name: "NOVA CAFÉ", type: "Café · Showcase", image: images.cafeAlt, text: "A warm digital home for a neighbourhood ritual.", href: "/examples/nova-cafe/" },
-  { name: "EMBER", type: "Kitchen · Commerce", image: images.plate, text: "Open-fire cooking, translated to the screen.", href: "/examples/ember/" },
-  { name: "SANGAK", type: "Turkish Restaurant · Showcase", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
+  { name: "AURELIA", type: "Restaurant · E-commerce", image: images.restaurant, text: "A complete dining and ordering experience.", href: "/examples/aurelia/" },
+  { name: "NOVA CAFÉ", type: "Café · Landing Page", image: images.cafeAlt, text: "A warm digital home for a neighbourhood ritual.", href: "/examples/nova-cafe/" },
+  { name: "EMBER", type: "Kitchen · E-commerce", image: images.plate, text: "Open-fire cooking, translated to the screen.", href: "/examples/ember/" },
+  { name: "SANGAK", type: "Turkish Restaurant · Landing Page", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
 ];
 
 function Portfolio() {
