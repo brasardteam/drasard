@@ -200,8 +200,6 @@ export const translations = {
   "IMPORTANT": "ВАЖНО",
   "Ordering platform subscriptions, optional modules and payment-processing fees are separate costs. Payment availability and ordering functionality are confirmed for each restaurant before launch.": "Подписка на платформу заказов, дополнительные модули и комиссии за обработку платежей оплачиваются отдельно. Доступность платежей и функций заказов подтверждается для каждого ресторана до запуска.",
   "Demo previews only. These are sample websites, not live client systems. Ordering and payment flows are illustrative and must be configured and tested for each restaurant.": "Это демонстрационные версии сайтов, а не действующие системы клиентов. Процессы заказа и оплаты показаны для примера и должны быть настроены и проверены для каждого ресторана.",
-  "A small web studio in Riga, Latvia.": "Небольшая веб-студия в Риге, Латвия.",
-  "DRASARD builds considered websites for restaurants, cafés and local businesses. We combine thoughtful design with practical functionality, from a clear online presence to connected restaurant ordering.": "DRASARD создаёт продуманные сайты для ресторанов, кафе и местного бизнеса. Мы объединяем выразительный дизайн с практичными функциями — от презентации компании в интернете до подключённой системы заказов ресторана.",
   "Partners": "Партнёры",
   "TECHNOLOGY & PLATFORM PARTNERS": "ТЕХНОЛОГИЧЕСКИЕ ПЛАТФОРМЫ И ПАРТНЁРЫ",
   "The platforms behind your digital experience.": "Платформы, которые обеспечивают вашу цифровую среду.",
@@ -214,7 +212,5 @@ export const translations = {
   "Restaurant ordering & management": "Заказы и управление рестораном",
   "UpMenu provides restaurant tools for digital menus, online ordering and order management. Available features depend on the restaurant's plan and selected modules.": "UpMenu предоставляет ресторанные инструменты для цифрового меню, онлайн-заказов и управления заказами. Доступные функции зависят от тарифа ресторана и выбранных модулей.",
   "Explore UpMenu": "Подробнее об UpMenu",
-  "PARTNER DISCLOSURE": "ИНФОРМАЦИЯ О ПАРТНЁРСТВЕ",
-  "DRASARD participates in the UpMenu Affiliate Program and may receive a commission for eligible referrals. UpMenu subscriptions, optional modules and payment-processing fees are separate charges set by the relevant providers.": "DRASARD участвует в партнёрской программе UpMenu Affiliate и может получать комиссию за соответствующие рекомендации. Подписка UpMenu, дополнительные модули и комиссии за обработку платежей оплачиваются отдельно по тарифам соответствующих поставщиков.",,
   "Affiliate relationship: DRASARD may receive a commission on eligible referrals.": "Партнёрская информация: DRASARD может получать комиссию за соответствующие рекомендации.",
 };
