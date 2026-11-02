@@ -168,4 +168,12 @@ export const translations = {
   "Sample order · demo only": "Пример заказа · только демонстрация",
   "Cart & checkout": "Корзина и оформление заказа",
   "Online payment setup (provider-dependent)": "Настройка онлайн-оплаты (зависит от провайдера)",
+  "01: LANDING PAGE": "01: ЛЕНДИНГ",
+  "02: E-COMMERCE WEBSITE": "02: САЙТ С ЭЛЕКТРОННОЙ КОММЕРЦИЕЙ",
+  "Landing Page": "Лендинг",
+  "E-commerce Website": "Сайт электронной коммерции",
+  "One-time setup + partner monthly subscription": "Разовая настройка + ежемесячная подписка партнёра",
+  "LANDING PAGE": "ЛЕНДИНГ",
+  "E-COMMERCE WEBSITE": "САЙТ С ЭЛЕКТРОННОЙ КОММЕРЦИЕЙ",
+  "€790 one-time": "€790 единоразово",
 };
