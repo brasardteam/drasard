@@ -116,7 +116,7 @@ export const translations = {
   "A welcoming online presence for a Turkish restaurant in Riga.": "Приветливая цифровая площадка для турецкого ресторана в Риге.",
   "EXPLORE": "РАЗДЕЛЫ", "CONTACT": "КОНТАКТЫ", "Riga, Latvia": "Рига, Латвия",
   "© 2025 DRASARD STUDIO": "© 2025 СТУДИЯ DRASARD", "Privacy": "Конфиденциальность",
-  "aurelia-riga.lv": "aurelia-riga.lv"
+  "aurelia-riga.lv": "aurelia-riga.lv",
   "Explore Commerce": "Подробнее о Commerce",
   "Turn your website into an ordering channel.": "Превратите сайт в канал приёма заказов.",
   "Give customers a clear path from browsing your menu to placing an order. DRASARD designs your website and helps configure a separate restaurant ordering platform around your workflow.": "Дайте клиентам простой путь от просмотра меню до оформления заказа. DRASARD создаёт сайт и помогает настроить отдельную платформу ресторанных заказов под ваши рабочие процессы.",
