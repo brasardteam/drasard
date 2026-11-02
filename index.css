@@ -874,3 +874,24 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   .legal-content > p { font-size: 13px; }
   .legal-bottom { flex-wrap: wrap; font-size: 9px; }
 }
+
+
+/* Five-step process layout */
+.process-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+}
+.process-grid article { padding-right: 18px; }
+.process-grid article > span { margin-bottom: 42px; }
+.process-grid h3 { font-size: clamp(21px, 2vw, 27px); }
+.process-grid p { max-width: 210px; font-size: 12px; line-height: 1.65; }
+@media (max-width: 1100px) {
+  .process-grid { grid-template-columns: repeat(3, minmax(0,1fr)); row-gap: 48px; }
+}
+@media (max-width: 900px) {
+  .process-grid { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 42px; }
+}
+@media (max-width: 700px) {
+  .process-grid { grid-template-columns: 1fr; row-gap: 0; }
+  .process-grid article { padding-right: 0; }
+}
