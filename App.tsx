@@ -787,7 +787,7 @@ export default function App() {
     const apply = () => applyPageLanguage(root, lang);
     apply();
     const observer = new MutationObserver(() => apply());
-    observer.observe(root, { childList: true, subtree: true });
+    observer.observe(root, { childList: true, subtree: true, characterData: true });
     return () => observer.disconnect();
   }, [lang]);
   return (
