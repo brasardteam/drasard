@@ -1,14 +1,116 @@
 {
   "rewrites": [
-    { "source": "/nova", "destination": "/nova.html" },
-    { "source": "/nova/", "destination": "/nova.html" },
-    { "source": "/examples/nova-cafe", "destination": "/nova.html" },
-    { "source": "/examples/nova-cafe/", "destination": "/nova.html" },
-    { "source": "/examples/aurelia", "destination": "/examples/aurelia/index.html" },
-    { "source": "/examples/aurelia/", "destination": "/examples/aurelia/index.html" },
-    { "source": "/examples/north-table", "destination": "/examples/north-table/index.html" },
-    { "source": "/examples/north-table/", "destination": "/examples/north-table/index.html" },
-    { "source": "/examples/ember", "destination": "/examples/ember/index.html" },
-    { "source": "/examples/ember/", "destination": "/examples/ember/index.html" }
+    {
+      "source": "/nova",
+      "destination": "/nova.html"
+    },
+    {
+      "source": "/nova/",
+      "destination": "/nova.html"
+    },
+    {
+      "source": "/examples/nova-cafe",
+      "destination": "/nova.html"
+    },
+    {
+      "source": "/examples/nova-cafe/",
+      "destination": "/nova.html"
+    },
+    {
+      "source": "/examples/aurelia",
+      "destination": "/examples/aurelia/index.html"
+    },
+    {
+      "source": "/examples/aurelia/",
+      "destination": "/examples/aurelia/index.html"
+    },
+    {
+      "source": "/examples/north-table",
+      "destination": "/examples/north-table/index.html"
+    },
+    {
+      "source": "/examples/north-table/",
+      "destination": "/examples/north-table/index.html"
+    },
+    {
+      "source": "/examples/ember",
+      "destination": "/examples/ember/index.html"
+    },
+    {
+      "source": "/examples/ember/",
+      "destination": "/examples/ember/index.html"
+    },
+    {
+      "source": "/lv",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lv/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ru",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ru/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/en",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/en/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/terms/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lv/privacy",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lv/privacy/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lv/terms",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lv/terms/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ru/privacy",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ru/privacy/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ru/terms",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/ru/terms/",
+      "destination": "/index.html"
+    }
   ]
 }
