@@ -1233,10 +1233,18 @@ lv:{
 }};
 
 let LANG = 'en', langSaved = false;
-try{
-  const saved = localStorage.getItem('aurelia-lang');
-  if(['en','ru','lv'].includes(saved)){ LANG = saved; langSaved = true; }
-}catch(e){}
+const requestedLang = new URLSearchParams(window.location.search).get('lang');
+if(['en','ru','lv'].includes(requestedLang)){
+  LANG = requestedLang;
+  langSaved = true;
+  try{ localStorage.setItem('aurelia-lang', LANG); }catch(e){}
+}
+if(!langSaved){
+  try{
+    const saved = localStorage.getItem('aurelia-lang');
+    if(['en','ru','lv'].includes(saved)){ LANG = saved; langSaved = true; }
+  }catch(e){}
+}
 if(!langSaved){
   const nl = (navigator.language||'en').toLowerCase();
   LANG = nl.startsWith('ru') ? 'ru' : nl.startsWith('lv') ? 'lv' : 'en';
