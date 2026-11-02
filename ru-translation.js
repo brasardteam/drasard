@@ -303,4 +303,11 @@ export const translations = {
   "7. Contact": "7. Связь",
   "For questions about these terms or DRASARD services, contact": "По вопросам об этих условиях или услугах DRASARD обращайтесь:",
   "Back to DRASARD": "Вернуться к DRASARD",
+  "Explore E-commerce": "Подробнее об электронной коммерции",
+  "E-COMMERCE FOR RESTAURANTS": "ЭЛЕКТРОННАЯ КОММЕРЦИЯ ДЛЯ РЕСТОРАНОВ",
+  "Restaurant · E-commerce": "Ресторан · Электронная коммерция",
+  "Café · Landing Page": "Кафе · Лендинг",
+  "Kitchen · E-commerce": "Кухня · Электронная коммерция",
+  "Turkish Restaurant · Landing Page": "Турецкий ресторан · Лендинг",
+  "DRASARD · RIGA, LATVIA": "DRASARD · РИГА, ЛАТВИЯ",
 };
