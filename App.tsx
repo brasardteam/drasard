@@ -328,8 +328,9 @@ function PricingCard({ commerce = false }: { commerce?: boolean }) {
     <article className={`price-card ${commerce ? "price-card-featured" : ""}`}>
       {commerce && <div className="recommended">FULL BUSINESS EXPERIENCE</div>}
       <div className="price-top">
-        <Eyebrow light={!commerce}>{commerce ? "02: COMMERCE" : "01: SHOWCASE"}</Eyebrow>
-        <div className="price"><div className="price-main"><del>{commerce ? "€1,290" : "€490"}</del><span>{commerce ? "€990" : "€390"}</span><b className="discount-badge">{commerce ? "23% OFF" : "20% OFF"}</b></div><small>{"One-time payment"}</small></div>
+        <Eyebrow light={!commerce}>{commerce ? "02: E-COMMERCE WEBSITE" : "01: LANDING PAGE"}</Eyebrow>
+        <h3 className="package-name">{commerce ? "E-commerce Website" : "Landing Page"}</h3>
+        <div className="price"><div className="price-main"><del>{commerce ? "€1,025" : "€490"}</del><span>{commerce ? "€790" : "€390"}</span><b className="discount-badge">{commerce ? "23% OFF" : "20% OFF"}</b></div><small>{commerce ? "One-time setup + partner monthly subscription" : "One-time payment"}</small></div>
         <p>{commerce ? "A restaurant website with online ordering, checkout and a restaurant operations platform configured around your workflow. The platform subscription and payment processing are billed separately." : "A polished website that presents your business, menu or services, and makes it easy for customers to get in touch."}</p>
       </div>
       <div className="feature-list">
@@ -506,7 +507,7 @@ function CommerceOverview() {
           ))}
         </div>
         <div className="commerce-costs">
-          <article><span>DRASARD WEBSITE DEVELOPMENT</span><strong>€990 one-time</strong><p>Website design, development and the agreed setup.</p></article>
+          <article><span>DRASARD WEBSITE DEVELOPMENT</span><strong>€790 one-time</strong><p>Website design, development and the agreed setup.</p></article>
           <article><span>ORDERING PLATFORM SUBSCRIPTION</span><strong>Paid separately</strong><p>The restaurant subscribes directly to the ordering platform. Its plan and optional modules determine the monthly price.</p></article>
           <article><span>PAYMENT PROCESSING</span><strong>Provider-dependent</strong><p>Payment methods and processing fees are set by the selected provider. We confirm Latvian availability before launch.</p></article>
         </div>
@@ -558,7 +559,7 @@ function Comparison() {
           <Button href="#contact">Enquire</Button>
         </div>
         <div className="compare-table">
-          <div className="table-row table-head"><span>FEATURE</span><b>SHOWCASE<br /><em>€390</em></b><b>COMMERCE<br /><em>€990</em></b></div>
+          <div className="table-row table-head"><span>FEATURE</span><b>LANDING PAGE<br /><em>€390</em></b><b>E-COMMERCE WEBSITE<br /><em>€790</em></b></div>
           {comparison.map(([name, showcase, commerce]) => <div className="table-row" key={String(name)}><span>{name}</span><b>{showcase ? <Icon name="check" /> : "Not included"}</b><b>{commerce ? <Icon name="check" /> : "Not included"}</b></div>)}
         </div>
       </div>
