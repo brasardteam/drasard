@@ -411,4 +411,11 @@ export const translations = {
   "7. Contact": "7. Saziņa",
   "For questions about these terms or DRASARD services, contact": "Jautājumu gadījumā par šiem noteikumiem vai DRASARD pakalpojumiem sazinieties:",
   "Back to DRASARD": "Atpakaļ uz DRASARD",
+  "Explore E-commerce": "Izpētīt e-komerciju",
+  "E-COMMERCE FOR RESTAURANTS": "E-KOMERCIJA RESTORĀNIEM",
+  "Restaurant · E-commerce": "Restorāns · E-komercija",
+  "Café · Landing Page": "Kafejnīca · Landing Page",
+  "Kitchen · E-commerce": "Virtuve · E-komercija",
+  "Turkish Restaurant · Landing Page": "Turku restorāns · Landing Page",
+  "DRASARD · RIGA, LATVIA": "DRASARD · RĪGA, LATVIJA",
 };
