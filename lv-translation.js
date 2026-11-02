@@ -276,4 +276,12 @@ export const translations = {
   "Sample order · demo only": "Piemēra pasūtījums · tikai demonstrācijai",
   "Cart & checkout": "Grozs un pasūtījuma noformēšana",
   "Online payment setup (provider-dependent)": "Tiešsaistes maksājumu iestatīšana (atkarīga no pakalpojumu sniedzēja)",
+  "01: LANDING PAGE": "01: GALVENĀ LAPA",
+  "02: E-COMMERCE WEBSITE": "02: E-KOMERCIJAS MĀJASLAPA",
+  "Landing Page": "Landing lapa",
+  "E-commerce Website": "E-komercijas mājaslapa",
+  "One-time setup + partner monthly subscription": "Vienreizēja izstrādes maksa + partnera mēneša abonements",
+  "LANDING PAGE": "GALVENĀ LAPA",
+  "E-COMMERCE WEBSITE": "E-KOMERCIJAS MĀJASLAPA",
+  "€790 one-time": "€790 vienreizēji",
 };
