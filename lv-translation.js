@@ -310,7 +310,7 @@ export const translations = {
   "Demo previews only. These are sample websites, not live client systems. Ordering and payment flows are illustrative and must be configured and tested for each restaurant.": "Tie ir demonstrācijas priekšskatījumi, nevis klientu aktīvās sistēmas. Pasūtīšanas un maksājumu plūsmas ir ilustratīvas, un tās jākonfigurē un jāpārbauda katram restorānam.",
   "Partners": "Partneri",
   "Explore Wix Studio": "Iepazīt Wix Studio",
-  "Explore UpMenu": "Iepazīt UpMenu",,
+  "Explore UpMenu": "Iepazīt UpMenu",
   "A studio built around ": "Studija, kuras pamatā ir ",
   "RIGA · LATVIA": "RĪGA · LATVIJA",
   "Modern Baltic dining,": "Mūsdienīga Baltijas virtuve,",
@@ -436,4 +436,7 @@ export const translations = {
   "Add ": "Pievienot ",
   "20% OFF": "20% ATLAIDE",
   "23% OFF": "23% ATLAIDE",
+  "Drasard home": "DRASARD sākums",
+  "RIGA · 56.9496° N": "RĪGA · 56.9496° Z platuma",
+  "Unable to send inquiry": "Neizdevās nosūtīt pieprasījumu",
 };
