@@ -315,7 +315,7 @@ export const translations = {
   "The platforms behind your digital experience.": "Platformas, kas nodrošina jūsu digitālo pieredzi.",
   "DRASARD is a registered Wix Partner and an UpMenu Affiliate Partner. We choose the platform based on what your project needs—not one solution for every business.": "DRASARD ir reģistrēts Wix Partner un UpMenu Affiliate Partner. Mēs izvēlamies platformu atbilstoši jūsu projekta vajadzībām, nevis izmantojam vienu risinājumu visiem uzņēmumiem.",
   "REGISTERED PARTNER": "REĢISTRĒTS PARTNERIS",
-  "AFFILIATE PARTNER": "REKLĀMAS PARTNERIS",
+  "AFFILIATE PARTNER": "PARTNERIS PARTNERPROGRAMMĀ",
   "Website design & development": "Mājaslapu dizains un izstrāde",
   "Wix Studio provides professional tools for designing, building and managing responsive business websites. We use it where it is a good fit for the project.": "Wix Studio nodrošina profesionālus rīkus responsīvu uzņēmumu mājaslapu projektēšanai, izstrādei un pārvaldībai. Mēs to izmantojam projektos, kuros šī platforma ir piemērota.",
   "Explore Wix Studio": "Iepazīt Wix Studio",
