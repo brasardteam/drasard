@@ -517,3 +517,184 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
  .commerce-costs article + article { border-left: 0; border-top: 1px solid #c9c2b4; }
  .demo-not-live { margin-top: -10px; font-size: 9px; }
 }
+
+
+/* Commerce visual refresh: higher contrast, clearer type, warmer surfaces */
+.commerce-overview {
+  color: #f6f2e8;
+  background:
+    radial-gradient(ellipse at 82% 5%, rgba(137, 117, 78, .18), transparent 34%),
+    linear-gradient(135deg, #182821 0%, #21342a 58%, #17251f 100%);
+}
+.commerce-overview .section-heading {
+  max-width: 900px;
+  margin-bottom: 54px;
+}
+.commerce-overview .section-heading .eyebrow {
+  color: #c6b28b;
+  font-size: 11px;
+  letter-spacing: .19em;
+}
+.commerce-overview .section-heading .eyebrow span {
+  background: #b99b68;
+}
+.commerce-overview .section-heading h2 {
+  max-width: 850px;
+  margin-top: 22px;
+  color: #fbf8ef;
+  font-size: clamp(48px, 5.6vw, 76px);
+  line-height: 1.04;
+  letter-spacing: -.045em;
+}
+.commerce-overview .section-heading > p {
+  max-width: 760px;
+  margin-top: 22px;
+  color: #d0d7ce;
+  font-size: 17px;
+  line-height: 1.75;
+}
+.commerce-capabilities {
+  gap: 18px;
+  align-items: stretch;
+}
+.commerce-capability {
+  min-height: 390px;
+  padding: 34px 30px 30px;
+  color: #1b2b23;
+  border: 1px solid rgba(234, 228, 212, .9);
+  border-radius: 6px;
+  background: linear-gradient(155deg, #fbf9f2 0%, #f0ede3 100%);
+  box-shadow: 0 18px 42px rgba(5, 13, 9, .16);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.commerce-capability:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px rgba(5, 13, 9, .23);
+}
+.commerce-capability-number {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  color: #705a37;
+  border: 1px solid #d8c8a7;
+  border-radius: 50%;
+  background: #eee6d6;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.commerce-capability h3 {
+  margin: 25px 0 24px;
+  color: #1d2e25;
+  font-size: clamp(25px, 2.1vw, 32px);
+  line-height: 1.16;
+  letter-spacing: -.035em;
+}
+.commerce-capability ul {
+  gap: 16px;
+}
+.commerce-capability li {
+  gap: 11px;
+  color: #46564b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.commerce-capability li .icon {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  color: #947544;
+  margin-top: 1px;
+}
+.commerce-capability > p {
+  margin-top: 27px;
+  padding-top: 17px;
+  color: #69756a;
+  border-top: 1px solid #d8d4c8;
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+.commerce-costs {
+  margin-top: 22px;
+  gap: 14px;
+  border: 0;
+}
+.commerce-costs article {
+  min-height: 205px;
+  padding: 29px 28px;
+  border: 1px solid rgba(224, 218, 202, .9);
+  border-radius: 6px;
+  background: #e9eee5;
+  box-shadow: 0 12px 28px rgba(5, 13, 9, .12);
+}
+.commerce-costs article:nth-child(2) {
+  background: #eee7d8;
+}
+.commerce-costs article:nth-child(3) {
+  background: #f1ede5;
+}
+.commerce-costs article + article {
+  border-left: 1px solid rgba(224, 218, 202, .9);
+}
+.commerce-costs article > span {
+  color: #76613e;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .15em;
+  line-height: 1.5;
+}
+.commerce-costs article strong {
+  margin: 19px 0 12px;
+  color: #1d2e25;
+  font-size: clamp(25px, 2vw, 31px);
+  line-height: 1.15;
+  letter-spacing: -.03em;
+}
+.commerce-costs article p {
+  max-width: 340px;
+  color: #536056;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.commerce-disclaimer {
+  max-width: 1000px;
+  margin-top: 22px;
+  color: #c6d0c5;
+  font-size: 11px;
+  line-height: 1.7;
+}
+@media (max-width: 900px) {
+  .commerce-capabilities { grid-template-columns: 1fr 1fr; }
+  .commerce-capability { min-height: 360px; }
+  .commerce-costs { grid-template-columns: 1fr; }
+  .commerce-costs article { min-height: 0; }
+  .commerce-costs article + article {
+    border-left: 1px solid rgba(224, 218, 202, .9);
+  }
+}
+@media (max-width: 700px) {
+  .commerce-overview .section-heading { margin-bottom: 36px; }
+  .commerce-overview .section-heading h2 {
+    font-size: clamp(39px, 10vw, 48px);
+    line-height: 1.06;
+  }
+  .commerce-overview .section-heading > p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .commerce-capabilities { grid-template-columns: 1fr; gap: 13px; }
+  .commerce-capability {
+    min-height: 0;
+    padding: 25px 22px;
+  }
+  .commerce-capability h3 { margin: 20px 0 18px; font-size: 27px; }
+  .commerce-capability li { font-size: 14px; }
+  .commerce-capability > p { font-size: 11.5px; }
+  .commerce-costs { margin-top: 14px; gap: 11px; }
+  .commerce-costs article { padding: 24px 22px; }
+  .commerce-costs article strong { font-size: 27px; }
+  .commerce-costs article p { font-size: 13px; }
+  .commerce-disclaimer { font-size: 11px; }
+}
