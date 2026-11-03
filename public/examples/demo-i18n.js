@@ -364,6 +364,11 @@
       const prefix = lang === "LV" ? "JŪSU PASŪTĪJUMS · " : "ВАШ ЗАКАЗ · ";
       return prefix + count;
     }
+    if (trimmed.startsWith("Add to order · ")) {
+      const amount = trimmed.slice("Add to order · ".length);
+      const prefix = lang === "LV" ? "Pievienot pasūtījumam · " : "Добавить в заказ · ";
+      return prefix + amount;
+    }
     if (trimmed.startsWith("YOUR BAG · ")) {
       const count = trimmed.slice("YOUR BAG · ".length);
       const prefix = lang === "LV" ? "JŪSU GROZS · " : "ВАША КОРЗИНА · ";
