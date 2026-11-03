@@ -5,7 +5,6 @@ export const translations = {
   "View Demo": "Посмотреть демо", "Privacy Policy": "Политика конфиденциальности", "Terms": "Условия",
   "Web design in Riga for restaurants, cafés and local businesses.": "Разработка сайтов в Риге для ресторанов, кафе и местного бизнеса.",
   "We build premium, mobile-friendly websites in Riga, Latvia — from polished business showcases and digital menus to online ordering experiences.": "Мы создаём премиальные адаптивные сайты в Риге, Латвия: от презентации бизнеса и цифрового меню до онлайн-заказов.",
-  "Ready to improve your online presence? Let's talk.": "Хотите улучшить своё присутствие в интернете? Давайте обсудим.",
   "Get Started": "Начать",
   "Follow DRASARD": "Подписывайтесь на DRASARD",
   "WEB STUDIO · RIGA, LATVIA": "ВЕБ-СТУДИЯ · РИГА, ЛАТВИЯ",
