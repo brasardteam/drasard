@@ -145,7 +145,7 @@ const en = {
   heroBody:
     "We build premium, mobile-friendly websites in Riga, Latvia — from polished business showcases and digital menus to online ordering experiences.",
   getStarted: "Get Started",
-  explore: "Explore Our Websites",
+  explore: "Explore Our Projects",
 };
 
 const lv = {
@@ -155,7 +155,7 @@ const lv = {
   heroBody:
     "Veidojam augstvērtīgas, mobilajām ierīcēm pielāgotas mājaslapas Rīgā — no uzņēmumu prezentācijām un digitālajām ēdienkartēm līdz tiešsaistes pasūtīšanas risinājumiem.",
   getStarted: "Sākt darbu",
-  explore: "Apskatīt mājaslapas",
+  explore: "Apskatīt mūsu projektus",
 };
 
 function Icon({ name }: { name: "arrow" | "menu" | "close" | "plus" | "check" | "bag" | "mail" }) {
