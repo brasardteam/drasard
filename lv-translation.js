@@ -228,6 +228,7 @@ export const translations = {
   "EXPLORE": "IZPĒTĪT",
   "CONTACT": "KONTAKTI",
   "Riga, Latvia": "Rīga, Latvija",
+  "YOUR RESTAURANT": "JŪSU RESTORĀNS",
   "© 2025 DRASARD STUDIO": "© 2025 DRASARD STUDIJA",
   "Explore Commerce": "Izpētīt Commerce",
   "Turn your website into an ordering channel.": "Pārvērtiet savu mājaslapu par pasūtījumu pieņemšanas kanālu.",
