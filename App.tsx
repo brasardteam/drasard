@@ -144,7 +144,6 @@ const en = {
   hero: "Web design in Riga for restaurants, cafés and local businesses.",
   heroBody:
     "We build premium, mobile-friendly websites in Riga, Latvia — from polished business showcases and digital menus to online ordering experiences.",
-  heroPrompt: "Ready to improve your online presence? Let's talk.",
   getStarted: "Get Started",
   explore: "Explore Our Websites",
 };
@@ -155,7 +154,6 @@ const lv = {
   hero: "Mājaslapu izstrāde Rīgā restorāniem, kafejnīcām un vietējiem uzņēmumiem.",
   heroBody:
     "Veidojam augstvērtīgas, mobilajām ierīcēm pielāgotas mājaslapas Rīgā — no uzņēmumu prezentācijām un digitālajām ēdienkartēm līdz tiešsaistes pasūtīšanas risinājumiem.",
-  heroPrompt: "Vai vēlaties uzlabot savu digitālo klātbūtni? Sazinieties ar mums.",
   getStarted: "Sākt darbu",
   explore: "Apskatīt mājaslapas",
 };
@@ -276,7 +274,6 @@ function Hero({ lang }: { lang: "EN" | "LV" | "RU" }) {
             <Button href="#contact">{t.getStarted}</Button>
             <Button href="#examples" variant="secondary">{t.explore}</Button>
           </div>
-          <div className="hero-proof"><span>01</span><p>{t.heroPrompt}</p></div>
         </div>
         <div className="hero-visual" aria-label="Website presentation mockups">
           <div className="orb" />
