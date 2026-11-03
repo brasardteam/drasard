@@ -17,6 +17,10 @@ export const translations = {
   "All rights reserved.": "Visas tiesības aizsargātas.",
 
   // Hero
+  "Websites for restaurants and cafés.": "Mājaslapas restorāniem un kafejnīcām.",
+  "Showcase your menu, accept online orders and help customers find your business.": "Parādiet savu ēdienkarti, pieņemiet tiešsaistes pasūtījumus un palīdziet klientiem atrast jūsu uzņēmumu.",
+  "Ready to upgrade your website? Let's talk.": "Vai vēlaties uzlabot savu mājaslapu? Sazinieties ar mums.",
+  "Get Started": "Sākt darbu",
   "WEB STUDIO · RIGA, LATVIA": "TĪMEKĻA STUDIJA · RĪGA, LATVIJA",
   "Premium digital experiences for local businesses.": "Augstvērtīga digitālā pieredze vietējiem uzņēmumiem.",
   "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses, from elegant digital showcases to complete online ordering experiences.": "Mēs izstrādājam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem, no eleganta digitālā tēla līdz pilnvērtīgai pasūtīšanas pieredzei tiešsaistē.",
