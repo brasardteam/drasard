@@ -741,6 +741,7 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "
           <span>CONTACT</span>
           <a href="mailto:contact@drasard.agency">contact@drasard.agency</a>
           <p>Riga, Latvia</p>
+          <span className="footer-social-title">Follow DRASARD</span>
           <div className="footer-social" aria-label="Follow DRASARD">
             <a href="https://www.instagram.com/drasard.agency/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" /></svg>
