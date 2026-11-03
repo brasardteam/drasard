@@ -302,54 +302,6 @@ function Audience() {
   return null;
 }
 
-const showcaseFeatures = ["Premium responsive design", "Business information", "Menu / services", "Pricing & gallery", "Location & contact", "Mobile-first experience", "Custom visual design"];
-const commerceFeatures = [
-  "Everything in Showcase",
-  "Online ordering and menu configuration",
-  "Cart and checkout",
-  "Pickup and delivery settings",
-  "Restaurant order dashboard",
-  "Owner app and order notifications",
-  "Setup guidance and launch handover",
-];
-
-function PricingCard({ commerce = false }: { commerce?: boolean }) {
-  const features = commerce ? commerceFeatures : showcaseFeatures;
-  return (
-    <article className={`price-card ${commerce ? "price-card-featured" : ""}`}>
-      {commerce && <div className="recommended">FULL BUSINESS EXPERIENCE</div>}
-      <div className="price-top">
-        <Eyebrow light={!commerce}>{commerce ? "02: E-COMMERCE WEBSITE" : "01: LANDING PAGE"}</Eyebrow>
-        <h3 className="package-name">{commerce ? "E-commerce Website" : "Landing Page"}</h3>
-        <div className="price"><div className="price-main"><del>{commerce ? "€1,025" : "€490"}</del><span>{commerce ? "€790" : "€390"}</span><b className="discount-badge">{commerce ? "23% OFF" : "20% OFF"}</b></div><small>{commerce ? "One-time setup + partner monthly subscription" : "One-time payment"}</small></div>
-        <p>{commerce ? "A restaurant website with online ordering, checkout and a restaurant operations platform configured around your workflow. The platform subscription and payment processing are billed separately." : "A polished website that presents your business, menu or services, and makes it easy for customers to get in touch."}</p>
-      </div>
-      <div className="feature-list">
-        {features.map((feature) => <div key={feature}><span><Icon name="check" /></span>{feature}</div>)}
-      </div>
-      <Button variant={commerce ? "primary" : "secondary"} href={commerce ? "#commerce" : "#examples"}>{commerce ? "Explore Commerce" : "See examples"}</Button>
-      <small className="price-note">{commerce ? "Platform subscription, payment processing and optional modules are separate costs. Payment availability depends on provider support." : "Customization available depending on requirements."}</small>
-    </article>
-  );
-}
-
-function Packages() {
-  return (
-    <section className="section-pad packages" id="pricing">
-      <div className="container">
-        <SectionTitle eyebrow="WEBSITE PACKAGES" title="Choose the website that fits your business." body="Compare the two starting points below, then explore the examples to see how each type of website can work in practice." light />
-        <div className="pricing-grid"><PricingCard /><PricingCard commerce /></div>
-        <div className="journey">
-          <div className="journey-title"><Eyebrow>SEE THE DIFFERENCE</Eyebrow><h3>One beautiful foundation.<br />Two levels of possibility.</h3></div>
-          <div className="journey-paths">
-            <div><strong>SHOWCASE</strong><p><span>Browse</span><i>→</i><span>Discover</span><i>→</i><span>Contact</span></p></div>
-            <div className="commerce-path"><strong>COMMERCE</strong><p><span>Browse</span><i>→</i><span>Order</span><i>→</i><span>Pay</span><i>→</i><span>Manage</span></p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function DemoMenu({ onAdd, commerce }: { onAdd: (item: MenuItem) => void; commerce: boolean }) {
   const [category, setCategory] = useState(0);
@@ -543,7 +495,7 @@ const comparison = [
 
 function Comparison() {
   return (
-    <section className="section-pad comparison">
+    <section className="section-pad comparison" id="pricing">
       <div className="container comparison-grid">
         <div>
           <SectionTitle eyebrow="SIMPLE STARTING POINTS" title="Built around your business." body="Final pricing depends on customization, content, integrations and required functionality." light />
@@ -833,7 +785,6 @@ export default function App({ initialLang = "EN" }: { initialLang?: "EN" | "LV" 
       <main>
         <Hero lang={lang} />
         <Audience />
-        <Packages />
         <CommerceOverview />
         <Portfolio lang={lang} />
         <RestaurantDemo />
