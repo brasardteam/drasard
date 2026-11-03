@@ -281,6 +281,34 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; letter-spacing: 
 .demo-caption span { color: #846e44; letter-spacing: .08em; }
 
 .portfolio { background: var(--ivory); color: var(--ink); }
+.portfolio-page {
+  min-height: calc(100vh - 170px);
+  padding-top: clamp(88px, 10vw, 140px);
+  padding-bottom: clamp(90px, 11vw, 150px);
+}
+.portfolio-page .section-heading { max-width: 760px; margin-bottom: 55px; }
+.portfolio-page .portfolio-grid { gap: 78px 24px; }
+.portfolio-outro {
+  padding: 58px max(4vw, calc((100vw - 1200px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  border-top: 1px solid rgba(30,32,27,.12);
+  background: #e9e0d1;
+}
+.portfolio-outro .eyebrow { color: #85704d; }
+.portfolio-outro h2 {
+  margin: 13px 0 0;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+.portfolio-outro .button { flex: 0 0 auto; }
+.nav-links > a.active { color: var(--gold-light); }
 .portfolio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 65px 20px; }
 .project-image { height: 440px; position: relative; overflow: hidden; border-radius: 5px; background: #20211e; }
 .project-image > img { height: 100%; object-fit: cover; transition: transform .7s; }
@@ -449,7 +477,11 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   .checkout-content { padding: 25px 20px; }
   .payment-card { height: 180px; padding: 25px; }
   .demo-caption { flex-direction: column; gap: 5px; }
-  .portfolio-grid { display: flex; overflow-x: auto; margin-right: -16px; padding-right: 16px; gap: 14px; scroll-snap-type: x mandatory; }
+  .portfolio-page { padding-top: 76px; padding-bottom: 80px; }
+  .portfolio-page .section-heading { margin-bottom: 34px; }
+  .portfolio-page .portfolio-grid { display: flex; overflow-x: auto; margin-right: -16px; padding-right: 16px; gap: 14px; scroll-snap-type: x mandatory; }
+  .portfolio-outro { padding: 38px 22px 48px; align-items: flex-start; flex-direction: column; gap: 22px; }
+  .portfolio-outro .button { width: 100%; }
   .project-card { min-width: 84vw; margin-top: 0; scroll-snap-align: start; }
   .project-image { height: 390px; }
   .project-info { align-items: flex-start; flex-direction: column; }
