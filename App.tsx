@@ -224,10 +224,10 @@ function BrowserMockup({ className = "", image = images.restaurant }: { classNam
     <div className={`browser ${className}`}>
       <div className="browser-bar">
         <div className="browser-dots"><i /><i /><i /></div>
-        <span>aurelia-riga.lv</span>
+        <span>yourrestaurant.lv</span>
       </div>
       <div className="browser-screen" style={{ backgroundImage: `url(${image})` }}>
-        <div className="aurelia-nav"><b>AURELIA</b><span>MENU &nbsp;&nbsp; STORY &nbsp;&nbsp; VISIT</span></div>
+        <div className="aurelia-nav"><b>YOUR RESTAURANT</b><span>MENU &nbsp;&nbsp; STORY &nbsp;&nbsp; VISIT</span></div>
         <div className="aurelia-copy"><small>RIGA · LATVIA</small><strong>Modern Baltic dining,<br />thoughtfully composed.</strong><em>Reserve a table</em></div>
       </div>
     </div>
