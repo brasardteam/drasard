@@ -136,8 +136,39 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; letter-spacing: 
 .float-card b { display: block; margin: 7px 0; font-family: var(--display); font-size: 30px; font-weight: 400; }
 .float-card small { color: #8fa481; font-size: 8px; }
 .coordinate { position: absolute; right: 7%; top: 24px; color: #6c6e66; font-size: 8px; line-height: 1.8; letter-spacing: .12em; text-align: right; }
-.hero-ticker { height: 68px; padding: 0 5vw; display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--line); color: #777970; font-size: clamp(11px, .85vw, 14px); font-weight: 500; letter-spacing: .2em; }
-.hero-ticker i { color: var(--gold); font-size: 5px; }
+.hero-ticker {
+  min-height: 78px;
+  height: auto;
+  padding: 18px 5vw;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
+  gap: 18px;
+  border-top: 1px solid rgba(221,201,152,.24);
+  border-bottom: 1px solid rgba(221,201,152,.12);
+  background: linear-gradient(90deg, rgba(221,201,152,.045), rgba(221,201,152,.015) 50%, rgba(221,201,152,.045));
+}
+.hero-ticker > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #d2cec2;
+  font-size: clamp(12px, .95vw, 15px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: .16em;
+  white-space: nowrap;
+  text-shadow: 0 1px 12px rgba(255,255,255,.07);
+}
+.hero-ticker > span::before {
+  content: "";
+  width: 17px;
+  height: 1px;
+  flex: 0 0 17px;
+  background: var(--gold-light);
+  opacity: .9;
+}
 @keyframes float { 50% { transform: rotateY(-8deg) rotateZ(-.5deg) translateY(-12px); } }
 @keyframes floatPhone { 50% { transform: rotateY(-13deg) rotateZ(1deg) translateY(-13px); } }
 
@@ -375,7 +406,21 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   .float-card { width: 125px; left: -7px; bottom: 24px; padding: 12px; }
   .float-card b { font-size: 22px; }
   .coordinate { display: none; }
-  .hero-ticker { padding: 0 20px; gap: 20px; overflow: hidden; justify-content: flex-start; white-space: nowrap; }
+  .hero-ticker {
+    min-height: 0;
+    padding: 19px 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 14px;
+    row-gap: 16px;
+  }
+  .hero-ticker > span {
+    justify-content: flex-start;
+    gap: 8px;
+    font-size: clamp(10px, 2.8vw, 12px);
+    letter-spacing: .11em;
+    white-space: normal;
+  }
+  .hero-ticker > span::before { width: 11px; flex-basis: 11px; }
   .audience-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin-right: -16px; padding-right: 16px; }
   .image-card { min-width: 85vw; min-height: 500px; scroll-snap-align: start; }
   .demo-heading { display: block; }
