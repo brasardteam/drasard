@@ -605,7 +605,7 @@ function CustomerExperience({ lang }: { lang: "EN" | "LV" | "RU" }) {
                 </div>
                 <div className="experience-price">
                   <div><strong>{offer.price}</strong><span>{offer.payment}</span></div>
-                  <a href={offer.href} target="_blank" rel="noreferrer" className="experience-demo-link">
+                  <a href={offer.href.includes("order-online.html") ? offer.href + "?lang=" + lang.toLowerCase() : offer.href} target="_blank" rel="noreferrer" className="experience-demo-link">
                     {offer.action}<Icon name="arrow" />
                   </a>
                 </div>
