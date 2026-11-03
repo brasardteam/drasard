@@ -143,6 +143,9 @@ export const translations = {
   // Portfolio
   "SELECTED CONCEPTS": "IZVĒLĒTIE KONCEPTI",
   "Designed for real businesses.": "Izstrādāts reāliem uzņēmumiem.",
+  "HAVE A PROJECT IN MIND?": "VAI JUMS IR PROJEKTA IECERE?",
+  "Let's build something distinct.": "Izveidosim ko īpašu.",
+  "Discuss your project": "Pārrunāsim jūsu projektu",
   "Every experience is shaped around a distinct business, audience and ambition.": "Katra pieredze veidota konkrētam uzņēmumam, auditorijai un ambīcijām.",
   "Restaurant · E-commerce": "Restorāns · E-komercija",
   "Café · Showcase": "Kafejnīca · Prezentācija",
