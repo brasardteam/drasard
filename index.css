@@ -1018,3 +1018,95 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   .experience-cost-note { grid-template-columns: 1fr; gap: 8px; padding: 16px; }
   .experience-disclaimer { font-size: 9px; }
 }
+
+/* Mobile-first refinement for the How It Works section */
+@media (min-width: 701px) and (max-width: 1050px) {
+  .process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+    row-gap: 34px;
+  }
+  .process-grid article {
+    min-width: 0;
+    padding: 0 12px 22px 0;
+  }
+  .process-grid article > span {
+    margin-bottom: 35px;
+  }
+  .process-grid h3 {
+    font-size: 25px;
+  }
+  .process-grid p {
+    max-width: 34ch;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 700px) {
+  .process.section-pad {
+    padding: 64px 0 58px;
+  }
+  .process .section-heading {
+    margin-bottom: 28px;
+  }
+  .process .section-heading h2 {
+    max-width: 12ch;
+    margin-top: 14px;
+    font-size: clamp(32px, 8.8vw, 39px);
+    line-height: 1.08;
+    letter-spacing: -.035em;
+  }
+  .process .section-heading .eyebrow {
+    font-size: 9px;
+    letter-spacing: .16em;
+  }
+  .process-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .process-grid article {
+    min-width: 0;
+    padding: 17px 16px 18px;
+    border: 1px solid rgba(221, 207, 177, .22);
+    background: rgba(248, 244, 232, .035);
+  }
+  .process-grid article::after {
+    display: none;
+  }
+  .process-grid article > span {
+    margin: 0 0 12px;
+    color: #DCC69A;
+    font-size: 10px;
+    letter-spacing: .15em;
+  }
+  .process-mark {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 35px;
+    height: 35px;
+    margin: 0 0 13px;
+  }
+  .process-mark::before {
+    height: 17px;
+    top: 8px;
+  }
+  .process-mark::after {
+    width: 17px;
+    left: 8px;
+  }
+  .process-grid h3 {
+    margin: 0;
+    font-size: 23px;
+    line-height: 1.16;
+    letter-spacing: -.02em;
+  }
+  .process-grid p {
+    max-width: 42ch;
+    margin: 8px 0 0;
+    color: #D0D8CF;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+}
+
