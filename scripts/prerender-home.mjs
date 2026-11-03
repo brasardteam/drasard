@@ -53,11 +53,15 @@ try {
   const { default: App } = await server.ssrLoadModule("/App.tsx");
   const { translations: lvTranslations } = await server.ssrLoadModule("/lv-translation.js");
   const { translations: ruTranslations } = await server.ssrLoadModule("/ru-translation.js");
-  const englishMarkup = renderToString(createElement(App, { initialLang: "EN" }));
+  const englishMarkup = renderToString(createElement(App, { initialLang: "EN", initialPage: "home" }));
+  const englishExamplesMarkup = renderToString(createElement(App, { initialLang: "EN", initialPage: "examples" }));
   const variants = [
     { path: "dist/index.html", markup: englishMarkup, language: "EN" },
     { path: "dist/lv/index.html", markup: translateMarkup(englishMarkup, lvTranslations), language: "LV" },
     { path: "dist/ru/index.html", markup: translateMarkup(englishMarkup, ruTranslations), language: "RU" },
+    { path: "dist/examples/index.html", markup: englishExamplesMarkup, language: "EN examples" },
+    { path: "dist/lv/examples/index.html", markup: translateMarkup(englishExamplesMarkup, lvTranslations), language: "LV examples" },
+    { path: "dist/ru/examples/index.html", markup: translateMarkup(englishExamplesMarkup, ruTranslations), language: "RU examples" },
   ];
 
   for (const variant of variants) {
