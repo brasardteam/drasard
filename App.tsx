@@ -404,13 +404,13 @@ function RestaurantDemo() {
         <div className="demo-heading">
           <SectionTitle eyebrow="INTERACTIVE DEMO" title="Don't just imagine it. Experience it." body="Explore a real restaurant website in two different ways." />
           <div className="demo-toggle">
-            <button className={mode === "showcase" ? "active" : ""} onClick={() => switchMode("showcase")}>SHOWCASE</button>
+            <button className={mode === "showcase" ? "active" : ""} onClick={() => switchMode("showcase")}>LANDING PAGE</button>
             <button className={`ecommerce-tab ${mode === "commerce" ? "active" : ""}`} onClick={() => switchMode("commerce")}>E-COMMERCE</button>
           </div>
         </div>
         <p className="demo-not-live">Interactive demo · illustrative only. This prototype is not connected to a live restaurant system and does not process real payments or orders.</p>
         <div className={`restaurant-demo ${mode}`}>
-          <div className="demo-browser-bar"><div><i /><i /><i /></div><span>Interactive Demo · aurelia-riga.lv</span><em>{mode === "commerce" ? "E-COMMERCE" : "SHOWCASE"}</em></div>
+          <div className="demo-browser-bar"><div><i /><i /><i /></div><span>Interactive Demo · aurelia-riga.lv</span><em>{mode === "commerce" ? "E-COMMERCE" : "LANDING PAGE"}</em></div>
           <div className="restaurant-hero">
             <img src={images.restaurant} alt="Aurelia restaurant interior" />
             <div className="restaurant-nav"><b>AURELIA</b><span>MENU &nbsp;&nbsp; STORY &nbsp;&nbsp; VISIT</span>{mode === "commerce" && <button><Icon name="bag" /> {cart.length}</button>}</div>
