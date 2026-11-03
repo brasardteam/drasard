@@ -733,10 +733,8 @@ function Footer({ lang, setLang, isExamplesPage = false }: { lang: "EN" | "LV" |
 export default function App({ initialLang = "EN", initialPage }: { initialLang?: "EN" | "LV" | "RU"; initialPage?: "home" | "examples" } = {}) {
   const [lang, setLang] = useState<"EN" | "LV" | "RU">(initialLang);
   const currentPath = typeof window !== "undefined" ? window.location.pathname : "/";
-  const isExamplesPage = initialPage === "examples" || (initialPage !== "home" && /(?:^|\\/)examples(?:\\/|$)/.test(currentPath));
+  const isExamplesPage = initialPage === "examples" || (initialPage !== "home" && currentPath.includes("/examples"));
   const homePath = lang === "EN" ? "/" : `/${lang.toLowerCase()}/`;
-  const examplesPath = lang === "EN" ? "/examples/" : `/${lang.toLowerCase()}/examples/`;
-
   const changeLanguage = (nextLang: "EN" | "LV" | "RU") => {
     const nextBase = nextLang === "EN" ? "" : `/${nextLang.toLowerCase()}`;
     const nextPath = isExamplesPage ? `${nextBase}/examples/` : nextLang === "EN" ? "/" : `/${nextLang.toLowerCase()}/`;
