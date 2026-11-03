@@ -1391,3 +1391,13 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   }
 }
 
+/* Keep the customer-experience browser controls inside their preview bar */
+.experience-browser-bar {
+  position: relative;
+}
+.experience-browser-bar .browser-dots {
+  position: static;
+  left: auto;
+  align-self: center;
+}
+
