@@ -771,9 +771,10 @@ export default function App({ initialLang = "EN" }: { initialLang?: "EN" | "LV" 
   const changeLanguage = (nextLang: "EN" | "LV" | "RU") => {
     const nextPath = nextLang === "EN" ? "/" : `/${nextLang.toLowerCase()}/`;
     if (typeof window !== "undefined" && window.location.pathname !== nextPath) {
-      window.history.pushState({ language: nextLang }, "", nextPath);
+      try { localStorage.setItem("drasard-language", nextLang); } catch {}
+      window.location.assign(nextPath);
+      return;
     }
-    try { localStorage.setItem("drasard-language", nextLang); } catch {}
     setLang(nextLang);
   };
 
