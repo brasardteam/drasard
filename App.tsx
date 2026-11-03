@@ -766,13 +766,15 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "
 }
 
 export default function App() {
-  const [lang, setLang] = useState<"EN" | "LV" | "RU">(() => {
+  const [lang, setLang] = useState<"EN" | "LV" | "RU">("EN");
+
+  useEffect(() => {
     try {
       const saved = localStorage.getItem("drasard-language");
-      if (saved === "LV" || saved === "RU" || saved === "EN") return saved;
+      if (saved === "LV" || saved === "RU" || saved === "EN") setLang(saved);
     } catch {}
-    return "EN";
-  });
+  }, []);
+
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang.toLowerCase());
     try { localStorage.setItem("drasard-language", lang); } catch {}
