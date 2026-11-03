@@ -737,7 +737,26 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "
       <div className="container footer-main">
         <div><Logo /><p>Premium digital experiences<br />for local businesses.</p></div>
         <div className="footer-links"><span>EXPLORE</span>{["Home", ...navItems, "Contact"].map((item) => <a key={item} href={`#${item === "Home" ? "home" : item === "How It Works" ? "process" : item.toLowerCase()}`}>{item}</a>)}</div>
-        <div className="footer-contact"><span>CONTACT</span><a href="mailto:contact@drasard.agency">contact@drasard.agency</a><p>Riga, Latvia</p><div className="language"><button className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button><span>/</span><button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button><span>/</span><button className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button></div></div>
+        <div className="footer-contact">
+          <span>CONTACT</span>
+          <a href="mailto:contact@drasard.agency">contact@drasard.agency</a>
+          <p>Riga, Latvia</p>
+          <div className="footer-social" aria-label="Follow DRASARD">
+            <a href="https://www.instagram.com/drasard.agency/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" /></svg>
+              <span>Instagram</span>
+            </a>
+            <a href="https://www.facebook.com/drasard.agency/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.6.4-1 1-1Z" fill="currentColor" stroke="none" /></svg>
+              <span>Facebook</span>
+            </a>
+            <a href="https://x.com/drasardagency" target="_blank" rel="noopener noreferrer" aria-label="X" title="X">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-7.3L5.6 22H2.5l7.3-8.4L2 2h6.4l4.4 6.7L18.9 2Zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20Z" fill="currentColor" stroke="none" /></svg>
+              <span>X</span>
+            </a>
+          </div>
+          <div className="language"><button className={lang === "EN" ? "active" : ""} onClick={() => setLang("EN")}>EN</button><span>/</span><button className={lang === "LV" ? "active" : ""} onClick={() => setLang("LV")}>LV</button><span>/</span><button className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button></div>
+        </div>
       </div>
       <div className="container footer-word">DRASARD</div>
       <div className="container footer-bottom"><span>© 2025 DRASARD STUDIO</span><div><a href="#home">Privacy Policy</a><a href="#home">Terms</a></div><span>RIGA · 56.9496° N</span></div>
