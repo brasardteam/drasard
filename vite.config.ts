@@ -9,6 +9,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
+        homeLv: path.resolve(__dirname, "lv/index.html"),
+        homeRu: path.resolve(__dirname, "ru/index.html"),
         nova: path.resolve(__dirname, "nova.html"),
         aurelia: path.resolve(__dirname, "examples/aurelia/index.html"),
         aureliaMenu: path.resolve(__dirname, "examples/aurelia/menu.html"),
