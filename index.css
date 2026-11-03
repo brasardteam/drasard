@@ -1110,3 +1110,69 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   }
 }
 
+/* Contact form readability: larger labels, inputs and CTA */
+.contact-form label {
+  gap: 10px;
+  color: #4f4e46;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  color: #25261f;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  border-bottom-color: #aaa99f;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #77766e;
+  opacity: 1;
+  font-weight: 400;
+}
+.contact-form select {
+  font-weight: 500;
+}
+.contact-form textarea {
+  min-height: 135px;
+}
+.form-submit {
+  min-height: 62px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+.contact-form > small {
+  color: #6f7068;
+  font-size: 11px;
+  line-height: 1.6;
+}
+@media (max-width: 700px) {
+  .contact-form {
+    padding: 27px 19px;
+  }
+  .contact-form label {
+    margin-bottom: 18px;
+    font-size: 14px;
+  }
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    padding: 14px 0;
+    font-size: 18px;
+  }
+  .contact-form textarea {
+    min-height: 125px;
+  }
+  .form-submit {
+    min-height: 58px;
+    font-size: 16px;
+  }
+  .contact-form > small {
+    font-size: 11px;
+  }
+}
+
