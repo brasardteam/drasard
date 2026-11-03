@@ -141,10 +141,10 @@ const navItems = ["Solutions", "Examples", "Pricing", "How It Works"];
 const en = {
   nav: navItems,
   book: "Enquire",
-  hero: "Websites for restaurants and cafés.",
+  hero: "Web design in Riga for restaurants, cafés and local businesses.",
   heroBody:
-    "Showcase your menu, accept online orders and help customers find your business.",
-  heroPrompt: "Ready to upgrade your website? Let's talk.",
+    "We build premium, mobile-friendly websites in Riga, Latvia — from polished business showcases and digital menus to online ordering experiences.",
+  heroPrompt: "Ready to improve your online presence? Let's talk.",
   getStarted: "Get Started",
   explore: "Explore Our Websites",
 };
@@ -152,10 +152,10 @@ const en = {
 const lv = {
   nav: ["Risinājumi", "Piemēri", "Cenas", "Kā tas notiek"],
   book: "Sazināties",
-  hero: "Mājaslapas restorāniem un kafejnīcām.",
+  hero: "Mājaslapu izstrāde Rīgā restorāniem, kafejnīcām un vietējiem uzņēmumiem.",
   heroBody:
-    "Parādiet savu ēdienkarti, pieņemiet tiešsaistes pasūtījumus un palīdziet klientiem atrast jūsu uzņēmumu.",
-  heroPrompt: "Vai vēlaties uzlabot savu mājaslapu? Sazinieties ar mums.",
+    "Veidojam augstvērtīgas, mobilajām ierīcēm pielāgotas mājaslapas Rīgā — no uzņēmumu prezentācijām un digitālajām ēdienkartēm līdz tiešsaistes pasūtīšanas risinājumiem.",
+  heroPrompt: "Vai vēlaties uzlabot savu digitālo klātbūtni? Sazinieties ar mums.",
   getStarted: "Sākt darbu",
   explore: "Apskatīt mājaslapas",
 };
@@ -776,23 +776,30 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang.toLowerCase());
     try { localStorage.setItem("drasard-language", lang); } catch {}
-    document.title = lang === "LV"
-      ? "DRASARD: Augstvērtīga digitālā pieredze"
+    const seo = lang === "LV"
+      ? {
+          title: "Mājaslapu izstrāde Rīgā | DRASARD",
+          description: "Mājaslapu izstrāde Rīgā restorāniem, kafejnīcām un vietējiem uzņēmumiem. DRASARD veido augstvērtīgas, mobilajām ierīcēm pielāgotas mājaslapas.",
+        }
       : lang === "RU"
-        ? "DRASARD: Премиальные цифровые решения"
-        : "Drasard: Premium Digital Experiences";
-    const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    if (description) description.content = lang === "LV"
-      ? "DRASARD veido augstvērtīgas mājaslapas restorāniem, kafejnīcām un vietējiem uzņēmumiem Rīgā, Latvijā."
-      : lang === "RU"
-        ? "DRASARD создаёт премиальные сайты для ресторанов, кафе и местных компаний в Риге, Латвия."
-        : "Drasard creates premium websites and digital experiences for restaurants, cafés, and ambitious local businesses in Riga, Latvia.";
-    const ogDescription = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
-    if (ogDescription) ogDescription.content = lang === "LV"
-      ? "Profesionālas mājaslapas vietējiem uzņēmumiem bez aģentūras cenu zīmes."
-      : lang === "RU"
-        ? "Профессиональные сайты для местного бизнеса без агентских цен."
-        : "Professional websites for local businesses, without the agency price tag.";
+        ? {
+            title: "Создание сайтов в Риге | DRASARD",
+            description: "Разработка сайтов в Риге для ресторанов, кафе и местного бизнеса. DRASARD создаёт премиальные адаптивные сайты и решения для онлайн-заказов.",
+          }
+        : {
+            title: "Web Design in Riga, Latvia | DRASARD",
+            description: "Web design in Riga, Latvia for restaurants, cafés and local businesses. DRASARD builds premium, mobile-friendly websites and online ordering experiences.",
+          };
+    document.title = seo.title;
+    const setMetaContent = (selector: string, content: string) => {
+      const element = document.querySelector<HTMLMetaElement>(selector);
+      if (element) element.content = content;
+    };
+    setMetaContent('meta[name="description"]', seo.description);
+    setMetaContent('meta[property="og:title"]', seo.title);
+    setMetaContent('meta[property="og:description"]', seo.description);
+    setMetaContent('meta[name="twitter:title"]', seo.title);
+    setMetaContent('meta[name="twitter:description"]', seo.description);
     const root = document.querySelector<HTMLElement>(".app");
     if (!root) return;
     const apply = () => applyPageLanguage(root, lang);
