@@ -357,6 +357,8 @@ export const translations = {
   "Build": "Разработка",
   "Launch": "Запуск",
   "Nova Café Landing Page sample": "Пример презентационного сайта Nova Café",
+  "LIVE ORDERING DEMO · AURELIA": "ИНТЕРАКТИВНАЯ ДЕМОНСТРАЦИЯ ЗАКАЗА · AURELIA",
+  "Aurelia interactive e-commerce ordering demo": "Интерактивная демонстрация оформления заказа Aurelia",
   "Aurelia restaurant E-commerce sample": "Пример сайта Aurelia с электронной коммерцией",
   "Let's build something": "Давайте создадим нечто",
   "Tell us about your business and what you want your website to do. We'll help you find the right approach.": "Расскажите о своём бизнесе и о том, что должен делать ваш сайт. Мы поможем выбрать подходящее решение.",
