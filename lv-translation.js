@@ -169,14 +169,15 @@ export const translations = {
 
   // Process
   "HOW IT WORKS": "KĀ TAS NOTIEK",
-  "Clear from first conversation to launch.": "Skaidrs process no pirmās sarunas līdz palaišanai.",
-  "We understand your business, customers and goals.": "Mēs izprotam jūsu uzņēmumu, klientus un mērķus.",
-  "We create the visual direction and website experience.": "Mēs izveidojam vizuālo virzienu un mājaslapas pieredzi.",
-  "We turn the design into a polished, responsive website.": "Mēs pārvēršam dizainu izstrādātā, responsīvā mājaslapā.",
-  "Your website goes live with a stronger digital presence.": "Jūsu mājaslapa tiek palaista ar spēcīgāku digitālo klātbūtni.",
-  "Design": "Dizains",
-  "Build": "Izstrāde",
-  "Launch": "Palaišana",
+  "Your website in four clear steps.": "Jūsu mājaslapa četros vienkāršos soļos.",
+  "Tell us what you need": "Pastāstiet, kas jums nepieciešams",
+  "We learn about your business, customers and the website you need.": "Iepazīstam jūsu uzņēmumu, klientus un to, kāda mājaslapa jums vajadzīga.",
+  "Plan the design": "Izplānojam dizainu",
+  "We agree on the pages, content, style and features before work begins.": "Pirms darba sākšanas vienojamies par lapām, saturu, vizuālo stilu un funkcijām.",
+  "Build your website": "Izstrādājam mājaslapu",
+  "We create the site, add your content and test it on phones and computers.": "Izveidojam mājaslapu, ievietojam jūsu saturu un pārbaudām tās darbību telefonos un datoros.",
+  "Review and launch": "Pārskatām un publicējam",
+  "You review the finished website. After your approval, we connect your domain and publish it.": "Jūs pārskatāt gatavo mājaslapu. Pēc jūsu apstiprinājuma pieslēdzam domēnu un publicējam to.",
 
   // About
   "ABOUT DRASARD · RIGA, LATVIA": "PAR DRASARD · RĪGA, LATVIJA",
