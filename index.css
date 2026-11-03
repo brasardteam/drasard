@@ -806,10 +806,20 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
 }
 .experience-card-heading { padding: 30px 30px 24px; }
 .experience-type {
-  color: #927A51;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .16em;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 36px;
+  padding: 9px 14px;
+  color: #28392E;
+  border: 1px solid #C4A979;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #E7D9BD, #D9C49D);
+  box-shadow: 0 4px 12px rgba(45, 48, 37, .08);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: .13em;
 }
 .experience-card-heading h3 {
   margin: 17px 0 10px;
@@ -920,7 +930,17 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   border-color: #304538;
   background: linear-gradient(160deg,#1E3026,#17241D);
 }
-.experience-ecommerce .experience-type,
+.experience-landing .experience-type {
+  color: #24372B;
+  border-color: #B79A69;
+  background: linear-gradient(135deg, #E8D9BC, #D6C097);
+}
+.experience-ecommerce .experience-type {
+  color: #18251D;
+  border-color: #E4C995;
+  background: linear-gradient(135deg, #E7CF9B, #C9A86E);
+  box-shadow: 0 5px 16px rgba(0,0,0,.18);
+}
 .experience-ecommerce .experience-detail-label { color: #CFB889; }
 .experience-ecommerce .experience-card-heading h3,
 .experience-ecommerce .experience-price strong { color: #F5F0E5; }
