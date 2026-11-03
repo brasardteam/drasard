@@ -469,7 +469,7 @@ const projects = [
   { name: "AURELIA", type: "Restaurant · E-commerce", image: images.restaurant, text: "A complete dining and ordering experience.", href: "/examples/aurelia/" },
   { name: "EMBER", type: "Kitchen · E-commerce", image: images.plate, text: "Open-fire cooking, translated to the screen.", href: "/examples/ember/" },
   { name: "SANGAK", type: "Turkish Restaurant · Showcase", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
-  { name: "NORTH TABLE", type: "Modern Baltic Restaurant · Showcase", image: images.dining, text: "Seasonal Baltic cuisine, expressed through a calm and contemporary digital experience.", href: "/examples/north-table/", domain: "northtable.lv" },
+  { name: "NORTH TABLE", type: "Modern Baltic Restaurant · Showcase", image: "/north-table-interior.webp", text: "Seasonal Baltic cuisine, expressed through a calm and contemporary digital experience.", href: "/examples/north-table/", domain: "northtable.lv" },
 ];
 
 function Portfolio({ lang, standalone = false }: { lang: "EN" | "LV" | "RU"; standalone?: boolean }) {
