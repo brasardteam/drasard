@@ -238,10 +238,10 @@ function Nav({ lang, setLang, isExamplesPage = false }: { lang: "EN" | "LV" | "R
   const [open, setOpen] = useState(false);
   const t = lang === "LV" ? lv : en;
   const homePath = lang === "EN" ? "/" : `/${lang.toLowerCase()}/`;
-  const examplesPath = lang === "EN" ? "/examples/" : `/${lang.toLowerCase()}/examples/`;
+  const examplesAnchor = isExamplesPage ? `${homePath}#examples` : "#examples";
   const links = isExamplesPage
-    ? [`${homePath}#commerce`, examplesPath, `${homePath}#pricing`, `${homePath}#process`]
-    : ["#commerce", examplesPath, "#pricing", "#process"];
+    ? [`${homePath}#commerce`, examplesAnchor, `${homePath}#pricing`, `${homePath}#process`]
+    : ["#commerce", examplesAnchor, "#pricing", "#process"];
   const contactPath = `${homePath}#contact`;
   return (
     <header className="nav-shell">
@@ -829,6 +829,7 @@ export default function App({ initialLang = "EN", initialPage }: { initialLang?:
         <main>
           <Hero lang={lang} />
           <Audience />
+          <Portfolio lang={lang} />
           <CommerceOverview />
           <RestaurantDemo />
           <Comparison />
