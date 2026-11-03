@@ -1321,3 +1321,19 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   }
 }
 
+/* Stronger Enquire label in desktop and mobile navigation */
+.nav-links .button-enquire,
+.nav-links.open .button-enquire {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+@media (max-width: 700px) {
+  .nav-links.open .button-enquire {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: .09em;
+  }
+}
+
