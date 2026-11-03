@@ -430,6 +430,8 @@ export const translations = {
   "Your website becomes an active business channel.": "Jūsu mājaslapa kļūst par aktīvu uzņēmējdarbības kanālu.",
   "E-COMMERCE FOR RESTAURANTS": "E-KOMERCIJA RESTORĀNIEM",
   "Nova Café Landing Page sample": "Nova Café prezentācijas mājaslapas piemērs",
+  "LIVE ORDERING DEMO · AURELIA": "INTERAKTĪVA PASŪTĪJUMU DEMONSTRĀCIJA · AURELIA",
+  "Aurelia interactive e-commerce ordering demo": "Aurelia interaktīvās e-komercijas pasūtīšanas demonstrācija",
   "Aurelia restaurant E-commerce sample": "Aurelia restorāna e-komercijas mājaslapas piemērs",
   "Name": "Vārds",
   "you@business.com": "jusu@uznemums.lv",
