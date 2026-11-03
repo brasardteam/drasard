@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.drasard.agency/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drasard.agency/" />
+    <xhtml:link rel="alternate" hreflang="lv" href="https://www.drasard.agency/lv/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.drasard.agency/ru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drasard.agency/" />
+  </url>
+  <url>
+    <loc>https://www.drasard.agency/lv/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drasard.agency/" />
+    <xhtml:link rel="alternate" hreflang="lv" href="https://www.drasard.agency/lv/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.drasard.agency/ru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drasard.agency/" />
+  </url>
+  <url>
+    <loc>https://www.drasard.agency/ru/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drasard.agency/" />
+    <xhtml:link rel="alternate" hreflang="lv" href="https://www.drasard.agency/lv/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.drasard.agency/ru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drasard.agency/" />
+  </url>
+</urlset>
