@@ -141,18 +141,22 @@ const navItems = ["Solutions", "Examples", "Pricing", "How It Works"];
 const en = {
   nav: navItems,
   book: "Enquire",
-  hero: "Premium digital experiences for local businesses.",
+  hero: "Websites for restaurants and cafés.",
   heroBody:
-    "We design and build sophisticated websites for restaurants, cafés and ambitious local businesses, from elegant digital showcases to complete online ordering experiences.",
+    "Showcase your menu, accept online orders and help customers find your business.",
+  heroPrompt: "Ready to upgrade your website? Let's talk.",
+  getStarted: "Get Started",
   explore: "Explore Our Websites",
 };
 
 const lv = {
   nav: ["Risinājumi", "Piemēri", "Cenas", "Kā tas notiek"],
   book: "Sazināties",
-  hero: "Izcila digitālā pieredze vietējiem uzņēmumiem.",
+  hero: "Mājaslapas restorāniem un kafejnīcām.",
   heroBody:
-    "Mēs veidojam izsmalcinātas mājaslapas restorāniem, kafejnīcām un ambicioziem vietējiem uzņēmumiem, no eleganta tēla līdz pilnvērtīgai pasūtīšanas pieredzei.",
+    "Parādiet savu ēdienkarti, pieņemiet tiešsaistes pasūtījumus un palīdziet klientiem atrast jūsu uzņēmumu.",
+  heroPrompt: "Vai vēlaties uzlabot savu mājaslapu? Sazinieties ar mums.",
+  getStarted: "Sākt darbu",
   explore: "Apskatīt mājaslapas",
 };
 
@@ -269,10 +273,10 @@ function Hero({ lang }: { lang: "EN" | "LV" | "RU" }) {
           <h1>{t.hero}</h1>
           <p>{t.heroBody}</p>
           <div className="hero-actions">
-            <Button href="#contact">{t.book}</Button>
+            <Button href="#contact">{t.getStarted}</Button>
             <Button href="#examples" variant="secondary">{t.explore}</Button>
           </div>
-          <div className="hero-proof"><span>01</span><p>Professional websites for local businesses,<br />without the agency price tag.</p></div>
+          <div className="hero-proof"><span>01</span><p>{t.heroPrompt}</p></div>
         </div>
         <div className="hero-visual" aria-label="Website presentation mockups">
           <div className="orb" />
