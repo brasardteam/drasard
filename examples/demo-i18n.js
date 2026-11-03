@@ -142,6 +142,9 @@
   Object.assign(d, {
     "YOUR BAG ·": ["JŪSU GROZS ·", "ВАША КОРЗИНА ·"],
     "AURELIA · ORDER ONLINE": ["AURELIA · PASŪTĪJUMI TIEŠSAISTĒ", "AURELIA · ОНЛАЙН-ЗАКАЗЫ"],
+    "Order online": ["Pasūtīt tiešsaistē", "Заказать онлайн"],
+    "Your sample order included": ["Jūsu pasūtījumā bija", "В вашем заказе было"],
+    "item(s)": ["prece(s)", "поз."],
     "Order from Aurelia.": ["Pasūtiet no Aurelia.", "Закажите в Aurelia."],
     "Explore the menu, choose your favourites and add them to your basket. This interactive demo shows how a restaurant website can take customers from browsing to checkout.": ["Pārlūkojiet ēdienkarti, izvēlieties iecienītākos ēdienus un pievienojiet tos grozam. Šī interaktīvā demonstrācija parāda, kā restorāna mājaslapa ļauj klientiem izvēlēties ēdienus un noformēt pasūtījumu.", "Посмотрите меню, выберите любимые блюда и добавьте их в корзину. Эта интерактивная демонстрация показывает, как сайт ресторана помогает клиентам выбрать блюда и оформить заказ."],
     "Interactive portfolio demo": ["Interaktīva portfolio demonstrācija", "Интерактивная демонстрация портфолио"],
