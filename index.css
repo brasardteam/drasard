@@ -354,6 +354,11 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
 .footer-links > span, .footer-contact > span { margin-bottom: 9px; color: #5c5e57; font-size: 8px; letter-spacing: .16em; }
 .footer-links a:hover, .footer-contact a:hover { color: var(--gold-light); }
 .footer-contact p { color: #6e7069; }
+.footer-social { display: flex; flex-wrap: wrap; align-items: center; gap: 17px; margin: 6px 0 2px; }
+.footer-social a { display: inline-flex; align-items: center; gap: 7px; color: #aaa9a2; font-size: 10px; transition: color .25s ease; }
+.footer-social a:hover, .footer-social a:focus-visible { color: var(--gold-light); }
+.footer-social a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; border-radius: 2px; }
+.footer-social svg { width: 15px; height: 15px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .footer-contact .language { margin-top: 10px; }
 .footer-word { margin-top: 80px; overflow: hidden; color: #171C17; font-family: var(--display); font-size: clamp(90px, 16vw, 220px); font-weight: 600; line-height: .75; letter-spacing: -.075em; text-align: center; white-space: nowrap; }
 .footer-bottom { padding-top: 24px; display: flex; justify-content: space-between; border-top: 1px solid #293027; color: #575952; font-size: 7px; letter-spacing: .11em; }
