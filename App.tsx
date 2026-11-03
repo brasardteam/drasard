@@ -136,7 +136,7 @@ const menu: MenuCategory[] = [
   },
 ];
 
-const navItems = ["Solutions", "Examples", "Pricing", "How It Works"];
+const navItems = ["E-commerce", "Examples", "Pricing", "How It Works"];
 
 const en = {
   nav: navItems,
@@ -149,7 +149,7 @@ const en = {
 };
 
 const lv = {
-  nav: ["Risinājumi", "Piemēri", "Cenas", "Kā tas notiek"],
+  nav: ["E-komercija", "Piemēri", "Cenas", "Kā tas notiek"],
   book: "Sazināties",
   hero: "Mājaslapu izstrāde Rīgā restorāniem, kafejnīcām un vietējiem uzņēmumiem.",
   heroBody:
@@ -242,7 +242,7 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
       <nav className="nav" aria-label="Main navigation">
         <Logo />
         <div id="primary-navigation" className={`nav-links ${open ? "open" : ""}`}>
-          {t.nav.map((item, i) => <a key={item} href={`#${["solutions", "examples", "pricing", "process"][i]}`} onClick={() => setOpen(false)}>{item}</a>)}
+          {t.nav.map((item, i) => <a key={item} href={`#${["commerce", "examples", "pricing", "process"][i]}`} onClick={() => setOpen(false)}>{item}</a>)}
           <Button href="#contact">{t.book}</Button>
         </div>
         <div className="nav-actions">
@@ -399,12 +399,12 @@ function RestaurantDemo() {
           <SectionTitle eyebrow="INTERACTIVE DEMO" title="Don't just imagine it. Experience it." body="Explore a real restaurant website in two different ways." />
           <div className="demo-toggle">
             <button className={mode === "showcase" ? "active" : ""} onClick={() => switchMode("showcase")}>SHOWCASE</button>
-            <button className={mode === "commerce" ? "active" : ""} onClick={() => switchMode("commerce")}>COMMERCE</button>
+            <button className={`ecommerce-tab ${mode === "commerce" ? "active" : ""}`} onClick={() => switchMode("commerce")}>E-COMMERCE</button>
           </div>
         </div>
         <p className="demo-not-live">Interactive demo · illustrative only. This prototype is not connected to a live restaurant system and does not process real payments or orders.</p>
         <div className={`restaurant-demo ${mode}`}>
-          <div className="demo-browser-bar"><div><i /><i /><i /></div><span>Interactive Demo · aurelia-riga.lv</span><em>{mode}</em></div>
+          <div className="demo-browser-bar"><div><i /><i /><i /></div><span>Interactive Demo · aurelia-riga.lv</span><em>{mode === "commerce" ? "E-COMMERCE" : "SHOWCASE"}</em></div>
           <div className="restaurant-hero">
             <img src={images.restaurant} alt="Aurelia restaurant interior" />
             <div className="restaurant-nav"><b>AURELIA</b><span>MENU &nbsp;&nbsp; STORY &nbsp;&nbsp; VISIT</span>{mode === "commerce" && <button><Icon name="bag" /> {cart.length}</button>}</div>
@@ -435,7 +435,7 @@ function CommerceOverview() {
   return (
     <section className="section-pad commerce-overview" id="commerce">
       <div className="container">
-        <SectionTitle eyebrow="COMMERCE FOR RESTAURANTS" title="Turn your website into an ordering channel." body="Give customers a clear path from browsing your menu to placing an order. DRASARD designs your website and helps configure a separate restaurant ordering platform around your workflow." />
+        <SectionTitle eyebrow="E-COMMERCE FOR RESTAURANTS" title="E-commerce that works for your restaurant." body="Give customers a clear path from browsing your menu to placing an order. DRASARD designs your website and helps configure a separate restaurant ordering platform around your workflow." />
         <div className="commerce-capabilities">
           {capabilityGroups.map((group, index) => (
             <article className="commerce-capability" key={group.title}>
@@ -458,9 +458,9 @@ function CommerceOverview() {
 }
 
 const projects = [
-  { name: "AURELIA", type: "Restaurant · Commerce", image: images.restaurant, text: "A complete dining and ordering experience.", href: "/examples/aurelia/" },
+  { name: "AURELIA", type: "Restaurant · E-commerce", image: images.restaurant, text: "A complete dining and ordering experience.", href: "/examples/aurelia/" },
   { name: "NOVA CAFÉ", type: "Café · Showcase", image: images.cafeAlt, text: "A warm digital home for a neighbourhood ritual.", href: "/examples/nova-cafe/" },
-  { name: "EMBER", type: "Kitchen · Commerce", image: images.plate, text: "Open-fire cooking, translated to the screen.", href: "/examples/ember/" },
+  { name: "EMBER", type: "Kitchen · E-commerce", image: images.plate, text: "Open-fire cooking, translated to the screen.", href: "/examples/ember/" },
   { name: "SANGAK", type: "Turkish Restaurant · Showcase", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
 ];
 
@@ -667,7 +667,7 @@ function Contact() {
           {sent ? <div className="form-success"><Icon name="check" /><h3>Thank you.</h3><p>Your inquiry has been sent to Drasard. We'll be in touch shortly.</p><button type="button" onClick={() => { setSent(false); setError(""); }}>Send another inquiry</button></div> : <>
             <div className="field-row"><label>Your name<input name="name" required placeholder="Name" autoComplete="name" /></label><label>Business name<input name="business" placeholder="Business" autoComplete="organization" /></label></div>
             <label>Email address<input name="email" required type="email" placeholder="you@business.com" autoComplete="email" /></label>
-            <div className="field-row"><label>Business type<select name="businessType" defaultValue=""><option value="" disabled>Select type</option><option>Restaurant</option><option>Café</option><option>Other local business</option></select></label><label>Website type<select name="websiteType" defaultValue=""><option value="" disabled>Select experience</option><option>Showcase</option><option>Commerce</option><option>Not sure yet</option></select></label></div>
+            <div className="field-row"><label>Business type<select name="businessType" defaultValue=""><option value="" disabled>Select type</option><option>Restaurant</option><option>Café</option><option>Other local business</option></select></label><label>Website type<select name="websiteType" defaultValue=""><option value="" disabled>Select experience</option><option>Showcase</option><option>E-commerce</option><option>Not sure yet</option></select></label></div>
             <label>Tell us about your project<textarea name="message" rows={4} placeholder="What would you like your website to do?" /></label>
             <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="form-honeypot" />
             <button className="form-submit" type="submit" disabled={sending}>{sending ? "Sending…" : "Enquire"} {!sending && <Icon name="arrow" />}</button>
@@ -685,7 +685,7 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "
     <footer>
       <div className="container footer-main">
         <div><Logo /><p>Premium digital experiences<br />for local businesses.</p></div>
-        <div className="footer-links"><span>EXPLORE</span>{["Home", ...navItems, "Contact"].map((item) => <a key={item} href={`#${item === "Home" ? "home" : item === "How It Works" ? "process" : item.toLowerCase()}`}>{item}</a>)}</div>
+        <div className="footer-links"><span>EXPLORE</span>{["Home", ...navItems, "Contact"].map((item) => <a key={item} href={`#${item === "Home" ? "home" : item === "How It Works" ? "process" : item === "E-commerce" ? "commerce" : item.toLowerCase()}`}>{item}</a>)}</div>
         <div className="footer-contact">
           <span>CONTACT</span>
           <a href="mailto:contact@drasard.agency">contact@drasard.agency</a>
