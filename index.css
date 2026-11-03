@@ -1337,3 +1337,13 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   }
 }
 
+/* Keep the contact form clear of the fixed mobile header when navigated to */
+#contact {
+  scroll-margin-top: 105px;
+}
+@media (max-width: 700px) {
+  #contact {
+    scroll-margin-top: 82px;
+  }
+}
+
