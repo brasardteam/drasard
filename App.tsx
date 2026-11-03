@@ -467,7 +467,6 @@ function CommerceOverview() {
 
 const projects = [
   { name: "AURELIA", type: "Restaurant · E-commerce", image: images.restaurant, text: "A complete dining and ordering experience.", href: "/examples/aurelia/" },
-  { name: "NOVA CAFÉ", type: "Café · Showcase", image: images.cafeAlt, text: "A warm digital home for a neighbourhood ritual.", href: "/examples/nova-cafe/" },
   { name: "EMBER", type: "Kitchen · E-commerce", image: images.plate, text: "Open-fire cooking, translated to the screen.", href: "/examples/ember/" },
   { name: "SANGAK", type: "Turkish Restaurant · Showcase", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
 ];
@@ -542,14 +541,14 @@ function CustomerExperience({ lang }: { lang: "EN" | "LV" | "RU" }) {
       type: "LANDING PAGE",
       title: "Present your business.",
       description: "A professional website that helps customers discover your business, explore what you offer and get in touch.",
-      demoLabel: "SAMPLE WEBSITE · NOVA CAFÉ",
-      src: "/examples/nova-cafe/",
-      frameTitle: "Nova Café Landing Page sample",
+      demoLabel: "SAMPLE WEBSITE · AURELIA",
+      src: "/examples/aurelia/",
+      frameTitle: "Aurelia Landing Page sample",
       steps: ["Discover your restaurant", "Explore menu and information", "Find location and contact details"],
       price: "€390",
       payment: "One-time payment",
       action: "Open Landing Page demo",
-      href: "/examples/nova-cafe/",
+      href: "/examples/aurelia/",
       className: "experience-landing",
     },
     {
