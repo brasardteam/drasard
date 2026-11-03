@@ -2,193 +2,592 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#171b17">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17130e">
   <title>Aurelia — Order Online</title>
-  <meta name="description" content="Explore the Aurelia restaurant ordering demo. Choose dishes, add them to your basket and try the sample checkout.">
+  <meta name="description" content="Explore the seasonal Aurelia menu. Choose your dishes, personalise your order and enjoy a refined restaurant ordering experience.">
   <script>
     (() => {
-      const lang = (new URLSearchParams(location.search).get("lang") || "").toUpperCase();
-      if (["EN", "LV", "RU"].includes(lang)) {
-        try { localStorage.setItem("drasard-demo-language", lang); } catch {}
+      const language = (new URLSearchParams(location.search).get("lang") || "").toUpperCase();
+      if (["EN","LV","RU"].includes(language)) {
+        try { localStorage.setItem("drasard-demo-language", language); } catch {}
       }
     })();
   </script>
   <style>
-    :root{--ink:#171b17;--forest:#1e3026;--paper:#f2eee5;--line:#d3cbbb;--muted:#77766e;--gold:#bda477;--gold-light:#dfcca6;--white:#fbf8f0;--shadow:0 20px 55px rgba(24,29,24,.1)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font-family:Arial,Helvetica,sans-serif}button,input,select,textarea{font:inherit}a{color:inherit;text-decoration:none}
-    .wrap{width:min(1320px,90vw);margin:0 auto}.nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}.brand{font:400 27px Georgia,serif;letter-spacing:.2em;white-space:nowrap}.nav-right{display:flex;align-items:center;gap:28px}.navlinks{display:flex;align-items:center;gap:24px}.navlinks a{color:#56584f;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.navlinks a:hover,.navlinks .active{color:#92764a}
-    .hero{padding:73px 0 47px;display:grid;grid-template-columns:1fr auto;gap:35px;align-items:end}.eyebrow{display:inline-flex;align-items:center;gap:11px;color:#92794f;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}.eyebrow:before{content:"";width:25px;height:1px;background:var(--gold)}h1{margin:20px 0 15px;font:400 clamp(54px,7vw,93px)/.92 Georgia,serif;letter-spacing:-.045em}.lead{max-width:660px;margin:0;color:#65665e;font-size:16px;line-height:1.75}.hero-note{max-width:260px;padding:17px 19px;border:1px solid #d4c8b2;border-radius:4px;color:#655b48;background:#ebe4d7;font-size:10px;line-height:1.65}.hero-note strong{display:block;margin-bottom:6px;color:#876d43;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
-    .order-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.75fr);gap:24px;align-items:start;padding-bottom:90px}.menu-panel{min-width:0}.menu-top{margin-bottom:21px;display:flex;justify-content:space-between;align-items:center;gap:18px}.menu-top h2{margin:0;font:400 34px Georgia,serif}.menu-top span{color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}.filters{margin-bottom:20px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;border:1px solid #d8d0c2;border-radius:5px;background:#ebe6dc}.filters button{min-height:37px;padding:0 15px;border:1px solid transparent;border-radius:3px;color:#63645c;background:transparent;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:.07em;transition:.2s}.filters button:hover{color:var(--forest);border-color:#c8b792}.filters button.active{color:var(--white);border-color:var(--forest);background:var(--forest);box-shadow:0 4px 12px rgba(30,48,38,.12)}
-    .product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.product-card{min-height:204px;padding:21px 21px 17px;display:flex;flex-direction:column;border:1px solid #d8d0c2;border-radius:5px;background:rgba(255,255,255,.38);transition:transform .2s,box-shadow .2s,border-color .2s}.product-card:hover{transform:translateY(-2px);border-color:#bba77f;box-shadow:0 12px 25px rgba(32,39,30,.07)}.product-meta{display:flex;justify-content:space-between;gap:12px;color:#92794f;font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.product-tag{color:#71806d}.product-card h3{margin:19px 0 8px;font:400 23px/1.12 Georgia,serif}.product-card p{margin:0 0 17px;color:#74746d;font-size:11px;line-height:1.55}.product-bottom{margin-top:auto;padding-top:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #ded7ca}.product-price{font:400 23px Georgia,serif;white-space:nowrap}.add-button{min-height:38px;padding:0 13px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--forest);border-radius:3px;color:var(--white);background:var(--forest);cursor:pointer;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:.2s}.add-button:hover{border-color:#405a47;background:#304738}.add-button:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #b99c66;outline-offset:3px}.add-button span{font-size:16px;line-height:0}
-    .basket{position:sticky;top:22px;overflow:hidden;color:var(--white);border:1px solid #344638;border-radius:5px;background:linear-gradient(155deg,#24372c,#17231b);box-shadow:var(--shadow)}.basket-head{padding:24px 24px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(225,218,198,.17)}.basket-head .eyebrow{color:var(--gold-light)}.basket-head .eyebrow:before{background:var(--gold-light)}.basket-count{color:#d5c29c;font-size:11px;font-weight:700;letter-spacing:.12em}.basket-content{padding:20px 24px 24px}.empty-basket{min-height:160px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.empty-basket h3{margin:0 0 8px;font:400 26px Georgia,serif}.empty-basket p{max-width:250px;margin:0;color:#c1cabe;font-size:11px;line-height:1.7}.basket-line{padding:14px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;border-bottom:1px solid rgba(225,218,198,.16)}.basket-line strong{display:block;font:400 16px/1.25 Georgia,serif}.basket-line small{display:block;margin-top:5px;color:#c1cabe;font-size:10px}.line-total{padding-top:2px;color:#f4ead6;font-size:12px;font-weight:700;white-space:nowrap}.line-controls{margin-top:10px;display:flex;align-items:center;gap:7px}.qty-button{width:27px;height:27px;display:inline-grid;place-items:center;border:1px solid rgba(233,224,204,.35);border-radius:3px;color:var(--white);background:rgba(255,255,255,.05);cursor:pointer}.qty-value{min-width:18px;color:var(--white);text-align:center;font-size:11px}.remove-button{margin-left:5px;padding:4px;border:0;color:#d6c9b1;background:transparent;cursor:pointer;font-size:9px;text-decoration:underline;text-underline-offset:3px}.basket-totals{margin-top:19px;display:grid;gap:10px}.total-row{display:flex;justify-content:space-between;gap:15px;color:#c4cec3;font-size:11px}.total-row strong{color:var(--white);font-size:12px}.total-row.grand{margin-top:5px;padding-top:15px;border-top:1px solid rgba(225,218,198,.24);color:var(--gold-light);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}.total-row.grand strong{color:var(--white);font:400 27px Georgia,serif;letter-spacing:-.03em}.checkout-button{width:100%;min-height:49px;margin-top:22px;border:1px solid #e2d3b4;border-radius:3px;color:#1c2d23;background:#e6dcc8;cursor:pointer;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;transition:.2s}.checkout-button:hover:not(:disabled){background:#f5eddd}.checkout-button:disabled{opacity:.42;cursor:not-allowed}.basket-note{margin:13px 0 0;color:#b8c3b7;font-size:9px;line-height:1.6}.below-note{margin:25px 0 0;padding:19px 21px;border:1px solid #d8d0c2;color:#77756b;background:#ebe6dc;font-size:10px;line-height:1.7}.below-note strong{color:#8e744a;letter-spacing:.12em}
-    .footer{padding:28px 0 38px;display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);color:#77766e;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.toast{position:fixed;z-index:20;right:24px;bottom:24px;padding:13px 17px;color:var(--white);border:1px solid #536856;border-radius:4px;background:#20372a;box-shadow:0 12px 28px rgba(0,0,0,.2);font-size:11px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translateY(0)}.mobile-basket{display:none}
-    dialog{width:min(600px,calc(100vw - 28px));max-height:min(90vh,850px);padding:0;overflow:auto;border:1px solid #c9b994;border-radius:5px;color:var(--ink);background:var(--paper);box-shadow:0 25px 90px rgba(0,0,0,.35)}dialog::backdrop{background:rgba(11,16,12,.72);backdrop-filter:blur(3px)}.dialog-head{padding:24px 28px 19px;display:flex;justify-content:space-between;align-items:start;gap:20px;color:var(--white);background:var(--forest)}.dialog-head h2{margin:10px 0 0;font:400 37px Georgia,serif}.dialog-head .eyebrow{color:var(--gold-light)}.dialog-close{width:32px;height:32px;border:1px solid rgba(255,255,255,.35);border-radius:50%;color:white;background:transparent;cursor:pointer;font-size:18px}.dialog-body{padding:24px 28px 29px}.checkout-summary{margin-bottom:21px;padding:14px 16px;border:1px solid var(--line);background:#ebe5d9}.checkout-summary h3{margin:0 0 10px;font:400 20px Georgia,serif}.checkout-summary p{margin:5px 0;display:flex;justify-content:space-between;gap:15px;color:#696960;font-size:11px}.checkout-summary .summary-total{padding-top:9px;border-top:1px solid var(--line);color:var(--ink);font-weight:700}.checkout-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{color:#6f624d;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.field input,.field select,.field textarea{width:100%;min-height:44px;padding:11px 12px;border:1px solid #d0c7b8;border-radius:3px;color:var(--ink);background:#fffdf8;font-size:12px}.field textarea{min-height:74px;resize:vertical}.demo-payment-note{padding:12px 14px;color:#756b58;border-left:2px solid var(--gold);background:#eee8dc;font-size:10px;line-height:1.6}.place-order{min-height:48px;grid-column:1/-1;border:0;border-radius:3px;color:var(--white);background:var(--forest);cursor:pointer;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.place-order:hover{background:#314a39}.confirmation{padding:20px 0 5px}.confirmation-mark{width:44px;height:44px;margin-bottom:17px;display:grid;place-items:center;border:1px solid #b9a276;border-radius:50%;color:#6f855f;font-size:22px}.confirmation h3{margin:0 0 10px;font:400 34px Georgia,serif}.confirmation p{color:#66665e;font-size:12px;line-height:1.7}.confirmation .place-order{width:100%;margin-top:12px}
-    @media(max-width:950px){.order-layout{grid-template-columns:minmax(0,1fr) 310px;gap:16px}.product-grid{gap:10px}.product-card{padding:17px 16px 15px}.navlinks{gap:14px}}
-    @media(max-width:760px){.wrap{width:min(100% - 30px,600px)}.nav{min-height:72px;flex-wrap:wrap;padding:14px 0;gap:12px}.brand{font-size:23px}.navlinks{width:100%;justify-content:space-between;gap:10px}.navlinks a{font-size:8px}.hero{padding:49px 0 31px;grid-template-columns:1fr;gap:19px}h1{font-size:clamp(48px,13vw,68px)}.lead{font-size:14px}.hero-note{max-width:none}.order-layout{grid-template-columns:1fr;gap:20px;padding-bottom:105px}.menu-top h2{font-size:29px}.menu-top span{font-size:8px;text-align:right}.filters{flex-wrap:nowrap;overflow-x:auto}.filters button{flex:0 0 auto}.product-grid{grid-template-columns:1fr}.product-card{min-height:174px}.basket{position:static}.mobile-basket{position:fixed;z-index:15;right:15px;bottom:14px;left:15px;min-height:51px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #e3d1ad;border-radius:4px;color:#1b2c22;background:#e8ddc7;box-shadow:0 10px 30px rgba(0,0,0,.22);cursor:pointer;font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.footer{flex-direction:column;gap:10px}.checkout-form{grid-template-columns:1fr}.field.full,.place-order{grid-column:auto}.dialog-head,.dialog-body{padding-right:20px;padding-left:20px}}
+    :root {
+      --ink:#17160f; --ink-soft:#26231b; --forest:#1e3026; --forest-2:#293b30;
+      --cream:#f0e9dc; --cream-2:#e6dece; --paper:#faf7f0; --muted:#837e71;
+      --gold:#b99a66; --gold-light:#dfc99e; --line:#d8cfbf; --white:#fbf8f0;
+      --serif:Georgia,"Times New Roman",serif; --sans:Arial,Helvetica,sans-serif;
+      --shadow:0 24px 70px rgba(0,0,0,.22);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+    button,input,textarea,select{font:inherit}
+    button,a{-webkit-tap-highlight-color:transparent}
+    a{color:inherit;text-decoration:none}
+    button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+    .shell{width:min(1440px,92vw);margin:0 auto}
+    .site-header{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:25px;border-bottom:1px solid rgba(90,78,56,.2)}
+    .brand{font:400 29px var(--serif);letter-spacing:.23em;white-space:nowrap}
+    .navlinks{display:flex;align-items:center;gap:29px}
+    .navlinks a{color:#666052;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;transition:color .2s}
+    .navlinks a:hover,.navlinks a.active{color:#9a7847}
+    .hero{position:relative;min-height:560px;margin:26px auto 0;overflow:hidden;display:flex;align-items:flex-end;color:var(--white);background:#231e15}
+    .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 53%;opacity:.76}
+    .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,14,10,.86) 0%,rgba(13,14,10,.46) 52%,rgba(13,14,10,.1) 100%),linear-gradient(0deg,rgba(13,14,10,.62),transparent 60%)}
+    .hero-content{position:relative;z-index:1;width:min(780px,70%);padding:72px 7.5% 76px}
+    .eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--gold-light);font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:26px;height:1px;background:var(--gold)}
+    h1{max-width:770px;margin:22px 0 19px;font:400 clamp(58px,7.8vw,112px)/.88 var(--serif);letter-spacing:-.055em}
+    .hero-copy{max-width:570px;margin:0;color:rgba(251,248,240,.82);font-size:14px;line-height:1.9}
+    .hero-actions{margin-top:29px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+    .hero-cta{min-height:49px;padding:0 19px;display:inline-flex;align-items:center;gap:28px;border:1px solid var(--gold-light);color:#1a1a13;background:var(--cream);font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;transition:.2s}
+    .hero-cta:hover{background:#fffaf0;transform:translateY(-2px)}
+    .hero-cta span{font-size:17px;font-weight:400}
+    .hero-aside{position:absolute;z-index:2;right:5.5%;bottom:55px;width:220px;padding:20px 22px;border:1px solid rgba(230,213,177,.35);background:rgba(25,27,21,.66);backdrop-filter:blur(12px)}
+    .hero-aside small{display:block;color:var(--gold-light);font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+    .hero-aside strong{display:block;margin:9px 0 4px;font:400 25px var(--serif)}
+    .hero-aside span{color:rgba(250,247,238,.66);font-size:10px;line-height:1.5}
+    .service-strip{min-height:66px;padding:0 25px;display:flex;align-items:center;justify-content:space-between;gap:22px;border-bottom:1px solid rgba(90,78,56,.22);background:#e9e1d2}
+    .service-strip > span{color:#786c57;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+    .service-options{display:flex;align-items:center;gap:8px}
+    .service-options button{min-height:34px;padding:0 15px;border:1px solid transparent;color:#70695c;background:transparent;cursor:pointer;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+    .service-options button.active{border-color:#8b7653;color:var(--white);background:var(--forest)}
+    .strip-note{color:#766f62;font-size:9px;letter-spacing:.08em}
+    .menu-intro{padding:90px 0 29px;display:flex;align-items:end;justify-content:space-between;gap:35px}
+    .section-kicker{color:#95764a;font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase}
+    .menu-intro h2{margin:15px 0 10px;font:400 clamp(42px,5vw,66px)/.95 var(--serif);letter-spacing:-.035em}
+    .menu-intro p{max-width:520px;margin:0;color:#777163;font-size:12px;line-height:1.8}
+    .menu-intro-aside{max-width:240px;padding-left:22px;border-left:1px solid #cabb9f;color:#827968;font:italic 16px/1.55 var(--serif)}
+    .menu-tools{position:sticky;top:0;z-index:8;margin:0 calc((100vw - min(1440px,92vw))/ -2);padding:13px max(4vw,calc((100vw - 1440px)/2));display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid rgba(90,78,56,.15);border-bottom:1px solid rgba(90,78,56,.18);background:rgba(240,233,220,.96);backdrop-filter:blur(12px)}
+    .category-list{display:flex;align-items:center;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none}
+    .category-list::-webkit-scrollbar{display:none}
+    .category-list button{min-height:38px;padding:0 15px;flex:0 0 auto;border:1px solid transparent;color:#756e60;background:transparent;cursor:pointer;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:.18s}
+    .category-list button:hover{color:var(--forest);border-color:#c9b995}
+    .category-list button.active{border-color:var(--forest);color:var(--white);background:var(--forest)}
+    .search-wrap{width:min(260px,26vw);position:relative;flex:0 0 auto}
+    .search-wrap input{width:100%;height:38px;padding:0 13px 0 36px;border:1px solid #d0c5b0;border-radius:0;color:var(--ink);background:#f8f4ec;font-size:10px}
+    .search-wrap:before{content:"⌕";position:absolute;left:13px;top:7px;color:#90774e;font-size:19px;line-height:1}
+    .menu-layout{padding:31px 0 100px;display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:35px;align-items:start}
+    .menu-heading{margin-bottom:21px;display:flex;align-items:baseline;justify-content:space-between;gap:20px}
+    .menu-heading h3{margin:0;font:400 30px var(--serif)}
+    .menu-heading span{color:#897e69;font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+    .product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+    .product-card{min-width:0;overflow:hidden;border:1px solid #d9d0c1;background:#f8f5ee;transition:transform .25s,border-color .25s,box-shadow .25s}
+    .product-card:hover{transform:translateY(-3px);border-color:#bba67e;box-shadow:0 13px 35px rgba(39,34,24,.09)}
+    .product-photo-wrap{height:208px;position:relative;overflow:hidden;background:#ded5c4}
+    .product-photo{width:100%;height:100%;display:block;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+    .product-card:hover .product-photo{transform:scale(1.045)}
+    .product-photo-wrap:after{content:"";position:absolute;inset:48% 0 0;background:linear-gradient(0deg,rgba(20,20,15,.35),transparent)}
+    .product-tag{position:absolute;z-index:1;top:13px;left:13px;padding:7px 9px;color:#f5eddf;border:1px solid rgba(235,215,177,.55);background:rgba(24,34,27,.82);font-size:7px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+    .product-card-body{padding:18px 19px 17px}
+    .product-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#92764a;font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    .product-card h4{margin:11px 0 7px;font:400 23px/1.1 var(--serif);letter-spacing:-.015em}
+    .product-description{min-height:34px;margin:0;color:#777264;font-size:10px;line-height:1.65}
+    .product-foot{margin-top:16px;padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #e1d9cb}
+    .product-price{font:400 23px var(--serif);white-space:nowrap}
+    .product-cta{min-height:35px;padding:0 12px;display:inline-flex;align-items:center;gap:9px;border:1px solid #344638;color:#f8f4e9;background:#24372c;cursor:pointer;font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;transition:.2s}
+    .product-cta:hover{background:#395442}
+    .product-cta span{font-size:14px}
+    .empty-results{grid-column:1/-1;padding:55px 25px;border:1px solid #d8cfbf;text-align:center;color:#827968;background:#f8f5ee;font:italic 18px var(--serif)}
+    .menu-caption{margin-top:25px;padding:17px 19px;display:flex;gap:15px;align-items:flex-start;border-top:1px solid #cfc4af;border-bottom:1px solid #cfc4af;color:#817766;font-size:9px;line-height:1.8}
+    .menu-caption strong{color:#92774d;flex:0 0 auto;font-size:8px;letter-spacing:.17em}
+    .basket{position:sticky;top:82px;overflow:hidden;color:var(--white);border:1px solid #344638;background:linear-gradient(155deg,#263a2e,#18251d);box-shadow:0 17px 45px rgba(25,30,23,.16)}
+    .basket-head{padding:23px 23px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(232,221,198,.16)}
+    .basket-kicker{color:var(--gold-light);font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+    .basket-head h3{margin:8px 0 0;font:400 29px var(--serif)}
+    .basket-count{min-width:32px;height:32px;display:grid;place-items:center;border:1px solid rgba(220,202,163,.48);border-radius:50%;color:var(--gold-light);font-size:11px}
+    .basket-service{padding:16px 23px 13px;border-bottom:1px solid rgba(232,221,198,.14)}
+    .basket-service-label{display:block;margin-bottom:9px;color:#bcbba9;font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    .basket-service-options{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .basket-service-options button{min-height:35px;border:1px solid rgba(229,220,198,.23);color:#d2cbbb;background:rgba(255,255,255,.035);cursor:pointer;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .basket-service-options button.active{border-color:var(--gold-light);color:#17231b;background:#d9c59c}
+    .basket-content{padding:10px 23px 24px}
+    .empty-basket{min-height:180px;padding:28px 0;display:flex;flex-direction:column;justify-content:center}
+    .empty-basket-mark{margin-bottom:12px;color:var(--gold);font-size:23px}
+    .empty-basket h4{margin:0 0 8px;font:400 25px var(--serif)}
+    .empty-basket p{max-width:250px;margin:0;color:#b8c0b4;font-size:10px;line-height:1.8}
+    .basket-line{padding:15px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;border-bottom:1px solid rgba(232,221,198,.14)}
+    .basket-line-name{display:block;color:#f6f0e4;font:400 16px/1.25 var(--serif)}
+    .basket-line-detail{display:block;margin-top:5px;color:#b7c0b4;font-size:9px;line-height:1.6}
+    .basket-line-price{color:#e8d4ad;font-size:10px;font-weight:700;white-space:nowrap}
+    .basket-controls{margin-top:9px;display:flex;align-items:center;gap:7px}
+    .qty-button{width:26px;height:26px;display:grid;place-items:center;border:1px solid rgba(228,219,197,.28);color:#f8f3e9;background:rgba(255,255,255,.045);cursor:pointer}
+    .qty-button:hover{border-color:var(--gold-light);color:var(--gold-light)}
+    .qty-number{min-width:18px;color:#f7f0e5;text-align:center;font-size:10px}
+    .remove-button{margin-left:5px;padding:4px;border:0;color:#c7b99c;background:transparent;cursor:pointer;font-size:8px;text-decoration:underline;text-underline-offset:3px}
+    .basket-total{margin-top:20px;padding-top:16px;border-top:1px solid rgba(232,221,198,.24);display:grid;gap:9px}
+    .total-row{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#c1c6ba;font-size:10px}
+    .total-row strong{color:#f5f0e5;font-size:11px}
+    .total-row.grand{padding-top:8px;color:var(--gold-light);font-size:9px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
+    .total-row.grand strong{font:400 29px var(--serif);letter-spacing:0}
+    .checkout-button{width:100%;min-height:48px;margin-top:20px;border:1px solid #e3d0a8;color:#202b21;background:#e4d4b4;cursor:pointer;font-size:8px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;transition:.2s}
+    .checkout-button:hover:not(:disabled){background:#f4e9d2}
+    .checkout-button:disabled{opacity:.42;cursor:not-allowed}
+    .basket-disclaimer{margin:13px 0 0;color:#b6c0b3;font-size:8px;line-height:1.65}
+    .below-story{margin:0 auto 82px;padding:34px 38px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;border:1px solid #d2c6af;background:#e8dfcf}
+    .below-story article{padding-left:18px;border-left:1px solid #c7b898}
+    .below-story small{color:#96794b;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+    .below-story h4{margin:9px 0 7px;font:400 21px var(--serif)}
+    .below-story p{margin:0;color:#797262;font-size:9px;line-height:1.7}
+    .footer{padding:28px 0 42px;display:flex;justify-content:space-between;gap:15px;border-top:1px solid #cfc4af;color:#807867;font-size:8px;letter-spacing:.14em;text-transform:uppercase}
+    .footer a{color:#655c4a}
+    .mobile-basket{display:none}
+    .toast{position:fixed;z-index:30;right:24px;bottom:24px;padding:13px 18px;border:1px solid #bca273;color:#fff8ed;background:#21362a;box-shadow:0 12px 32px rgba(0,0,0,.23);font-size:10px;opacity:0;transform:translateY(9px);pointer-events:none;transition:.22s}
+    .toast.show{opacity:1;transform:translateY(0)}
+    dialog{width:min(620px,calc(100vw - 26px));max-height:min(90vh,850px);padding:0;overflow:auto;border:1px solid #c6b28e;color:var(--ink);background:#f4eee3;box-shadow:var(--shadow)}
+    dialog::backdrop{background:rgba(13,16,12,.76);backdrop-filter:blur(5px)}
+    .dialog-photo{height:210px;position:relative;overflow:hidden;background:#2a2d24}
+    .dialog-photo img{width:100%;height:100%;object-fit:cover}
+    .dialog-photo:after{content:"";position:absolute;inset:50% 0 0;background:linear-gradient(0deg,rgba(0,0,0,.45),transparent)}
+    .dialog-close{position:absolute;z-index:2;top:13px;right:13px;width:35px;height:35px;border:1px solid rgba(255,255,255,.65);border-radius:50%;color:white;background:rgba(18,22,17,.55);cursor:pointer;font-size:19px}
+    .dialog-body{padding:25px 29px 30px}
+    .dialog-body .eyebrow{color:#94784a}
+    .dialog-body h3{margin:11px 0 7px;font:400 36px/1.02 var(--serif)}
+    .dialog-description{margin:0;color:#777062;font-size:11px;line-height:1.75}
+    .dialog-price{margin-top:12px;color:#293a2e;font:400 25px var(--serif)}
+    .options-head{margin:24px 0 11px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+    .options-head strong{color:#6f654f;font-size:8px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+    .options-head span{color:#898170;font-size:9px}
+    .addon-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .addon-option{min-height:49px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #d5cbb9;background:#faf7f0;cursor:pointer}
+    .addon-option:has(input:checked){border-color:#9f8556;background:#eee5d4}
+    .addon-option span{color:#4e4d43;font-size:10px;line-height:1.4}
+    .addon-option strong{color:#8e7348;font-size:10px;white-space:nowrap}
+    .addon-option input{accent-color:#344b39}
+    .note-field{margin-top:22px;display:grid;gap:8px}
+    .note-field label,.field label{color:#76674f;font-size:8px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+    .note-field textarea{width:100%;min-height:70px;padding:11px 12px;border:1px solid #d4cabb;color:var(--ink);background:#faf7f0;font-size:10px;resize:vertical}
+    .modal-bottom{margin-top:20px;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid #d9cfbe}
+    .quantity-control{display:flex;align-items:center;gap:11px}
+    .quantity-control button{width:32px;height:32px;border:1px solid #c6b99f;color:#26392e;background:transparent;cursor:pointer;font-size:17px}
+    .quantity-control strong{min-width:16px;text-align:center;font-size:11px}
+    .add-modal-button{min-height:45px;padding:0 18px;border:1px solid #21372a;color:#fff9ec;background:#21372a;cursor:pointer;font-size:8px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    .add-modal-button:hover{background:#36513d}
+    .checkout-dialog-head{padding:23px 27px 19px;display:flex;justify-content:space-between;align-items:start;gap:18px;color:var(--white);background:var(--forest)}
+    .checkout-dialog-head h3{margin:10px 0 0;font:400 34px var(--serif)}
+    .checkout-dialog-head .eyebrow{color:var(--gold-light)}
+    .checkout-dialog-close{width:32px;height:32px;border:1px solid rgba(255,255,255,.4);border-radius:50%;color:white;background:transparent;cursor:pointer;font-size:18px}
+    .checkout-body{padding:24px 27px 29px}
+    .checkout-summary{margin-bottom:21px;padding:14px 15px;border:1px solid #d8cfbf;background:#ebe3d5}
+    .checkout-summary h4{margin:0 0 10px;font:400 21px var(--serif)}
+    .checkout-summary p{margin:6px 0;display:flex;justify-content:space-between;gap:15px;color:#706a5e;font-size:10px}
+    .checkout-summary .summary-grand{padding-top:10px;border-top:1px solid #d2c6b2;color:#26281f;font-weight:700}
+    .checkout-form{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .field{display:grid;gap:7px}
+    .field.full{grid-column:1/-1}
+    .field input,.field select,.field textarea{width:100%;min-height:43px;padding:10px 12px;border:1px solid #d2c8b8;color:var(--ink);background:#fbf8f0;font-size:10px}
+    .field textarea{min-height:66px;resize:vertical}
+    .demo-note{padding:11px 13px;border-left:2px solid var(--gold);color:#796f5e;background:#eee6d8;font-size:9px;line-height:1.65}
+    .place-order{min-height:47px;grid-column:1/-1;border:0;color:#fff9ec;background:#21372a;cursor:pointer;font-size:8px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+    .confirmation{padding:17px 0 3px}
+    .confirmation-mark{width:42px;height:42px;margin-bottom:14px;display:grid;place-items:center;border:1px solid #b99a66;border-radius:50%;color:#537257;font-size:20px}
+    .confirmation h4{margin:0 0 9px;font:400 33px var(--serif)}
+    .confirmation p{color:#766f62;font-size:11px;line-height:1.7}
+    [hidden]{display:none!important}
+    @media(max-width:1100px){.menu-layout{grid-template-columns:minmax(0,1fr) 315px;gap:22px}.hero-aside{right:4%;width:190px}.hero-content{width:76%}}
+    @media(max-width:820px){.shell{width:92vw}.site-header{min-height:73px}.navlinks{gap:16px}.navlinks a{font-size:8px}.hero{min-height:510px}.hero-content{width:85%;padding:58px 6% 66px}.hero-aside{display:none}.service-strip{padding:0 15px}.strip-note{display:none}.menu-layout{grid-template-columns:1fr;gap:25px}.basket{position:static;max-width:none}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.menu-tools{padding-left:4vw;padding-right:4vw}.below-story{grid-template-columns:1fr;gap:19px;padding:27px}.below-story article{padding:0 0 0 16px}.basket{margin-top:6px}}
+    @media(max-width:560px){.site-header{min-height:70px;gap:10px;flex-wrap:wrap;padding:13px 0}.brand{font-size:24px}.navlinks{width:100%;justify-content:space-between;gap:8px}.navlinks a{font-size:7px;letter-spacing:.1em}.hero{min-height:460px;margin-top:13px}.hero-content{width:100%;padding:48px 7% 49px}h1{font-size:clamp(51px,14vw,74px)}.hero-copy{font-size:11px}.hero-actions{margin-top:20px}.hero-cta{min-height:43px;font-size:8px}.service-strip{min-height:58px;flex-wrap:wrap;justify-content:center;padding:8px 10px;gap:4px}.service-strip>span{display:none}.service-options{width:100%;justify-content:center}.service-options button{min-width:112px}.menu-intro{padding:61px 0 21px;display:block}.menu-intro-aside{display:none}.menu-intro h2{font-size:44px}.menu-tools{margin:0 -4vw;padding:10px 4vw;display:block}.category-list{padding-bottom:8px}.category-list button{min-height:34px;padding:0 12px;font-size:8px}.search-wrap{width:100%;margin-top:8px}.search-wrap input{height:35px}.menu-layout{padding-top:22px;padding-bottom:100px}.menu-heading h3{font-size:26px}.menu-heading span{font-size:7px}.product-grid{grid-template-columns:1fr;gap:13px}.product-photo-wrap{height:215px}.product-card-body{padding:17px}.product-card h4{font-size:25px}.product-description{font-size:10px}.product-foot{margin-top:13px}.basket-head{padding:19px}.basket-content{padding:9px 19px 20px}.basket-service{padding:14px 19px}.below-story{margin-bottom:55px}.footer{flex-direction:column;gap:10px}.mobile-basket{position:fixed;z-index:20;right:13px;bottom:12px;left:13px;min-height:51px;padding:0 17px;display:flex;align-items:center;justify-content:space-between;border:1px solid #d7c095;color:#1f3025;background:#e6d7b8;box-shadow:0 9px 30px rgba(0,0,0,.2);cursor:pointer;font-size:8px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.addon-list{grid-template-columns:1fr}.dialog-body,.checkout-body{padding:20px}.dialog-photo{height:170px}.dialog-body h3{font-size:31px}.checkout-dialog-head{padding:20px}.checkout-form{grid-template-columns:1fr}.field.full,.place-order{grid-column:auto}.modal-bottom{align-items:stretch;flex-direction:column}.modal-bottom .add-modal-button{width:100%}.toast{right:13px;bottom:75px;left:13px;text-align:center}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
   </style>
 </head>
 <body>
-  <header class="wrap nav">
+  <header class="shell site-header nav">
     <a class="brand" href="./" aria-label="Aurelia home">AURELIA</a>
     <nav class="navlinks" aria-label="Main navigation">
-      <a href="./">Home</a><a href="./menu.html">Menu</a><a class="active" href="./order-online.html">Order online</a><a href="/">DRASARD</a>
+      <a href="./">Home</a>
+      <a href="./menu.html">Menu</a>
+      <a class="active" href="./order-online.html">Order online</a>
+      <a href="/">DRASARD</a>
     </nav>
   </header>
-  <main class="wrap">
-    <section class="hero">
-      <div><div class="eyebrow">AURELIA · ORDER ONLINE</div><h1>Order from Aurelia.</h1><p class="lead">Explore the menu, choose your favourites and add them to your basket. This interactive demo shows how a restaurant website can take customers from browsing to checkout.</p></div>
-      <aside class="hero-note"><strong>Interactive portfolio demo</strong>Choose menu items, adjust quantities and try the checkout. No real order is sent and no payment is collected.</aside>
+
+  <main>
+    <section class="shell hero">
+      <img class="hero-photo" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2200&q=90" alt="A warmly lit restaurant dining room">
+      <div class="hero-content">
+        <div class="eyebrow">AURELIA · ORDER ONLINE</div>
+        <h1>A little more<br>than dinner.</h1>
+        <p class="hero-copy">A seasonal menu, thoughtful ingredients and dishes made to be enjoyed. Choose your favourites, make them yours and let us take care of the rest.</p>
+        <div class="hero-actions">
+          <a class="hero-cta" href="#menu">Explore the menu <span>↓</span></a>
+        </div>
+      </div>
+      <aside class="hero-aside">
+        <small>FROM OUR KITCHEN</small>
+        <strong>Made to order.</strong>
+        <span>Freshly prepared · Riga, Latvia</span>
+      </aside>
     </section>
-    <section class="order-layout" id="order">
+
+    <div class="shell service-strip">
+      <span>HOW WOULD YOU LIKE IT?</span>
+      <div class="service-options" role="group" aria-label="Choose pickup or delivery">
+        <button class="active" type="button" data-service="Pickup" aria-pressed="true">Pickup</button>
+        <button type="button" data-service="Delivery" aria-pressed="false">Delivery</button>
+      </div>
+      <small class="strip-note" id="serviceNote">Ready in approximately 30–40 minutes</small>
+    </div>
+
+    <section class="shell menu-intro" id="menu">
+      <div>
+        <div class="section-kicker">THE AURELIA MENU</div>
+        <h2>Find something<br>worth coming back for.</h2>
+        <p>Seasonal plates, familiar comforts and a few things you may not have tried before. Everything begins with good ingredients.</p>
+      </div>
+      <div class="menu-intro-aside">“The best meals are the ones you remember long after the last bite.”</div>
+    </section>
+
+    <div class="menu-tools">
+      <div class="category-list" role="group" aria-label="Filter menu">
+        <button class="active" type="button" data-category="All dishes" aria-pressed="true">All dishes</button>
+        <button type="button" data-category="Starters" aria-pressed="false">Starters</button>
+        <button type="button" data-category="Mains" aria-pressed="false">Mains</button>
+        <button type="button" data-category="Sides" aria-pressed="false">Sides</button>
+        <button type="button" data-category="Desserts" aria-pressed="false">Desserts</button>
+        <button type="button" data-category="Drinks" aria-pressed="false">Drinks</button>
+      </div>
+      <label class="search-wrap">
+        <span hidden>Search the menu</span>
+        <input id="menuSearch" type="search" placeholder="Search dishes or ingredients…" aria-label="Search dishes or ingredients">
+      </label>
+    </div>
+
+    <section class="shell menu-layout">
       <div class="menu-panel">
-        <div class="menu-top"><h2>Browse the menu</h2><span>Seasonal menu · Riga</span></div>
-        <div class="filters" role="group" aria-label="Filter menu">
-          <button type="button" class="active" data-category="All dishes" aria-pressed="true">All dishes</button>
-          <button type="button" data-category="Starters" aria-pressed="false">Starters</button>
-          <button type="button" data-category="Mains" aria-pressed="false">Mains</button>
-          <button type="button" data-category="Sides" aria-pressed="false">Sides</button>
-          <button type="button" data-category="Desserts" aria-pressed="false">Desserts</button>
-          <button type="button" data-category="Drinks" aria-pressed="false">Drinks</button>
+        <div class="menu-heading">
+          <h3 id="menuHeading">Our kitchen favourites</h3>
+          <span id="menuResultCount">15 dishes · Made fresh</span>
         </div>
         <div class="product-grid" id="productGrid" aria-live="polite"></div>
-        <div class="below-note"><strong>PLEASE NOTE</strong> This is a sample restaurant menu for the DRASARD portfolio. In a live setup, the restaurant would manage its own menu, item availability, prices, collection and delivery settings.</div>
+        <div class="menu-caption">
+          <strong>A NOTE FROM THE KITCHEN</strong>
+          <span>Our menu follows the season. Please let us know about allergies or dietary needs when placing your order. Some dishes may change depending on the day's ingredients.</span>
+        </div>
       </div>
-      <aside class="basket" id="basket" aria-label="Your basket">
-        <div class="basket-head"><span class="eyebrow">YOUR ORDER</span><span class="basket-count" id="basketCount">YOUR BAG · 0</span></div>
+
+      <aside class="basket" id="basket" aria-label="Your order">
+        <div class="basket-head">
+          <div><div class="basket-kicker">YOUR AURELIA EXPERIENCE</div><h3>Your order</h3></div>
+          <span class="basket-count" id="basketCount">0</span>
+        </div>
+        <div class="basket-service">
+          <span class="basket-service-label">ORDER FOR</span>
+          <div class="basket-service-options">
+            <button class="active" type="button" data-service="Pickup" aria-pressed="true">Pickup</button>
+            <button type="button" data-service="Delivery" aria-pressed="false">Delivery</button>
+          </div>
+        </div>
         <div class="basket-content">
           <div id="basketLines" aria-live="polite"></div>
-          <div class="basket-totals">
+          <div class="basket-total">
             <div class="total-row"><span>Subtotal</span><strong id="subtotalValue">€0.00</strong></div>
             <div class="total-row"><span>Delivery</span><strong id="deliveryValue">€0.00</strong></div>
             <div class="total-row grand"><span>Total</span><strong id="totalValue">€0.00</strong></div>
           </div>
-          <button class="checkout-button" id="checkoutButton" type="button" disabled>Continue to checkout →</button>
-          <p class="basket-note">The checkout is simulated for demonstration. No payment details are requested.</p>
+          <button class="checkout-button" id="checkoutButton" type="button" disabled>Continue to checkout <span>→</span></button>
+          <p class="basket-disclaimer">A demonstration only. Your order is not sent to a restaurant and no payment is taken.</p>
         </div>
       </aside>
     </section>
+
+    <section class="shell below-story">
+      <article><small>01 · THE INGREDIENTS</small><h4>Season-led cooking.</h4><p>Thoughtful ingredients, chosen for flavour, freshness and the time of year.</p></article>
+      <article><small>02 · THE EXPERIENCE</small><h4>Made around you.</h4><p>Choose your dishes, add a little extra and leave a note for the kitchen.</p></article>
+      <article><small>03 · THE HANDOVER</small><h4>Ready when you are.</h4><p>Arrange collection or delivery and review everything before the final step.</p></article>
+    </section>
   </main>
-  <footer class="wrap footer"><span>Aurelia · Riga, Latvia</span><span>Interactive e-commerce concept · Designed by DRASARD</span><a href="/">Back to DRASARD</a></footer>
-  <button class="mobile-basket" id="mobileBasketButton" type="button"><span id="mobileBasketText">YOUR BAG · 0</span><span>View basket ↓</span></button>
-  <div class="toast" id="toast" role="status" aria-live="polite">Added to basket</div>
-  <dialog id="checkoutDialog" aria-labelledby="checkoutTitle">
-    <div class="dialog-head"><div><div class="eyebrow">AURELIA · DEMO CHECKOUT</div><h2 id="checkoutTitle">Complete your order.</h2></div><button class="dialog-close" type="button" id="closeCheckout" aria-label="Close checkout">×</button></div>
+
+  <footer class="shell footer">
+    <span>Aurelia · Riga, Latvia</span>
+    <span>Interactive restaurant experience · Designed by DRASARD</span>
+    <a href="/">Back to DRASARD ↗</a>
+  </footer>
+
+  <button class="mobile-basket" id="mobileBasketButton" type="button"><span id="mobileBasketText">YOUR ORDER · 0</span><span>View your order ↓</span></button>
+  <div class="toast" id="toast" role="status" aria-live="polite">Added to your order</div>
+
+  <dialog id="itemDialog" aria-labelledby="itemTitle">
+    <div class="dialog-photo"><img id="itemPhoto" src="" alt=""><button class="dialog-close" type="button" id="closeItem" aria-label="Close dish details">×</button></div>
     <div class="dialog-body">
+      <div class="eyebrow" id="itemCategory">FROM THE KITCHEN</div>
+      <h3 id="itemTitle">Choose your dish.</h3>
+      <p class="dialog-description" id="itemDescription"></p>
+      <div class="dialog-price" id="itemPrice">€0.00</div>
+      <div class="options-head"><strong>Make it yours</strong><span>Optional extras</span></div>
+      <div class="addon-list" id="addonList"></div>
+      <div class="note-field"><label for="itemNote">A note for the kitchen</label><textarea id="itemNote" placeholder="Any preferences or special requests?"></textarea></div>
+      <div class="modal-bottom">
+        <div class="quantity-control"><button type="button" id="itemDecrease" aria-label="Decrease quantity">−</button><strong id="itemQuantity">1</strong><button type="button" id="itemIncrease" aria-label="Increase quantity">+</button></div>
+        <button type="button" class="add-modal-button" id="addConfiguredItem">Add to order · €0.00</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="checkoutDialog" aria-labelledby="checkoutTitle">
+    <div class="checkout-dialog-head">
+      <div><div class="eyebrow">AURELIA · ORDER SUMMARY</div><h3 id="checkoutTitle">The final details.</h3></div>
+      <button class="checkout-dialog-close" type="button" id="closeCheckout" aria-label="Close checkout">×</button>
+    </div>
+    <div class="checkout-body">
       <div class="checkout-summary" id="checkoutSummary"></div>
       <form class="checkout-form" id="checkoutForm">
-        <div class="field"><label for="customerName">Name</label><input id="customerName" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="customerName">Your name</label><input id="customerName" name="name" autocomplete="name" required></div>
         <div class="field"><label for="customerEmail">Email address</label><input id="customerEmail" name="email" type="email" autocomplete="email" required></div>
         <div class="field"><label for="customerPhone">Phone number</label><input id="customerPhone" name="phone" type="tel" autocomplete="tel" required></div>
-        <div class="field"><label for="fulfilment">Order type</label><select id="fulfilment" name="fulfilment"><option value="Pickup">Pickup</option><option value="Delivery">Delivery</option></select></div>
-        <div class="field full" id="addressField" hidden><label for="deliveryAddress">Delivery address</label><input id="deliveryAddress" name="address" autocomplete="street-address"></div>
         <div class="field"><label for="orderTime">Preferred time</label><select id="orderTime" name="time"><option>As soon as possible · 30–40 min</option><option>12:00–12:30</option><option>12:30–13:00</option><option>13:00–13:30</option><option>18:00–18:30</option><option>18:30–19:00</option><option>19:00–19:30</option><option>19:30–20:00</option></select></div>
-        <div class="field"><label for="paymentMethod">Payment method</label><select id="paymentMethod" name="payment"><option>Pay at pickup / on delivery</option><option>Online payment (demo)</option></select></div>
-        <div class="field full"><label for="orderNotes">Order notes</label><textarea id="orderNotes" name="notes" placeholder="Allergies or special requests…"></textarea></div>
-        <p class="demo-payment-note field full">DEMO ONLY — this checkout does not connect to a restaurant or payment provider. No real order is placed and no charge is made. A live restaurant would connect its own order management and payment services here.</p>
+        <div class="field full" id="addressField" hidden><label for="deliveryAddress">Delivery address</label><input id="deliveryAddress" name="address" autocomplete="street-address"></div>
+        <div class="field full"><label for="orderNotes">Order notes</label><textarea id="orderNotes" name="notes" placeholder="Anything else we should know?"></textarea></div>
+        <div class="demo-note field full">DEMO ONLY — no order is sent to Aurelia and no payment is processed. In a live restaurant setup, this step would connect to the restaurant's order management and payment provider.</div>
         <button class="place-order" type="submit">Place demo order →</button>
       </form>
       <div class="confirmation" id="confirmation" hidden></div>
     </div>
   </dialog>
+
   <script src="/examples/demo-i18n.js"></script>
   <script>
     (() => {
+      "use strict";
       const products = [
-        {id:"rye-bread",category:"Starters",name:"Rye sourdough & whipped butter",description:"Warm rye bread, cultured butter, sea salt",price:5,tag:"HOUSE"},
-        {id:"beetroot-salad",category:"Starters",name:"Baltic beetroot salad",description:"Roasted beetroot, goat cheese, hazelnut, herbs",price:9,tag:"VEGETARIAN"},
-        {id:"crispy-calamari",category:"Starters",name:"Crispy calamari",description:"Lemon, parsley, smoked paprika aioli",price:12,tag:"FAVOURITE"},
-        {id:"chargrilled-salmon",category:"Mains",name:"Chargrilled salmon",description:"Seasonal greens, crushed potatoes, dill butter",price:21,tag:"CHEF'S PICK"},
-        {id:"mushroom-risotto",category:"Mains",name:"Wild mushroom risotto",description:"Pearl barley, forest mushrooms, aged cheese",price:17,tag:"VEGETARIAN"},
-        {id:"beef-short-rib",category:"Mains",name:"Slow-braised beef short rib",description:"Celeriac purée, glazed carrots, red wine jus",price:24,tag:"SIGNATURE"},
-        {id:"roast-chicken",category:"Mains",name:"Herb-roasted chicken",description:"Crisp potatoes, garden herbs, lemon gravy",price:19,tag:""},
-        {id:"pumpkin-ravioli",category:"Mains",name:"Handmade pumpkin ravioli",description:"Brown butter, sage, toasted seeds",price:18,tag:"VEGETARIAN"},
-        {id:"truffle-fries",category:"Sides",name:"Truffle parmesan fries",description:"Thin-cut potatoes, parmesan, truffle oil",price:6,tag:""},
-        {id:"green-salad",category:"Sides",name:"Garden green salad",description:"Seasonal leaves, cucumber, citrus dressing",price:5,tag:"VEGAN"},
-        {id:"cheesecake",category:"Desserts",name:"Basque cheesecake",description:"Vanilla cream, seasonal berry compote",price:8,tag:"HOUSE"},
-        {id:"chocolate-cremeux",category:"Desserts",name:"Dark chocolate crémeux",description:"Hazelnut praline, cocoa nib, sea salt",price:9,tag:""},
-        {id:"rhubarb-lemonade",category:"Drinks",name:"Rhubarb lemonade",description:"House rhubarb syrup, fresh lemon, sparkling water",price:5,tag:"HOUSE"},
-        {id:"orange-juice",category:"Drinks",name:"Fresh orange juice",description:"Freshly pressed to order",price:5,tag:""},
-        {id:"espresso",category:"Drinks",name:"Espresso",description:"Double shot, freshly ground coffee",price:3,tag:""}
+        {id:"rye",category:"Starters",name:"Rye sourdough & whipped butter",description:"Warm rye bread, cultured butter, smoked sea salt",price:7,tag:"HOUSE FAVOURITE",image:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85",addons:[{id:"butter",name:"Extra whipped butter",price:1.5},{id:"salt",name:"Smoked salt",price:.5}]},
+        {id:"beet",category:"Starters",name:"Baltic beetroot salad",description:"Roasted beetroot, whipped goat cheese, hazelnut, sorrel",price:12,tag:"VEGETARIAN",image:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85",addons:[{id:"trout",name:"Add smoked trout",price:4.5},{id:"bread",name:"Side of rye bread",price:2}]},
+        {id:"calamari",category:"Starters",name:"Crispy calamari",description:"Lemon, parsley, smoked paprika aioli",price:14,tag:"GUEST FAVOURITE",image:"https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=900&q=85",addons:[{id:"aioli",name:"Extra smoked aioli",price:1.5},{id:"lemon",name:"Extra lemon",price:.5}]},
+        {id:"salmon",category:"Mains",name:"Chargrilled salmon",description:"Seasonal greens, crushed potatoes, dill butter",price:24,tag:"CHEF'S CHOICE",image:"https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=900&q=85",addons:[{id:"potatoes",name:"Extra crushed potatoes",price:3},{id:"greens",name:"Seasonal greens",price:3.5}]},
+        {id:"risotto",category:"Mains",name:"Wild mushroom risotto",description:"Creamy pearl barley, forest mushrooms, aged cheese",price:19,tag:"VEGETARIAN",image:"https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=900&q=85",addons:[{id:"truffle",name:"Fresh truffle oil",price:2.5},{id:"parmesan",name:"Extra aged cheese",price:2}]},
+        {id:"beef",category:"Mains",name:"Slow-braised beef short rib",description:"Celeriac purée, glazed carrots, red wine jus",price:29,tag:"AURELIA SIGNATURE",image:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85",addons:[{id:"jus",name:"Extra red wine jus",price:2},{id:"side",name:"Crispy potatoes",price:3}]},
+        {id:"chicken",category:"Mains",name:"Herb-roasted chicken",description:"Crisp potatoes, garden herbs, lemon gravy",price:22,tag:"",image:"https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=900&q=85",addons:[{id:"gravy",name:"Extra lemon gravy",price:1.5},{id:"greens2",name:"Seasonal greens",price:3.5}]},
+        {id:"ravioli",category:"Mains",name:"Handmade pumpkin ravioli",description:"Brown butter, sage, toasted seeds",price:21,tag:"VEGETARIAN",image:"https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=85",addons:[{id:"sage",name:"Extra sage butter",price:1.5},{id:"cheese",name:"Aged cheese",price:2}]},
+        {id:"fries",category:"Sides",name:"Truffle parmesan fries",description:"Thin-cut potatoes, parmesan, truffle oil",price:8,tag:"",image:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85",addons:[{id:"parmesan2",name:"Extra parmesan",price:1.5},{id:"truffle2",name:"Truffle dip",price:2}]},
+        {id:"salad",category:"Sides",name:"Garden green salad",description:"Seasonal leaves, cucumber, citrus dressing",price:7,tag:"VEGAN",image:"https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=900&q=85",addons:[{id:"avocado",name:"Avocado",price:2.5},{id:"seeds",name:"Toasted seeds",price:1}]},
+        {id:"cheesecake",category:"Desserts",name:"Basque cheesecake",description:"Vanilla cream, seasonal berry compote",price:10,tag:"HOUSE FAVOURITE",image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=85",addons:[{id:"berries",name:"Extra berry compote",price:1.5},{id:"gelato",name:"Vanilla gelato",price:2.5}]},
+        {id:"chocolate",category:"Desserts",name:"Dark chocolate crémeux",description:"Hazelnut praline, cocoa nib, sea salt",price:11,tag:"",image:"https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=85",addons:[{id:"cream",name:"Whipped cream",price:1.5},{id:"gelato2",name:"Vanilla gelato",price:2.5}]},
+        {id:"lemonade",category:"Drinks",name:"Rhubarb lemonade",description:"House rhubarb syrup, fresh lemon, sparkling water",price:6,tag:"HOUSE MADE",image:"https://images.unsplash.com/photo-1513558161293-cdaf765edfd4?auto=format&fit=crop&w=900&q=85",addons:[{id:"ice",name:"Extra ice",price:0},{id:"mint",name:"Fresh mint",price:.5}]},
+        {id:"juice",category:"Drinks",name:"Fresh orange juice",description:"Freshly pressed to order",price:6,tag:"FRESHLY PRESSED",image:"https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=900&q=85",addons:[{id:"ginger",name:"Fresh ginger",price:.5},{id:"large",name:"Large serving",price:2}]},
+        {id:"espresso",category:"Drinks",name:"Espresso",description:"Double shot, freshly ground coffee",price:3.5,tag:"",image:"https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=900&q=85",addons:[{id:"oat",name:"Oat milk",price:.5},{id:"shot",name:"Extra espresso shot",price:1}]}
       ];
-      const STORAGE_KEY="aurelia-order-demo-basket-v1";
-      const grid=document.getElementById("productGrid"),basketLines=document.getElementById("basketLines"),basketCount=document.getElementById("basketCount");
-      const subtotalValue=document.getElementById("subtotalValue"),deliveryValue=document.getElementById("deliveryValue"),totalValue=document.getElementById("totalValue");
-      const checkoutButton=document.getElementById("checkoutButton"),mobileBasketText=document.getElementById("mobileBasketText"),dialog=document.getElementById("checkoutDialog");
-      const checkoutForm=document.getElementById("checkoutForm"),checkoutSummary=document.getElementById("checkoutSummary"),confirmation=document.getElementById("confirmation");
-      const fulfilment=document.getElementById("fulfilment"),addressField=document.getElementById("addressField"),deliveryAddress=document.getElementById("deliveryAddress"),toast=document.getElementById("toast");
-      let activeCategory="All dishes",cart={},toastTimer=null;
+      const CART_KEY="aurelia-premium-order-cart-v2";
+      const grid=document.getElementById("productGrid");
+      const basketLines=document.getElementById("basketLines");
+      const basketCount=document.getElementById("basketCount");
+      const subtotalValue=document.getElementById("subtotalValue");
+      const deliveryValue=document.getElementById("deliveryValue");
+      const totalValue=document.getElementById("totalValue");
+      const checkoutButton=document.getElementById("checkoutButton");
+      const mobileBasketText=document.getElementById("mobileBasketText");
+      const itemDialog=document.getElementById("itemDialog");
+      const checkoutDialog=document.getElementById("checkoutDialog");
+      const checkoutForm=document.getElementById("checkoutForm");
+      const checkoutSummary=document.getElementById("checkoutSummary");
+      const confirmation=document.getElementById("confirmation");
+      const addressField=document.getElementById("addressField");
+      const deliveryAddress=document.getElementById("deliveryAddress");
+      const orderTime=document.getElementById("orderTime");
+      const toast=document.getElementById("toast");
+      const search=document.getElementById("menuSearch");
+      const serviceNote=document.getElementById("serviceNote");
+      let activeCategory="All dishes";
+      let service="Pickup";
+      let cart=[];
+      let activeProduct=null;
+      let itemQuantity=1;
+      let toastTimer=null;
+
       try {
-        const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
-        if(saved&&typeof saved==="object") for(const [id,quantity] of Object.entries(saved)) {
-          if(products.some(product=>product.id===id)&&Number.isInteger(quantity)&&quantity>0&&quantity<100) cart[id]=quantity;
+        const saved=JSON.parse(localStorage.getItem(CART_KEY)||"[]");
+        if(Array.isArray(saved)) {
+          cart=saved.filter(line=>line&&products.some(p=>p.id===line.productId)&&Number.isInteger(line.quantity)&&line.quantity>0&&line.quantity<100).map(line=>{
+            const product=products.find(p=>p.id===line.productId);
+            const addonIds=Array.isArray(line.addons)?line.addons.filter(id=>product.addons.some(a=>a.id===id)):[];
+            return {key:String(line.key||line.productId),productId:line.productId,quantity:line.quantity,addons:addonIds,note:String(line.note||"").slice(0,180)};
+          });
         }
       } catch {}
+
       const escapeHtml=value=>String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
-      const currency=value=>new Intl.NumberFormat("en-LV",{style:"currency",currency:"EUR",minimumFractionDigits:2}).format(value);
-      const countItems=()=>Object.values(cart).reduce((sum,quantity)=>sum+quantity,0);
-      const subtotal=()=>products.reduce((sum,product)=>sum+product.price*(cart[product.id]||0),0);
-      const deliveryFee=()=>fulfilment.value==="Delivery"&&subtotal()>0?3.5:0;
+      const money=value=>new Intl.NumberFormat("en-LV",{style:"currency",currency:"EUR",minimumFractionDigits:2}).format(value);
+      const countItems=()=>cart.reduce((sum,line)=>sum+line.quantity,0);
+      const productById=id=>products.find(product=>product.id===id);
+      const addonsFor=line=>productById(line.productId).addons.filter(addon=>line.addons.includes(addon.id));
+      const unitPrice=line=>productById(line.productId).price+addonsFor(line).reduce((sum,addon)=>sum+addon.price,0);
+      const subtotal=()=>cart.reduce((sum,line)=>sum+unitPrice(line)*line.quantity,0);
+      const deliveryFee=()=>service==="Delivery"&&cart.length?3.5:0;
       const total=()=>subtotal()+deliveryFee();
-      function saveCart(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cart));}catch{}}
-      function renderProducts(){
-        const visible=activeCategory==="All dishes"?products:products.filter(product=>product.category===activeCategory);
-        grid.innerHTML=visible.map(product=>'<article class="product-card"><div class="product-meta"><span>'+escapeHtml(product.category)+'</span>'+(product.tag?'<span class="product-tag">'+escapeHtml(product.tag)+'</span>':"")+'</div><h3>'+escapeHtml(product.name)+'</h3><p>'+escapeHtml(product.description)+'</p><div class="product-bottom"><strong class="product-price">'+currency(product.price)+'</strong><button class="add-button" type="button" data-add="'+escapeHtml(product.id)+'" aria-label="Add '+escapeHtml(product.name)+' to basket"><span aria-hidden="true">+</span> Add to basket</button></div></article>').join("");
-      }
-      function renderBasket(){
-        const count=countItems(),sub=subtotal(),delivery=deliveryFee();
-        basketCount.textContent="YOUR BAG · "+count;mobileBasketText.textContent="YOUR BAG · "+count;
-        subtotalValue.textContent=currency(sub);deliveryValue.textContent=currency(delivery);totalValue.textContent=currency(sub+delivery);checkoutButton.disabled=count===0;
-        if(!count){basketLines.innerHTML='<div class="empty-basket"><h3>Your basket is empty.</h3><p>Choose dishes from the menu and they will appear here. You can change quantities before checkout.</p></div>';return;}
-        basketLines.innerHTML=products.filter(product=>cart[product.id]).map(product=>{
-          const quantity=cart[product.id];
-          return '<div class="basket-line"><div><strong>'+escapeHtml(product.name)+'</strong><small>'+currency(product.price)+' <span>each</span></small><div class="line-controls"><button class="qty-button" type="button" data-action="decrease" data-id="'+product.id+'" aria-label="Decrease quantity">−</button><span class="qty-value">'+quantity+'</span><button class="qty-button" type="button" data-action="increase" data-id="'+product.id+'" aria-label="Increase quantity">+</button><button class="remove-button" type="button" data-action="remove" data-id="'+product.id+'">Remove</button></div></div><span class="line-total">'+currency(product.price*quantity)+'</span></div>';
+
+      function renderMenu(){
+        const query=search.value.trim().toLowerCase();
+        const visible=products.filter(product=>{
+          const matchesCategory=activeCategory==="All dishes"||product.category===activeCategory;
+          const haystack=(product.name+" "+product.description+" "+product.category+" "+product.tag).toLowerCase();
+          return matchesCategory&&(!query||haystack.includes(query));
+        });
+        document.getElementById("menuResultCount").textContent=visible.length+" dishes · Made fresh";
+        if(!visible.length){
+          grid.innerHTML='<div class="empty-results">Nothing on the menu matches that search. Try another dish or ingredient.</div>';
+          return;
+        }
+        grid.innerHTML=visible.map(product=>{
+          return '<article class="product-card"><div class="product-photo-wrap"><img class="product-photo" loading="lazy" src="'+escapeHtml(product.image)+'" alt="'+escapeHtml(product.name)+'"><span class="product-tag">'+escapeHtml(product.tag||product.category)+'</span></div><div class="product-card-body"><div class="product-meta"><span>'+escapeHtml(product.category)+'</span><span>FROM AURELIA</span></div><h4>'+escapeHtml(product.name)+'</h4><p class="product-description">'+escapeHtml(product.description)+'</p><div class="product-foot"><strong class="product-price">'+money(product.price)+'</strong><button class="product-cta" type="button" data-customise="'+escapeHtml(product.id)+'">Choose options <span>↗</span></button></div></div></article>';
         }).join("");
       }
+
+      function renderBasket(){
+        const count=countItems();
+        basketCount.textContent=String(count);
+        mobileBasketText.textContent="YOUR ORDER · "+count;
+        subtotalValue.textContent=money(subtotal());
+        deliveryValue.textContent=money(deliveryFee());
+        totalValue.textContent=money(total());
+        checkoutButton.disabled=count===0;
+        if(!cart.length){
+          basketLines.innerHTML='<div class="empty-basket"><span class="empty-basket-mark">✳</span><h4>Your table is waiting.</h4><p>Your selection will appear here. Choose a dish from the menu and make it your own.</p></div>';
+          return;
+        }
+        basketLines.innerHTML=cart.map(line=>{
+          const product=productById(line.productId);
+          const extras=addonsFor(line);
+          const detail=extras.map(addon=>addon.name).join(", ");
+          return '<div class="basket-line"><div><strong class="basket-line-name">'+escapeHtml(product.name)+'</strong><span class="basket-line-detail">'+(detail?escapeHtml(detail):"")+(line.note?" · "+escapeHtml(line.note):"")+'</span><div class="basket-controls"><button class="qty-button" type="button" data-action="decrease" data-key="'+escapeHtml(line.key)+'" aria-label="Decrease quantity">−</button><span class="qty-number">'+line.quantity+'</span><button class="qty-button" type="button" data-action="increase" data-key="'+escapeHtml(line.key)+'" aria-label="Increase quantity">+</button><button class="remove-button" type="button" data-action="remove" data-key="'+escapeHtml(line.key)+'">Remove</button></div></div><span class="basket-line-price">'+money(unitPrice(line)*line.quantity)+'</span></div>';
+        }).join("");
+      }
+
+      function saveCart(){try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch{}}
       function updateCart(){saveCart();renderBasket();}
-      function showToast(message){toast.textContent=message;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),1800);}
-      document.querySelector(".filters").addEventListener("click",event=>{
-        const button=event.target.closest("button[data-category]");if(!button)return;activeCategory=button.dataset.category;
-        document.querySelectorAll(".filters button").forEach(filter=>{const active=filter===button;filter.classList.toggle("active",active);filter.setAttribute("aria-pressed",active?"true":"false");});
-        renderProducts();
+      function showToast(message){toast.textContent=message;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),1900);}
+      function setService(next){
+        service=next;
+        document.querySelectorAll("[data-service]").forEach(button=>{
+          const active=button.dataset.service===service;
+          button.classList.toggle("active",active);
+          button.setAttribute("aria-pressed",active?"true":"false");
+        });
+        serviceNote.textContent=service==="Pickup"?"Ready in approximately 30–40 minutes":"Delivery available in approximately 40–55 minutes";
+        addressField.hidden=service!=="Delivery";
+        deliveryAddress.required=service==="Delivery";
+        renderBasket();
+      }
+
+      function openItem(product){
+        activeProduct=product;
+        itemQuantity=1;
+        document.getElementById("itemPhoto").src=product.image;
+        document.getElementById("itemPhoto").alt=product.name;
+        document.getElementById("itemCategory").textContent=product.category+" · AURELIA";
+        document.getElementById("itemTitle").textContent=product.name;
+        document.getElementById("itemDescription").textContent=product.description;
+        document.getElementById("itemPrice").textContent=money(product.price);
+        document.getElementById("itemNote").value="";
+        document.getElementById("itemQuantity").textContent="1";
+        document.getElementById("addonList").innerHTML=product.addons.map(addon=>{
+          return '<label class="addon-option"><span><input type="checkbox" value="'+escapeHtml(addon.id)+'"> '+escapeHtml(addon.name)+'</span><strong>+'+money(addon.price)+'</strong></label>';
+        }).join("");
+        updateItemTotal();
+        itemDialog.showModal();
+      }
+
+      function updateItemTotal(){
+        if(!activeProduct)return;
+        const extra=[...document.querySelectorAll("#addonList input:checked")].reduce((sum,input)=>{
+          const addon=activeProduct.addons.find(item=>item.id===input.value);
+          return sum+(addon?addon.price:0);
+        },0);
+        const value=(activeProduct.price+extra)*itemQuantity;
+        document.getElementById("itemQuantity").textContent=String(itemQuantity);
+        document.getElementById("addConfiguredItem").textContent="Add to order · "+money(value);
+      }
+
+      function addConfiguredProduct(){
+        if(!activeProduct)return;
+        const selected=[...document.querySelectorAll("#addonList input:checked")].map(input=>input.value).sort();
+        const note=document.getElementById("itemNote").value.trim().slice(0,180);
+        const signature=activeProduct.id+"|"+selected.join(",")+"|"+note;
+        const existing=cart.find(line=>line.key===signature);
+        if(existing)existing.quantity=Math.min(99,existing.quantity+itemQuantity);
+        else cart.push({key:signature,productId:activeProduct.id,quantity:itemQuantity,addons:selected,note:note});
+        itemDialog.close();
+        updateCart();
+        showToast("Added to your order");
+      }
+
+      function showCheckoutSummary(){
+        checkoutSummary.innerHTML="<h4>Your selection</h4>"+cart.map(line=>{
+          const product=productById(line.productId);
+          return "<p><span>"+line.quantity+" × "+escapeHtml(product.name)+"</span><strong>"+money(unitPrice(line)*line.quantity)+"</strong></p>";
+        }).join("")+"<p><span>"+(service==="Pickup"?"Pickup":"Delivery")+"</span><strong>"+money(deliveryFee())+"</strong></p><p class='summary-grand'><span>Total</span><strong>"+money(total())+"</strong></p>";
+      }
+
+      document.querySelector(".category-list").addEventListener("click",event=>{
+        const button=event.target.closest("[data-category]");
+        if(!button)return;
+        activeCategory=button.dataset.category;
+        document.querySelectorAll("[data-category]").forEach(item=>{
+          const active=item===button;
+          item.classList.toggle("active",active);
+          item.setAttribute("aria-pressed",active?"true":"false");
+        });
+        renderMenu();
       });
+      search.addEventListener("input",renderMenu);
       grid.addEventListener("click",event=>{
-        const button=event.target.closest("[data-add]");if(!button)return;const id=button.dataset.add;
-        if(!products.some(product=>product.id===id))return;cart[id]=(cart[id]||0)+1;updateCart();showToast("Added to basket");
+        const button=event.target.closest("[data-customise]");
+        if(!button)return;
+        const product=productById(button.dataset.customise);
+        if(product)openItem(product);
       });
+      document.getElementById("addonList").addEventListener("change",updateItemTotal);
+      document.getElementById("itemDecrease").addEventListener("click",()=>{itemQuantity=Math.max(1,itemQuantity-1);updateItemTotal();});
+      document.getElementById("itemIncrease").addEventListener("click",()=>{itemQuantity=Math.min(20,itemQuantity+1);updateItemTotal();});
+      document.getElementById("addConfiguredItem").addEventListener("click",addConfiguredProduct);
+      document.getElementById("closeItem").addEventListener("click",()=>itemDialog.close());
+      document.querySelectorAll("[data-service]").forEach(button=>button.addEventListener("click",()=>setService(button.dataset.service)));
       basketLines.addEventListener("click",event=>{
-        const button=event.target.closest("[data-action]");if(!button)return;const id=button.dataset.id;
-        if(!products.some(product=>product.id===id)||!cart[id])return;
-        if(button.dataset.action==="increase")cart[id]+=1;
-        if(button.dataset.action==="decrease")cart[id]-=1;
-        if(button.dataset.action==="remove"||cart[id]<=0)delete cart[id];
+        const button=event.target.closest("[data-action]");
+        if(!button)return;
+        const line=cart.find(item=>item.key===button.dataset.key);
+        if(!line)return;
+        if(button.dataset.action==="increase")line.quantity=Math.min(99,line.quantity+1);
+        if(button.dataset.action==="decrease")line.quantity-=1;
+        if(button.dataset.action==="remove"||line.quantity<=0)cart=cart.filter(item=>item!==line);
         updateCart();
       });
       document.getElementById("mobileBasketButton").addEventListener("click",()=>{
-        document.getElementById("basket").scrollIntoView({behavior:"smooth",block:"center"});checkoutButton.focus({preventScroll:true});
+        document.getElementById("basket").scrollIntoView({behavior:"smooth",block:"center"});
       });
-      function updateFulfilment(){const isDelivery=fulfilment.value==="Delivery";addressField.hidden=!isDelivery;deliveryAddress.required=isDelivery;renderBasket();}
-      fulfilment.addEventListener("change",updateFulfilment);
-      function showCheckoutSummary(){
-        const lines=products.filter(product=>cart[product.id]);
-        checkoutSummary.innerHTML='<h3>Order summary</h3>'+lines.map(product=>'<p><span>'+cart[product.id]+' × '+escapeHtml(product.name)+'</span><strong>'+currency(product.price*cart[product.id])+'</strong></p>').join("")+'<p><span>Subtotal</span><strong>'+currency(subtotal())+'</strong></p><p><span>Delivery</span><strong>'+currency(deliveryFee())+'</strong></p><p class="summary-total"><span>Total</span><strong>'+currency(total())+'</strong></p>';
-      }
       checkoutButton.addEventListener("click",()=>{
-        if(!countItems())return;checkoutForm.hidden=false;confirmation.hidden=true;showCheckoutSummary();dialog.showModal();
+        if(!cart.length)return;
+        checkoutForm.hidden=false;
+        confirmation.hidden=true;
+        showCheckoutSummary();
+        checkoutDialog.showModal();
       });
-      document.getElementById("closeCheckout").addEventListener("click",()=>dialog.close());
+      document.getElementById("closeCheckout").addEventListener("click",()=>checkoutDialog.close());
       checkoutForm.addEventListener("submit",event=>{
-        event.preventDefault();if(!countItems()||!checkoutForm.reportValidity())return;
-        const orderNumber="AUR-DEMO-"+String(Date.now()).slice(-6),orderedCount=countItems();cart={};updateCart();
-        checkoutForm.hidden=true;confirmation.hidden=false;
-        confirmation.innerHTML='<div class="confirmation-mark" aria-hidden="true">✓</div><h3>Your demo order is complete.</h3><p><strong>'+orderNumber+'</strong></p><p>Your sample order included <strong>'+orderedCount+'</strong> <span>item(s)</span>.</p><p>This is only a portfolio demonstration. No order was sent to Aurelia and no payment was processed.</p><button type="button" class="place-order" id="backToMenu">Back to menu</button>';
-        document.getElementById("backToMenu").addEventListener("click",()=>dialog.close());
+        event.preventDefault();
+        if(!cart.length||!checkoutForm.reportValidity())return;
+        const orderNumber="AUR-DEMO-"+String(Date.now()).slice(-6);
+        const quantity=countItems();
+        cart=[];
+        updateCart();
+        checkoutForm.hidden=true;
+        confirmation.hidden=false;
+        confirmation.innerHTML='<div class="confirmation-mark">✓</div><h4>Your order is confirmed.</h4><p><strong>'+orderNumber+'</strong></p><p>Your demonstration included '+quantity+' items. No real order was sent and no payment was processed.</p><button type="button" class="place-order" id="returnToMenu">Back to menu</button>';
+        document.getElementById("returnToMenu").addEventListener("click",()=>checkoutDialog.close());
       });
-      dialog.addEventListener("close",()=>{
-        if(confirmation.hidden===false){confirmation.hidden=true;checkoutForm.reset();checkoutForm.hidden=false;updateFulfilment();}
+      checkoutDialog.addEventListener("close",()=>{
+        if(!confirmation.hidden){
+          confirmation.hidden=true;
+          checkoutForm.reset();
+          checkoutForm.hidden=false;
+          setService(service);
+        }
       });
-      renderProducts();renderBasket();
+
+      setService("Pickup");
+      renderMenu();
+      renderBasket();
     })();
   </script>
 </body>
