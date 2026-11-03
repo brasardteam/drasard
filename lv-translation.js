@@ -9,7 +9,7 @@ export const translations = {
   "Contact": "Kontakti",
   "Book a Consultation": "Pieteikt konsultāciju",
   "Enquire": "Sazināties",
-  "Explore Our Websites": "Apskatīt mūsu mājaslapas",
+  "Explore Our Projects": "Apskatīt mūsu projektus",
   "View Demo": "Apskatīt demo",
   "Privacy Policy": "Privātuma politika",
   "Terms": "Noteikumi",
