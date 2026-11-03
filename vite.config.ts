@@ -16,6 +16,7 @@ export default defineConfig({
         aureliaMenu: path.resolve(__dirname, "examples/aurelia/menu.html"),
         aureliaReservations: path.resolve(__dirname, "examples/aurelia/reservations.html"),
         aureliaOrder: path.resolve(__dirname, "examples/aurelia/order.html"),
+        aureliaOrderOnline: path.resolve(__dirname, "examples/aurelia/order-online.html"),
         northTable: path.resolve(__dirname, "examples/north-table/index.html"),
         ember: path.resolve(__dirname, "examples/ember/index.html"),
       },
