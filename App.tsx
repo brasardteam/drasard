@@ -832,7 +832,6 @@ export default function App({ initialLang = "EN", initialPage }: { initialLang?:
           <Portfolio lang={lang} />
           <CommerceOverview />
           <RestaurantDemo />
-          <Comparison />
           <Process />
           <CustomerExperience lang={lang} />
           <Contact />
