@@ -293,19 +293,6 @@ function Hero({ lang }: { lang: "EN" | "LV" | "RU" }) {
   );
 }
 
-function Palindrome() {
-  return (
-    <section className="palindrome section-pad">
-      <div className="container palindrome-inner">
-        <div className="pal-word" aria-label="Drasard">
-          <span>D</span><span>R</span><span>A</span><span>S</span><span>A</span><span>R</span><span>D</span>
-          <div className="pal-axis" />
-        </div>
-        <div className="pal-copy"><Eyebrow>THE NAME</Eyebrow><p>A name that reads the same in both directions.<br />A studio built around <strong>balance, precision and detail.</strong></p></div>
-      </div>
-    </section>
-  );
-}
 
 function Audience() {
   return null;
@@ -795,7 +782,6 @@ export default function App() {
       <Nav lang={lang} setLang={setLang} />
       <main>
         <Hero lang={lang} />
-        <Palindrome />
         <Audience />
         <Packages />
         <CommerceOverview />
