@@ -1,7 +1,7 @@
 export const translations = {
   "Solutions": "Решения", "Examples": "Примеры", "Pricing": "Цены", "About": "О нас",
   "How It Works": "Как это работает", "Home": "Главная", "Contact": "Контакты",
-  "Book a Consultation": "Записаться на консультацию", "Enquire": "Связаться", "Explore Our Websites": "Посмотреть сайты",
+  "Book a Consultation": "Записаться на консультацию", "Enquire": "Связаться", "Explore Our Projects": "Посмотреть наши проекты",
   "View Demo": "Посмотреть демо", "Privacy Policy": "Политика конфиденциальности", "Terms": "Условия",
   "Web design in Riga for restaurants, cafés and local businesses.": "Разработка сайтов в Риге для ресторанов, кафе и местного бизнеса.",
   "We build premium, mobile-friendly websites in Riga, Latvia — from polished business showcases and digital menus to online ordering experiences.": "Мы создаём премиальные адаптивные сайты в Риге, Латвия: от презентации бизнеса и цифрового меню до онлайн-заказов.",
@@ -387,7 +387,7 @@ export const translations = {
   "Add ": "Добавить ",
   "20% OFF": "СКИДКА 20%",
   "23% OFF": "СКИДКА 23%",
-  "Explore Our Websites": "Посмотреть сайты",
+  "Explore Our Projects": "Посмотреть наши проекты",
   "A name that reads the same in both directions.": "Название, которое одинаково читается в обоих направлениях.",
   "Premium digital experiences": "Премиальные цифровые решения",
   "for local businesses.": "для местного бизнеса.",
