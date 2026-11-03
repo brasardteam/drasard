@@ -32,11 +32,9 @@
 <body>
   <header class="wrap nav">
     <a class="brand" href="./" aria-label="Aurelia home">AURELIA</a>
-    <div class="nav-right">
-      <nav class="navlinks" aria-label="Main navigation">
-        <a href="./">Home</a><a href="./menu.html">Menu</a><a class="active" href="./order-online.html">Order online</a><a href="/">DRASARD</a>
-      </nav>
-    </div>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="./">Home</a><a href="./menu.html">Menu</a><a class="active" href="./order-online.html">Order online</a><a href="/">DRASARD</a>
+    </nav>
   </header>
   <main class="wrap">
     <section class="hero">
@@ -145,7 +143,7 @@
         if(!count){basketLines.innerHTML='<div class="empty-basket"><h3>Your basket is empty.</h3><p>Choose dishes from the menu and they will appear here. You can change quantities before checkout.</p></div>';return;}
         basketLines.innerHTML=products.filter(product=>cart[product.id]).map(product=>{
           const quantity=cart[product.id];
-          return '<div class="basket-line"><div><strong>'+escapeHtml(product.name)+'</strong><small>'+currency(product.price)+' each</small><div class="line-controls"><button class="qty-button" type="button" data-action="decrease" data-id="'+product.id+'" aria-label="Decrease quantity">−</button><span class="qty-value">'+quantity+'</span><button class="qty-button" type="button" data-action="increase" data-id="'+product.id+'" aria-label="Increase quantity">+</button><button class="remove-button" type="button" data-action="remove" data-id="'+product.id+'">Remove</button></div></div><span class="line-total">'+currency(product.price*quantity)+'</span></div>';
+          return '<div class="basket-line"><div><strong>'+escapeHtml(product.name)+'</strong><small>'+currency(product.price)+' <span>each</span></small><div class="line-controls"><button class="qty-button" type="button" data-action="decrease" data-id="'+product.id+'" aria-label="Decrease quantity">−</button><span class="qty-value">'+quantity+'</span><button class="qty-button" type="button" data-action="increase" data-id="'+product.id+'" aria-label="Increase quantity">+</button><button class="remove-button" type="button" data-action="remove" data-id="'+product.id+'">Remove</button></div></div><span class="line-total">'+currency(product.price*quantity)+'</span></div>';
         }).join("");
       }
       function updateCart(){saveCart();renderBasket();}
@@ -184,7 +182,7 @@
         event.preventDefault();if(!countItems()||!checkoutForm.reportValidity())return;
         const orderNumber="AUR-DEMO-"+String(Date.now()).slice(-6),orderedCount=countItems();cart={};updateCart();
         checkoutForm.hidden=true;confirmation.hidden=false;
-        confirmation.innerHTML='<div class="confirmation-mark" aria-hidden="true">✓</div><h3>Your demo order is complete.</h3><p><strong>'+orderNumber+'</strong></p><p>Your sample order included '+orderedCount+' item(s). This is only a portfolio demonstration. No order was sent to Aurelia and no payment was processed.</p><button type="button" class="place-order" id="backToMenu">Back to menu</button>';
+        confirmation.innerHTML='<div class="confirmation-mark" aria-hidden="true">✓</div><h3>Your demo order is complete.</h3><p><strong>'+orderNumber+'</strong></p><p>Your sample order included '+orderedCount+' <span>item(s)</span>.</p><p>This is only a portfolio demonstration. No order was sent to Aurelia and no payment was processed.</p><button type="button" class="place-order" id="backToMenu">Back to menu</button>';
         document.getElementById("backToMenu").addEventListener("click",()=>dialog.close());
       });
       dialog.addEventListener("close",()=>{
