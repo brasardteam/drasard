@@ -20,7 +20,6 @@ export const translations = {
   "Follow DRASARD": "Sekojiet DRASARD",
   "Web design in Riga for restaurants, cafés and local businesses.": "Mājaslapu izstrāde Rīgā restorāniem, kafejnīcām un vietējiem uzņēmumiem.",
   "We build premium, mobile-friendly websites in Riga, Latvia — from polished business showcases and digital menus to online ordering experiences.": "Veidojam augstvērtīgas, mobilajām ierīcēm pielāgotas mājaslapas Rīgā — no uzņēmumu prezentācijām un digitālajām ēdienkartēm līdz tiešsaistes pasūtīšanas risinājumiem.",
-  "Ready to improve your online presence? Let's talk.": "Vai vēlaties uzlabot savu digitālo klātbūtni? Sazinieties ar mums.",
   "Get Started": "Sākt darbu",
   "WEB STUDIO · RIGA, LATVIA": "TĪMEKĻA STUDIJA · RĪGA, LATVIJA",
   "Premium digital experiences for local businesses.": "Augstvērtīga digitālā pieredze vietējiem uzņēmumiem.",
