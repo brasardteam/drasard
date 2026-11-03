@@ -241,9 +241,9 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
   const t = lang === "LV" ? lv : en;
   return (
     <header className="nav-shell">
-      <nav className="nav">
+      <nav className="nav" aria-label="Main navigation">
         <Logo />
-        <div className={`nav-links ${open ? "open" : ""}`}>
+        <div id="primary-navigation" className={`nav-links ${open ? "open" : ""}`}>
           {t.nav.map((item, i) => <a key={item} href={`#${["solutions", "examples", "pricing", "process"][i]}`} onClick={() => setOpen(false)}>{item}</a>)}
           <Button href="#contact">{t.book}</Button>
         </div>
@@ -256,7 +256,7 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
             <button aria-label="Русский язык" title="Русский" className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button>
           </div>
           <a className="nav-cta" href="#contact">{t.book}</a>
-          <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle menu"><Icon name={open ? "close" : "menu"} /></button>
+          <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-controls="primary-navigation" aria-expanded={open}><Icon name={open ? "close" : "menu"} /></button>
         </div>
       </nav>
     </header>
