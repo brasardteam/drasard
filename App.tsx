@@ -185,7 +185,7 @@ function Button({
   className?: string;
 }) {
   const content = <>{children}<Icon name="arrow" /></>;
-  if (href) return <a className={`button button-${variant} ${className}`.trim()} href={href}>{content}</a>;
+  if (href) return <a className={`button button-${variant} ${className}`.trim()} href={href} onClick={onClick}>{content}</a>;
   return <button className={`button button-${variant} ${className}`.trim()} onClick={onClick}>{content}</button>;
 }
 
@@ -251,7 +251,7 @@ function Nav({ lang, setLang, isExamplesPage = false }: { lang: "EN" | "LV" | "R
         <Logo href={homePath} />
         <div id="primary-navigation" className={`nav-links ${open ? "open" : ""}`}>
           {t.nav.map((item, i) => <a key={item} className={isExamplesPage && i === 1 ? "active" : ""} aria-current={isExamplesPage && i === 1 ? "page" : undefined} href={links[i]} onClick={() => setOpen(false)}>{item}</a>)}
-          <Button href={contactPath} className="button-enquire">{t.book}</Button>
+          <Button href={contactPath} onClick={() => setOpen(false)} className="button-enquire">{t.book}</Button>
         </div>
         <div className="nav-actions">
           <div className="language" aria-label="Choose language">
