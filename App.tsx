@@ -187,9 +187,9 @@ function Button({
   return <button className={`button button-${variant}`} onClick={onClick}>{content}</button>;
 }
 
-function Logo() {
+function Logo({ href = "#home" }: { href?: string }) {
   return (
-    <a className="logo" href="#home" aria-label="Drasard home">
+    <a className="logo" href={href} aria-label="Drasard home">
       <img className="logo-image" src="/drasard-logo.svg" alt="" />
     </a>
   );
@@ -234,16 +234,22 @@ function BrowserMockup({ className = "", image = images.restaurant }: { classNam
   );
 }
 
-function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN" | "LV" | "RU") => void }) {
+function Nav({ lang, setLang, isExamplesPage = false }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN" | "LV" | "RU") => void; isExamplesPage?: boolean }) {
   const [open, setOpen] = useState(false);
   const t = lang === "LV" ? lv : en;
+  const homePath = lang === "EN" ? "/" : `/${lang.toLowerCase()}/`;
+  const examplesPath = lang === "EN" ? "/examples/" : `/${lang.toLowerCase()}/examples/`;
+  const links = isExamplesPage
+    ? [`${homePath}#commerce`, examplesPath, `${homePath}#pricing`, `${homePath}#process`]
+    : ["#commerce", examplesPath, "#pricing", "#process"];
+  const contactPath = `${homePath}#contact`;
   return (
     <header className="nav-shell">
       <nav className="nav" aria-label="Main navigation">
-        <Logo />
+        <Logo href={homePath} />
         <div id="primary-navigation" className={`nav-links ${open ? "open" : ""}`}>
-          {t.nav.map((item, i) => <a key={item} href={`#${["commerce", "examples", "pricing", "process"][i]}`} onClick={() => setOpen(false)}>{item}</a>)}
-          <Button href="#contact">{t.book}</Button>
+          {t.nav.map((item, i) => <a key={item} className={isExamplesPage && i === 1 ? "active" : ""} aria-current={isExamplesPage && i === 1 ? "page" : undefined} href={links[i]} onClick={() => setOpen(false)}>{item}</a>)}
+          <Button href={contactPath}>{t.book}</Button>
         </div>
         <div className="nav-actions">
           <div className="language" aria-label="Choose language">
@@ -253,7 +259,7 @@ function Nav({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN"
             <span aria-hidden="true">|</span>
             <button aria-label="Русский язык" title="Русский" className={lang === "RU" ? "active" : ""} onClick={() => setLang("RU")}>RU</button>
           </div>
-          <a className="nav-cta" href="#contact">{t.book}</a>
+          <a className="nav-cta" href={contactPath}>{t.book}</a>
           <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-controls="primary-navigation" aria-expanded={open}><Icon name={open ? "close" : "menu"} /></button>
         </div>
       </nav>
@@ -272,7 +278,7 @@ function Hero({ lang }: { lang: "EN" | "LV" | "RU" }) {
           <p>{t.heroBody}</p>
           <div className="hero-actions">
             <Button href="#contact">{t.getStarted}</Button>
-            <Button href="#examples" variant="secondary">{t.explore}</Button>
+            <Button href={lang === "EN" ? "/examples/" : `/${lang.toLowerCase()}/examples/`} variant="secondary">{t.explore}</Button>
           </div>
         </div>
         <div className="hero-visual" aria-label="Website presentation mockups">
@@ -464,9 +470,9 @@ const projects = [
   { name: "SANGAK", type: "Turkish Restaurant · Showcase", image: images.dish, text: "A welcoming online presence for a Turkish restaurant in Riga.", href: "https://sangak-lv.netlify.app/", domain: "sangak-lv.netlify.app" },
 ];
 
-function Portfolio({ lang }: { lang: "EN" | "LV" | "RU" }) {
+function Portfolio({ lang, standalone = false }: { lang: "EN" | "LV" | "RU"; standalone?: boolean }) {
   return (
-    <section className="section-pad portfolio" id="examples">
+    <section className={`section-pad portfolio ${standalone ? "portfolio-page" : ""}`} id="examples">
       <div className="container">
         <SectionTitle eyebrow="SELECTED CONCEPTS" title="Designed for real businesses." body="Every experience is shaped around a distinct business, audience and ambition." />
         <div className="portfolio-grid">
@@ -680,12 +686,22 @@ function Contact() {
   );
 }
 
-function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN" | "LV" | "RU") => void }) {
+function Footer({ lang, setLang, isExamplesPage = false }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "EN" | "LV" | "RU") => void; isExamplesPage?: boolean }) {
+  const homePath = lang === "EN" ? "/" : `/${lang.toLowerCase()}/`;
+  const examplesPath = lang === "EN" ? "/examples/" : `/${lang.toLowerCase()}/examples/`;
+  const footerLinks = [
+    { label: "Home", href: isExamplesPage ? homePath : "#home" },
+    { label: navItems[0], href: isExamplesPage ? `${homePath}#commerce` : "#commerce" },
+    { label: navItems[1], href: examplesPath },
+    { label: navItems[2], href: isExamplesPage ? `${homePath}#pricing` : "#pricing" },
+    { label: navItems[3], href: isExamplesPage ? `${homePath}#process` : "#process" },
+    { label: "Contact", href: `${homePath}#contact` },
+  ];
   return (
     <footer>
       <div className="container footer-main">
-        <div><Logo /><p>Premium digital experiences<br />for local businesses.</p></div>
-        <div className="footer-links"><span>EXPLORE</span>{["Home", ...navItems, "Contact"].map((item) => <a key={item} href={`#${item === "Home" ? "home" : item === "How It Works" ? "process" : item === "E-commerce" ? "commerce" : item.toLowerCase()}`}>{item}</a>)}</div>
+        <div><Logo href={homePath} /><p>Premium digital experiences<br />for local businesses.</p></div>
+        <div className="footer-links"><span>EXPLORE</span>{footerLinks.map(({label,href}) => <a key={label} href={href}>{label}</a>)}</div>
         <div className="footer-contact">
           <span>CONTACT</span>
           <a href="mailto:contact@drasard.agency">contact@drasard.agency</a>
@@ -714,11 +730,16 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "
   );
 }
 
-export default function App({ initialLang = "EN" }: { initialLang?: "EN" | "LV" | "RU" } = {}) {
+export default function App({ initialLang = "EN", initialPage }: { initialLang?: "EN" | "LV" | "RU"; initialPage?: "home" | "examples" } = {}) {
   const [lang, setLang] = useState<"EN" | "LV" | "RU">(initialLang);
+  const currentPath = typeof window !== "undefined" ? window.location.pathname : "/";
+  const isExamplesPage = initialPage === "examples" || (initialPage !== "home" && /(?:^|\\/)examples(?:\\/|$)/.test(currentPath));
+  const homePath = lang === "EN" ? "/" : `/${lang.toLowerCase()}/`;
+  const examplesPath = lang === "EN" ? "/examples/" : `/${lang.toLowerCase()}/examples/`;
 
   const changeLanguage = (nextLang: "EN" | "LV" | "RU") => {
-    const nextPath = nextLang === "EN" ? "/" : `/${nextLang.toLowerCase()}/`;
+    const nextBase = nextLang === "EN" ? "" : `/${nextLang.toLowerCase()}`;
+    const nextPath = isExamplesPage ? `${nextBase}/examples/` : nextLang === "EN" ? "/" : `/${nextLang.toLowerCase()}/`;
     if (typeof window !== "undefined" && window.location.pathname !== nextPath) {
       try { localStorage.setItem("drasard-language", nextLang); } catch {}
       window.location.assign(nextPath);
@@ -739,20 +760,35 @@ export default function App({ initialLang = "EN" }: { initialLang?: "EN" | "LV" 
   useEffect(() => {
     document.documentElement.setAttribute("lang", lang.toLowerCase());
     try { localStorage.setItem("drasard-language", lang); } catch {}
-    const seo = lang === "LV"
-      ? {
-          title: "Mājaslapu izstrāde Rīgā | DRASARD",
-          description: "Mājaslapu izstrāde Rīgā restorāniem, kafejnīcām un vietējiem uzņēmumiem. DRASARD veido augstvērtīgas, mobilajām ierīcēm pielāgotas mājaslapas.",
-        }
-      : lang === "RU"
+    const seo = isExamplesPage
+      ? lang === "LV"
         ? {
-            title: "Создание сайтов в Риге | DRASARD",
-            description: "Разработка сайтов в Риге для ресторанов, кафе и местного бизнеса. DRASARD создаёт премиальные адаптивные сайты и решения для онлайн-заказов.",
+            title: "Mājaslapu projekti un piemēri Rīgā | DRASARD",
+            description: "Apskatiet DRASARD mājaslapu dizaina un izstrādes projektus restorāniem, kafejnīcām un vietējiem uzņēmumiem Rīgā.",
           }
-        : {
-            title: "Web Design in Riga, Latvia | DRASARD",
-            description: "Web design in Riga, Latvia for restaurants, cafés and local businesses. DRASARD builds premium, mobile-friendly websites and online ordering experiences.",
-          };
+        : lang === "RU"
+          ? {
+              title: "Примеры сайтов и веб-дизайна в Риге | DRASARD",
+              description: "Посмотрите проекты DRASARD по созданию сайтов для ресторанов, кафе и местного бизнеса в Риге.",
+            }
+          : {
+              title: "Website Design Projects in Riga | DRASARD",
+              description: "Explore DRASARD website design and development projects for restaurants, cafés and local businesses in Riga, Latvia.",
+            }
+      : lang === "LV"
+        ? {
+            title: "Mājaslapu izstrāde Rīgā | DRASARD",
+            description: "Mājaslapu izstrāde Rīgā restorāniem, kafejnīcām un vietējiem uzņēmumiem. DRASARD veido augstvērtīgas, mobilajām ierīcēm pielāgotas mājaslapas.",
+          }
+        : lang === "RU"
+          ? {
+              title: "Создание сайтов в Риге | DRASARD",
+              description: "Разработка сайтов в Риге для ресторанов, кафе и местного бизнеса. DRASARD создаёт премиальные адаптивные сайты и решения для онлайн-заказов.",
+            }
+          : {
+              title: "Web Design in Riga, Latvia | DRASARD",
+              description: "Web design in Riga, Latvia for restaurants, cafés and local businesses. DRASARD builds premium, mobile-friendly websites and online ordering experiences.",
+            };
     document.title = seo.title;
     const setMetaContent = (selector: string, content: string) => {
       const element = document.querySelector<HTMLMetaElement>(selector);
@@ -763,7 +799,8 @@ export default function App({ initialLang = "EN" }: { initialLang?: "EN" | "LV" 
     setMetaContent('meta[property="og:description"]', seo.description);
     setMetaContent('meta[name="twitter:title"]', seo.title);
     setMetaContent('meta[name="twitter:description"]', seo.description);
-    const localizedPath = lang === "LV" ? "/lv/" : lang === "RU" ? "/ru/" : "/";
+    const localizedBase = lang === "LV" ? "/lv/" : lang === "RU" ? "/ru/" : "/";
+    const localizedPath = isExamplesPage ? `${localizedBase}examples/` : localizedBase;
     const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (canonical) canonical.href = `https://www.drasard.agency${localizedPath}`;
     setMetaContent('meta[property="og:url"]', `https://www.drasard.agency${localizedPath}`);
@@ -777,21 +814,32 @@ export default function App({ initialLang = "EN" }: { initialLang?: "EN" | "LV" 
     return () => observer.disconnect();
   }, [lang]);
   return (
-    <div className="app">
-      <Nav lang={lang} setLang={changeLanguage} />
-      <main>
-        <Hero lang={lang} />
-        <Audience />
-        <CommerceOverview />
-        <Portfolio lang={lang} />
-        <RestaurantDemo />
-        <Comparison />
-        <Process />
-        <CustomerExperience lang={lang} />
-        
-        <Contact />
-      </main>
-      <Footer lang={lang} setLang={changeLanguage} />
+    <div className={`app ${isExamplesPage ? "app-examples-page" : ""}`}>
+      <Nav lang={lang} setLang={changeLanguage} isExamplesPage={isExamplesPage} />
+      {isExamplesPage ? (
+        <main className="examples-main">
+          <Portfolio lang={lang} standalone />
+          <section className="portfolio-outro">
+            <div>
+              <Eyebrow>HAVE A PROJECT IN MIND?</Eyebrow>
+              <h2>Let's build something distinct.</h2>
+            </div>
+            <Button href={`${homePath}#contact`}>Discuss your project</Button>
+          </section>
+        </main>
+      ) : (
+        <main>
+          <Hero lang={lang} />
+          <Audience />
+          <CommerceOverview />
+          <RestaurantDemo />
+          <Comparison />
+          <Process />
+          <CustomerExperience lang={lang} />
+          <Contact />
+        </main>
+      )}
+      <Footer lang={lang} setLang={changeLanguage} isExamplesPage={isExamplesPage} />
     </div>
   );
 }
