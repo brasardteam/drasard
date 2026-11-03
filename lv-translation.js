@@ -17,6 +17,7 @@ export const translations = {
   "All rights reserved.": "Visas tiesības aizsargātas.",
 
   // Hero
+  "Follow DRASARD": "Sekojiet DRASARD",
   "Websites for restaurants and cafés.": "Mājaslapas restorāniem un kafejnīcām.",
   "Showcase your menu, accept online orders and help customers find your business.": "Parādiet savu ēdienkarti, pieņemiet tiešsaistes pasūtījumus un palīdziet klientiem atrast jūsu uzņēmumu.",
   "Ready to upgrade your website? Let's talk.": "Vai vēlaties uzlabot savu mājaslapu? Sazinieties ar mums.",
