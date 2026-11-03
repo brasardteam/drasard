@@ -260,7 +260,7 @@
       <div class="menu-panel">
         <div class="menu-heading">
           <h3 id="menuHeading">Our kitchen favourites</h3>
-          <span id="menuResultCount">15 dishes · Made fresh</span>
+          <span id="menuResultCount">Seasonal selection · Made fresh</span>
         </div>
         <div class="product-grid" id="productGrid" aria-live="polite"></div>
         <div class="menu-caption">
@@ -424,7 +424,7 @@
           const haystack=(product.name+" "+product.description+" "+product.category+" "+product.tag).toLowerCase();
           return matchesCategory&&(!query||haystack.includes(query));
         });
-        document.getElementById("menuResultCount").textContent=visible.length+" dishes · Made fresh";
+        document.getElementById("menuResultCount").textContent="Seasonal selection · Made fresh";
         if(!visible.length){
           grid.innerHTML='<div class="empty-results">Nothing on the menu matches that search. Try another dish or ingredient.</div>';
           return;
@@ -475,7 +475,7 @@
         itemQuantity=1;
         document.getElementById("itemPhoto").src=product.image;
         document.getElementById("itemPhoto").alt=product.name;
-        document.getElementById("itemCategory").textContent=product.category+" · AURELIA";
+        document.getElementById("itemCategory").textContent="AURELIA SELECTION";
         document.getElementById("itemTitle").textContent=product.name;
         document.getElementById("itemDescription").textContent=product.description;
         document.getElementById("itemPrice").textContent=money(product.price);
@@ -573,7 +573,7 @@
         updateCart();
         checkoutForm.hidden=true;
         confirmation.hidden=false;
-        confirmation.innerHTML='<div class="confirmation-mark">✓</div><h4>Your order is confirmed.</h4><p><strong>'+orderNumber+'</strong></p><p>Your demonstration included '+quantity+' items. No real order was sent and no payment was processed.</p><button type="button" class="place-order" id="returnToMenu">Back to menu</button>';
+        confirmation.innerHTML='<div class="confirmation-mark">✓</div><h4>Your order is confirmed.</h4><p><strong>'+orderNumber+'</strong></p><p>Your demonstration included <strong>'+quantity+'</strong> items.</p><p>No real order was sent and no payment was processed.</p><button type="button" class="place-order" id="returnToMenu">Back to menu</button>';
         document.getElementById("returnToMenu").addEventListener("click",()=>checkoutDialog.close());
       });
       checkoutDialog.addEventListener("close",()=>{
