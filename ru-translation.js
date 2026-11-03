@@ -392,6 +392,7 @@ export const translations = {
   "Premium digital experiences": "Премиальные цифровые решения",
   "for local businesses.": "для местного бизнеса.",
   "Riga, Latvia": "Рига, Латвия",
+  "YOUR RESTAURANT": "ВАШ РЕСТОРАН",
   "Drasard home": "На главную DRASARD",
   "RIGA · 56.9496° N": "РИГА · 56.9496° с. ш.",
   "Unable to send inquiry": "Не удалось отправить запрос",
