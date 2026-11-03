@@ -514,17 +514,17 @@ function Comparison() {
 }
 
 const process = [
-  ["Discover", "We understand your business, customers and goals."],
-  ["Design", "We create the visual direction and website experience."],
-  ["Build", "We turn the design into a polished, responsive website."],
-  ["Launch", "Your website goes live with a stronger digital presence."],
+  ["Tell us what you need", "We learn about your business, customers and the website you need."],
+  ["Plan the design", "We agree on the pages, content, style and features before work begins."],
+  ["Build your website", "We create the site, add your content and test it on phones and computers."],
+  ["Review and launch", "You review the finished website. After your approval, we connect your domain and publish it."],
 ];
 
 function Process() {
   return (
     <section className="section-pad process" id="process">
       <div className="container">
-        <SectionTitle eyebrow="HOW IT WORKS" title="Clear from first conversation to launch." />
+        <SectionTitle eyebrow="HOW IT WORKS" title="Your website in four clear steps." />
         <div className="process-grid">
           {process.map(([title, text], i) => <article key={title}><span>0{i + 1}</span><div className="process-mark" /><h3>{title}</h3><p>{text}</p></article>)}
         </div>
