@@ -189,6 +189,8 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; letter-spacing: 
 .demo-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
 .demo-toggle { margin-bottom: 61px; padding: 4px; display: flex; border: 1px solid var(--line-dark); border-radius: 40px; }
 .demo-toggle button { padding: 11px 19px; color: #74766e; border: 0; border-radius: 30px; background: transparent; font-size: 9px; font-weight: 600; letter-spacing: .09em; }
+.demo-toggle button.ecommerce-tab { color: #34483b; border: 1px solid #b49a6a; background: rgba(185,155,104,.16); }
+.demo-toggle button.ecommerce-tab.active { color: #17231b; border-color: #b49a6a; background: #cdb991; box-shadow: 0 2px 12px rgba(130,103,58,.18); }
 .demo-toggle button.active { color: var(--ivory); background: var(--ink); }
 .restaurant-demo { overflow: hidden; border: 1px solid #bfc0b9; border-radius: 8px; background: #f7f4ec; box-shadow: 0 30px 80px rgba(29,28,24,.15); transition: .4s; }
 .restaurant-demo.commerce { border-color: #a88c58; box-shadow: 0 30px 100px rgba(85,66,32,.21); }
@@ -524,8 +526,13 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   margin-bottom: 54px;
 }
 .commerce-overview .section-heading .eyebrow {
-  color: #c6b28b;
+  display: inline-flex;
+  padding: 9px 13px;
+  border: 1px solid rgba(198,178,139,.38);
+  border-radius: 3px;
+  color: #e0c994;
   font-size: 11px;
+  font-weight: 700;
   letter-spacing: .19em;
 }
 .commerce-overview .section-heading .eyebrow span {
