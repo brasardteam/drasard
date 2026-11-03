@@ -286,7 +286,7 @@ export const translations = {
   "Online payment setup (provider-dependent)": "Tiešsaistes maksājumu iestatīšana (atkarīga no pakalpojumu sniedzēja)",
   "01: LANDING PAGE": "01: GALVENĀ LAPA",
   "02: E-COMMERCE WEBSITE": "02: E-KOMERCIJAS MĀJASLAPA",
-  "Landing Page": "Landing lapa",
+  "Landing Page": "Galvenā lapa",
   "E-commerce Website": "E-komercijas mājaslapa",
   "E-commerce": "E-komercija",
   "E-commerce that works for your restaurant.": "E-komercija, kas pielāgota jūsu restorānam.",
