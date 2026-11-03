@@ -765,14 +765,25 @@ function Footer({ lang, setLang }: { lang: "EN" | "LV" | "RU"; setLang: (lang: "
   );
 }
 
-export default function App() {
-  const [lang, setLang] = useState<"EN" | "LV" | "RU">("EN");
+export default function App({ initialLang = "EN" }: { initialLang?: "EN" | "LV" | "RU" } = {}) {
+  const [lang, setLang] = useState<"EN" | "LV" | "RU">(initialLang);
+
+  const changeLanguage = (nextLang: "EN" | "LV" | "RU") => {
+    const nextPath = nextLang === "EN" ? "/" : `/${nextLang.toLowerCase()}/`;
+    if (typeof window !== "undefined" && window.location.pathname !== nextPath) {
+      window.history.pushState({ language: nextLang }, "", nextPath);
+    }
+    try { localStorage.setItem("drasard-language", nextLang); } catch {}
+    setLang(nextLang);
+  };
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("drasard-language");
-      if (saved === "LV" || saved === "RU" || saved === "EN") setLang(saved);
-    } catch {}
+    const syncLanguageFromUrl = () => {
+      const path = window.location.pathname.toLowerCase();
+      setLang(path.startsWith("/lv") ? "LV" : path.startsWith("/ru") ? "RU" : "EN");
+    };
+    window.addEventListener("popstate", syncLanguageFromUrl);
+    return () => window.removeEventListener("popstate", syncLanguageFromUrl);
   }, []);
 
   useEffect(() => {
@@ -802,6 +813,11 @@ export default function App() {
     setMetaContent('meta[property="og:description"]', seo.description);
     setMetaContent('meta[name="twitter:title"]', seo.title);
     setMetaContent('meta[name="twitter:description"]', seo.description);
+    const localizedPath = lang === "LV" ? "/lv/" : lang === "RU" ? "/ru/" : "/";
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (canonical) canonical.href = `https://www.drasard.agency${localizedPath}`;
+    setMetaContent('meta[property="og:url"]', `https://www.drasard.agency${localizedPath}`);
+    setMetaContent('meta[property="og:locale"]', lang === "LV" ? "lv_LV" : lang === "RU" ? "ru_LV" : "en_LV");
     const root = document.querySelector<HTMLElement>(".app");
     if (!root) return;
     const apply = () => applyPageLanguage(root, lang);
@@ -812,7 +828,7 @@ export default function App() {
   }, [lang]);
   return (
     <div className="app">
-      <Nav lang={lang} setLang={setLang} />
+      <Nav lang={lang} setLang={changeLanguage} />
       <main>
         <Hero lang={lang} />
         <Audience />
@@ -826,7 +842,7 @@ export default function App() {
         
         <Contact />
       </main>
-      <Footer lang={lang} setLang={setLang} />
+      <Footer lang={lang} setLang={changeLanguage} />
     </div>
   );
 }
