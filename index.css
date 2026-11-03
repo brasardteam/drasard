@@ -1391,6 +1391,45 @@ footer { padding: 80px 0 25px; background: #0B0F0C; }
   }
 }
 
+/* Mobile portfolio: show complete project cards instead of cropped carousel peeks */
+@media (max-width: 700px) {
+  .portfolio-grid,
+  .portfolio-page .portfolio-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-flow: row;
+    gap: 36px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .portfolio-grid .project-card,
+  .portfolio-page .portfolio-grid .project-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-top: 0;
+    scroll-snap-align: none;
+  }
+
+  .portfolio-grid .project-image,
+  .portfolio-page .portfolio-grid .project-image {
+    width: 100%;
+    height: clamp(220px, 68vw, 300px);
+  }
+
+  .portfolio-grid .project-info,
+  .portfolio-page .portfolio-grid .project-info {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
 /* Keep the customer-experience browser controls inside their preview bar */
 .experience-browser-bar {
   position: relative;
