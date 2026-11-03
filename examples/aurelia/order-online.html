@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171b17">
+  <title>Aurelia — Order Online</title>
+  <meta name="description" content="Explore the Aurelia restaurant ordering demo. Choose dishes, add them to your basket and try the sample checkout.">
+  <script>
+    (() => {
+      const lang = (new URLSearchParams(location.search).get("lang") || "").toUpperCase();
+      if (["EN", "LV", "RU"].includes(lang)) {
+        try { localStorage.setItem("drasard-demo-language", lang); } catch {}
+      }
+    })();
+  </script>
+  <style>
+    :root{--ink:#171b17;--forest:#1e3026;--paper:#f2eee5;--line:#d3cbbb;--muted:#77766e;--gold:#bda477;--gold-light:#dfcca6;--white:#fbf8f0;--shadow:0 20px 55px rgba(24,29,24,.1)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font-family:Arial,Helvetica,sans-serif}button,input,select,textarea{font:inherit}a{color:inherit;text-decoration:none}
+    .wrap{width:min(1320px,90vw);margin:0 auto}.nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}.brand{font:400 27px Georgia,serif;letter-spacing:.2em;white-space:nowrap}.nav-right{display:flex;align-items:center;gap:28px}.navlinks{display:flex;align-items:center;gap:24px}.navlinks a{color:#56584f;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.navlinks a:hover,.navlinks .active{color:#92764a}
+    .hero{padding:73px 0 47px;display:grid;grid-template-columns:1fr auto;gap:35px;align-items:end}.eyebrow{display:inline-flex;align-items:center;gap:11px;color:#92794f;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}.eyebrow:before{content:"";width:25px;height:1px;background:var(--gold)}h1{margin:20px 0 15px;font:400 clamp(54px,7vw,93px)/.92 Georgia,serif;letter-spacing:-.045em}.lead{max-width:660px;margin:0;color:#65665e;font-size:16px;line-height:1.75}.hero-note{max-width:260px;padding:17px 19px;border:1px solid #d4c8b2;border-radius:4px;color:#655b48;background:#ebe4d7;font-size:10px;line-height:1.65}.hero-note strong{display:block;margin-bottom:6px;color:#876d43;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
+    .order-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.75fr);gap:24px;align-items:start;padding-bottom:90px}.menu-panel{min-width:0}.menu-top{margin-bottom:21px;display:flex;justify-content:space-between;align-items:center;gap:18px}.menu-top h2{margin:0;font:400 34px Georgia,serif}.menu-top span{color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}.filters{margin-bottom:20px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;border:1px solid #d8d0c2;border-radius:5px;background:#ebe6dc}.filters button{min-height:37px;padding:0 15px;border:1px solid transparent;border-radius:3px;color:#63645c;background:transparent;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:.07em;transition:.2s}.filters button:hover{color:var(--forest);border-color:#c8b792}.filters button.active{color:var(--white);border-color:var(--forest);background:var(--forest);box-shadow:0 4px 12px rgba(30,48,38,.12)}
+    .product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.product-card{min-height:204px;padding:21px 21px 17px;display:flex;flex-direction:column;border:1px solid #d8d0c2;border-radius:5px;background:rgba(255,255,255,.38);transition:transform .2s,box-shadow .2s,border-color .2s}.product-card:hover{transform:translateY(-2px);border-color:#bba77f;box-shadow:0 12px 25px rgba(32,39,30,.07)}.product-meta{display:flex;justify-content:space-between;gap:12px;color:#92794f;font-size:8px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.product-tag{color:#71806d}.product-card h3{margin:19px 0 8px;font:400 23px/1.12 Georgia,serif}.product-card p{margin:0 0 17px;color:#74746d;font-size:11px;line-height:1.55}.product-bottom{margin-top:auto;padding-top:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #ded7ca}.product-price{font:400 23px Georgia,serif;white-space:nowrap}.add-button{min-height:38px;padding:0 13px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--forest);border-radius:3px;color:var(--white);background:var(--forest);cursor:pointer;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:.2s}.add-button:hover{border-color:#405a47;background:#304738}.add-button:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #b99c66;outline-offset:3px}.add-button span{font-size:16px;line-height:0}
+    .basket{position:sticky;top:22px;overflow:hidden;color:var(--white);border:1px solid #344638;border-radius:5px;background:linear-gradient(155deg,#24372c,#17231b);box-shadow:var(--shadow)}.basket-head{padding:24px 24px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(225,218,198,.17)}.basket-head .eyebrow{color:var(--gold-light)}.basket-head .eyebrow:before{background:var(--gold-light)}.basket-count{color:#d5c29c;font-size:11px;font-weight:700;letter-spacing:.12em}.basket-content{padding:20px 24px 24px}.empty-basket{min-height:160px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.empty-basket h3{margin:0 0 8px;font:400 26px Georgia,serif}.empty-basket p{max-width:250px;margin:0;color:#c1cabe;font-size:11px;line-height:1.7}.basket-line{padding:14px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;border-bottom:1px solid rgba(225,218,198,.16)}.basket-line strong{display:block;font:400 16px/1.25 Georgia,serif}.basket-line small{display:block;margin-top:5px;color:#c1cabe;font-size:10px}.line-total{padding-top:2px;color:#f4ead6;font-size:12px;font-weight:700;white-space:nowrap}.line-controls{margin-top:10px;display:flex;align-items:center;gap:7px}.qty-button{width:27px;height:27px;display:inline-grid;place-items:center;border:1px solid rgba(233,224,204,.35);border-radius:3px;color:var(--white);background:rgba(255,255,255,.05);cursor:pointer}.qty-value{min-width:18px;color:var(--white);text-align:center;font-size:11px}.remove-button{margin-left:5px;padding:4px;border:0;color:#d6c9b1;background:transparent;cursor:pointer;font-size:9px;text-decoration:underline;text-underline-offset:3px}.basket-totals{margin-top:19px;display:grid;gap:10px}.total-row{display:flex;justify-content:space-between;gap:15px;color:#c4cec3;font-size:11px}.total-row strong{color:var(--white);font-size:12px}.total-row.grand{margin-top:5px;padding-top:15px;border-top:1px solid rgba(225,218,198,.24);color:var(--gold-light);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}.total-row.grand strong{color:var(--white);font:400 27px Georgia,serif;letter-spacing:-.03em}.checkout-button{width:100%;min-height:49px;margin-top:22px;border:1px solid #e2d3b4;border-radius:3px;color:#1c2d23;background:#e6dcc8;cursor:pointer;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;transition:.2s}.checkout-button:hover:not(:disabled){background:#f5eddd}.checkout-button:disabled{opacity:.42;cursor:not-allowed}.basket-note{margin:13px 0 0;color:#b8c3b7;font-size:9px;line-height:1.6}.below-note{margin:25px 0 0;padding:19px 21px;border:1px solid #d8d0c2;color:#77756b;background:#ebe6dc;font-size:10px;line-height:1.7}.below-note strong{color:#8e744a;letter-spacing:.12em}
+    .footer{padding:28px 0 38px;display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);color:#77766e;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.toast{position:fixed;z-index:20;right:24px;bottom:24px;padding:13px 17px;color:var(--white);border:1px solid #536856;border-radius:4px;background:#20372a;box-shadow:0 12px 28px rgba(0,0,0,.2);font-size:11px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translateY(0)}.mobile-basket{display:none}
+    dialog{width:min(600px,calc(100vw - 28px));max-height:min(90vh,850px);padding:0;overflow:auto;border:1px solid #c9b994;border-radius:5px;color:var(--ink);background:var(--paper);box-shadow:0 25px 90px rgba(0,0,0,.35)}dialog::backdrop{background:rgba(11,16,12,.72);backdrop-filter:blur(3px)}.dialog-head{padding:24px 28px 19px;display:flex;justify-content:space-between;align-items:start;gap:20px;color:var(--white);background:var(--forest)}.dialog-head h2{margin:10px 0 0;font:400 37px Georgia,serif}.dialog-head .eyebrow{color:var(--gold-light)}.dialog-close{width:32px;height:32px;border:1px solid rgba(255,255,255,.35);border-radius:50%;color:white;background:transparent;cursor:pointer;font-size:18px}.dialog-body{padding:24px 28px 29px}.checkout-summary{margin-bottom:21px;padding:14px 16px;border:1px solid var(--line);background:#ebe5d9}.checkout-summary h3{margin:0 0 10px;font:400 20px Georgia,serif}.checkout-summary p{margin:5px 0;display:flex;justify-content:space-between;gap:15px;color:#696960;font-size:11px}.checkout-summary .summary-total{padding-top:9px;border-top:1px solid var(--line);color:var(--ink);font-weight:700}.checkout-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:7px}.field.full{grid-column:1/-1}.field label{color:#6f624d;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.field input,.field select,.field textarea{width:100%;min-height:44px;padding:11px 12px;border:1px solid #d0c7b8;border-radius:3px;color:var(--ink);background:#fffdf8;font-size:12px}.field textarea{min-height:74px;resize:vertical}.demo-payment-note{padding:12px 14px;color:#756b58;border-left:2px solid var(--gold);background:#eee8dc;font-size:10px;line-height:1.6}.place-order{min-height:48px;grid-column:1/-1;border:0;border-radius:3px;color:var(--white);background:var(--forest);cursor:pointer;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.place-order:hover{background:#314a39}.confirmation{padding:20px 0 5px}.confirmation-mark{width:44px;height:44px;margin-bottom:17px;display:grid;place-items:center;border:1px solid #b9a276;border-radius:50%;color:#6f855f;font-size:22px}.confirmation h3{margin:0 0 10px;font:400 34px Georgia,serif}.confirmation p{color:#66665e;font-size:12px;line-height:1.7}.confirmation .place-order{width:100%;margin-top:12px}
+    @media(max-width:950px){.order-layout{grid-template-columns:minmax(0,1fr) 310px;gap:16px}.product-grid{gap:10px}.product-card{padding:17px 16px 15px}.navlinks{gap:14px}}
+    @media(max-width:760px){.wrap{width:min(100% - 30px,600px)}.nav{min-height:72px;flex-wrap:wrap;padding:14px 0;gap:12px}.brand{font-size:23px}.navlinks{width:100%;justify-content:space-between;gap:10px}.navlinks a{font-size:8px}.hero{padding:49px 0 31px;grid-template-columns:1fr;gap:19px}h1{font-size:clamp(48px,13vw,68px)}.lead{font-size:14px}.hero-note{max-width:none}.order-layout{grid-template-columns:1fr;gap:20px;padding-bottom:105px}.menu-top h2{font-size:29px}.menu-top span{font-size:8px;text-align:right}.filters{flex-wrap:nowrap;overflow-x:auto}.filters button{flex:0 0 auto}.product-grid{grid-template-columns:1fr}.product-card{min-height:174px}.basket{position:static}.mobile-basket{position:fixed;z-index:15;right:15px;bottom:14px;left:15px;min-height:51px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #e3d1ad;border-radius:4px;color:#1b2c22;background:#e8ddc7;box-shadow:0 10px 30px rgba(0,0,0,.22);cursor:pointer;font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.footer{flex-direction:column;gap:10px}.checkout-form{grid-template-columns:1fr}.field.full,.place-order{grid-column:auto}.dialog-head,.dialog-body{padding-right:20px;padding-left:20px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <header class="wrap nav">
+    <a class="brand" href="./" aria-label="Aurelia home">AURELIA</a>
+    <div class="nav-right">
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="./">Home</a><a href="./menu.html">Menu</a><a class="active" href="./order-online.html">Order online</a><a href="/">DRASARD</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <div><div class="eyebrow">AURELIA · ORDER ONLINE</div><h1>Order from Aurelia.</h1><p class="lead">Explore the menu, choose your favourites and add them to your basket. This interactive demo shows how a restaurant website can take customers from browsing to checkout.</p></div>
+      <aside class="hero-note"><strong>Interactive portfolio demo</strong>Choose menu items, adjust quantities and try the checkout. No real order is sent and no payment is collected.</aside>
+    </section>
+    <section class="order-layout" id="order">
+      <div class="menu-panel">
+        <div class="menu-top"><h2>Browse the menu</h2><span>Seasonal menu · Riga</span></div>
+        <div class="filters" role="group" aria-label="Filter menu">
+          <button type="button" class="active" data-category="All dishes" aria-pressed="true">All dishes</button>
+          <button type="button" data-category="Starters" aria-pressed="false">Starters</button>
+          <button type="button" data-category="Mains" aria-pressed="false">Mains</button>
+          <button type="button" data-category="Sides" aria-pressed="false">Sides</button>
+          <button type="button" data-category="Desserts" aria-pressed="false">Desserts</button>
+          <button type="button" data-category="Drinks" aria-pressed="false">Drinks</button>
+        </div>
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+        <div class="below-note"><strong>PLEASE NOTE</strong> This is a sample restaurant menu for the DRASARD portfolio. In a live setup, the restaurant would manage its own menu, item availability, prices, collection and delivery settings.</div>
+      </div>
+      <aside class="basket" id="basket" aria-label="Your basket">
+        <div class="basket-head"><span class="eyebrow">YOUR ORDER</span><span class="basket-count" id="basketCount">YOUR BAG · 0</span></div>
+        <div class="basket-content">
+          <div id="basketLines" aria-live="polite"></div>
+          <div class="basket-totals">
+            <div class="total-row"><span>Subtotal</span><strong id="subtotalValue">€0.00</strong></div>
+            <div class="total-row"><span>Delivery</span><strong id="deliveryValue">€0.00</strong></div>
+            <div class="total-row grand"><span>Total</span><strong id="totalValue">€0.00</strong></div>
+          </div>
+          <button class="checkout-button" id="checkoutButton" type="button" disabled>Continue to checkout →</button>
+          <p class="basket-note">The checkout is simulated for demonstration. No payment details are requested.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <footer class="wrap footer"><span>Aurelia · Riga, Latvia</span><span>Interactive e-commerce concept · Designed by DRASARD</span><a href="/">← Back to DRASARD</a></footer>
+  <button class="mobile-basket" id="mobileBasketButton" type="button"><span id="mobileBasketText">YOUR BAG · 0</span><span>View basket ↓</span></button>
+  <div class="toast" id="toast" role="status" aria-live="polite">Added to basket</div>
+  <dialog id="checkoutDialog" aria-labelledby="checkoutTitle">
+    <div class="dialog-head"><div><div class="eyebrow">AURELIA · DEMO CHECKOUT</div><h2 id="checkoutTitle">Complete your order.</h2></div><button class="dialog-close" type="button" id="closeCheckout" aria-label="Close checkout">×</button></div>
+    <div class="dialog-body">
+      <div class="checkout-summary" id="checkoutSummary"></div>
+      <form class="checkout-form" id="checkoutForm">
+        <div class="field"><label for="customerName">Name</label><input id="customerName" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="customerEmail">Email address</label><input id="customerEmail" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="customerPhone">Phone number</label><input id="customerPhone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="field"><label for="fulfilment">Order type</label><select id="fulfilment" name="fulfilment"><option value="Pickup">Pickup</option><option value="Delivery">Delivery</option></select></div>
+        <div class="field full" id="addressField" hidden><label for="deliveryAddress">Delivery address</label><input id="deliveryAddress" name="address" autocomplete="street-address"></div>
+        <div class="field"><label for="orderTime">Preferred time</label><select id="orderTime" name="time"><option>As soon as possible · 30–40 min</option><option>12:00–12:30</option><option>12:30–13:00</option><option>13:00–13:30</option><option>18:00–18:30</option><option>18:30–19:00</option><option>19:00–19:30</option><option>19:30–20:00</option></select></div>
+        <div class="field"><label for="paymentMethod">Payment method</label><select id="paymentMethod" name="payment"><option>Pay at pickup / on delivery</option><option>Online payment (demo)</option></select></div>
+        <div class="field full"><label for="orderNotes">Order notes</label><textarea id="orderNotes" name="notes" placeholder="Allergies or special requests…"></textarea></div>
+        <p class="demo-payment-note field full">DEMO ONLY — this checkout does not connect to a restaurant or payment provider. No real order is placed and no charge is made. A live restaurant would connect its own order management and payment services here.</p>
+        <button class="place-order" type="submit">Place demo order →</button>
+      </form>
+      <div class="confirmation" id="confirmation" hidden></div>
+    </div>
+  </dialog>
+  <script src="/examples/demo-i18n.js"></script>
+  <script>
+    (() => {
+      const products = [
+        {id:"rye-bread",category:"Starters",name:"Rye sourdough & whipped butter",description:"Warm rye bread, cultured butter, sea salt",price:5,tag:"HOUSE"},
+        {id:"beetroot-salad",category:"Starters",name:"Baltic beetroot salad",description:"Roasted beetroot, goat cheese, hazelnut, herbs",price:9,tag:"VEGETARIAN"},
+        {id:"crispy-calamari",category:"Starters",name:"Crispy calamari",description:"Lemon, parsley, smoked paprika aioli",price:12,tag:"FAVOURITE"},
+        {id:"chargrilled-salmon",category:"Mains",name:"Chargrilled salmon",description:"Seasonal greens, crushed potatoes, dill butter",price:21,tag:"CHEF'S PICK"},
+        {id:"mushroom-risotto",category:"Mains",name:"Wild mushroom risotto",description:"Pearl barley, forest mushrooms, aged cheese",price:17,tag:"VEGETARIAN"},
+        {id:"beef-short-rib",category:"Mains",name:"Slow-braised beef short rib",description:"Celeriac purée, glazed carrots, red wine jus",price:24,tag:"SIGNATURE"},
+        {id:"roast-chicken",category:"Mains",name:"Herb-roasted chicken",description:"Crisp potatoes, garden herbs, lemon gravy",price:19,tag:""},
+        {id:"pumpkin-ravioli",category:"Mains",name:"Handmade pumpkin ravioli",description:"Brown butter, sage, toasted seeds",price:18,tag:"VEGETARIAN"},
+        {id:"truffle-fries",category:"Sides",name:"Truffle parmesan fries",description:"Thin-cut potatoes, parmesan, truffle oil",price:6,tag:""},
+        {id:"green-salad",category:"Sides",name:"Garden green salad",description:"Seasonal leaves, cucumber, citrus dressing",price:5,tag:"VEGAN"},
+        {id:"cheesecake",category:"Desserts",name:"Basque cheesecake",description:"Vanilla cream, seasonal berry compote",price:8,tag:"HOUSE"},
+        {id:"chocolate-cremeux",category:"Desserts",name:"Dark chocolate crémeux",description:"Hazelnut praline, cocoa nib, sea salt",price:9,tag:""},
+        {id:"rhubarb-lemonade",category:"Drinks",name:"Rhubarb lemonade",description:"House rhubarb syrup, fresh lemon, sparkling water",price:5,tag:"HOUSE"},
+        {id:"orange-juice",category:"Drinks",name:"Fresh orange juice",description:"Freshly pressed to order",price:5,tag:""},
+        {id:"espresso",category:"Drinks",name:"Espresso",description:"Double shot, freshly ground coffee",price:3,tag:""}
+      ];
+      const STORAGE_KEY="aurelia-order-demo-basket-v1";
+      const grid=document.getElementById("productGrid"),basketLines=document.getElementById("basketLines"),basketCount=document.getElementById("basketCount");
+      const subtotalValue=document.getElementById("subtotalValue"),deliveryValue=document.getElementById("deliveryValue"),totalValue=document.getElementById("totalValue");
+      const checkoutButton=document.getElementById("checkoutButton"),mobileBasketText=document.getElementById("mobileBasketText"),dialog=document.getElementById("checkoutDialog");
+      const checkoutForm=document.getElementById("checkoutForm"),checkoutSummary=document.getElementById("checkoutSummary"),confirmation=document.getElementById("confirmation");
+      const fulfilment=document.getElementById("fulfilment"),addressField=document.getElementById("addressField"),deliveryAddress=document.getElementById("deliveryAddress"),toast=document.getElementById("toast");
+      let activeCategory="All dishes",cart={},toastTimer=null;
+      try {
+        const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+        if(saved&&typeof saved==="object") for(const [id,quantity] of Object.entries(saved)) {
+          if(products.some(product=>product.id===id)&&Number.isInteger(quantity)&&quantity>0&&quantity<100) cart[id]=quantity;
+        }
+      } catch {}
+      const escapeHtml=value=>String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+      const currency=value=>new Intl.NumberFormat("en-LV",{style:"currency",currency:"EUR",minimumFractionDigits:2}).format(value);
+      const countItems=()=>Object.values(cart).reduce((sum,quantity)=>sum+quantity,0);
+      const subtotal=()=>products.reduce((sum,product)=>sum+product.price*(cart[product.id]||0),0);
+      const deliveryFee=()=>fulfilment.value==="Delivery"&&subtotal()>0?3.5:0;
+      const total=()=>subtotal()+deliveryFee();
+      function saveCart(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cart));}catch{}}
+      function renderProducts(){
+        const visible=activeCategory==="All dishes"?products:products.filter(product=>product.category===activeCategory);
+        grid.innerHTML=visible.map(product=>'<article class="product-card"><div class="product-meta"><span>'+escapeHtml(product.category)+'</span>'+(product.tag?'<span class="product-tag">'+escapeHtml(product.tag)+'</span>':"")+'</div><h3>'+escapeHtml(product.name)+'</h3><p>'+escapeHtml(product.description)+'</p><div class="product-bottom"><strong class="product-price">'+currency(product.price)+'</strong><button class="add-button" type="button" data-add="'+escapeHtml(product.id)+'" aria-label="Add '+escapeHtml(product.name)+' to basket"><span aria-hidden="true">+</span> Add to basket</button></div></article>').join("");
+      }
+      function renderBasket(){
+        const count=countItems(),sub=subtotal(),delivery=deliveryFee();
+        basketCount.textContent="YOUR BAG · "+count;mobileBasketText.textContent="YOUR BAG · "+count;
+        subtotalValue.textContent=currency(sub);deliveryValue.textContent=currency(delivery);totalValue.textContent=currency(sub+delivery);checkoutButton.disabled=count===0;
+        if(!count){basketLines.innerHTML='<div class="empty-basket"><h3>Your basket is empty.</h3><p>Choose dishes from the menu and they will appear here. You can change quantities before checkout.</p></div>';return;}
+        basketLines.innerHTML=products.filter(product=>cart[product.id]).map(product=>{
+          const quantity=cart[product.id];
+          return '<div class="basket-line"><div><strong>'+escapeHtml(product.name)+'</strong><small>'+currency(product.price)+' each</small><div class="line-controls"><button class="qty-button" type="button" data-action="decrease" data-id="'+product.id+'" aria-label="Decrease quantity">−</button><span class="qty-value">'+quantity+'</span><button class="qty-button" type="button" data-action="increase" data-id="'+product.id+'" aria-label="Increase quantity">+</button><button class="remove-button" type="button" data-action="remove" data-id="'+product.id+'">Remove</button></div></div><span class="line-total">'+currency(product.price*quantity)+'</span></div>';
+        }).join("");
+      }
+      function updateCart(){saveCart();renderBasket();}
+      function showToast(message){toast.textContent=message;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),1800);}
+      document.querySelector(".filters").addEventListener("click",event=>{
+        const button=event.target.closest("button[data-category]");if(!button)return;activeCategory=button.dataset.category;
+        document.querySelectorAll(".filters button").forEach(filter=>{const active=filter===button;filter.classList.toggle("active",active);filter.setAttribute("aria-pressed",active?"true":"false");});
+        renderProducts();
+      });
+      grid.addEventListener("click",event=>{
+        const button=event.target.closest("[data-add]");if(!button)return;const id=button.dataset.add;
+        if(!products.some(product=>product.id===id))return;cart[id]=(cart[id]||0)+1;updateCart();showToast("Added to basket");
+      });
+      basketLines.addEventListener("click",event=>{
+        const button=event.target.closest("[data-action]");if(!button)return;const id=button.dataset.id;
+        if(!products.some(product=>product.id===id)||!cart[id])return;
+        if(button.dataset.action==="increase")cart[id]+=1;
+        if(button.dataset.action==="decrease")cart[id]-=1;
+        if(button.dataset.action==="remove"||cart[id]<=0)delete cart[id];
+        updateCart();
+      });
+      document.getElementById("mobileBasketButton").addEventListener("click",()=>{
+        document.getElementById("basket").scrollIntoView({behavior:"smooth",block:"center"});checkoutButton.focus({preventScroll:true});
+      });
+      function updateFulfilment(){const isDelivery=fulfilment.value==="Delivery";addressField.hidden=!isDelivery;deliveryAddress.required=isDelivery;renderBasket();}
+      fulfilment.addEventListener("change",updateFulfilment);
+      function showCheckoutSummary(){
+        const lines=products.filter(product=>cart[product.id]);
+        checkoutSummary.innerHTML='<h3>Order summary</h3>'+lines.map(product=>'<p><span>'+cart[product.id]+' × '+escapeHtml(product.name)+'</span><strong>'+currency(product.price*cart[product.id])+'</strong></p>').join("")+'<p><span>Subtotal</span><strong>'+currency(subtotal())+'</strong></p><p><span>Delivery</span><strong>'+currency(deliveryFee())+'</strong></p><p class="summary-total"><span>Total</span><strong>'+currency(total())+'</strong></p>';
+      }
+      checkoutButton.addEventListener("click",()=>{
+        if(!countItems())return;checkoutForm.hidden=false;confirmation.hidden=true;showCheckoutSummary();dialog.showModal();
+      });
+      document.getElementById("closeCheckout").addEventListener("click",()=>dialog.close());
+      checkoutForm.addEventListener("submit",event=>{
+        event.preventDefault();if(!countItems()||!checkoutForm.reportValidity())return;
+        const orderNumber="AUR-DEMO-"+String(Date.now()).slice(-6),orderedCount=countItems();cart={};updateCart();
+        checkoutForm.hidden=true;confirmation.hidden=false;
+        confirmation.innerHTML='<div class="confirmation-mark" aria-hidden="true">✓</div><h3>Your demo order is complete.</h3><p><strong>'+orderNumber+'</strong></p><p>Your sample order included '+orderedCount+' item(s). This is only a portfolio demonstration. No order was sent to Aurelia and no payment was processed.</p><button type="button" class="place-order" id="backToMenu">Back to menu</button>';
+        document.getElementById("backToMenu").addEventListener("click",()=>dialog.close());
+      });
+      dialog.addEventListener("close",()=>{
+        if(confirmation.hidden===false){confirmation.hidden=true;checkoutForm.reset();checkoutForm.hidden=false;updateFulfilment();}
+      });
+      renderProducts();renderBasket();
+    })();
+  </script>
+</body>
+</html>
