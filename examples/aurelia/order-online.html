@@ -70,7 +70,7 @@
       </aside>
     </section>
   </main>
-  <footer class="wrap footer"><span>Aurelia · Riga, Latvia</span><span>Interactive e-commerce concept · Designed by DRASARD</span><a href="/">← Back to DRASARD</a></footer>
+  <footer class="wrap footer"><span>Aurelia · Riga, Latvia</span><span>Interactive e-commerce concept · Designed by DRASARD</span><a href="/">Back to DRASARD</a></footer>
   <button class="mobile-basket" id="mobileBasketButton" type="button"><span id="mobileBasketText">YOUR BAG · 0</span><span>View basket ↓</span></button>
   <div class="toast" id="toast" role="status" aria-live="polite">Added to basket</div>
   <dialog id="checkoutDialog" aria-labelledby="checkoutTitle">
@@ -182,7 +182,7 @@
         event.preventDefault();if(!countItems()||!checkoutForm.reportValidity())return;
         const orderNumber="AUR-DEMO-"+String(Date.now()).slice(-6),orderedCount=countItems();cart={};updateCart();
         checkoutForm.hidden=true;confirmation.hidden=false;
-        confirmation.innerHTML='<div class="confirmation-mark" aria-hidden="true">✓</div><h3>Your demo order is complete.</h3><p><strong>'+orderNumber+'</strong></p><p>Your sample order included '+orderedCount+' <span>item(s)</span>.</p><p>This is only a portfolio demonstration. No order was sent to Aurelia and no payment was processed.</p><button type="button" class="place-order" id="backToMenu">Back to menu</button>';
+        confirmation.innerHTML='<div class="confirmation-mark" aria-hidden="true">✓</div><h3>Your demo order is complete.</h3><p><strong>'+orderNumber+'</strong></p><p>Your sample order included <strong>'+orderedCount+'</strong> <span>item(s)</span>.</p><p>This is only a portfolio demonstration. No order was sent to Aurelia and no payment was processed.</p><button type="button" class="place-order" id="backToMenu">Back to menu</button>';
         document.getElementById("backToMenu").addEventListener("click",()=>dialog.close());
       });
       dialog.addEventListener("close",()=>{
