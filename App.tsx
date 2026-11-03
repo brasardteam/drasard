@@ -568,7 +568,7 @@ function CustomerExperience({ lang }: { lang: "EN" | "LV" | "RU" }) {
   ];
 
   return (
-    <section className="customer-experience section-pad" id="customer-experience">
+    <section className="customer-experience section-pad" id="pricing">
       <div className="container">
         <div className="experience-heading">
           <Eyebrow>CUSTOMER EXPERIENCE</Eyebrow>
