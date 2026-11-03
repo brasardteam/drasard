@@ -176,15 +176,17 @@ function Button({
   variant = "primary",
   onClick,
   href,
+  className = "",
 }: {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "text";
   onClick?: () => void;
   href?: string;
+  className?: string;
 }) {
   const content = <>{children}<Icon name="arrow" /></>;
-  if (href) return <a className={`button button-${variant}`} href={href}>{content}</a>;
-  return <button className={`button button-${variant}`} onClick={onClick}>{content}</button>;
+  if (href) return <a className={`button button-${variant} ${className}`.trim()} href={href}>{content}</a>;
+  return <button className={`button button-${variant} ${className}`.trim()} onClick={onClick}>{content}</button>;
 }
 
 function Logo({ href = "#home" }: { href?: string }) {
@@ -249,7 +251,7 @@ function Nav({ lang, setLang, isExamplesPage = false }: { lang: "EN" | "LV" | "R
         <Logo href={homePath} />
         <div id="primary-navigation" className={`nav-links ${open ? "open" : ""}`}>
           {t.nav.map((item, i) => <a key={item} className={isExamplesPage && i === 1 ? "active" : ""} aria-current={isExamplesPage && i === 1 ? "page" : undefined} href={links[i]} onClick={() => setOpen(false)}>{item}</a>)}
-          <Button href={contactPath}>{t.book}</Button>
+          <Button href={contactPath} className="button-enquire">{t.book}</Button>
         </div>
         <div className="nav-actions">
           <div className="language" aria-label="Choose language">
